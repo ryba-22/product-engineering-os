@@ -5,6 +5,6 @@ description: Use when starting, planning, designing, implementing, verifying, re
 
 # Product Engineering OS
 
-Read `references/runtime.md`. Use `references/module-map.md` to choose only the modules required for the current outcome.
+Read `references/runtime.md`. Use `references/module-map.md` to choose only the modules required for the current outcome, then load the matching file from `references/stages/` for stage-specific decision rules, workflow, evidence standards, failure modes and exit criteria.
 
 For a full installation, the surrounding Product Engineering OS repository provides the source/evidence registry, decision schemas, templates, gates, mature specialist-brain adapters and eval suite. This skill remains usable standalone because its runtime/route contract is bundled here.

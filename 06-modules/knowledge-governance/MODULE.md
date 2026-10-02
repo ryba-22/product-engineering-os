@@ -23,3 +23,7 @@ The module may declare its gate satisfied only when the gate's required evidence
 - Contract: complete.
 - Shared evidence/governance integration: complete.
 - Deep corpus/workflows: Wave 1 implemented.
+
+## Deep stage playbooks
+
+- Stage 25: [STAGE-25-KNOWLEDGE-GOVERNANCE](./STAGE-25-KNOWLEDGE-GOVERNANCE.md)

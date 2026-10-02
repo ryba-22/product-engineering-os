@@ -22,7 +22,13 @@ Product Intelligence: metric trees, behavior-first event taxonomy, tracking plan
 Integrated existing Domain and Experience brains by explicit crosswalk, preserved local IDs and specialist ownership, and added machine-readable module/stage links.
 
 ## Wave 7 — COMPLETE in v1.0
-Added stage-specific adversarial evals for 25/25 lifecycle stages, source freshness audit, coverage audit and very-strong maturity validation.
+Added stage-specific adversarial eval specifications for 25/25 lifecycle stages, source freshness audit and structural coverage validation. These checks did not yet demonstrate behavioral effectiveness.
 
 ### “Very strong” acceptance rule for any stage
 A stage is very strong only when it has: authoritative/scoped corpus, atomic evidence, decision system, executable workflow, canonical artifacts, quality gate, adversarial/golden evals, and a verified integration path to upstream/downstream stages.
+
+## Wave 8 — COMPLETE in v1.1
+Deep Stage Pass: added 25 stage-specific operational playbooks, made them canonical decision-system references, bundled byte-identical copies into the standalone skill, replaced self-declared `very-strong` with `deep-structural`, and added anti-skeleton validation. Behavioral effectiveness remains a separate evidence claim.
+
+### Behavioral “very strong” rule
+A stage can be called behaviorally very strong only after representative and adversarial executions demonstrate decision quality, evidence discipline, failure handling and correct handoff. File presence, word count, IDs and linked eval specifications are necessary but not sufficient.

@@ -2,7 +2,7 @@
 
 1. State the current outcome and risk R0–R4.
 2. Reuse current evidence/decisions before new research.
-3. Route only the minimum sufficient modules.
+3. Route only the minimum sufficient modules and load the matching stage playbook(s) from `references/stages/`.
 4. Research only unresolved questions that can materially change a decision/gate.
 5. Apply stop-analysis: once the evidence threshold is met, freeze the decision and execute the smallest safe step.
 6. Use canonical artifacts and decision records for material choices.

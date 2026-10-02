@@ -39,4 +39,4 @@ def test_wave2_evals_cover_core_engineering_failures():
 def test_wave2_manifest_version():
     m=json.loads((ROOT/'manifest.json').read_text())
     assert tuple(map(int,m['version'].split('.'))) >= (0,2,0)
-    assert m['status'] in {'foundation-through-wave-2','foundation-through-wave-3','foundation-through-wave-4','foundation-through-wave-5','integrated'}
+    assert m['status'] in {'foundation-through-wave-2','foundation-through-wave-3','foundation-through-wave-4','foundation-through-wave-5','integrated','deep-stage-playbooks'}

@@ -15,4 +15,4 @@ def test_wave5_evals():
  tags={t for c in d['cases'] for t in c.get('tags',[])}
  for x in ['metric-tree','event-taxonomy','ab-testing','sample-ratio-mismatch','feedback-loop']: assert x in tags
 def test_wave5_version():
- m=json.loads((ROOT/'manifest.json').read_text()); assert tuple(map(int,m['version'].split('.'))) >= (0,5,0); assert m['status'] in {'foundation-through-wave-5','integrated'}
+ m=json.loads((ROOT/'manifest.json').read_text()); assert tuple(map(int,m['version'].split('.'))) >= (0,5,0); assert m['status'] in {'foundation-through-wave-5','integrated','deep-stage-playbooks'}

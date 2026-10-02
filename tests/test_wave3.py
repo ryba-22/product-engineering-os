@@ -21,4 +21,4 @@ def test_wave3_evals():
     tags={t for c in d['cases'] for t in c.get('tags',[])}
     for x in ['risk-based-testing','threat-model','performance-budget','supply-chain','load-testing']: assert x in tags
 def test_wave3_version():
-    m=json.loads((ROOT/'manifest.json').read_text()); assert tuple(map(int,m['version'].split('.'))) >= (0,3,0); assert m['status'] in {'foundation-through-wave-3','foundation-through-wave-4','foundation-through-wave-5','integrated'}
+    m=json.loads((ROOT/'manifest.json').read_text()); assert tuple(map(int,m['version'].split('.'))) >= (0,3,0); assert m['status'] in {'foundation-through-wave-3','foundation-through-wave-4','foundation-through-wave-5','integrated','deep-stage-playbooks'}

@@ -26,3 +26,8 @@ The module may declare its gate satisfied only when the gate's required evidence
 
 ## Standalone operation
 Specialist brains are optional integrations, not bundled dependencies. If unavailable, use this contract, the bundled evidence ledger, templates and quality gates. Record unresolved domain or experience questions explicitly; request targeted evidence when required. Do not claim access to an external corpus or equivalent specialist depth.
+
+## Deep stage playbooks
+
+- Stage 03: [STAGE-03-DOMAIN-DISCOVERY](./STAGE-03-DOMAIN-DISCOVERY.md)
+- Stage 05: [STAGE-05-DOMAIN-ARCHITECTURE](./STAGE-05-DOMAIN-ARCHITECTURE.md)

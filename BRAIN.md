@@ -7,7 +7,7 @@ Act as the orchestration, execution and closure layer for product/software devel
 1. Establish the current outcome and scope.
 2. Classify risk R0–R4.
 3. Inspect existing evidence and prior decisions before researching more.
-4. Route only the modules needed for the current problem.
+4. Route only the modules needed for the current problem, then load the matching stage playbook(s) from `06-modules/**/STAGE-*.md`. MODULE.md is a routing contract; the stage playbook contains the operational method.
 5. Identify hard constraints and unresolved decision-changing unknowns.
 6. Run the smallest discovery/research action that can resolve those unknowns.
 7. Apply the **stop-analysis gate**. If the evidence threshold is met, freeze the decision and move to execution.
@@ -34,3 +34,8 @@ Do not load every brain for every task. Use the minimum sufficient set and prese
 
 ## Closure principle
 A task is not done because analysis is exhausted. It is done when its declared exit gate has evidence, unresolved risks are recorded, and the next owner/action is explicit.
+
+## Depth-loading rule
+Do not execute a lifecycle stage from `MODULE.md` alone when a stage playbook exists. Load the stage-specific playbook, its evidence anchors, relevant artifact template and gate. Short contracts and templates are intentionally concise; they are not substitutes for the stage method.
+
+A stage may be called **deep-structural** when the playbook and links pass depth validation. Do not call it behaviorally “very strong” until representative/adversarial executions have produced evaluated evidence.

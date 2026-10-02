@@ -1,110 +1,135 @@
 {
   "name": "product-engineering-os",
-  "version": "1.0.0",
-  "status": "integrated",
+  "version": "1.1.0",
+  "status": "deep-stage-playbooks",
   "corpus_cutoff_target": "2026-09-30",
   "verified_at": "2026-10-02",
   "purpose": "Evidence-driven system that routes product and software development from raw idea to measured production outcome.",
   "lifecycle_stages": [
     {
       "id": 1,
-      "name": "Problem / idea / business goal"
+      "name": "Problem / idea / business goal",
+      "playbook": "06-modules/product-strategy/STAGE-01-PROBLEM-OUTCOME.md"
     },
     {
       "id": 2,
-      "name": "User / Product Discovery"
+      "name": "User / Product Discovery",
+      "playbook": "06-modules/product-discovery/STAGE-02-DISCOVERY.md"
     },
     {
       "id": 3,
-      "name": "Domain Discovery"
+      "name": "Domain Discovery",
+      "playbook": "06-modules/domain/STAGE-03-DOMAIN-DISCOVERY.md"
     },
     {
       "id": 4,
-      "name": "Requirements / specification"
+      "name": "Requirements / specification",
+      "playbook": "06-modules/requirements/STAGE-04-REQUIREMENTS.md"
     },
     {
       "id": 5,
-      "name": "Domain Architecture"
+      "name": "Domain Architecture",
+      "playbook": "06-modules/domain/STAGE-05-DOMAIN-ARCHITECTURE.md"
     },
     {
       "id": 6,
-      "name": "System Architecture"
+      "name": "System Architecture",
+      "playbook": "06-modules/system-architecture/STAGE-06-SYSTEM-ARCHITECTURE.md"
     },
     {
       "id": 7,
-      "name": "UX Architecture"
+      "name": "UX Architecture",
+      "playbook": "06-modules/experience/STAGE-07-UX-ARCHITECTURE.md"
     },
     {
       "id": 8,
-      "name": "Interaction design"
+      "name": "Interaction design",
+      "playbook": "06-modules/experience/STAGE-08-INTERACTION-DESIGN.md"
     },
     {
       "id": 9,
-      "name": "Accessibility"
+      "name": "Accessibility",
+      "playbook": "06-modules/experience/STAGE-09-ACCESSIBILITY.md"
     },
     {
       "id": 10,
-      "name": "Visual UI"
+      "name": "Visual UI",
+      "playbook": "06-modules/experience/STAGE-10-VISUAL-UI.md"
     },
     {
       "id": 11,
-      "name": "Design System"
+      "name": "Design System",
+      "playbook": "06-modules/experience/STAGE-11-DESIGN-SYSTEM.md"
     },
     {
       "id": 12,
-      "name": "Frontend implementation"
+      "name": "Frontend implementation",
+      "playbook": "06-modules/software-engineering/STAGE-12-FRONTEND-IMPLEMENTATION.md"
     },
     {
       "id": 13,
-      "name": "Backend / API"
+      "name": "Backend / API",
+      "playbook": "06-modules/software-engineering/STAGE-13-BACKEND-API.md"
     },
     {
       "id": 14,
-      "name": "Database / persistence"
+      "name": "Database / persistence",
+      "playbook": "06-modules/software-engineering/STAGE-14-DATABASE-PERSISTENCE.md"
     },
     {
       "id": 15,
-      "name": "Testing"
+      "name": "Testing",
+      "playbook": "06-modules/quality-engineering/STAGE-15-TESTING.md"
     },
     {
       "id": 16,
-      "name": "Security"
+      "name": "Security",
+      "playbook": "06-modules/security-reliability/STAGE-16-SECURITY.md"
     },
     {
       "id": 17,
-      "name": "Performance"
+      "name": "Performance",
+      "playbook": "06-modules/quality-engineering/STAGE-17-PERFORMANCE.md"
     },
     {
       "id": 18,
-      "name": "CI/CD"
+      "name": "CI/CD",
+      "playbook": "06-modules/delivery-production/STAGE-18-CI-CD.md"
     },
     {
       "id": 19,
-      "name": "Deployment / rollout"
+      "name": "Deployment / rollout",
+      "playbook": "06-modules/delivery-production/STAGE-19-DEPLOYMENT-ROLLOUT.md"
     },
     {
       "id": 20,
-      "name": "Observability"
+      "name": "Observability",
+      "playbook": "06-modules/security-reliability/STAGE-20-OBSERVABILITY.md"
     },
     {
       "id": 21,
-      "name": "Backup / DR / incidents"
+      "name": "Backup / DR / incidents",
+      "playbook": "06-modules/security-reliability/STAGE-21-BACKUP-DR-INCIDENTS.md"
     },
     {
       "id": 22,
-      "name": "Product analytics"
+      "name": "Product analytics",
+      "playbook": "06-modules/product-intelligence/STAGE-22-PRODUCT-ANALYTICS.md"
     },
     {
       "id": 23,
-      "name": "Experimentation"
+      "name": "Experimentation",
+      "playbook": "06-modules/product-intelligence/STAGE-23-EXPERIMENTATION.md"
     },
     {
       "id": 24,
-      "name": "Feedback → next iteration"
+      "name": "Feedback → next iteration",
+      "playbook": "06-modules/product-intelligence/STAGE-24-FEEDBACK-NEXT-ITERATION.md"
     },
     {
       "id": 25,
-      "name": "Knowledge governance"
+      "name": "Knowledge governance",
+      "playbook": "06-modules/knowledge-governance/STAGE-25-KNOWLEDGE-GOVERNANCE.md"
     }
   ],
   "modules": [
@@ -243,5 +268,11 @@
     "G10",
     "G11"
   ],
-  "maturity_model": "structural-coverage-v1"
+  "maturity_model": "structural-coverage-v1",
+  "knowledge_depth": {
+    "stage_playbooks": 25,
+    "minimum_stage_playbook_words": 350,
+    "behavioral_validation": "pending-independent-evaluation",
+    "rule": "Structural and depth validation do not by themselves prove behavioral effectiveness."
+  }
 }
