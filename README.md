@@ -133,3 +133,9 @@ books, PDFs or specialist knowledge packages are included.
 
 The MIT License applies to this project's original content. Referenced
 third-party materials remain subject to their respective licenses and terms.
+
+## Worked example and executed evaluation
+
+Start with [retry-safe enrollment](examples/idempotent-enrollment/README.md). It includes a request, bounded scope, evidence, acceptance criteria, a decision, implementation and local verification. Run `python3 examples/idempotent-enrollment/evaluate.py` and read [the evaluation](examples/idempotent-enrollment/EVALUATION.md). This is one self-assessed case, not a model benchmark. The 81 golden scenarios are a specification corpus; they have not all been executed against a model.
+
+GitHub Actions runs structural checks, source freshness, pytest and the example on pushes and pull requests. Unconnected optional integrations are reported separately; missing, future-dated or stale required sources fail the freshness audit.

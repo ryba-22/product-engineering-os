@@ -1,14 +1,7 @@
-# Maturity — v1.0
+# Coverage and validation
 
-All 25 lifecycle stages satisfy the **very-strong structural baseline** defined by this OS: scoped corpus, at least two evidence anchors, a decision system/workflow, canonical artifacts, a quality gate (or continuous governance gate), a stage-specific adversarial eval, and explicit upstream/downstream integration.
+All 25 stages have structural records. Historical `very-strong` labels in stage-coverage.json are inherited rubric labels, not demonstrated behavioral effectiveness. The audit checks referenced IDs, files and declared flags; it does not independently establish the quality of their content.
 
-This does **not** mean every project automatically passes every gate, nor that the corpus is permanently complete. “Very strong” describes the capability of the Brain, not the state of a specific application. Source freshness, project evidence and runtime verification remain mandatory.
+Optional specialist corpora are not included. Evidence referencing them remains conditional until the actual assets are supplied and reviewed.
 
-Run:
-
-```bash
-python scripts/audit_coverage.py
-python scripts/audit_freshness.py --as-of 2026-10-02 --max-age-days 365
-python -m pytest -q
-python scripts/validate.py
-```
+Run the validation commands in README.md. See examples/idempotent-enrollment/EVALUATION.md for one executed, self-assessed case. It is not an independent benchmark or proof of general effectiveness.

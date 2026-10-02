@@ -207,7 +207,7 @@
     }
   ],
   "operating_profile": {
-    "complements_user_top5": [
+    "default_operating_profile": [
       "Activator",
       "Focus",
       "Discipline",
@@ -243,5 +243,5 @@
     "G10",
     "G11"
   ],
-  "maturity_model": "very-strong-v1"
+  "maturity_model": "structural-coverage-v1"
 }

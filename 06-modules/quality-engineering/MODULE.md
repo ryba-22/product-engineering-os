@@ -19,7 +19,7 @@ Choose the lowest layer that can honestly prove the risk, then add integration/r
 ## Exit rule
 The module may declare its gate satisfied only when the gate's required evidence is present, unresolved decision-changing uncertainty is recorded, and downstream consumers can identify the canonical artifact/decision IDs.
 
-## Current maturity in v0.1
+## Package coverage and dependencies
 - Contract: complete.
 - Shared evidence/governance integration: complete.
 - Deep corpus/workflows: Wave 3 implemented.

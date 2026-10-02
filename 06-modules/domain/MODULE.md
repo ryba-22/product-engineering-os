@@ -14,12 +14,12 @@ Upstream evidence and decisions, explicit current outcome, risk class, project c
 Evidence Bank; glossary; Event Storming; Context Map; aggregate hypotheses.
 
 ## Decision behavior
-Adopt the existing Domain-Driven Design Architect / Event Storming brain as canonical. Never derive contexts directly from tables/screens.
+Use a supplied, verified domain specialist when available; otherwise follow the bundled Domain contract and document unresolved questions. Never derive contexts directly from tables/screens.
 
 ## Exit rule
 The module may declare its gate satisfied only when the gate's required evidence is present, unresolved decision-changing uncertainty is recorded, and downstream consumers can identify the canonical artifact/decision IDs.
 
-## Current maturity in v0.1
+## Package coverage and dependencies
 - Contract: complete.
 - Shared evidence/governance integration: complete.
 - Deep corpus/workflows: adopt existing mature asset.

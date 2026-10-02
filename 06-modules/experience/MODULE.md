@@ -14,12 +14,12 @@ Upstream evidence and decisions, explicit current outcome, risk class, project c
 Context-of-use; workflow/archetype; states/recovery; adaptive behavior; accessibility contract; design-system tier.
 
 ## Decision behavior
-Adopt UI Architect Brain v3 as canonical decision engine and Refactoring UI knowledge as visual craft input.
+Use supplied, verified UI and craft integrations when available; otherwise follow the bundled Experience contract and document missing specialist evidence.
 
 ## Exit rule
 The module may declare its gate satisfied only when the gate's required evidence is present, unresolved decision-changing uncertainty is recorded, and downstream consumers can identify the canonical artifact/decision IDs.
 
-## Current maturity in v0.1
+## Package coverage and dependencies
 - Contract: complete.
 - Shared evidence/governance integration: complete.
 - Deep corpus/workflows: adopt existing mature asset.

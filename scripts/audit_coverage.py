@@ -20,4 +20,4 @@ if errors:
     print('FAIL coverage')
     for e in errors: print('-',e)
     sys.exit(1)
-print('OK: 25/25 stages satisfy very-strong structural baseline')
+print('OK: structural references and declared criteria checked; behavioral effectiveness is not assessed')
