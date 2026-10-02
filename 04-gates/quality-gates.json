@@ -1,0 +1,127 @@
+{
+  "version": "0.1.0",
+  "rule": "A gate may be skipped only when equivalent current evidence already exists.",
+  "gates": [
+    {
+      "id": "G0",
+      "name": "Problem understood",
+      "owner_module": "product-strategy",
+      "exit_evidence": [
+        "problem statement",
+        "desired outcome",
+        "stakeholders",
+        "constraints/non-goals"
+      ]
+    },
+    {
+      "id": "G1",
+      "name": "Discovery sufficient",
+      "owner_module": "product-discovery",
+      "exit_evidence": [
+        "research evidence or justified reuse",
+        "material risks mapped",
+        "critical assumptions/open questions"
+      ]
+    },
+    {
+      "id": "G2",
+      "name": "Domain understood",
+      "owner_module": "domain",
+      "exit_evidence": [
+        "domain evidence bank",
+        "language/events/rules",
+        "hotspots and unresolved hypotheses"
+      ]
+    },
+    {
+      "id": "G3",
+      "name": "Requirements ready",
+      "owner_module": "requirements",
+      "exit_evidence": [
+        "traceable requirements",
+        "scenarios/acceptance criteria",
+        "NFR quality scenarios"
+      ]
+    },
+    {
+      "id": "G4",
+      "name": "Architecture ready",
+      "owner_module": "system-architecture",
+      "exit_evidence": [
+        "architecture decision records",
+        "context/runtime/deployment view as needed",
+        "quality/failure analysis"
+      ]
+    },
+    {
+      "id": "G5",
+      "name": "Experience ready",
+      "owner_module": "experience",
+      "exit_evidence": [
+        "workflow/state/accessibility/adaptive contract",
+        "relevant UDRs",
+        "validation plan"
+      ]
+    },
+    {
+      "id": "G6",
+      "name": "Implementation ready",
+      "owner_module": "software-engineering",
+      "exit_evidence": [
+        "implementation plan",
+        "interfaces/contracts",
+        "migration/data plan when applicable"
+      ]
+    },
+    {
+      "id": "G7",
+      "name": "Verification passed",
+      "owner_module": "quality-engineering",
+      "exit_evidence": [
+        "tests mapped to risks",
+        "green required suites",
+        "manual/runtime evidence where automation is insufficient"
+      ]
+    },
+    {
+      "id": "G8",
+      "name": "Security/performance passed",
+      "owner_module": "security-reliability",
+      "exit_evidence": [
+        "threat/security evidence proportional to risk",
+        "performance evidence/budget",
+        "unresolved risks explicitly accepted or blocked"
+      ]
+    },
+    {
+      "id": "G9",
+      "name": "Release ready",
+      "owner_module": "delivery-production",
+      "exit_evidence": [
+        "reproducible build artifact",
+        "migration/preflight evidence",
+        "rollout/recovery plan"
+      ]
+    },
+    {
+      "id": "G10",
+      "name": "Production healthy",
+      "owner_module": "security-reliability",
+      "exit_evidence": [
+        "health/SLO/telemetry evidence",
+        "post-deploy smoke",
+        "no unexplained critical alert/backlog"
+      ]
+    },
+    {
+      "id": "G11",
+      "name": "Outcome measured",
+      "owner_module": "product-intelligence",
+      "exit_evidence": [
+        "product outcome metrics",
+        "qualitative feedback",
+        "learning/next decision recorded"
+      ]
+    }
+  ]
+}

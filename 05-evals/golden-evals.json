@@ -1,0 +1,1206 @@
+{
+  "version": "1.0.0",
+  "scoring": {
+    "decision_correctness": 4,
+    "evidence_scope": 2,
+    "risk_and_constraints": 1,
+    "execution_closure": 1,
+    "verification": 1,
+    "traceability": 1
+  },
+  "cases": [
+    {
+      "id": "EV-001",
+      "scenario": "User asks to build a dashboard before user/problem evidence exists.",
+      "module": "product-discovery",
+      "tags": [
+        "product-discovery"
+      ],
+      "expected": "Identify the decision/use case first; do not treat dashboard as the requirement.",
+      "forbidden": [
+        "invent missing facts",
+        "claim later lifecycle state without evidence"
+      ]
+    },
+    {
+      "id": "EV-002",
+      "scenario": "A small internal app for 100 users is proposed with microservices, Kafka and Kubernetes.",
+      "module": "system-architecture",
+      "tags": [
+        "architecture-inflation"
+      ],
+      "expected": "Reject unjustified complexity; choose simplest architecture satisfying known quality attributes and state switching conditions.",
+      "forbidden": [
+        "invent missing facts",
+        "claim later lifecycle state without evidence"
+      ]
+    },
+    {
+      "id": "EV-003",
+      "scenario": "Research already resolves the reversible R1 decision, but more sources are available.",
+      "module": "product-strategy",
+      "tags": [
+        "analysis-paralysis"
+      ],
+      "expected": "Apply stop-analysis gate and move to a reversible implementation/experiment.",
+      "forbidden": [
+        "invent missing facts",
+        "claim later lifecycle state without evidence"
+      ]
+    },
+    {
+      "id": "EV-004",
+      "scenario": "A backup job is configured but no restore has ever been tested.",
+      "module": "security-reliability",
+      "tags": [
+        "verification",
+        "production-evidence"
+      ],
+      "expected": "Report backup configuration as unverified recoverability; require restore evidence before claiming DR readiness.",
+      "forbidden": [
+        "invent missing facts",
+        "claim later lifecycle state without evidence"
+      ]
+    },
+    {
+      "id": "EV-005",
+      "scenario": "Feature implemented; unit tests pass; no browser/runtime check for the changed workflow.",
+      "module": "quality-engineering",
+      "tags": [
+        "verification"
+      ],
+      "expected": "Do not claim the workflow verified; request/run the lowest missing runtime evidence proportional to risk.",
+      "forbidden": [
+        "invent missing facts",
+        "claim later lifecycle state without evidence"
+      ]
+    },
+    {
+      "id": "EV-006",
+      "scenario": "An R3 bulk-send feature has no explicit permission or irreversible-action analysis.",
+      "module": "security-reliability",
+      "tags": [
+        "verification"
+      ],
+      "expected": "Block progression to release until authorization, consequence and recovery evidence exist.",
+      "forbidden": [
+        "invent missing facts",
+        "claim later lifecycle state without evidence"
+      ]
+    },
+    {
+      "id": "EV-007",
+      "scenario": "A product metric rises but user complaints increase.",
+      "module": "product-intelligence",
+      "tags": [
+        "product-discovery"
+      ],
+      "expected": "Combine behavioral data and qualitative evidence; do not equate one KPI with product success.",
+      "forbidden": [
+        "invent missing facts",
+        "claim later lifecycle state without evidence"
+      ]
+    },
+    {
+      "id": "EV-008",
+      "scenario": "The user provides database tables and asks for bounded contexts.",
+      "module": "domain",
+      "tags": [
+        "architecture-inflation"
+      ],
+      "expected": "Treat schema as evidence, not domain truth; reconstruct language/rules/events before boundaries.",
+      "forbidden": [
+        "invent missing facts",
+        "claim later lifecycle state without evidence"
+      ]
+    },
+    {
+      "id": "EV-009",
+      "scenario": "API team invents a custom error envelope for every endpoint.",
+      "module": "software-engineering",
+      "tags": [
+        "api"
+      ],
+      "expected": "Consider standardized problem details and a consistent error contract.",
+      "forbidden": [
+        "invent missing facts",
+        "claim later lifecycle state without evidence"
+      ]
+    },
+    {
+      "id": "EV-010",
+      "scenario": "A design passes axe but keyboard focus return is broken.",
+      "module": "experience",
+      "tags": [
+        "verification"
+      ],
+      "expected": "Fail accessibility gate; automated scans do not certify end-to-end accessibility.",
+      "forbidden": [
+        "invent missing facts",
+        "claim later lifecycle state without evidence"
+      ]
+    },
+    {
+      "id": "EV-011",
+      "scenario": "A production deploy succeeded but health/SLO evidence is unavailable.",
+      "module": "delivery-production",
+      "tags": [
+        "production-evidence"
+      ],
+      "expected": "State DEPLOYED, not HEALTHY; require post-deploy operational evidence.",
+      "forbidden": [
+        "invent missing facts",
+        "claim later lifecycle state without evidence"
+      ]
+    },
+    {
+      "id": "EV-012",
+      "scenario": "SLO is 100% with no business rationale.",
+      "module": "security-reliability",
+      "tags": [
+        "reliability"
+      ],
+      "expected": "Challenge the target and define user-facing SLI/SLO with trade-offs/error budget.",
+      "forbidden": [
+        "invent missing facts",
+        "claim later lifecycle state without evidence"
+      ]
+    },
+    {
+      "id": "EV-013",
+      "scenario": "A feature flag is left permanently with no owner or removal trigger.",
+      "module": "delivery-production",
+      "tags": [
+        "governance"
+      ],
+      "expected": "Require lifecycle, owner and removal/supersession trigger.",
+      "forbidden": [
+        "invent missing facts",
+        "claim later lifecycle state without evidence"
+      ]
+    },
+    {
+      "id": "EV-014",
+      "scenario": "An analytics event taxonomy mirrors UI button names.",
+      "module": "product-intelligence",
+      "tags": [
+        "analytics"
+      ],
+      "expected": "Model outcomes/behaviors first, then events; do not let transient UI labels define product semantics.",
+      "forbidden": [
+        "invent missing facts",
+        "claim later lifecycle state without evidence"
+      ]
+    },
+    {
+      "id": "EV-015",
+      "scenario": "A PRD states a feature but no evidence or acceptance criteria.",
+      "module": "requirements",
+      "tags": [
+        "traceability"
+      ],
+      "expected": "Link outcome/evidence → requirement → scenario → acceptance criterion → test.",
+      "forbidden": [
+        "invent missing facts",
+        "claim later lifecycle state without evidence"
+      ]
+    },
+    {
+      "id": "EV-016",
+      "scenario": "Two teams implement the same table behavior differently.",
+      "module": "experience",
+      "tags": [
+        "governance"
+      ],
+      "expected": "Use governance/consistency mode: reuse or explicitly supersede accepted pattern.",
+      "forbidden": [
+        "invent missing facts",
+        "claim later lifecycle state without evidence"
+      ]
+    },
+    {
+      "id": "EV-017",
+      "scenario": "A load test averages latency and hides p99 collapse.",
+      "module": "quality-engineering",
+      "tags": [
+        "performance"
+      ],
+      "expected": "Use percentile/throughput/error behavior and workload model; average alone is insufficient.",
+      "forbidden": [
+        "invent missing facts",
+        "claim later lifecycle state without evidence"
+      ]
+    },
+    {
+      "id": "EV-018",
+      "scenario": "A migration changes financial data and rollback means destructive down migration.",
+      "module": "delivery-production",
+      "tags": [
+        "production-evidence"
+      ],
+      "expected": "Prefer forward-fix / compatible application rollback with explicit data recovery plan.",
+      "forbidden": [
+        "invent missing facts",
+        "claim later lifecycle state without evidence"
+      ]
+    },
+    {
+      "id": "EV-019",
+      "scenario": "User interview quotes are treated as universal business rules.",
+      "module": "product-discovery",
+      "tags": [
+        "product-discovery"
+      ],
+      "expected": "Keep observations separate from domain/business rule confirmation; record scope and uncertainty.",
+      "forbidden": [
+        "invent missing facts",
+        "claim later lifecycle state without evidence"
+      ]
+    },
+    {
+      "id": "EV-020",
+      "scenario": "A designer wants a new global component after one use.",
+      "module": "experience",
+      "tags": [
+        "governance"
+      ],
+      "expected": "Keep local until reuse/stability evidence supports promotion.",
+      "forbidden": [
+        "invent missing facts",
+        "claim later lifecycle state without evidence"
+      ]
+    },
+    {
+      "id": "EV-021",
+      "scenario": "Security review happens only after implementation.",
+      "module": "security-reliability",
+      "tags": [
+        "verification"
+      ],
+      "expected": "Move threat/security requirements into design and SDLC; end-only review is insufficient.",
+      "forbidden": [
+        "invent missing facts",
+        "claim later lifecycle state without evidence"
+      ]
+    },
+    {
+      "id": "EV-022",
+      "scenario": "DORA metric target is copied from another organization.",
+      "module": "delivery-production",
+      "tags": [
+        "analytics"
+      ],
+      "expected": "Use trends/context for the system; do not cargo-cult external targets.",
+      "forbidden": [
+        "invent missing facts",
+        "claim later lifecycle state without evidence"
+      ]
+    },
+    {
+      "id": "EV-023",
+      "scenario": "An experiment is proposed where a staged pilot would resolve risk faster.",
+      "module": "product-intelligence",
+      "tags": [
+        "experimentation"
+      ],
+      "expected": "Select the cheapest valid evidence method; not every uncertainty needs A/B testing.",
+      "forbidden": [
+        "invent missing facts",
+        "claim later lifecycle state without evidence"
+      ]
+    },
+    {
+      "id": "EV-024",
+      "scenario": "An old architecture decision conflicts with new stronger scoped evidence.",
+      "module": "knowledge-governance",
+      "tags": [
+        "governance"
+      ],
+      "expected": "Create supersession with preserved provenance and revisit downstream decisions; do not silently overwrite history.",
+      "forbidden": [
+        "invent missing facts",
+        "claim later lifecycle state without evidence"
+      ]
+    },
+    {
+      "id": "EV-025",
+      "scenario": "A command writes the database then publishes to a provider; crash after commit loses the message.",
+      "module": "system-architecture",
+      "tags": [
+        "dual-write"
+      ],
+      "expected": "Identify the dual-write failure and require explicit coordination such as transactional outbox or another justified design.",
+      "forbidden": [
+        "invent missing facts",
+        "claim later lifecycle state without evidence"
+      ]
+    },
+    {
+      "id": "EV-026",
+      "scenario": "A payment endpoint may be retried by a gateway after timeout.",
+      "module": "software-engineering",
+      "tags": [
+        "idempotency",
+        "api-contract"
+      ],
+      "expected": "Define application-level idempotency/replay behavior and do not rely only on HTTP method naming.",
+      "forbidden": [
+        "invent missing facts",
+        "claim later lifecycle state without evidence"
+      ]
+    },
+    {
+      "id": "EV-027",
+      "scenario": "A React feature stores the same selected entity in URL, local state and server cache.",
+      "module": "software-engineering",
+      "tags": [
+        "state-ownership"
+      ],
+      "expected": "Choose an authoritative owner/lifetime and remove unnecessary duplicated state.",
+      "forbidden": [
+        "invent missing facts",
+        "claim later lifecycle state without evidence"
+      ]
+    },
+    {
+      "id": "EV-028",
+      "scenario": "Two operators can edit the same consequential record concurrently.",
+      "module": "software-engineering",
+      "tags": [
+        "concurrency"
+      ],
+      "expected": "Define conflict semantics and choose optimistic/pessimistic/serialized strategy based on invariant and contention risk.",
+      "forbidden": [
+        "invent missing facts",
+        "claim later lifecycle state without evidence"
+      ]
+    },
+    {
+      "id": "EV-029",
+      "scenario": "API breaking response change is merged without consumer impact analysis.",
+      "module": "software-engineering",
+      "tags": [
+        "api-contract"
+      ],
+      "expected": "Require compatibility policy and contract verification or explicit version/migration decision.",
+      "forbidden": [
+        "invent missing facts",
+        "claim later lifecycle state without evidence"
+      ]
+    },
+    {
+      "id": "EV-030",
+      "scenario": "A migration adds NOT NULL to millions of rows in one blocking step during live traffic.",
+      "module": "software-engineering",
+      "tags": [
+        "data-migration"
+      ],
+      "expected": "Design compatibility-safe staged migration/backfill with lock/runtime impact and validation evidence.",
+      "forbidden": [
+        "invent missing facts",
+        "claim later lifecycle state without evidence"
+      ]
+    },
+    {
+      "id": "EV-031",
+      "scenario": "An async job can run twice after lease expiry.",
+      "module": "system-architecture",
+      "tags": [
+        "idempotency",
+        "concurrency"
+      ],
+      "expected": "Treat duplicate execution as a normal failure mode; design claim/lease/idempotency or safe replay semantics.",
+      "forbidden": [
+        "invent missing facts",
+        "claim later lifecycle state without evidence"
+      ]
+    },
+    {
+      "id": "EV-032",
+      "scenario": "A team chooses a queue because asynchronous architecture is considered more scalable.",
+      "module": "system-architecture",
+      "tags": [
+        "architecture-inflation"
+      ],
+      "expected": "Require a concrete latency, coupling, buffering, retry or availability force; otherwise keep the simpler synchronous path.",
+      "forbidden": [
+        "invent missing facts",
+        "claim later lifecycle state without evidence"
+      ]
+    },
+    {
+      "id": "EV-033",
+      "scenario": "Team boasts 90% unit coverage but critical DB transaction races are untested.",
+      "module": "quality-engineering",
+      "tags": [
+        "risk-based-testing",
+        "concurrency"
+      ],
+      "expected": "Map tests to critical guarantees; add real DB concurrency evidence instead of optimizing coverage percentage.",
+      "forbidden": [
+        "invent missing facts",
+        "claim later lifecycle state without evidence"
+      ]
+    },
+    {
+      "id": "EV-034",
+      "scenario": "A threat model is requested after release only.",
+      "module": "security-reliability",
+      "tags": [
+        "threat-model"
+      ],
+      "expected": "Perform/reconstruct it now, but record the process failure and integrate threat modeling into design/change gates.",
+      "forbidden": [
+        "invent missing facts",
+        "claim later lifecycle state without evidence"
+      ]
+    },
+    {
+      "id": "EV-035",
+      "scenario": "A page is considered fast because local developer machine loads in 300 ms.",
+      "module": "quality-engineering",
+      "tags": [
+        "performance-budget"
+      ],
+      "expected": "Define user-relevant budget/workload/device/network assumptions and measure accordingly.",
+      "forbidden": [
+        "invent missing facts",
+        "claim later lifecycle state without evidence"
+      ]
+    },
+    {
+      "id": "EV-036",
+      "scenario": "A service passes average load but crashes after six hours from queue growth.",
+      "module": "quality-engineering",
+      "tags": [
+        "load-testing"
+      ],
+      "expected": "Use soak/backlog/resource telemetry; average-load success is not stability evidence.",
+      "forbidden": [
+        "invent missing facts",
+        "claim later lifecycle state without evidence"
+      ]
+    },
+    {
+      "id": "EV-037",
+      "scenario": "Dependencies are scanned, but the released artifact cannot be tied to a reviewed commit.",
+      "module": "security-reliability",
+      "tags": [
+        "supply-chain",
+        "verification"
+      ],
+      "expected": "Treat deployed artifact provenance as unverified; preserve/verifiably link source → build → artifact → deployment.",
+      "forbidden": [
+        "invent missing facts",
+        "claim later lifecycle state without evidence"
+      ]
+    },
+    {
+      "id": "EV-038",
+      "scenario": "Security scanner reports zero findings and release is called secure.",
+      "module": "security-reliability",
+      "tags": [
+        "verification",
+        "threat-model"
+      ],
+      "expected": "Do not equate scanner silence with security; verify requirements, architecture, authz and runtime controls proportional to risk.",
+      "forbidden": [
+        "invent missing facts",
+        "claim later lifecycle state without evidence"
+      ]
+    },
+    {
+      "id": "EV-039",
+      "scenario": "Load test uses 1000 RPS because it is a round number, not observed/expected traffic.",
+      "module": "quality-engineering",
+      "tags": [
+        "load-testing"
+      ],
+      "expected": "Model workload from actual/forecast usage and state uncertainty; arbitrary load is weak evidence.",
+      "forbidden": [
+        "invent missing facts",
+        "claim later lifecycle state without evidence"
+      ]
+    },
+    {
+      "id": "EV-040",
+      "scenario": "A performance optimization adds cache invalidation complexity before profiling.",
+      "module": "quality-engineering",
+      "tags": [
+        "performance-budget",
+        "architecture-inflation"
+      ],
+      "expected": "Measure/profile the bottleneck first; add caching only when evidence and consistency tradeoffs justify it.",
+      "forbidden": [
+        "invent missing facts",
+        "claim later lifecycle state without evidence"
+      ]
+    },
+    {
+      "id": "EV-041",
+      "scenario": "Deployment command returned success, but no health or smoke evidence exists.",
+      "module": "delivery-production",
+      "tags": [
+        "rollout",
+        "production-evidence"
+      ],
+      "expected": "Mark DEPLOYED only; require post-deploy health/smoke/telemetry before HEALTHY/STABLE.",
+      "forbidden": [
+        "invent missing facts",
+        "claim later lifecycle state without evidence"
+      ]
+    },
+    {
+      "id": "EV-042",
+      "scenario": "A team creates 200 alerts on CPU/memory with no owners or runbooks.",
+      "module": "security-reliability",
+      "tags": [
+        "observability"
+      ],
+      "expected": "Reduce to actionable/user-impact or strong leading indicators with ownership and response contracts.",
+      "forbidden": [
+        "invent missing facts",
+        "claim later lifecycle state without evidence"
+      ]
+    },
+    {
+      "id": "EV-043",
+      "scenario": "Logs contain full request bodies with personal and secret data for debugging convenience.",
+      "module": "security-reliability",
+      "tags": [
+        "observability",
+        "security"
+      ],
+      "expected": "Redesign structured telemetry to capture identifiers/codes/timing without leaking unnecessary sensitive payloads.",
+      "forbidden": [
+        "invent missing facts",
+        "claim later lifecycle state without evidence"
+      ]
+    },
+    {
+      "id": "EV-044",
+      "scenario": "Nightly backups report success for six months; restore has never been attempted.",
+      "module": "security-reliability",
+      "tags": [
+        "restore-drill",
+        "verification"
+      ],
+      "expected": "Status recoverability UNVERIFIED and schedule an isolated measured restore drill.",
+      "forbidden": [
+        "invent missing facts",
+        "claim later lifecycle state without evidence"
+      ]
+    },
+    {
+      "id": "EV-045",
+      "scenario": "During an outage five engineers independently change production configuration.",
+      "module": "security-reliability",
+      "tags": [
+        "incident-response"
+      ],
+      "expected": "Establish incident command/ownership, containment plan, evidence capture and controlled changes.",
+      "forbidden": [
+        "invent missing facts",
+        "claim later lifecycle state without evidence"
+      ]
+    },
+    {
+      "id": "EV-046",
+      "scenario": "A high-risk release is rolled out to 100% instantly although staged comparison is cheap.",
+      "module": "delivery-production",
+      "tags": [
+        "rollout"
+      ],
+      "expected": "Use risk-proportionate staged/canary exposure and evaluate against control/health criteria before expansion.",
+      "forbidden": [
+        "invent missing facts",
+        "claim later lifecycle state without evidence"
+      ]
+    },
+    {
+      "id": "EV-047",
+      "scenario": "A binary is deployed from a developer laptop and cannot be tied to CI or source commit.",
+      "module": "delivery-production",
+      "tags": [
+        "release-provenance",
+        "supply-chain"
+      ],
+      "expected": "Fail release provenance gate; require attributable/reproducible artifact path or explicit high-risk exception.",
+      "forbidden": [
+        "invent missing facts",
+        "claim later lifecycle state without evidence"
+      ]
+    },
+    {
+      "id": "EV-048",
+      "scenario": "Postmortem concludes human error and assigns retraining only.",
+      "module": "security-reliability",
+      "tags": [
+        "incident-response"
+      ],
+      "expected": "Investigate systemic/contributing conditions and create owned reliability improvements; avoid blame-only closure.",
+      "forbidden": [
+        "invent missing facts",
+        "claim later lifecycle state without evidence"
+      ]
+    },
+    {
+      "id": "EV-049",
+      "scenario": "Team asks to instrument every button before defining product outcomes.",
+      "module": "product-intelligence",
+      "tags": [
+        "event-taxonomy",
+        "metric-tree"
+      ],
+      "expected": "Start with outcome/behavior/signals; instrument only events needed to answer decisions and operate the product.",
+      "forbidden": [
+        "invent missing facts",
+        "claim later lifecycle state without evidence"
+      ]
+    },
+    {
+      "id": "EV-050",
+      "scenario": "A single engagement metric rises while task completion falls.",
+      "module": "product-intelligence",
+      "tags": [
+        "metric-tree"
+      ],
+      "expected": "Use outcome plus guardrails/task success; do not optimize one proxy in isolation.",
+      "forbidden": [
+        "invent missing facts",
+        "claim later lifecycle state without evidence"
+      ]
+    },
+    {
+      "id": "EV-051",
+      "scenario": "A/B test shows lift but the observed A/B population split is far from configured allocation.",
+      "module": "product-intelligence",
+      "tags": [
+        "ab-testing",
+        "sample-ratio-mismatch"
+      ],
+      "expected": "Treat result as untrustworthy until SRM root cause is diagnosed/resolved.",
+      "forbidden": [
+        "invent missing facts",
+        "claim later lifecycle state without evidence"
+      ]
+    },
+    {
+      "id": "EV-052",
+      "scenario": "Team proposes A/B test for a low-traffic internal workflow with 30 users.",
+      "module": "product-intelligence",
+      "tags": [
+        "ab-testing"
+      ],
+      "expected": "Choose a more appropriate evidence method such as usability study, pilot or staged observation; traffic cannot support useful randomized inference.",
+      "forbidden": [
+        "invent missing facts",
+        "claim later lifecycle state without evidence"
+      ]
+    },
+    {
+      "id": "EV-053",
+      "scenario": "Tracking events are named button_blue_clicked and modal_opened for core domain actions.",
+      "module": "product-intelligence",
+      "tags": [
+        "event-taxonomy"
+      ],
+      "expected": "Prefer stable behavior/domain semantics and map UI implementation separately if needed.",
+      "forbidden": [
+        "invent missing facts",
+        "claim later lifecycle state without evidence"
+      ]
+    },
+    {
+      "id": "EV-054",
+      "scenario": "Support complaints spike after release but KPI dashboard remains green.",
+      "module": "product-intelligence",
+      "tags": [
+        "feedback-loop"
+      ],
+      "expected": "Ingest support evidence, segment/diagnose, and revisit metric blind spots; green KPIs do not invalidate qualitative harm.",
+      "forbidden": [
+        "invent missing facts",
+        "claim later lifecycle state without evidence"
+      ]
+    },
+    {
+      "id": "EV-055",
+      "scenario": "Experiment reaches p<0.05 and is declared a product win despite tiny effect and worse guardrail.",
+      "module": "product-intelligence",
+      "tags": [
+        "ab-testing",
+        "metric-tree"
+      ],
+      "expected": "Consider effect/product significance, guardrails and decision context; statistical significance alone is insufficient.",
+      "forbidden": [
+        "invent missing facts",
+        "claim later lifecycle state without evidence"
+      ]
+    },
+    {
+      "id": "EV-056",
+      "scenario": "A feature flag for an experiment remains enabled six months after decision.",
+      "module": "product-intelligence",
+      "tags": [
+        "ab-testing",
+        "governance"
+      ],
+      "expected": "Require owner, cleanup/retirement and decision record; flags need lifecycle after experiment/rollout ends.",
+      "forbidden": [
+        "invent missing facts",
+        "claim later lifecycle state without evidence"
+      ]
+    },
+    {
+      "id": "EV-S01",
+      "scenario": "A founder asks to build a scheduling app but cannot state what outcome/problem improves.",
+      "module": "product-strategy",
+      "stage_ids": [
+        1
+      ],
+      "tags": [
+        "stage-1",
+        "lifecycle-integration"
+      ],
+      "expected": "Do not treat the app idea as the problem; produce problem/outcome/constraints/non-goals before solution commitment.",
+      "forbidden": [
+        "invent missing facts",
+        "claim later lifecycle state without evidence",
+        "skip the stage gate without equivalent evidence"
+      ]
+    },
+    {
+      "id": "EV-S02",
+      "scenario": "The team has only stakeholder opinions and wants to skip user evidence.",
+      "module": "product-discovery",
+      "stage_ids": [
+        2
+      ],
+      "tags": [
+        "stage-2",
+        "lifecycle-integration"
+      ],
+      "expected": "Identify the material product risks and gather the smallest direct user/context evidence that can change the decision.",
+      "forbidden": [
+        "invent missing facts",
+        "claim later lifecycle state without evidence",
+        "skip the stage gate without equivalent evidence"
+      ]
+    },
+    {
+      "id": "EV-S03",
+      "scenario": "A legacy schema is offered as the complete domain model.",
+      "module": "domain",
+      "stage_ids": [
+        3
+      ],
+      "tags": [
+        "stage-3",
+        "lifecycle-integration"
+      ],
+      "expected": "Treat schema as evidence only; reconstruct rules/events/language and unknowns.",
+      "forbidden": [
+        "invent missing facts",
+        "claim later lifecycle state without evidence",
+        "skip the stage gate without equivalent evidence"
+      ]
+    },
+    {
+      "id": "EV-S04",
+      "scenario": "A feature list is called a complete specification with no scenarios or acceptance evidence.",
+      "module": "requirements",
+      "stage_ids": [
+        4
+      ],
+      "tags": [
+        "stage-4",
+        "lifecycle-integration"
+      ],
+      "expected": "Create traceable requirements/scenarios/NFRs/acceptance criteria and keep assumptions explicit.",
+      "forbidden": [
+        "invent missing facts",
+        "claim later lifecycle state without evidence",
+        "skip the stage gate without equivalent evidence"
+      ]
+    },
+    {
+      "id": "EV-S05",
+      "scenario": "A table-per-aggregate tactical model is proposed before strategic boundaries.",
+      "module": "domain",
+      "stage_ids": [
+        5
+      ],
+      "tags": [
+        "stage-5",
+        "lifecycle-integration"
+      ],
+      "expected": "Challenge strategic context/invariants first; do not equate persistence tables with aggregates.",
+      "forbidden": [
+        "invent missing facts",
+        "claim later lifecycle state without evidence",
+        "skip the stage gate without equivalent evidence"
+      ]
+    },
+    {
+      "id": "EV-S06",
+      "scenario": "Architecture is selected by technology preference before quality attributes.",
+      "module": "system-architecture",
+      "stage_ids": [
+        6
+      ],
+      "tags": [
+        "stage-6",
+        "lifecycle-integration"
+      ],
+      "expected": "Elicit drivers/quality scenarios/failure modes and compare a simple baseline before specialized architecture.",
+      "forbidden": [
+        "invent missing facts",
+        "claim later lifecycle state without evidence",
+        "skip the stage gate without equivalent evidence"
+      ]
+    },
+    {
+      "id": "EV-S07",
+      "scenario": "Navigation/shell is designed before understanding primary tasks/context.",
+      "module": "experience",
+      "stage_ids": [
+        7
+      ],
+      "tags": [
+        "stage-7",
+        "lifecycle-integration"
+      ],
+      "expected": "Use context/workflow/archetype constraints before shell decisions.",
+      "forbidden": [
+        "invent missing facts",
+        "claim later lifecycle state without evidence",
+        "skip the stage gate without equivalent evidence"
+      ]
+    },
+    {
+      "id": "EV-S08",
+      "scenario": "Only the happy-path interaction is specified for a consequential workflow.",
+      "module": "experience",
+      "stage_ids": [
+        8
+      ],
+      "tags": [
+        "stage-8",
+        "lifecycle-integration"
+      ],
+      "expected": "Require state/error/recovery/conflict behavior and action consequences.",
+      "forbidden": [
+        "invent missing facts",
+        "claim later lifecycle state without evidence",
+        "skip the stage gate without equivalent evidence"
+      ]
+    },
+    {
+      "id": "EV-S09",
+      "scenario": "An axe scan passes and accessibility is declared complete.",
+      "module": "experience",
+      "stage_ids": [
+        9
+      ],
+      "tags": [
+        "stage-9",
+        "lifecycle-integration"
+      ],
+      "expected": "Require semantic/keyboard/focus/manual validation proportional to risk.",
+      "forbidden": [
+        "invent missing facts",
+        "claim later lifecycle state without evidence",
+        "skip the stage gate without equivalent evidence"
+      ]
+    },
+    {
+      "id": "EV-S10",
+      "scenario": "Each screen invents its own spacing/color/type values.",
+      "module": "experience",
+      "stage_ids": [
+        10
+      ],
+      "tags": [
+        "stage-10",
+        "lifecycle-integration"
+      ],
+      "expected": "Use constrained visual scales and hierarchy; avoid local decorative drift.",
+      "forbidden": [
+        "invent missing facts",
+        "claim later lifecycle state without evidence",
+        "skip the stage gate without equivalent evidence"
+      ]
+    },
+    {
+      "id": "EV-S11",
+      "scenario": "A component is promoted to global Core after one consumer.",
+      "module": "experience",
+      "stage_ids": [
+        11
+      ],
+      "tags": [
+        "stage-11",
+        "lifecycle-integration"
+      ],
+      "expected": "Keep Local until reuse/stability/accessibility/ownership evidence justifies promotion.",
+      "forbidden": [
+        "invent missing facts",
+        "claim later lifecycle state without evidence",
+        "skip the stage gate without equivalent evidence"
+      ]
+    },
+    {
+      "id": "EV-S12",
+      "scenario": "Frontend duplicates server and URL state for convenience.",
+      "module": "software-engineering",
+      "stage_ids": [
+        12
+      ],
+      "tags": [
+        "stage-12",
+        "lifecycle-integration"
+      ],
+      "expected": "Define authoritative state ownership/lifetime and remove redundant state.",
+      "forbidden": [
+        "invent missing facts",
+        "claim later lifecycle state without evidence",
+        "skip the stage gate without equivalent evidence"
+      ]
+    },
+    {
+      "id": "EV-S13",
+      "scenario": "An API mutation has unclear auth, retry, error and idempotency semantics.",
+      "module": "software-engineering",
+      "stage_ids": [
+        13
+      ],
+      "tags": [
+        "stage-13",
+        "lifecycle-integration"
+      ],
+      "expected": "Specify the full API/command contract before treating the endpoint as ready.",
+      "forbidden": [
+        "invent missing facts",
+        "claim later lifecycle state without evidence",
+        "skip the stage gate without equivalent evidence"
+      ]
+    },
+    {
+      "id": "EV-S14",
+      "scenario": "A production schema migration has no compatibility or recovery plan.",
+      "module": "software-engineering",
+      "stage_ids": [
+        14
+      ],
+      "tags": [
+        "stage-14",
+        "lifecycle-integration"
+      ],
+      "expected": "Require staged data-change plan, validation and rollback/forward-fix compatibility.",
+      "forbidden": [
+        "invent missing facts",
+        "claim later lifecycle state without evidence",
+        "skip the stage gate without equivalent evidence"
+      ]
+    },
+    {
+      "id": "EV-S15",
+      "scenario": "Team optimizes for test coverage percentage while critical failure modes remain untested.",
+      "module": "quality-engineering",
+      "stage_ids": [
+        15
+      ],
+      "tags": [
+        "stage-15",
+        "lifecycle-integration"
+      ],
+      "expected": "Map risks to guarantees and evidence layers instead of optimizing a coverage number.",
+      "forbidden": [
+        "invent missing facts",
+        "claim later lifecycle state without evidence",
+        "skip the stage gate without equivalent evidence"
+      ]
+    },
+    {
+      "id": "EV-S16",
+      "scenario": "Security is scheduled as a scan after release candidate build.",
+      "module": "security-reliability",
+      "stage_ids": [
+        16
+      ],
+      "tags": [
+        "stage-16",
+        "lifecycle-integration"
+      ],
+      "expected": "Integrate security requirements/threat model through design, implementation, verification and operations.",
+      "forbidden": [
+        "invent missing facts",
+        "claim later lifecycle state without evidence",
+        "skip the stage gate without equivalent evidence"
+      ]
+    },
+    {
+      "id": "EV-S17",
+      "scenario": "Performance is called good from local averages without a budget/workload.",
+      "module": "quality-engineering",
+      "stage_ids": [
+        17
+      ],
+      "tags": [
+        "stage-17",
+        "lifecycle-integration"
+      ],
+      "expected": "Define workload and user-relevant budgets, then gather percentile/error/throughput evidence.",
+      "forbidden": [
+        "invent missing facts",
+        "claim later lifecycle state without evidence",
+        "skip the stage gate without equivalent evidence"
+      ]
+    },
+    {
+      "id": "EV-S18",
+      "scenario": "A release pipeline can deploy artifacts that did not pass the exact recorded gates.",
+      "module": "delivery-production",
+      "stage_ids": [
+        18
+      ],
+      "tags": [
+        "stage-18",
+        "lifecycle-integration"
+      ],
+      "expected": "Fail delivery governance; preserve build/artifact provenance and required gate evidence.",
+      "forbidden": [
+        "invent missing facts",
+        "claim later lifecycle state without evidence",
+        "skip the stage gate without equivalent evidence"
+      ]
+    },
+    {
+      "id": "EV-S19",
+      "scenario": "A high-risk data-affecting release is deployed globally with no rollout/recovery evidence.",
+      "module": "delivery-production",
+      "stage_ids": [
+        19
+      ],
+      "tags": [
+        "stage-19",
+        "lifecycle-integration"
+      ],
+      "expected": "Use risk-proportionate rollout, preflight, smoke/health and compatible recovery plan.",
+      "forbidden": [
+        "invent missing facts",
+        "claim later lifecycle state without evidence",
+        "skip the stage gate without equivalent evidence"
+      ]
+    },
+    {
+      "id": "EV-S20",
+      "scenario": "Dashboards show many metrics but cannot answer whether users are impacted or what operator should do.",
+      "module": "security-reliability",
+      "stage_ids": [
+        20
+      ],
+      "tags": [
+        "stage-20",
+        "lifecycle-integration"
+      ],
+      "expected": "Define SLI/SLO and actionable observability questions/alerts with owners.",
+      "forbidden": [
+        "invent missing facts",
+        "claim later lifecycle state without evidence",
+        "skip the stage gate without equivalent evidence"
+      ]
+    },
+    {
+      "id": "EV-S21",
+      "scenario": "Backups exist but there is no measured restore or incident runbook.",
+      "module": "security-reliability",
+      "stage_ids": [
+        21
+      ],
+      "tags": [
+        "stage-21",
+        "lifecycle-integration"
+      ],
+      "expected": "Treat DR as unverified until restore drill/RPO/RTO and incident recovery evidence exist.",
+      "forbidden": [
+        "invent missing facts",
+        "claim later lifecycle state without evidence",
+        "skip the stage gate without equivalent evidence"
+      ]
+    },
+    {
+      "id": "EV-S22",
+      "scenario": "Analytics taxonomy starts from every click instead of intended outcomes.",
+      "module": "product-intelligence",
+      "stage_ids": [
+        22
+      ],
+      "tags": [
+        "stage-22",
+        "lifecycle-integration"
+      ],
+      "expected": "Build outcome→behavior→signal→metric→event mapping and instrument only decision-useful data.",
+      "forbidden": [
+        "invent missing facts",
+        "claim later lifecycle state without evidence",
+        "skip the stage gate without equivalent evidence"
+      ]
+    },
+    {
+      "id": "EV-S23",
+      "scenario": "An A/B test is proposed for a tiny population and no causal decision.",
+      "module": "product-intelligence",
+      "stage_ids": [
+        23
+      ],
+      "tags": [
+        "stage-23",
+        "lifecycle-integration"
+      ],
+      "expected": "Choose the cheapest valid evidence method; reserve controlled experiments for suitable causal questions/data.",
+      "forbidden": [
+        "invent missing facts",
+        "claim later lifecycle state without evidence",
+        "skip the stage gate without equivalent evidence"
+      ]
+    },
+    {
+      "id": "EV-S24",
+      "scenario": "Production usage changes but no process feeds evidence back into product decisions.",
+      "module": "product-intelligence",
+      "stage_ids": [
+        24
+      ],
+      "tags": [
+        "stage-24",
+        "lifecycle-integration"
+      ],
+      "expected": "Run the feedback loop: ingest, cluster, update opportunity, test, measure, record learning.",
+      "forbidden": [
+        "invent missing facts",
+        "claim later lifecycle state without evidence",
+        "skip the stage gate without equivalent evidence"
+      ]
+    },
+    {
+      "id": "EV-S25",
+      "scenario": "A new guideline silently overwrites an older accepted decision.",
+      "module": "knowledge-governance",
+      "stage_ids": [
+        25
+      ],
+      "tags": [
+        "stage-25",
+        "lifecycle-integration"
+      ],
+      "expected": "Preserve provenance; create explicit supersession and inspect downstream decisions/evals.",
+      "forbidden": [
+        "invent missing facts",
+        "claim later lifecycle state without evidence",
+        "skip the stage gate without equivalent evidence"
+      ]
+    }
+  ]
+}

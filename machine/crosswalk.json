@@ -1,0 +1,70 @@
+{
+  "version": "1.0.0",
+  "external_canonical_assets": [
+    {
+      "id": "UI-BRAIN-V3",
+      "stages": [
+        7,
+        8,
+        9,
+        10,
+        11
+      ],
+      "decision_types": [
+        "UDR"
+      ],
+      "global_module": "experience",
+      "policy": "canonical-specialist",
+      "required": false,
+      "availability": "not-bundled"
+    },
+    {
+      "id": "DDD-BRAIN",
+      "stages": [
+        3,
+        5
+      ],
+      "decision_types": [
+        "PDR",
+        "ADR",
+        "DDR"
+      ],
+      "global_module": "domain",
+      "policy": "canonical-specialist",
+      "required": false,
+      "availability": "not-bundled"
+    },
+    {
+      "id": "REFACTORING-UI-KB",
+      "stages": [
+        10,
+        11
+      ],
+      "global_module": "experience",
+      "policy": "craft-input",
+      "required": false,
+      "availability": "not-bundled"
+    },
+    {
+      "id": "CALM-UX-PROFILE",
+      "stages": [
+        7,
+        8,
+        10
+      ],
+      "global_module": "experience",
+      "policy": "project-profile-example",
+      "required": false,
+      "availability": "not-bundled"
+    }
+  ],
+  "identity_policy": "Preserve original local IDs; global records reference them instead of silently renumbering or copying claims.",
+  "precedence": [
+    "safety/legal/data-integrity",
+    "accessibility/security hard constraints",
+    "direct scoped evidence",
+    "accepted project decisions",
+    "specialist brain defaults",
+    "implementation convenience"
+  ]
+}

@@ -1,0 +1,10 @@
+{
+  "requirement_id": "REQ-001",
+  "evidence": ["EVD-..."],
+  "outcomes": ["OUT-..."],
+  "scenarios": ["SCN-..."],
+  "acceptance_criteria": ["AC-..."],
+  "decisions": ["PDR-...", "ADR-...", "UDR-..."],
+  "tests": ["TEST-..."],
+  "production_signals": ["METRIC-...", "EVENT-..."]
+}

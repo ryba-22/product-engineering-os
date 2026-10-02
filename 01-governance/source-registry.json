@@ -1,0 +1,744 @@
+{
+  "version": "1.0.0",
+  "authority_tiers": {
+    "A": "normative/standard",
+    "B": "first-party/formal method",
+    "C": "research evidence",
+    "D": "expert/practitioner method",
+    "E": "implementation/tooling"
+  },
+  "sources": [
+    {
+      "id": "GOVUK-USER-NEEDS",
+      "tier": "B",
+      "name": "GOV.UK Service Manual — Learning about users and their needs",
+      "url": "https://www.gov.uk/service-manual/user-research/start-by-learning-user-needs",
+      "domains": [
+        "product",
+        "research",
+        "ux"
+      ],
+      "strength": "strong",
+      "verified_at": "2026-10-02",
+      "cutoff_target": "2026-09-30"
+    },
+    {
+      "id": "GOVUK-DISCOVERY",
+      "tier": "B",
+      "name": "GOV.UK Service Manual — How the discovery phase works",
+      "url": "https://www.gov.uk/service-manual/agile-delivery/how-the-discovery-phase-works",
+      "domains": [
+        "product",
+        "research"
+      ],
+      "strength": "strong",
+      "verified_at": "2026-10-02",
+      "cutoff_target": "2026-09-30"
+    },
+    {
+      "id": "GOVUK-SUCCESS",
+      "tier": "B",
+      "name": "GOV.UK Service Standard — Define what success looks like",
+      "url": "https://www.gov.uk/service-manual/service-standard/point-10-define-success-publish-performance-data",
+      "domains": [
+        "product",
+        "analytics"
+      ],
+      "strength": "strong",
+      "verified_at": "2026-10-02",
+      "cutoff_target": "2026-09-30"
+    },
+    {
+      "id": "SVPG-FOUR-RISKS",
+      "tier": "D",
+      "name": "SVPG — Four Big Risks / Discovery Judgement",
+      "url": "https://www.svpg.com/four-big-risks/",
+      "domains": [
+        "product",
+        "research"
+      ],
+      "strength": "supporting",
+      "verified_at": "2026-10-02",
+      "cutoff_target": "2026-09-30"
+    },
+    {
+      "id": "PRODUCTTALK-OST",
+      "tier": "D",
+      "name": "Product Talk — Opportunity Solution Trees",
+      "url": "https://www.producttalk.org/opportunity-solution-trees/",
+      "domains": [
+        "product",
+        "research",
+        "experimentation"
+      ],
+      "strength": "supporting",
+      "verified_at": "2026-10-02",
+      "cutoff_target": "2026-09-30"
+    },
+    {
+      "id": "SEI-QAW",
+      "tier": "B",
+      "name": "SEI — Quality Attribute Workshop",
+      "url": "https://www.sei.cmu.edu/library/the-sei-quality-attribute-workshop/",
+      "domains": [
+        "architecture",
+        "requirements"
+      ],
+      "strength": "strong",
+      "verified_at": "2026-10-02",
+      "cutoff_target": "2026-09-30"
+    },
+    {
+      "id": "ARC42",
+      "tier": "B",
+      "name": "arc42 architecture documentation",
+      "url": "https://arc42.org/documentation/",
+      "domains": [
+        "architecture"
+      ],
+      "strength": "strong",
+      "verified_at": "2026-10-02",
+      "cutoff_target": "2026-09-30"
+    },
+    {
+      "id": "C4",
+      "tier": "B",
+      "name": "C4 model",
+      "url": "https://c4model.com/",
+      "domains": [
+        "architecture"
+      ],
+      "strength": "strong",
+      "verified_at": "2026-10-02",
+      "cutoff_target": "2026-09-30"
+    },
+    {
+      "id": "NIST-SSDF",
+      "tier": "A",
+      "name": "NIST SP 800-218 Secure Software Development Framework",
+      "url": "https://csrc.nist.gov/pubs/sp/800/218/final",
+      "domains": [
+        "security",
+        "delivery"
+      ],
+      "strength": "strong",
+      "verified_at": "2026-10-02",
+      "cutoff_target": "2026-09-30"
+    },
+    {
+      "id": "OWASP-SAMM",
+      "tier": "B",
+      "name": "OWASP SAMM",
+      "url": "https://owaspsamm.org/model/",
+      "domains": [
+        "security",
+        "delivery",
+        "governance"
+      ],
+      "strength": "strong",
+      "verified_at": "2026-10-02",
+      "cutoff_target": "2026-09-30"
+    },
+    {
+      "id": "OWASP-ASVS",
+      "tier": "A",
+      "name": "OWASP Application Security Verification Standard",
+      "url": "https://owasp.org/www-project-application-security-verification-standard/",
+      "domains": [
+        "security",
+        "quality"
+      ],
+      "strength": "strong",
+      "verified_at": "2026-10-02",
+      "cutoff_target": "2026-09-30"
+    },
+    {
+      "id": "W3C-WCAG22",
+      "tier": "A",
+      "name": "W3C WCAG 2.2",
+      "url": "https://www.w3.org/TR/WCAG22/",
+      "domains": [
+        "ux",
+        "accessibility",
+        "quality"
+      ],
+      "strength": "hard-constraint",
+      "verified_at": "2026-10-02",
+      "cutoff_target": "2026-09-30"
+    },
+    {
+      "id": "W3C-APG",
+      "tier": "A",
+      "name": "WAI-ARIA Authoring Practices Guide",
+      "url": "https://www.w3.org/WAI/ARIA/apg/",
+      "domains": [
+        "ux",
+        "accessibility"
+      ],
+      "strength": "hard-constraint",
+      "verified_at": "2026-10-02",
+      "cutoff_target": "2026-09-30"
+    },
+    {
+      "id": "WHATWG-HTML",
+      "tier": "A",
+      "name": "WHATWG HTML Living Standard",
+      "url": "https://html.spec.whatwg.org/",
+      "domains": [
+        "ux",
+        "frontend",
+        "accessibility"
+      ],
+      "strength": "hard-constraint",
+      "verified_at": "2026-10-02",
+      "cutoff_target": "2026-09-30"
+    },
+    {
+      "id": "DTCG",
+      "tier": "A",
+      "name": "Design Tokens Community Group specification",
+      "url": "https://www.designtokens.org/tr/drafts/format/",
+      "domains": [
+        "ux",
+        "design-system",
+        "frontend"
+      ],
+      "strength": "strong",
+      "verified_at": "2026-10-02",
+      "cutoff_target": "2026-09-30"
+    },
+    {
+      "id": "GOVUK-DS",
+      "tier": "B",
+      "name": "GOV.UK Design System",
+      "url": "https://design-system.service.gov.uk/",
+      "domains": [
+        "ux",
+        "design-system",
+        "accessibility"
+      ],
+      "strength": "strong",
+      "verified_at": "2026-10-02",
+      "cutoff_target": "2026-09-30"
+    },
+    {
+      "id": "USWDS",
+      "tier": "B",
+      "name": "U.S. Web Design System",
+      "url": "https://designsystem.digital.gov/",
+      "domains": [
+        "ux",
+        "design-system",
+        "accessibility"
+      ],
+      "strength": "strong",
+      "verified_at": "2026-10-02",
+      "cutoff_target": "2026-09-30"
+    },
+    {
+      "id": "OPENAPI-31",
+      "tier": "A",
+      "name": "OpenAPI Specification 3.1",
+      "url": "https://spec.openapis.org/oas/v3.1",
+      "domains": [
+        "api",
+        "backend",
+        "architecture"
+      ],
+      "strength": "strong",
+      "verified_at": "2026-10-02",
+      "cutoff_target": "2026-09-30"
+    },
+    {
+      "id": "RFC9457",
+      "tier": "A",
+      "name": "RFC 9457 Problem Details for HTTP APIs",
+      "url": "https://www.rfc-editor.org/rfc/rfc9457.html",
+      "domains": [
+        "api",
+        "backend"
+      ],
+      "strength": "strong",
+      "verified_at": "2026-10-02",
+      "cutoff_target": "2026-09-30"
+    },
+    {
+      "id": "JSON-SCHEMA",
+      "tier": "A",
+      "name": "JSON Schema specification",
+      "url": "https://json-schema.org/specification",
+      "domains": [
+        "api",
+        "data",
+        "quality"
+      ],
+      "strength": "strong",
+      "verified_at": "2026-10-02",
+      "cutoff_target": "2026-09-30"
+    },
+    {
+      "id": "POSTGRES",
+      "tier": "A",
+      "name": "PostgreSQL documentation",
+      "url": "https://www.postgresql.org/docs/current/",
+      "domains": [
+        "data",
+        "backend",
+        "performance",
+        "reliability"
+      ],
+      "strength": "strong",
+      "verified_at": "2026-10-02",
+      "cutoff_target": "2026-09-30"
+    },
+    {
+      "id": "MYSQL",
+      "tier": "A",
+      "name": "MySQL Reference Manual",
+      "url": "https://dev.mysql.com/doc/",
+      "domains": [
+        "data",
+        "backend",
+        "performance",
+        "reliability"
+      ],
+      "strength": "strong",
+      "verified_at": "2026-10-02",
+      "cutoff_target": "2026-09-30"
+    },
+    {
+      "id": "GOOGLE-SRE-SLO",
+      "tier": "B",
+      "name": "Google SRE Workbook — Implementing SLOs",
+      "url": "https://sre.google/workbook/implementing-slos/",
+      "domains": [
+        "reliability",
+        "observability",
+        "operations"
+      ],
+      "strength": "strong",
+      "verified_at": "2026-10-02",
+      "cutoff_target": "2026-09-30"
+    },
+    {
+      "id": "DORA",
+      "tier": "C",
+      "name": "DORA software delivery performance metrics",
+      "url": "https://dora.dev/guides/dora-metrics/",
+      "domains": [
+        "delivery",
+        "analytics",
+        "quality"
+      ],
+      "strength": "strong",
+      "verified_at": "2026-10-02",
+      "cutoff_target": "2026-09-30"
+    },
+    {
+      "id": "OPENTELEMETRY",
+      "tier": "A",
+      "name": "OpenTelemetry specification and docs",
+      "url": "https://opentelemetry.io/docs/",
+      "domains": [
+        "observability",
+        "reliability"
+      ],
+      "strength": "strong",
+      "verified_at": "2026-10-02",
+      "cutoff_target": "2026-09-30"
+    },
+    {
+      "id": "OPENFEATURE",
+      "tier": "A",
+      "name": "OpenFeature specification",
+      "url": "https://openfeature.dev/specification/",
+      "domains": [
+        "experimentation",
+        "delivery",
+        "backend",
+        "frontend"
+      ],
+      "strength": "strong",
+      "verified_at": "2026-10-02",
+      "cutoff_target": "2026-09-30"
+    },
+    {
+      "id": "PLAYWRIGHT",
+      "tier": "E",
+      "name": "Playwright documentation",
+      "url": "https://playwright.dev/docs/intro",
+      "domains": [
+        "quality",
+        "ux",
+        "frontend"
+      ],
+      "strength": "implementation",
+      "verified_at": "2026-10-02",
+      "cutoff_target": "2026-09-30"
+    },
+    {
+      "id": "AXE",
+      "tier": "E",
+      "name": "axe-core",
+      "url": "https://github.com/dequelabs/axe-core",
+      "domains": [
+        "quality",
+        "accessibility"
+      ],
+      "strength": "implementation",
+      "verified_at": "2026-10-02",
+      "cutoff_target": "2026-09-30"
+    },
+    {
+      "id": "STORYBOOK-A11Y",
+      "tier": "E",
+      "name": "Storybook accessibility testing",
+      "url": "https://storybook.js.org/docs/writing-tests/accessibility-testing",
+      "domains": [
+        "quality",
+        "ux",
+        "accessibility"
+      ],
+      "strength": "implementation",
+      "verified_at": "2026-10-02",
+      "cutoff_target": "2026-09-30"
+    },
+    {
+      "id": "ADR",
+      "tier": "B",
+      "name": "Architecture Decision Records",
+      "url": "https://adr.github.io/",
+      "domains": [
+        "architecture",
+        "governance"
+      ],
+      "strength": "strong",
+      "verified_at": "2026-10-02",
+      "cutoff_target": "2026-09-30"
+    },
+    {
+      "id": "UI-BRAIN-V3",
+      "tier": "B",
+      "name": "Optional external UI Architect Brain v3",
+      "url": "integration:ui-architect",
+      "domains": [
+        "ux",
+        "design-system",
+        "quality",
+        "governance"
+      ],
+      "strength": "optional-integration",
+      "verified_at": null,
+      "cutoff_target": "2026-09-30",
+      "availability": "optional-not-bundled",
+      "verification_note": "Register and verify the actual supplied asset before relying on its claims."
+    },
+    {
+      "id": "DDD-BRAIN",
+      "tier": "B",
+      "name": "Optional external Domain-Driven Design Architect / Event Storming",
+      "url": "integration:domain-architect",
+      "domains": [
+        "domain",
+        "architecture",
+        "requirements"
+      ],
+      "strength": "optional-integration",
+      "verified_at": null,
+      "cutoff_target": "2026-09-30",
+      "availability": "optional-not-bundled",
+      "verification_note": "Register and verify the actual supplied asset before relying on its claims."
+    },
+    {
+      "id": "ISO-25010",
+      "tier": "A",
+      "name": "ISO/IEC 25010:2023 product quality model",
+      "url": "https://committee.iso.org/standard/78176.html",
+      "domains": [
+        "architecture",
+        "requirements",
+        "quality"
+      ],
+      "strength": "strong",
+      "verified_at": "2026-10-02",
+      "cutoff_target": "2026-09-30"
+    },
+    {
+      "id": "RFC9110",
+      "tier": "A",
+      "name": "RFC 9110 HTTP Semantics",
+      "url": "https://www.rfc-editor.org/rfc/rfc9110.html",
+      "domains": [
+        "api",
+        "backend",
+        "architecture"
+      ],
+      "strength": "strong",
+      "verified_at": "2026-10-02",
+      "cutoff_target": "2026-09-30"
+    },
+    {
+      "id": "AWS-OUTBOX",
+      "tier": "B",
+      "name": "AWS Prescriptive Guidance — Transactional Outbox",
+      "url": "https://docs.aws.amazon.com/prescriptive-guidance/latest/cloud-design-patterns/transactional-outbox.html",
+      "domains": [
+        "backend",
+        "data",
+        "architecture",
+        "reliability"
+      ],
+      "strength": "strong",
+      "verified_at": "2026-10-02",
+      "cutoff_target": "2026-09-30"
+    },
+    {
+      "id": "REACT-STATE",
+      "tier": "B",
+      "name": "React — Managing State / Choosing State Structure",
+      "url": "https://react.dev/learn/managing-state",
+      "domains": [
+        "frontend",
+        "architecture"
+      ],
+      "strength": "strong",
+      "verified_at": "2026-10-02",
+      "cutoff_target": "2026-09-30"
+    },
+    {
+      "id": "REACT-EFFECTS",
+      "tier": "B",
+      "name": "React — Escape Hatches / Effects",
+      "url": "https://react.dev/learn/escape-hatches",
+      "domains": [
+        "frontend",
+        "architecture"
+      ],
+      "strength": "strong",
+      "verified_at": "2026-10-02",
+      "cutoff_target": "2026-09-30"
+    },
+    {
+      "id": "WEBDEV-CWV",
+      "tier": "B",
+      "name": "web.dev — Core Web Vitals",
+      "url": "https://web.dev/articles/vitals",
+      "domains": [
+        "frontend",
+        "performance",
+        "quality"
+      ],
+      "strength": "strong",
+      "verified_at": "2026-10-02",
+      "cutoff_target": "2026-09-30"
+    },
+    {
+      "id": "OWASP-THREAT",
+      "tier": "B",
+      "name": "OWASP Threat Modeling Cheat Sheet",
+      "url": "https://cheatsheetseries.owasp.org/cheatsheets/Threat_Modeling_Cheat_Sheet.html",
+      "domains": [
+        "security",
+        "architecture"
+      ],
+      "strength": "strong",
+      "verified_at": "2026-10-02",
+      "cutoff_target": "2026-09-30"
+    },
+    {
+      "id": "SLSA",
+      "tier": "A",
+      "name": "SLSA specification / provenance",
+      "url": "https://slsa.dev/spec/v1.2/provenance",
+      "domains": [
+        "security",
+        "delivery",
+        "supply-chain"
+      ],
+      "strength": "strong",
+      "verified_at": "2026-10-02",
+      "cutoff_target": "2026-09-30"
+    },
+    {
+      "id": "OPENSSF-SCORECARD",
+      "tier": "B",
+      "name": "OpenSSF Scorecard",
+      "url": "https://openssf.org/scorecard/",
+      "domains": [
+        "security",
+        "supply-chain"
+      ],
+      "strength": "supporting",
+      "verified_at": "2026-10-02",
+      "cutoff_target": "2026-09-30"
+    },
+    {
+      "id": "K6",
+      "tier": "E",
+      "name": "Grafana k6 performance testing guidance",
+      "url": "https://grafana.com/docs/k6/latest/testing-guides/",
+      "domains": [
+        "quality",
+        "performance"
+      ],
+      "strength": "implementation",
+      "verified_at": "2026-10-02",
+      "cutoff_target": "2026-09-30"
+    },
+    {
+      "id": "WEBDEV-BUDGET",
+      "tier": "B",
+      "name": "web.dev Performance Budgets",
+      "url": "https://web.dev/articles/performance-budgets-101",
+      "domains": [
+        "performance",
+        "frontend",
+        "quality"
+      ],
+      "strength": "strong",
+      "verified_at": "2026-10-02",
+      "cutoff_target": "2026-09-30"
+    },
+    {
+      "id": "SRE-CANARY",
+      "tier": "B",
+      "name": "Google SRE Workbook — Canarying Releases",
+      "url": "https://sre.google/workbook/canarying-releases/",
+      "domains": [
+        "delivery",
+        "reliability",
+        "operations"
+      ],
+      "strength": "strong",
+      "verified_at": "2026-10-02",
+      "cutoff_target": "2026-09-30"
+    },
+    {
+      "id": "SRE-POSTMORTEM",
+      "tier": "B",
+      "name": "Google SRE Workbook — Postmortem Culture",
+      "url": "https://sre.google/workbook/postmortem-culture/",
+      "domains": [
+        "reliability",
+        "operations",
+        "governance"
+      ],
+      "strength": "strong",
+      "verified_at": "2026-10-02",
+      "cutoff_target": "2026-09-30"
+    },
+    {
+      "id": "OTEL-SIGNALS",
+      "tier": "A",
+      "name": "OpenTelemetry — Signals",
+      "url": "https://opentelemetry.io/docs/concepts/signals/",
+      "domains": [
+        "observability",
+        "reliability"
+      ],
+      "strength": "strong",
+      "verified_at": "2026-10-02",
+      "cutoff_target": "2026-09-30"
+    },
+    {
+      "id": "GOOGLE-HEART",
+      "tier": "C",
+      "name": "Google Research — HEART framework / Goals-Signals-Metrics",
+      "url": "https://research.google/pubs/measuring-the-user-experience-on-a-large-scale-user-centered-metrics-for-web-applications/",
+      "domains": [
+        "analytics",
+        "product",
+        "ux"
+      ],
+      "strength": "strong",
+      "verified_at": "2026-10-02",
+      "cutoff_target": "2026-09-30"
+    },
+    {
+      "id": "OCE-GUIDE",
+      "tier": "C",
+      "name": "Controlled experiments on the web — survey and practical guide",
+      "url": "https://link.springer.com/article/10.1007/s10618-008-0114-1",
+      "domains": [
+        "experimentation",
+        "analytics",
+        "product"
+      ],
+      "strength": "strong",
+      "verified_at": "2026-10-02",
+      "cutoff_target": "2026-09-30"
+    },
+    {
+      "id": "MS-SRM",
+      "tier": "C",
+      "name": "Microsoft Research — Sample Ratio Mismatch diagnosis",
+      "url": "https://www.microsoft.com/en-us/research/publication/diagnosing-sample-ratio-mismatch-in-online-controlled-experiments-a-taxonomy-and-rules-of-thumb-for-practitioners/",
+      "domains": [
+        "experimentation",
+        "analytics",
+        "quality"
+      ],
+      "strength": "strong",
+      "verified_at": "2026-10-02",
+      "cutoff_target": "2026-09-30"
+    },
+    {
+      "id": "GOVUK-MEASURE",
+      "tier": "B",
+      "name": "GOV.UK Service Manual — How to set performance metrics",
+      "url": "https://www.gov.uk/service-manual/measuring-success/how-to-set-performance-metrics-for-your-service",
+      "domains": [
+        "analytics",
+        "product",
+        "research"
+      ],
+      "strength": "strong",
+      "verified_at": "2026-10-02",
+      "cutoff_target": "2026-09-30"
+    },
+    {
+      "id": "AMPLITUDE-NORTHSTAR",
+      "tier": "D",
+      "name": "Amplitude — North Star Framework",
+      "url": "https://www.amplitude.com/books/north-star/about-north-star-framework",
+      "domains": [
+        "analytics",
+        "product"
+      ],
+      "strength": "supporting",
+      "verified_at": "2026-10-02",
+      "cutoff_target": "2026-09-30"
+    },
+    {
+      "id": "REFACTORING-UI-KB",
+      "tier": "B",
+      "name": "Optional external Refactoring UI operational knowledge base",
+      "url": "integration:ui-craft",
+      "domains": [
+        "ux",
+        "design-system",
+        "frontend"
+      ],
+      "strength": "optional-integration",
+      "verified_at": null,
+      "cutoff_target": "2026-09-30",
+      "availability": "optional-not-bundled",
+      "verification_note": "Register and verify the actual supplied asset before relying on its claims."
+    },
+    {
+      "id": "CALM-UX-PROFILE",
+      "tier": "B",
+      "name": "Optional external Calm Enterprise UX direction",
+      "url": "integration:calm-ux-profile",
+      "domains": [
+        "ux",
+        "product"
+      ],
+      "strength": "optional-integration",
+      "verified_at": null,
+      "cutoff_target": "2026-09-30",
+      "availability": "optional-not-bundled",
+      "verification_note": "Register and verify the actual supplied asset before relying on its claims."
+    }
+  ]
+}

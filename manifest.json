@@ -1,0 +1,247 @@
+{
+  "name": "product-engineering-os",
+  "version": "1.0.0",
+  "status": "integrated",
+  "corpus_cutoff_target": "2026-09-30",
+  "verified_at": "2026-10-02",
+  "purpose": "Evidence-driven system that routes product and software development from raw idea to measured production outcome.",
+  "lifecycle_stages": [
+    {
+      "id": 1,
+      "name": "Problem / idea / business goal"
+    },
+    {
+      "id": 2,
+      "name": "User / Product Discovery"
+    },
+    {
+      "id": 3,
+      "name": "Domain Discovery"
+    },
+    {
+      "id": 4,
+      "name": "Requirements / specification"
+    },
+    {
+      "id": 5,
+      "name": "Domain Architecture"
+    },
+    {
+      "id": 6,
+      "name": "System Architecture"
+    },
+    {
+      "id": 7,
+      "name": "UX Architecture"
+    },
+    {
+      "id": 8,
+      "name": "Interaction design"
+    },
+    {
+      "id": 9,
+      "name": "Accessibility"
+    },
+    {
+      "id": 10,
+      "name": "Visual UI"
+    },
+    {
+      "id": 11,
+      "name": "Design System"
+    },
+    {
+      "id": 12,
+      "name": "Frontend implementation"
+    },
+    {
+      "id": 13,
+      "name": "Backend / API"
+    },
+    {
+      "id": 14,
+      "name": "Database / persistence"
+    },
+    {
+      "id": 15,
+      "name": "Testing"
+    },
+    {
+      "id": 16,
+      "name": "Security"
+    },
+    {
+      "id": 17,
+      "name": "Performance"
+    },
+    {
+      "id": 18,
+      "name": "CI/CD"
+    },
+    {
+      "id": 19,
+      "name": "Deployment / rollout"
+    },
+    {
+      "id": 20,
+      "name": "Observability"
+    },
+    {
+      "id": 21,
+      "name": "Backup / DR / incidents"
+    },
+    {
+      "id": 22,
+      "name": "Product analytics"
+    },
+    {
+      "id": 23,
+      "name": "Experimentation"
+    },
+    {
+      "id": 24,
+      "name": "Feedback → next iteration"
+    },
+    {
+      "id": 25,
+      "name": "Knowledge governance"
+    }
+  ],
+  "modules": [
+    {
+      "id": "product-strategy",
+      "stages": [
+        1
+      ],
+      "mission": "Turn raw ideas and business goals into explicit outcomes, constraints, non-goals and strategic hypotheses."
+    },
+    {
+      "id": "product-discovery",
+      "stages": [
+        2
+      ],
+      "mission": "Reduce product risk through user evidence, problem validation, research synthesis and opportunity framing."
+    },
+    {
+      "id": "domain",
+      "stages": [
+        3,
+        5
+      ],
+      "mission": "Discover domain language, events, rules, boundaries and tactical models from traceable evidence."
+    },
+    {
+      "id": "requirements",
+      "stages": [
+        4
+      ],
+      "mission": "Translate validated outcomes and domain evidence into traceable requirements, scenarios, NFRs and acceptance criteria."
+    },
+    {
+      "id": "system-architecture",
+      "stages": [
+        6
+      ],
+      "mission": "Choose system structure from quality attributes, forces, failure modes and constraints rather than fashion."
+    },
+    {
+      "id": "experience",
+      "stages": [
+        7,
+        8,
+        9,
+        10,
+        11
+      ],
+      "mission": "Own UX architecture, interaction, accessibility, visual UI and design-system governance."
+    },
+    {
+      "id": "software-engineering",
+      "stages": [
+        12,
+        13,
+        14
+      ],
+      "mission": "Turn architecture and interaction contracts into maintainable frontend, backend/API and persistence implementations."
+    },
+    {
+      "id": "quality-engineering",
+      "stages": [
+        15,
+        17
+      ],
+      "mission": "Design risk-based verification and performance evidence at the lowest trustworthy layer."
+    },
+    {
+      "id": "security-reliability",
+      "stages": [
+        16,
+        20,
+        21
+      ],
+      "mission": "Integrate secure SDLC, threat modeling, reliability, observability, DR and incident readiness."
+    },
+    {
+      "id": "delivery-production",
+      "stages": [
+        18,
+        19
+      ],
+      "mission": "Create reproducible delivery, release evidence, safe rollout and rollback/forward-fix operations."
+    },
+    {
+      "id": "product-intelligence",
+      "stages": [
+        22,
+        23,
+        24
+      ],
+      "mission": "Measure outcomes, run appropriate experiments and turn production feedback into the next evidence-backed iteration."
+    },
+    {
+      "id": "knowledge-governance",
+      "stages": [
+        25
+      ],
+      "mission": "Keep sources, evidence, decisions, patterns and evals fresh, attributable, conflict-aware and supersedable."
+    }
+  ],
+  "operating_profile": {
+    "complements_user_top5": [
+      "Activator",
+      "Focus",
+      "Discipline",
+      "Responsibility",
+      "Arranger"
+    ],
+    "situational_modes": [
+      "Command",
+      "Restorative",
+      "Consistency"
+    ]
+  },
+  "decision_record_types": [
+    "PDR",
+    "ADR",
+    "UDR",
+    "SDR",
+    "DDR",
+    "ODR",
+    "TDR"
+  ],
+  "quality_gates": [
+    "G0",
+    "G1",
+    "G2",
+    "G3",
+    "G4",
+    "G5",
+    "G6",
+    "G7",
+    "G8",
+    "G9",
+    "G10",
+    "G11"
+  ],
+  "maturity_model": "very-strong-v1"
+}

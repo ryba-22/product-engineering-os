@@ -1,0 +1,711 @@
+{
+  "version": "1.0.0",
+  "rubric": "very-strong requires scoped corpus, >=2 evidence anchors, decision system, workflow, canonical artifacts, gate, adversarial eval and integration path",
+  "stages": [
+    {
+      "id": 1,
+      "name": "Problem / idea / business goal",
+      "module": "product-strategy",
+      "status": "very-strong",
+      "evidence_ids": [
+        "EVD-PROD-002",
+        "EVD-PROD-003"
+      ],
+      "eval_ids": [
+        "EV-S01"
+      ],
+      "gate": "G0",
+      "decision_system": "06-modules/product-strategy/PLAYBOOK.md",
+      "artifact_refs": [
+        "07-templates/PRODUCT-BRIEF.md"
+      ],
+      "criteria": {
+        "corpus": true,
+        "evidence": true,
+        "decision_system": true,
+        "workflow": true,
+        "artifacts": true,
+        "gate": true,
+        "eval": true,
+        "integration": true
+      }
+    },
+    {
+      "id": 2,
+      "name": "User / Product Discovery",
+      "module": "product-discovery",
+      "status": "very-strong",
+      "evidence_ids": [
+        "EVD-PROD-001",
+        "EVD-PROD-004"
+      ],
+      "eval_ids": [
+        "EV-S02"
+      ],
+      "gate": "G1",
+      "decision_system": "06-modules/product-discovery/PLAYBOOK.md",
+      "artifact_refs": [
+        "07-templates/RESEARCH-PLAN.md"
+      ],
+      "criteria": {
+        "corpus": true,
+        "evidence": true,
+        "decision_system": true,
+        "workflow": true,
+        "artifacts": true,
+        "gate": true,
+        "eval": true,
+        "integration": true
+      }
+    },
+    {
+      "id": 3,
+      "name": "Domain Discovery",
+      "module": "domain",
+      "status": "very-strong",
+      "evidence_ids": [
+        "EVD-DOM-001",
+        "EVD-DOM-002"
+      ],
+      "eval_ids": [
+        "EV-S03"
+      ],
+      "gate": "G2",
+      "decision_system": "08-adapters/ddd-brain-crosswalk.md",
+      "artifact_refs": [
+        "08-adapters/ddd-brain-crosswalk.md"
+      ],
+      "criteria": {
+        "corpus": true,
+        "evidence": true,
+        "decision_system": true,
+        "workflow": true,
+        "artifacts": true,
+        "gate": true,
+        "eval": true,
+        "integration": true
+      }
+    },
+    {
+      "id": 4,
+      "name": "Requirements / specification",
+      "module": "requirements",
+      "status": "very-strong",
+      "evidence_ids": [
+        "EVD-REQ-001",
+        "EVD-ARCH-001"
+      ],
+      "eval_ids": [
+        "EV-S04"
+      ],
+      "gate": "G3",
+      "decision_system": "06-modules/requirements/PLAYBOOK.md",
+      "artifact_refs": [
+        "07-templates/PRD.md",
+        "07-templates/TRACEABILITY.json"
+      ],
+      "criteria": {
+        "corpus": true,
+        "evidence": true,
+        "decision_system": true,
+        "workflow": true,
+        "artifacts": true,
+        "gate": true,
+        "eval": true,
+        "integration": true
+      }
+    },
+    {
+      "id": 5,
+      "name": "Domain Architecture",
+      "module": "domain",
+      "status": "very-strong",
+      "evidence_ids": [
+        "EVD-DOM-002",
+        "EVD-DOM-003"
+      ],
+      "eval_ids": [
+        "EV-S05"
+      ],
+      "gate": "G2",
+      "decision_system": "08-adapters/ddd-brain-crosswalk.md",
+      "artifact_refs": [
+        "08-adapters/ddd-brain-crosswalk.md"
+      ],
+      "criteria": {
+        "corpus": true,
+        "evidence": true,
+        "decision_system": true,
+        "workflow": true,
+        "artifacts": true,
+        "gate": true,
+        "eval": true,
+        "integration": true
+      }
+    },
+    {
+      "id": 6,
+      "name": "System Architecture",
+      "module": "system-architecture",
+      "status": "very-strong",
+      "evidence_ids": [
+        "EVD-ARCH-004",
+        "EVD-ARCH-005"
+      ],
+      "eval_ids": [
+        "EV-S06"
+      ],
+      "gate": "G4",
+      "decision_system": "06-modules/system-architecture/DECISION-PROTOCOL.md",
+      "artifact_refs": [
+        "07-templates/ARCHITECTURE-DRIVERS.md"
+      ],
+      "criteria": {
+        "corpus": true,
+        "evidence": true,
+        "decision_system": true,
+        "workflow": true,
+        "artifacts": true,
+        "gate": true,
+        "eval": true,
+        "integration": true
+      }
+    },
+    {
+      "id": 7,
+      "name": "UX Architecture",
+      "module": "experience",
+      "status": "very-strong",
+      "evidence_ids": [
+        "EVD-UX-002",
+        "EVD-UX-003"
+      ],
+      "eval_ids": [
+        "EV-S07"
+      ],
+      "gate": "G5",
+      "decision_system": "08-adapters/ui-brain-crosswalk.md",
+      "artifact_refs": [
+        "08-adapters/ui-brain-crosswalk.md"
+      ],
+      "criteria": {
+        "corpus": true,
+        "evidence": true,
+        "decision_system": true,
+        "workflow": true,
+        "artifacts": true,
+        "gate": true,
+        "eval": true,
+        "integration": true
+      }
+    },
+    {
+      "id": 8,
+      "name": "Interaction design",
+      "module": "experience",
+      "status": "very-strong",
+      "evidence_ids": [
+        "EVD-UX-003",
+        "EVD-UX-004"
+      ],
+      "eval_ids": [
+        "EV-S08"
+      ],
+      "gate": "G5",
+      "decision_system": "08-adapters/ui-brain-crosswalk.md",
+      "artifact_refs": [
+        "08-adapters/ui-brain-crosswalk.md"
+      ],
+      "criteria": {
+        "corpus": true,
+        "evidence": true,
+        "decision_system": true,
+        "workflow": true,
+        "artifacts": true,
+        "gate": true,
+        "eval": true,
+        "integration": true
+      }
+    },
+    {
+      "id": 9,
+      "name": "Accessibility",
+      "module": "experience",
+      "status": "very-strong",
+      "evidence_ids": [
+        "EVD-UX-001",
+        "EVD-QA-003"
+      ],
+      "eval_ids": [
+        "EV-S09"
+      ],
+      "gate": "G5",
+      "decision_system": "08-adapters/ui-brain-crosswalk.md",
+      "artifact_refs": [
+        "08-adapters/ui-brain-crosswalk.md",
+        "07-templates/TEST-STRATEGY.md"
+      ],
+      "criteria": {
+        "corpus": true,
+        "evidence": true,
+        "decision_system": true,
+        "workflow": true,
+        "artifacts": true,
+        "gate": true,
+        "eval": true,
+        "integration": true
+      }
+    },
+    {
+      "id": 10,
+      "name": "Visual UI",
+      "module": "experience",
+      "status": "very-strong",
+      "evidence_ids": [
+        "EVD-UI-001",
+        "EVD-UI-002"
+      ],
+      "eval_ids": [
+        "EV-S10"
+      ],
+      "gate": "G5",
+      "decision_system": "08-adapters/ui-brain-crosswalk.md",
+      "artifact_refs": [
+        "08-adapters/ui-brain-crosswalk.md"
+      ],
+      "criteria": {
+        "corpus": true,
+        "evidence": true,
+        "decision_system": true,
+        "workflow": true,
+        "artifacts": true,
+        "gate": true,
+        "eval": true,
+        "integration": true
+      }
+    },
+    {
+      "id": 11,
+      "name": "Design System",
+      "module": "experience",
+      "status": "very-strong",
+      "evidence_ids": [
+        "EVD-UX-005",
+        "EVD-GOV-001"
+      ],
+      "eval_ids": [
+        "EV-S11"
+      ],
+      "gate": "G5",
+      "decision_system": "08-adapters/ui-brain-crosswalk.md",
+      "artifact_refs": [
+        "08-adapters/ui-brain-crosswalk.md"
+      ],
+      "criteria": {
+        "corpus": true,
+        "evidence": true,
+        "decision_system": true,
+        "workflow": true,
+        "artifacts": true,
+        "gate": true,
+        "eval": true,
+        "integration": true
+      }
+    },
+    {
+      "id": 12,
+      "name": "Frontend implementation",
+      "module": "software-engineering",
+      "status": "very-strong",
+      "evidence_ids": [
+        "EVD-FE-001",
+        "EVD-FE-002"
+      ],
+      "eval_ids": [
+        "EV-S12"
+      ],
+      "gate": "G6",
+      "decision_system": "06-modules/software-engineering/FRONTEND-ARCHITECTURE.md",
+      "artifact_refs": [
+        "06-modules/software-engineering/FRONTEND-ARCHITECTURE.md"
+      ],
+      "criteria": {
+        "corpus": true,
+        "evidence": true,
+        "decision_system": true,
+        "workflow": true,
+        "artifacts": true,
+        "gate": true,
+        "eval": true,
+        "integration": true
+      }
+    },
+    {
+      "id": 13,
+      "name": "Backend / API",
+      "module": "software-engineering",
+      "status": "very-strong",
+      "evidence_ids": [
+        "EVD-API-001",
+        "EVD-API-003"
+      ],
+      "eval_ids": [
+        "EV-S13"
+      ],
+      "gate": "G6",
+      "decision_system": "06-modules/software-engineering/BACKEND-API.md",
+      "artifact_refs": [
+        "07-templates/API-CONTRACT.md"
+      ],
+      "criteria": {
+        "corpus": true,
+        "evidence": true,
+        "decision_system": true,
+        "workflow": true,
+        "artifacts": true,
+        "gate": true,
+        "eval": true,
+        "integration": true
+      }
+    },
+    {
+      "id": 14,
+      "name": "Database / persistence",
+      "module": "software-engineering",
+      "status": "very-strong",
+      "evidence_ids": [
+        "EVD-DATA-001",
+        "EVD-DATA-002"
+      ],
+      "eval_ids": [
+        "EV-S14"
+      ],
+      "gate": "G6",
+      "decision_system": "06-modules/software-engineering/DATA-PERSISTENCE.md",
+      "artifact_refs": [
+        "07-templates/DATA-CHANGE-PLAN.md"
+      ],
+      "criteria": {
+        "corpus": true,
+        "evidence": true,
+        "decision_system": true,
+        "workflow": true,
+        "artifacts": true,
+        "gate": true,
+        "eval": true,
+        "integration": true
+      }
+    },
+    {
+      "id": 15,
+      "name": "Testing",
+      "module": "quality-engineering",
+      "status": "very-strong",
+      "evidence_ids": [
+        "EVD-QA-001",
+        "EVD-QA-002"
+      ],
+      "eval_ids": [
+        "EV-S15"
+      ],
+      "gate": "G7",
+      "decision_system": "06-modules/quality-engineering/RISK-BASED-TESTING.md",
+      "artifact_refs": [
+        "07-templates/TEST-STRATEGY.md"
+      ],
+      "criteria": {
+        "corpus": true,
+        "evidence": true,
+        "decision_system": true,
+        "workflow": true,
+        "artifacts": true,
+        "gate": true,
+        "eval": true,
+        "integration": true
+      }
+    },
+    {
+      "id": 16,
+      "name": "Security",
+      "module": "security-reliability",
+      "status": "very-strong",
+      "evidence_ids": [
+        "EVD-SEC-003",
+        "EVD-SEC-004"
+      ],
+      "eval_ids": [
+        "EV-S16"
+      ],
+      "gate": "G8",
+      "decision_system": "06-modules/security-reliability/THREAT-MODELING.md",
+      "artifact_refs": [
+        "07-templates/THREAT-MODEL.md"
+      ],
+      "criteria": {
+        "corpus": true,
+        "evidence": true,
+        "decision_system": true,
+        "workflow": true,
+        "artifacts": true,
+        "gate": true,
+        "eval": true,
+        "integration": true
+      }
+    },
+    {
+      "id": 17,
+      "name": "Performance",
+      "module": "quality-engineering",
+      "status": "very-strong",
+      "evidence_ids": [
+        "EVD-PERF-002",
+        "EVD-PERF-003"
+      ],
+      "eval_ids": [
+        "EV-S17"
+      ],
+      "gate": "G8",
+      "decision_system": "06-modules/quality-engineering/PERFORMANCE-ENGINEERING.md",
+      "artifact_refs": [
+        "07-templates/PERFORMANCE-BUDGET.md"
+      ],
+      "criteria": {
+        "corpus": true,
+        "evidence": true,
+        "decision_system": true,
+        "workflow": true,
+        "artifacts": true,
+        "gate": true,
+        "eval": true,
+        "integration": true
+      }
+    },
+    {
+      "id": 18,
+      "name": "CI/CD",
+      "module": "delivery-production",
+      "status": "very-strong",
+      "evidence_ids": [
+        "EVD-DEL-001",
+        "EVD-DEL-003"
+      ],
+      "eval_ids": [
+        "EV-S18"
+      ],
+      "gate": "G9",
+      "decision_system": "06-modules/delivery-production/CI-CD.md",
+      "artifact_refs": [
+        "06-modules/delivery-production/CI-CD.md"
+      ],
+      "criteria": {
+        "corpus": true,
+        "evidence": true,
+        "decision_system": true,
+        "workflow": true,
+        "artifacts": true,
+        "gate": true,
+        "eval": true,
+        "integration": true
+      }
+    },
+    {
+      "id": 19,
+      "name": "Deployment / rollout",
+      "module": "delivery-production",
+      "status": "very-strong",
+      "evidence_ids": [
+        "EVD-DEL-002",
+        "EVD-OPS-001"
+      ],
+      "eval_ids": [
+        "EV-S19"
+      ],
+      "gate": "G9",
+      "decision_system": "06-modules/delivery-production/RELEASE-ENGINEERING.md",
+      "artifact_refs": [
+        "07-templates/RELEASE-EVIDENCE.md"
+      ],
+      "criteria": {
+        "corpus": true,
+        "evidence": true,
+        "decision_system": true,
+        "workflow": true,
+        "artifacts": true,
+        "gate": true,
+        "eval": true,
+        "integration": true
+      }
+    },
+    {
+      "id": 20,
+      "name": "Observability",
+      "module": "security-reliability",
+      "status": "very-strong",
+      "evidence_ids": [
+        "EVD-OBS-001",
+        "EVD-REL-002"
+      ],
+      "eval_ids": [
+        "EV-S20"
+      ],
+      "gate": "G10",
+      "decision_system": "06-modules/security-reliability/OBSERVABILITY.md",
+      "artifact_refs": [
+        "07-templates/SLO.md",
+        "06-modules/security-reliability/OBSERVABILITY.md"
+      ],
+      "criteria": {
+        "corpus": true,
+        "evidence": true,
+        "decision_system": true,
+        "workflow": true,
+        "artifacts": true,
+        "gate": true,
+        "eval": true,
+        "integration": true
+      }
+    },
+    {
+      "id": 21,
+      "name": "Backup / DR / incidents",
+      "module": "security-reliability",
+      "status": "very-strong",
+      "evidence_ids": [
+        "EVD-DR-001",
+        "EVD-INC-001"
+      ],
+      "eval_ids": [
+        "EV-S21"
+      ],
+      "gate": "G10",
+      "decision_system": "06-modules/security-reliability/RESILIENCE-INCIDENTS.md",
+      "artifact_refs": [
+        "07-templates/RESTORE-DRILL.md",
+        "07-templates/INCIDENT-RUNBOOK.md"
+      ],
+      "criteria": {
+        "corpus": true,
+        "evidence": true,
+        "decision_system": true,
+        "workflow": true,
+        "artifacts": true,
+        "gate": true,
+        "eval": true,
+        "integration": true
+      }
+    },
+    {
+      "id": 22,
+      "name": "Product analytics",
+      "module": "product-intelligence",
+      "status": "very-strong",
+      "evidence_ids": [
+        "EVD-AN-001",
+        "EVD-AN-003"
+      ],
+      "eval_ids": [
+        "EV-S22"
+      ],
+      "gate": "G11",
+      "decision_system": "06-modules/product-intelligence/PRODUCT-ANALYTICS.md",
+      "artifact_refs": [
+        "07-templates/METRIC-TREE.md",
+        "07-templates/TRACKING-PLAN.md"
+      ],
+      "criteria": {
+        "corpus": true,
+        "evidence": true,
+        "decision_system": true,
+        "workflow": true,
+        "artifacts": true,
+        "gate": true,
+        "eval": true,
+        "integration": true
+      }
+    },
+    {
+      "id": 23,
+      "name": "Experimentation",
+      "module": "product-intelligence",
+      "status": "very-strong",
+      "evidence_ids": [
+        "EVD-EXP-001",
+        "EVD-EXP-003"
+      ],
+      "eval_ids": [
+        "EV-S23"
+      ],
+      "gate": "G11",
+      "decision_system": "06-modules/product-intelligence/EXPERIMENTATION.md",
+      "artifact_refs": [
+        "07-templates/EXPERIMENT-PLAN.md"
+      ],
+      "criteria": {
+        "corpus": true,
+        "evidence": true,
+        "decision_system": true,
+        "workflow": true,
+        "artifacts": true,
+        "gate": true,
+        "eval": true,
+        "integration": true
+      }
+    },
+    {
+      "id": 24,
+      "name": "Feedback → next iteration",
+      "module": "product-intelligence",
+      "status": "very-strong",
+      "evidence_ids": [
+        "EVD-FB-001",
+        "EVD-FB-002"
+      ],
+      "eval_ids": [
+        "EV-S24"
+      ],
+      "gate": "G11",
+      "decision_system": "06-modules/product-intelligence/FEEDBACK-LOOP.md",
+      "artifact_refs": [
+        "07-templates/OUTCOME-REVIEW.md"
+      ],
+      "criteria": {
+        "corpus": true,
+        "evidence": true,
+        "decision_system": true,
+        "workflow": true,
+        "artifacts": true,
+        "gate": true,
+        "eval": true,
+        "integration": true
+      }
+    },
+    {
+      "id": 25,
+      "name": "Knowledge governance",
+      "module": "knowledge-governance",
+      "status": "very-strong",
+      "evidence_ids": [
+        "EVD-GOV-001",
+        "EVD-GOV-002"
+      ],
+      "eval_ids": [
+        "EV-S25"
+      ],
+      "gate": "continuous",
+      "decision_system": "01-governance/knowledge-lifecycle.md",
+      "artifact_refs": [
+        "01-governance/knowledge-lifecycle.md"
+      ],
+      "criteria": {
+        "corpus": true,
+        "evidence": true,
+        "decision_system": true,
+        "workflow": true,
+        "artifacts": true,
+        "gate": true,
+        "eval": true,
+        "integration": true
+      }
+    }
+  ]
+}

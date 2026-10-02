@@ -1,0 +1,1156 @@
+{
+  "version": "1.0.0",
+  "items": [
+    {
+      "id": "EVD-PROD-001",
+      "statement": "Start discovery by understanding likely users, what they are trying to do, how they do it now, frustrations and needs.",
+      "source_ids": [
+        "GOVUK-USER-NEEDS",
+        "GOVUK-DISCOVERY"
+      ],
+      "domains": [
+        "product",
+        "research"
+      ],
+      "strength": "strong",
+      "scope": "digital/service product discovery",
+      "limitations": "Apply only within stated scope; inspect source and project constraints for material decisions.",
+      "status": "active",
+      "verified_at": "2026-10-02",
+      "supersedes": []
+    },
+    {
+      "id": "EVD-PROD-002",
+      "statement": "Define success in terms of metrics that indicate whether the service is solving the intended problem, and combine performance data with user research.",
+      "source_ids": [
+        "GOVUK-SUCCESS"
+      ],
+      "domains": [
+        "product",
+        "analytics"
+      ],
+      "strength": "strong",
+      "scope": "service/product outcome measurement",
+      "limitations": "Apply only within stated scope; inspect source and project constraints for material decisions.",
+      "status": "active",
+      "verified_at": "2026-10-02",
+      "supersedes": []
+    },
+    {
+      "id": "EVD-PROD-003",
+      "statement": "Discovery should examine value, usability, feasibility and viability risk, but their materiality varies by initiative.",
+      "source_ids": [
+        "SVPG-FOUR-RISKS"
+      ],
+      "domains": [
+        "product",
+        "research"
+      ],
+      "strength": "supporting",
+      "scope": "product discovery prioritization",
+      "limitations": "Apply only within stated scope; inspect source and project constraints for material decisions.",
+      "status": "active",
+      "verified_at": "2026-10-02",
+      "supersedes": []
+    },
+    {
+      "id": "EVD-PROD-004",
+      "statement": "An opportunity-solution tree can connect a desired outcome to opportunities, candidate solutions and assumption tests.",
+      "source_ids": [
+        "PRODUCTTALK-OST"
+      ],
+      "domains": [
+        "product",
+        "research",
+        "experimentation"
+      ],
+      "strength": "supporting",
+      "scope": "continuous discovery",
+      "limitations": "Apply only within stated scope; inspect source and project constraints for material decisions.",
+      "status": "active",
+      "verified_at": "2026-10-02",
+      "supersedes": []
+    },
+    {
+      "id": "EVD-ARCH-001",
+      "statement": "Quality attributes should be elicited from stakeholder/business goals before architecture choices are fixed.",
+      "source_ids": [
+        "SEI-QAW"
+      ],
+      "domains": [
+        "architecture",
+        "requirements"
+      ],
+      "strength": "strong",
+      "scope": "software architecture",
+      "limitations": "Apply only within stated scope; inspect source and project constraints for material decisions.",
+      "status": "active",
+      "verified_at": "2026-10-02",
+      "supersedes": []
+    },
+    {
+      "id": "EVD-ARCH-002",
+      "statement": "Architecture documentation should capture goals, constraints, context, runtime/deployment views, important decisions, quality requirements and risks at useful detail.",
+      "source_ids": [
+        "ARC42"
+      ],
+      "domains": [
+        "architecture"
+      ],
+      "strength": "strong",
+      "scope": "architecture documentation",
+      "limitations": "Apply only within stated scope; inspect source and project constraints for material decisions.",
+      "status": "active",
+      "verified_at": "2026-10-02",
+      "supersedes": []
+    },
+    {
+      "id": "EVD-ARCH-003",
+      "statement": "Architecture diagrams should use audience-appropriate levels of abstraction; system context and container views are often sufficient.",
+      "source_ids": [
+        "C4"
+      ],
+      "domains": [
+        "architecture"
+      ],
+      "strength": "strong",
+      "scope": "architecture communication",
+      "limitations": "Apply only within stated scope; inspect source and project constraints for material decisions.",
+      "status": "active",
+      "verified_at": "2026-10-02",
+      "supersedes": []
+    },
+    {
+      "id": "EVD-SEC-001",
+      "statement": "Secure development practices must be integrated through the SDLC rather than added only at the end.",
+      "source_ids": [
+        "NIST-SSDF",
+        "OWASP-SAMM"
+      ],
+      "domains": [
+        "security",
+        "delivery"
+      ],
+      "strength": "strong",
+      "scope": "software development lifecycle",
+      "limitations": "Apply only within stated scope; inspect source and project constraints for material decisions.",
+      "status": "active",
+      "verified_at": "2026-10-02",
+      "supersedes": []
+    },
+    {
+      "id": "EVD-SEC-002",
+      "statement": "Security maturity spans governance, design, implementation, verification and operations.",
+      "source_ids": [
+        "OWASP-SAMM"
+      ],
+      "domains": [
+        "security",
+        "governance"
+      ],
+      "strength": "strong",
+      "scope": "secure SDLC",
+      "limitations": "Apply only within stated scope; inspect source and project constraints for material decisions.",
+      "status": "active",
+      "verified_at": "2026-10-02",
+      "supersedes": []
+    },
+    {
+      "id": "EVD-API-001",
+      "statement": "OpenAPI provides a formal description of an HTTP API surface and semantics; API contracts should be machine-readable where useful.",
+      "source_ids": [
+        "OPENAPI-31"
+      ],
+      "domains": [
+        "api",
+        "backend"
+      ],
+      "strength": "strong",
+      "scope": "HTTP APIs",
+      "limitations": "Apply only within stated scope; inspect source and project constraints for material decisions.",
+      "status": "active",
+      "verified_at": "2026-10-02",
+      "supersedes": []
+    },
+    {
+      "id": "EVD-API-002",
+      "statement": "HTTP API errors can use standardized machine-readable problem details instead of inventing incompatible error envelopes.",
+      "source_ids": [
+        "RFC9457"
+      ],
+      "domains": [
+        "api",
+        "backend"
+      ],
+      "strength": "strong",
+      "scope": "HTTP APIs",
+      "limitations": "Apply only within stated scope; inspect source and project constraints for material decisions.",
+      "status": "active",
+      "verified_at": "2026-10-02",
+      "supersedes": []
+    },
+    {
+      "id": "EVD-REL-001",
+      "statement": "SLOs should be explicit reliability targets tied to user-facing indicators and used for prioritization, not just reporting.",
+      "source_ids": [
+        "GOOGLE-SRE-SLO"
+      ],
+      "domains": [
+        "reliability",
+        "observability"
+      ],
+      "strength": "strong",
+      "scope": "production services",
+      "limitations": "Apply only within stated scope; inspect source and project constraints for material decisions.",
+      "status": "active",
+      "verified_at": "2026-10-02",
+      "supersedes": []
+    },
+    {
+      "id": "EVD-DEL-001",
+      "statement": "Delivery performance should be measured with throughput and instability metrics over time and interpreted in system context.",
+      "source_ids": [
+        "DORA"
+      ],
+      "domains": [
+        "delivery",
+        "analytics"
+      ],
+      "strength": "strong",
+      "scope": "software delivery",
+      "limitations": "Apply only within stated scope; inspect source and project constraints for material decisions.",
+      "status": "active",
+      "verified_at": "2026-10-02",
+      "supersedes": []
+    },
+    {
+      "id": "EVD-UX-001",
+      "statement": "Accessibility is an end-to-end quality property requiring semantics, keyboard/focus behavior and manual validation proportional to risk.",
+      "source_ids": [
+        "W3C-WCAG22",
+        "W3C-APG",
+        "UI-BRAIN-V3"
+      ],
+      "domains": [
+        "ux",
+        "accessibility",
+        "quality"
+      ],
+      "strength": "hard-constraint",
+      "scope": "web user interfaces",
+      "limitations": "Apply only within stated scope; inspect source and project constraints for material decisions.",
+      "status": "active",
+      "verified_at": "2026-10-02",
+      "supersedes": []
+    },
+    {
+      "id": "EVD-DOM-001",
+      "statement": "Domain models should distinguish evidence/facts from hypotheses and challenge boundaries before implementation architecture.",
+      "source_ids": [
+        "DDD-BRAIN"
+      ],
+      "domains": [
+        "domain",
+        "architecture"
+      ],
+      "strength": "strong",
+      "scope": "domain modeling",
+      "limitations": "Apply only within stated scope; inspect source and project constraints for material decisions.",
+      "status": "active",
+      "verified_at": "2026-10-02",
+      "supersedes": []
+    },
+    {
+      "id": "EVD-ARCH-004",
+      "statement": "Use explicit product quality characteristics and quality scenarios to drive architecture trade-offs rather than selecting patterns by preference.",
+      "source_ids": [
+        "ISO-25010",
+        "SEI-QAW"
+      ],
+      "domains": [
+        "architecture",
+        "requirements",
+        "quality"
+      ],
+      "strength": "strong",
+      "scope": "system architecture",
+      "limitations": "Apply only within stated scope; inspect project constraints and failure modes for material decisions.",
+      "status": "active",
+      "verified_at": "2026-10-02",
+      "supersedes": []
+    },
+    {
+      "id": "EVD-ARCH-005",
+      "statement": "Architecture documentation should separate context, building blocks, runtime, deployment, quality requirements, risks and significant decisions so different concerns remain inspectable.",
+      "source_ids": [
+        "ARC42"
+      ],
+      "domains": [
+        "architecture"
+      ],
+      "strength": "strong",
+      "scope": "architecture documentation",
+      "limitations": "Apply only within stated scope; inspect project constraints and failure modes for material decisions.",
+      "status": "active",
+      "verified_at": "2026-10-02",
+      "supersedes": []
+    },
+    {
+      "id": "EVD-API-003",
+      "statement": "HTTP method semantics include safety and idempotency properties; retries must respect method/application semantics rather than assuming every request is retry-safe.",
+      "source_ids": [
+        "RFC9110"
+      ],
+      "domains": [
+        "api",
+        "backend"
+      ],
+      "strength": "strong",
+      "scope": "HTTP APIs",
+      "limitations": "Apply only within stated scope; inspect project constraints and failure modes for material decisions.",
+      "status": "active",
+      "verified_at": "2026-10-02",
+      "supersedes": []
+    },
+    {
+      "id": "EVD-BE-001",
+      "statement": "A database update plus external message publish is a dual-write consistency problem; transactional outbox is one valid pattern when those effects must be coordinated.",
+      "source_ids": [
+        "AWS-OUTBOX"
+      ],
+      "domains": [
+        "backend",
+        "data",
+        "architecture",
+        "reliability"
+      ],
+      "strength": "strong",
+      "scope": "transactional systems with external messaging",
+      "limitations": "Apply only within stated scope; inspect project constraints and failure modes for material decisions.",
+      "status": "active",
+      "verified_at": "2026-10-02",
+      "supersedes": []
+    },
+    {
+      "id": "EVD-BE-002",
+      "statement": "At-least-once delivery can produce duplicate processing; consumers or effect handlers need explicit idempotency where duplicate effects are harmful.",
+      "source_ids": [
+        "AWS-OUTBOX"
+      ],
+      "domains": [
+        "backend",
+        "reliability"
+      ],
+      "strength": "strong",
+      "scope": "asynchronous processing",
+      "limitations": "Apply only within stated scope; inspect project constraints and failure modes for material decisions.",
+      "status": "active",
+      "verified_at": "2026-10-02",
+      "supersedes": []
+    },
+    {
+      "id": "EVD-FE-001",
+      "statement": "Avoid redundant, contradictory and duplicated UI state; derive values when possible and keep state ownership explicit.",
+      "source_ids": [
+        "REACT-STATE"
+      ],
+      "domains": [
+        "frontend",
+        "architecture"
+      ],
+      "strength": "strong",
+      "scope": "React applications",
+      "limitations": "Apply only within stated scope; inspect project constraints and failure modes for material decisions.",
+      "status": "active",
+      "verified_at": "2026-10-02",
+      "supersedes": []
+    },
+    {
+      "id": "EVD-FE-002",
+      "statement": "Effects are for synchronization with external systems; avoid using them as a default mechanism for ordinary derived state or user-event logic.",
+      "source_ids": [
+        "REACT-EFFECTS"
+      ],
+      "domains": [
+        "frontend",
+        "architecture"
+      ],
+      "strength": "strong",
+      "scope": "React applications",
+      "limitations": "Apply only within stated scope; inspect project constraints and failure modes for material decisions.",
+      "status": "active",
+      "verified_at": "2026-10-02",
+      "supersedes": []
+    },
+    {
+      "id": "EVD-DATA-001",
+      "statement": "Persistence design must make transactional consistency, isolation, locking and concurrency assumptions explicit for critical mutations.",
+      "source_ids": [
+        "POSTGRES",
+        "MYSQL"
+      ],
+      "domains": [
+        "data",
+        "backend"
+      ],
+      "strength": "strong",
+      "scope": "relational transactional data",
+      "limitations": "Apply only within stated scope; inspect project constraints and failure modes for material decisions.",
+      "status": "active",
+      "verified_at": "2026-10-02",
+      "supersedes": []
+    },
+    {
+      "id": "EVD-DATA-002",
+      "statement": "Schema migrations are production changes with compatibility and recovery implications; applied migrations should be immutable and later changes expressed as new migrations.",
+      "source_ids": [
+        "POSTGRES"
+      ],
+      "domains": [
+        "data",
+        "delivery"
+      ],
+      "strength": "supporting",
+      "scope": "versioned relational schemas",
+      "limitations": "Apply only within stated scope; inspect project constraints and failure modes for material decisions.",
+      "status": "active",
+      "verified_at": "2026-10-02",
+      "supersedes": []
+    },
+    {
+      "id": "EVD-PERF-001",
+      "statement": "Performance should be expressed through user-relevant response measures and budgets, then verified with workload-appropriate evidence rather than averages alone.",
+      "source_ids": [
+        "ISO-25010",
+        "WEBDEV-CWV"
+      ],
+      "domains": [
+        "performance",
+        "frontend",
+        "quality"
+      ],
+      "strength": "strong",
+      "scope": "user-facing software",
+      "limitations": "Apply only within stated scope; inspect project constraints and failure modes for material decisions.",
+      "status": "active",
+      "verified_at": "2026-10-02",
+      "supersedes": []
+    },
+    {
+      "id": "EVD-QA-001",
+      "statement": "Testing strategy should be driven by product/system risks and guarantees, choosing the lowest layer that can honestly prove each property.",
+      "source_ids": [
+        "ISO-25010",
+        "PLAYWRIGHT"
+      ],
+      "domains": [
+        "quality"
+      ],
+      "strength": "strong",
+      "scope": "software quality strategy",
+      "limitations": "Apply proportional to risk and workload; tooling evidence does not replace domain-specific validation.",
+      "status": "active",
+      "verified_at": "2026-10-02",
+      "supersedes": []
+    },
+    {
+      "id": "EVD-QA-002",
+      "statement": "Automated browser tests are appropriate for critical integrated user flows, but should not replace lower-layer invariant/contract tests.",
+      "source_ids": [
+        "PLAYWRIGHT"
+      ],
+      "domains": [
+        "quality",
+        "frontend"
+      ],
+      "strength": "supporting",
+      "scope": "web applications",
+      "limitations": "Apply proportional to risk and workload; tooling evidence does not replace domain-specific validation.",
+      "status": "active",
+      "verified_at": "2026-10-02",
+      "supersedes": []
+    },
+    {
+      "id": "EVD-QA-003",
+      "statement": "Accessibility automation detects a subset of issues; manual keyboard/assistive-technology verification remains necessary for critical flows.",
+      "source_ids": [
+        "AXE",
+        "W3C-WCAG22",
+        "W3C-APG"
+      ],
+      "domains": [
+        "quality",
+        "accessibility"
+      ],
+      "strength": "strong",
+      "scope": "web accessibility",
+      "limitations": "Apply proportional to risk and workload; tooling evidence does not replace domain-specific validation.",
+      "status": "active",
+      "verified_at": "2026-10-02",
+      "supersedes": []
+    },
+    {
+      "id": "EVD-SEC-003",
+      "statement": "Threat modeling is a structured, repeatable design-time process and should be revisited as the system changes.",
+      "source_ids": [
+        "OWASP-THREAT"
+      ],
+      "domains": [
+        "security",
+        "architecture"
+      ],
+      "strength": "strong",
+      "scope": "application security",
+      "limitations": "Apply proportional to risk and workload; tooling evidence does not replace domain-specific validation.",
+      "status": "active",
+      "verified_at": "2026-10-02",
+      "supersedes": []
+    },
+    {
+      "id": "EVD-SEC-004",
+      "statement": "Security requirements, risks and design decisions should be tracked through the SDLC.",
+      "source_ids": [
+        "NIST-SSDF"
+      ],
+      "domains": [
+        "security",
+        "delivery"
+      ],
+      "strength": "strong",
+      "scope": "secure SDLC",
+      "limitations": "Apply proportional to risk and workload; tooling evidence does not replace domain-specific validation.",
+      "status": "active",
+      "verified_at": "2026-10-02",
+      "supersedes": []
+    },
+    {
+      "id": "EVD-SEC-005",
+      "statement": "Software release provenance provides verifiable information about where, when and how an artifact was produced.",
+      "source_ids": [
+        "SLSA"
+      ],
+      "domains": [
+        "security",
+        "delivery"
+      ],
+      "strength": "strong",
+      "scope": "software supply chain",
+      "limitations": "Apply proportional to risk and workload; tooling evidence does not replace domain-specific validation.",
+      "status": "active",
+      "verified_at": "2026-10-02",
+      "supersedes": []
+    },
+    {
+      "id": "EVD-SEC-006",
+      "statement": "Open-source dependency posture can be assessed with automated supply-chain signals, but such scores are input evidence rather than a complete security verdict.",
+      "source_ids": [
+        "OPENSSF-SCORECARD"
+      ],
+      "domains": [
+        "security",
+        "supply-chain"
+      ],
+      "strength": "supporting",
+      "scope": "dependency evaluation",
+      "limitations": "Apply proportional to risk and workload; tooling evidence does not replace domain-specific validation.",
+      "status": "active",
+      "verified_at": "2026-10-02",
+      "supersedes": []
+    },
+    {
+      "id": "EVD-PERF-002",
+      "statement": "Performance goals should be stated as explicit budgets/limits rather than assumed to emerge from good implementation.",
+      "source_ids": [
+        "WEBDEV-BUDGET"
+      ],
+      "domains": [
+        "performance",
+        "frontend"
+      ],
+      "strength": "strong",
+      "scope": "web performance",
+      "limitations": "Apply proportional to risk and workload; tooling evidence does not replace domain-specific validation.",
+      "status": "active",
+      "verified_at": "2026-10-02",
+      "supersedes": []
+    },
+    {
+      "id": "EVD-PERF-003",
+      "statement": "Baseline, stress, spike and soak tests answer different performance/reliability questions and require workload models that match the risk.",
+      "source_ids": [
+        "K6"
+      ],
+      "domains": [
+        "performance",
+        "quality"
+      ],
+      "strength": "implementation",
+      "scope": "performance testing",
+      "limitations": "Apply proportional to risk and workload; tooling evidence does not replace domain-specific validation.",
+      "status": "active",
+      "verified_at": "2026-10-02",
+      "supersedes": []
+    },
+    {
+      "id": "EVD-PERF-004",
+      "statement": "Performance test pass/fail criteria should include latency percentiles, throughput/error behavior and correctness under load, not average latency alone.",
+      "source_ids": [
+        "K6"
+      ],
+      "domains": [
+        "performance",
+        "quality"
+      ],
+      "strength": "implementation",
+      "scope": "performance testing",
+      "limitations": "Apply proportional to risk and workload; tooling evidence does not replace domain-specific validation.",
+      "status": "active",
+      "verified_at": "2026-10-02",
+      "supersedes": []
+    },
+    {
+      "id": "EVD-DEL-002",
+      "statement": "Release automation reduces manual inconsistency and improves knowledge of rollout state; partial/canary rollout can evaluate a change before full exposure.",
+      "source_ids": [
+        "SRE-CANARY"
+      ],
+      "domains": [
+        "delivery",
+        "reliability"
+      ],
+      "strength": "strong",
+      "scope": "production releases",
+      "limitations": "Adapt to service criticality, deployment platform and operational ownership.",
+      "status": "active",
+      "verified_at": "2026-10-02",
+      "supersedes": []
+    },
+    {
+      "id": "EVD-DEL-003",
+      "statement": "A release should be traceable to an exact source/build artifact, with deployment evidence preserved rather than inferred from branch state.",
+      "source_ids": [
+        "SLSA",
+        "NIST-SSDF"
+      ],
+      "domains": [
+        "delivery",
+        "security"
+      ],
+      "strength": "strong",
+      "scope": "software releases",
+      "limitations": "Adapt to service criticality, deployment platform and operational ownership.",
+      "status": "active",
+      "verified_at": "2026-10-02",
+      "supersedes": []
+    },
+    {
+      "id": "EVD-OBS-001",
+      "statement": "Observability should combine signals such as traces, metrics and logs with shared context rather than rely on a single undifferentiated log stream.",
+      "source_ids": [
+        "OTEL-SIGNALS"
+      ],
+      "domains": [
+        "observability",
+        "reliability"
+      ],
+      "strength": "strong",
+      "scope": "production systems",
+      "limitations": "Adapt to service criticality, deployment platform and operational ownership.",
+      "status": "active",
+      "verified_at": "2026-10-02",
+      "supersedes": []
+    },
+    {
+      "id": "EVD-OBS-002",
+      "statement": "Tracing represents the path of a request through a system and is useful for cross-component latency/failure diagnosis.",
+      "source_ids": [
+        "OPENTELEMETRY",
+        "OTEL-SIGNALS"
+      ],
+      "domains": [
+        "observability"
+      ],
+      "strength": "strong",
+      "scope": "request-based systems",
+      "limitations": "Adapt to service criticality, deployment platform and operational ownership.",
+      "status": "active",
+      "verified_at": "2026-10-02",
+      "supersedes": []
+    },
+    {
+      "id": "EVD-REL-002",
+      "statement": "Reliability objectives should be expressed through SLOs and used to make prioritization decisions, not merely displayed as dashboards.",
+      "source_ids": [
+        "GOOGLE-SRE-SLO"
+      ],
+      "domains": [
+        "reliability",
+        "observability"
+      ],
+      "strength": "strong",
+      "scope": "production services",
+      "limitations": "Adapt to service criticality, deployment platform and operational ownership.",
+      "status": "active",
+      "verified_at": "2026-10-02",
+      "supersedes": []
+    },
+    {
+      "id": "EVD-REL-003",
+      "statement": "Alerts should be actionable and tied to user-impacting reliability objectives where practical; noisy non-actionable alerts create operational toil.",
+      "source_ids": [
+        "GOOGLE-SRE-SLO"
+      ],
+      "domains": [
+        "reliability",
+        "observability",
+        "operations"
+      ],
+      "strength": "supporting",
+      "scope": "operated services",
+      "limitations": "Adapt to service criticality, deployment platform and operational ownership.",
+      "status": "active",
+      "verified_at": "2026-10-02",
+      "supersedes": []
+    },
+    {
+      "id": "EVD-INC-001",
+      "statement": "Postmortems should turn incidents into system/process learning and tracked follow-up rather than blame or undocumented memory.",
+      "source_ids": [
+        "SRE-POSTMORTEM"
+      ],
+      "domains": [
+        "reliability",
+        "operations",
+        "governance"
+      ],
+      "strength": "strong",
+      "scope": "incident management",
+      "limitations": "Adapt to service criticality, deployment platform and operational ownership.",
+      "status": "active",
+      "verified_at": "2026-10-02",
+      "supersedes": []
+    },
+    {
+      "id": "EVD-DR-001",
+      "statement": "Backup configuration is not recovery evidence; restore procedures must be exercised and measured against recovery objectives.",
+      "source_ids": [
+        "POSTGRES",
+        "GOOGLE-SRE-SLO"
+      ],
+      "domains": [
+        "reliability",
+        "operations",
+        "data"
+      ],
+      "strength": "strong",
+      "scope": "stateful production systems",
+      "limitations": "Adapt to service criticality, deployment platform and operational ownership.",
+      "status": "active",
+      "verified_at": "2026-10-02",
+      "supersedes": []
+    },
+    {
+      "id": "EVD-DEL-004",
+      "statement": "Delivery performance should be measured over time using throughput and instability indicators in the context of a specific service/application.",
+      "source_ids": [
+        "DORA"
+      ],
+      "domains": [
+        "delivery",
+        "analytics"
+      ],
+      "strength": "strong",
+      "scope": "software delivery",
+      "limitations": "Adapt to service criticality, deployment platform and operational ownership.",
+      "status": "active",
+      "verified_at": "2026-10-02",
+      "supersedes": []
+    },
+    {
+      "id": "EVD-OPS-001",
+      "statement": "A production rollout is not complete at deployment: health, smoke, telemetry and rollback/forward-fix readiness need explicit evidence.",
+      "source_ids": [
+        "SRE-CANARY",
+        "GOOGLE-SRE-SLO"
+      ],
+      "domains": [
+        "delivery",
+        "reliability",
+        "operations"
+      ],
+      "strength": "strong",
+      "scope": "production rollout",
+      "limitations": "Adapt to service criticality, deployment platform and operational ownership.",
+      "status": "active",
+      "verified_at": "2026-10-02",
+      "supersedes": []
+    },
+    {
+      "id": "EVD-AN-001",
+      "statement": "Metrics should start from product/service purpose and goals, then map to observable signals and measures rather than starting from available events.",
+      "source_ids": [
+        "GOVUK-MEASURE",
+        "GOOGLE-HEART"
+      ],
+      "domains": [
+        "analytics",
+        "product"
+      ],
+      "strength": "strong",
+      "scope": "product measurement",
+      "limitations": "Metric/experiment interpretation depends on product context, data quality and population; avoid universal thresholds.",
+      "status": "active",
+      "verified_at": "2026-10-02",
+      "supersedes": []
+    },
+    {
+      "id": "EVD-AN-002",
+      "statement": "User-centered product measurement can combine dimensions such as happiness, engagement, adoption, retention and task success; not every dimension is relevant to every product.",
+      "source_ids": [
+        "GOOGLE-HEART"
+      ],
+      "domains": [
+        "analytics",
+        "ux"
+      ],
+      "strength": "strong",
+      "scope": "user experience measurement",
+      "limitations": "Metric/experiment interpretation depends on product context, data quality and population; avoid universal thresholds.",
+      "status": "active",
+      "verified_at": "2026-10-02",
+      "supersedes": []
+    },
+    {
+      "id": "EVD-AN-003",
+      "statement": "Performance metrics should be combined with user research and other data sources; digital analytics alone is insufficient to explain user problems.",
+      "source_ids": [
+        "GOVUK-MEASURE",
+        "GOVUK-SUCCESS"
+      ],
+      "domains": [
+        "analytics",
+        "research",
+        "product"
+      ],
+      "strength": "strong",
+      "scope": "service/product analytics",
+      "limitations": "Metric/experiment interpretation depends on product context, data quality and population; avoid universal thresholds.",
+      "status": "active",
+      "verified_at": "2026-10-02",
+      "supersedes": []
+    },
+    {
+      "id": "EVD-AN-004",
+      "statement": "A North Star metric is useful only when it reflects user value and is connected to controllable product inputs; it is a supporting framework, not a universal requirement.",
+      "source_ids": [
+        "AMPLITUDE-NORTHSTAR"
+      ],
+      "domains": [
+        "analytics",
+        "product"
+      ],
+      "strength": "supporting",
+      "scope": "product strategy/analytics",
+      "limitations": "Metric/experiment interpretation depends on product context, data quality and population; avoid universal thresholds.",
+      "status": "active",
+      "verified_at": "2026-10-02",
+      "supersedes": []
+    },
+    {
+      "id": "EVD-EXP-001",
+      "statement": "Randomized controlled experiments can establish causal effects of product changes when randomization, instrumentation and analysis assumptions are valid.",
+      "source_ids": [
+        "OCE-GUIDE"
+      ],
+      "domains": [
+        "experimentation",
+        "analytics"
+      ],
+      "strength": "strong",
+      "scope": "online controlled experiments",
+      "limitations": "Metric/experiment interpretation depends on product context, data quality and population; avoid universal thresholds.",
+      "status": "active",
+      "verified_at": "2026-10-02",
+      "supersedes": []
+    },
+    {
+      "id": "EVD-EXP-002",
+      "statement": "A/B testing is one evidence method among others; it requires sufficient traffic, a causal question and trustworthy assignment/measurement.",
+      "source_ids": [
+        "OCE-GUIDE",
+        "PRODUCTTALK-OST"
+      ],
+      "domains": [
+        "experimentation",
+        "product"
+      ],
+      "strength": "strong",
+      "scope": "product experimentation",
+      "limitations": "Metric/experiment interpretation depends on product context, data quality and population; avoid universal thresholds.",
+      "status": "active",
+      "verified_at": "2026-10-02",
+      "supersedes": []
+    },
+    {
+      "id": "EVD-EXP-003",
+      "statement": "Sample Ratio Mismatch is a trustworthiness warning; experiment conclusions should not be used until the mismatch is diagnosed/resolved.",
+      "source_ids": [
+        "MS-SRM"
+      ],
+      "domains": [
+        "experimentation",
+        "analytics",
+        "quality"
+      ],
+      "strength": "strong",
+      "scope": "online controlled experiments",
+      "limitations": "Metric/experiment interpretation depends on product context, data quality and population; avoid universal thresholds.",
+      "status": "active",
+      "verified_at": "2026-10-02",
+      "supersedes": []
+    },
+    {
+      "id": "EVD-EXP-004",
+      "statement": "Feature flags separate exposure from deployment, but experiments still require explicit hypothesis, population, metrics, guardrails and lifecycle/cleanup.",
+      "source_ids": [
+        "OPENFEATURE",
+        "OCE-GUIDE"
+      ],
+      "domains": [
+        "experimentation",
+        "delivery"
+      ],
+      "strength": "strong",
+      "scope": "feature-controlled product changes",
+      "limitations": "Metric/experiment interpretation depends on product context, data quality and population; avoid universal thresholds.",
+      "status": "active",
+      "verified_at": "2026-10-02",
+      "supersedes": []
+    },
+    {
+      "id": "EVD-FB-001",
+      "statement": "Production performance data should be used to identify improvement opportunities and paired with research to understand why behavior occurs.",
+      "source_ids": [
+        "GOVUK-MEASURE"
+      ],
+      "domains": [
+        "analytics",
+        "research",
+        "product"
+      ],
+      "strength": "strong",
+      "scope": "continuous improvement",
+      "limitations": "Metric/experiment interpretation depends on product context, data quality and population; avoid universal thresholds.",
+      "status": "active",
+      "verified_at": "2026-10-02",
+      "supersedes": []
+    },
+    {
+      "id": "EVD-FB-002",
+      "statement": "Continuous discovery should connect desired outcomes to observed opportunities, solutions and assumption tests so learning feeds the next decision.",
+      "source_ids": [
+        "PRODUCTTALK-OST"
+      ],
+      "domains": [
+        "product",
+        "research",
+        "experimentation"
+      ],
+      "strength": "supporting",
+      "scope": "continuous discovery",
+      "limitations": "Metric/experiment interpretation depends on product context, data quality and population; avoid universal thresholds.",
+      "status": "active",
+      "verified_at": "2026-10-02",
+      "supersedes": []
+    },
+    {
+      "id": "EVD-DOM-002",
+      "statement": "When domain boundaries are uncertain, compare alternative decompositions and challenge them using language, invariants, temporal rules, ownership, change coupling and autonomy before fixing architecture.",
+      "source_ids": [
+        "DDD-BRAIN"
+      ],
+      "domains": [
+        "domain",
+        "architecture"
+      ],
+      "strength": "strong",
+      "scope": "strategic domain design",
+      "limitations": "Project context and stronger scoped evidence may override this default through an explicit decision record.",
+      "status": "active",
+      "verified_at": "2026-10-02",
+      "supersedes": []
+    },
+    {
+      "id": "EVD-DOM-003",
+      "statement": "Tactical aggregates and implementation patterns should follow sufficiently justified strategic boundaries; database tables and screen nouns are not aggregate/context definitions by default.",
+      "source_ids": [
+        "DDD-BRAIN"
+      ],
+      "domains": [
+        "domain",
+        "architecture"
+      ],
+      "strength": "strong",
+      "scope": "tactical domain design",
+      "limitations": "Project context and stronger scoped evidence may override this default through an explicit decision record.",
+      "status": "active",
+      "verified_at": "2026-10-02",
+      "supersedes": []
+    },
+    {
+      "id": "EVD-REQ-001",
+      "statement": "Material requirements should preserve traceability from evidence/outcome through scenario and acceptance criteria to verification, while hypotheses remain labeled as hypotheses.",
+      "source_ids": [
+        "DDD-BRAIN",
+        "SEI-QAW"
+      ],
+      "domains": [
+        "requirements",
+        "quality"
+      ],
+      "strength": "strong",
+      "scope": "requirements engineering",
+      "limitations": "Project context and stronger scoped evidence may override this default through an explicit decision record.",
+      "status": "active",
+      "verified_at": "2026-10-02",
+      "supersedes": []
+    },
+    {
+      "id": "EVD-UX-002",
+      "statement": "UI architecture decisions should begin with context of use, hard constraints and task requirements before selecting patterns or component libraries.",
+      "source_ids": [
+        "UI-BRAIN-V3"
+      ],
+      "domains": [
+        "ux"
+      ],
+      "strength": "strong",
+      "scope": "interaction architecture",
+      "limitations": "Project context and stronger scoped evidence may override this default through an explicit decision record.",
+      "status": "active",
+      "verified_at": "2026-10-02",
+      "supersedes": []
+    },
+    {
+      "id": "EVD-UX-003",
+      "statement": "Consequential workflows need explicit loading/empty/error/stale/pending/conflict/recovery behavior and adaptive transformation, not only happy-path screens.",
+      "source_ids": [
+        "UI-BRAIN-V3"
+      ],
+      "domains": [
+        "ux",
+        "quality"
+      ],
+      "strength": "strong",
+      "scope": "interactive applications",
+      "limitations": "Project context and stronger scoped evidence may override this default through an explicit decision record.",
+      "status": "active",
+      "verified_at": "2026-10-02",
+      "supersedes": []
+    },
+    {
+      "id": "EVD-UX-004",
+      "statement": "Choose implementation adapters after behavior and semantics are decided; component-library availability is not evidence that a pattern is correct.",
+      "source_ids": [
+        "UI-BRAIN-V3"
+      ],
+      "domains": [
+        "ux",
+        "frontend"
+      ],
+      "strength": "strong",
+      "scope": "UI implementation",
+      "limitations": "Project context and stronger scoped evidence may override this default through an explicit decision record.",
+      "status": "active",
+      "verified_at": "2026-10-02",
+      "supersedes": []
+    },
+    {
+      "id": "EVD-UX-005",
+      "statement": "Shared interaction patterns should move from Local to Extended/Core only when reuse, semantic stability, accessibility coverage, ownership and migration cost justify promotion.",
+      "source_ids": [
+        "UI-BRAIN-V3"
+      ],
+      "domains": [
+        "ux",
+        "design-system",
+        "governance"
+      ],
+      "strength": "strong",
+      "scope": "design-system governance",
+      "limitations": "Project context and stronger scoped evidence may override this default through an explicit decision record.",
+      "status": "active",
+      "verified_at": "2026-10-02",
+      "supersedes": []
+    },
+    {
+      "id": "EVD-UI-001",
+      "statement": "Visual design should establish hierarchy and constrained scales for spacing/type/color/depth instead of making isolated decorative decisions per screen.",
+      "source_ids": [
+        "REFACTORING-UI-KB"
+      ],
+      "domains": [
+        "ux",
+        "design-system"
+      ],
+      "strength": "strong",
+      "scope": "visual UI craft",
+      "limitations": "Project context and stronger scoped evidence may override this default through an explicit decision record.",
+      "status": "active",
+      "verified_at": "2026-10-02",
+      "supersedes": []
+    },
+    {
+      "id": "EVD-UI-002",
+      "statement": "Empty states, readable widths, semantic color usage and information hierarchy are functional interface decisions, not finishing decoration.",
+      "source_ids": [
+        "REFACTORING-UI-KB"
+      ],
+      "domains": [
+        "ux",
+        "accessibility"
+      ],
+      "strength": "strong",
+      "scope": "visual UI craft",
+      "limitations": "Project context and stronger scoped evidence may override this default through an explicit decision record.",
+      "status": "active",
+      "verified_at": "2026-10-02",
+      "supersedes": []
+    },
+    {
+      "id": "EVD-GOV-001",
+      "statement": "Reusable knowledge needs provenance, scope, verification date, lifecycle and explicit supersession so new guidance does not silently erase older decisions.",
+      "source_ids": [
+        "UI-BRAIN-V3",
+        "ADR"
+      ],
+      "domains": [
+        "governance"
+      ],
+      "strength": "strong",
+      "scope": "knowledge governance",
+      "limitations": "Project context and stronger scoped evidence may override this default through an explicit decision record.",
+      "status": "active",
+      "verified_at": "2026-10-02",
+      "supersedes": []
+    },
+    {
+      "id": "EVD-GOV-002",
+      "statement": "Material decisions should record evidence, considered options, trade-offs, validation and observable revisit triggers so they can be reviewed and superseded deliberately.",
+      "source_ids": [
+        "UI-BRAIN-V3",
+        "ADR"
+      ],
+      "domains": [
+        "governance",
+        "architecture"
+      ],
+      "strength": "strong",
+      "scope": "decision governance",
+      "limitations": "Project context and stronger scoped evidence may override this default through an explicit decision record.",
+      "status": "active",
+      "verified_at": "2026-10-02",
+      "supersedes": []
+    }
+  ]
+}

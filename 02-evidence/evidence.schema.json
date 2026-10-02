@@ -1,0 +1,76 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://local/product-engineering-os/evidence.schema.json",
+  "type": "object",
+  "required": [
+    "id",
+    "statement",
+    "source_ids",
+    "domains",
+    "strength",
+    "scope",
+    "status"
+  ],
+  "properties": {
+    "id": {
+      "type": "string",
+      "pattern": "^EVD-[A-Z0-9-]+$"
+    },
+    "statement": {
+      "type": "string",
+      "minLength": 10
+    },
+    "source_ids": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "minItems": 1,
+      "uniqueItems": true
+    },
+    "domains": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "minItems": 1
+    },
+    "strength": {
+      "enum": [
+        "hard-constraint",
+        "strong",
+        "supporting",
+        "contextual",
+        "implementation"
+      ]
+    },
+    "scope": {
+      "type": "string",
+      "minLength": 3
+    },
+    "limitations": {
+      "type": "string"
+    },
+    "status": {
+      "enum": [
+        "candidate",
+        "verified",
+        "active",
+        "superseded",
+        "deprecated",
+        "archived"
+      ]
+    },
+    "verified_at": {
+      "type": "string",
+      "format": "date"
+    },
+    "supersedes": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  },
+  "additionalProperties": false
+}
