@@ -119,10 +119,17 @@ The framework does not provide tools, credentials, background execution or autom
 
 ## Privacy
 
-Keep project-specific confidential evidence, credentials and personal data outside this reusable distribution. Reference protected evidence only through authorized project records. Review exported project artifacts before sharing them.
+Keep confidential project information, credentials and personal data outside
+this reusable package. Review project-specific artifacts before sharing them.
 
-## License and third-party materials
+## License
 
-No redistribution license has been assigned yet. Choose and add a LICENSE file before presenting this package as openly licensed for reuse.
+This project is licensed under the MIT License. See [LICENSE](LICENSE).
 
-No third-party book, PDF or specialist corpus is bundled. Links and references do not grant rights to redistribute external materials; their respective terms continue to apply.
+## Third-party materials
+
+External sources are referenced for context and attribution. No third-party
+books, PDFs or specialist knowledge packages are included.
+
+The MIT License applies to this project's original content. Referenced
+third-party materials remain subject to their respective licenses and terms.
