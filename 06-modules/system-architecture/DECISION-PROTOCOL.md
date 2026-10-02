@@ -1,21 +1,106 @@
 # System Architecture Brain — decision protocol
 
-## Core question
-What system structure best satisfies the known business capabilities and quality attributes with the least irreversible complexity?
+Use with `STAGE-06-SYSTEM-ARCHITECTURE.md`. Architecture decisions are justified by business capabilities, quality scenarios and failure consequences, not by pattern preference.
 
-## Runtime
-1. Load product outcome, domain boundaries, requirements and risk class.
-2. Extract architecture drivers: scale, latency, availability, consistency, security, auditability, changeability, operability, cost, team constraints and integration needs.
-3. Convert vague NFRs into measurable quality-attribute scenarios.
-4. Identify hard constraints and failure modes before choosing patterns.
-5. Generate at least one simple baseline architecture and only add distributed/specialized mechanisms when a named force requires them.
-6. Compare options on consequences and switching conditions, not fashion.
-7. Record material decisions in ADRs.
-8. Define architecture fitness functions or verification hooks for properties that can regress.
-9. Revisit when an observable trigger invalidates an assumption.
+## Core question
+
+What system structure satisfies the known outcomes and quality attributes with the least irreversible complexity?
+
+## Decision preparation
+
+Before comparing architectures, write:
+
+- business capability and domain ownership involved;
+- architecture-driving quality scenarios;
+- workload/scale assumptions and their confidence;
+- data consistency/concurrency requirements;
+- external dependencies and failure domains;
+- operational constraints;
+- security/privacy boundaries;
+- migration/legacy constraints;
+- risk class R0–R4.
+
+If these are unknown, do not invent precision. State switching thresholds and route targeted evidence.
+
+## Option generation
+
+For a material decision generate at least:
+1. the simplest credible option;
+2. the leading alternative;
+3. optionally a structurally different option when the trade-off space is unclear.
+
+Compare options on:
+- correctness/invariant fit;
+- coupling and change autonomy;
+- latency/performance;
+- availability/resilience;
+- security/trust boundaries;
+- deployability/operability;
+- data consistency;
+- cost;
+- migration/recovery;
+- cognitive complexity.
+
+Avoid weighted score theater when the weights are arbitrary. Use narrative trade-offs plus hard constraints and disqualifiers.
+
+## Runtime and failure analysis
+
+Architecture is incomplete until important runtime paths and failure paths are described. For critical interactions ask:
+
+- what happens on timeout?
+- what happens on duplicate delivery?
+- what happens on partial success?
+- what happens when one dependency is stale/unavailable?
+- what happens during deployment/version skew?
+- what happens under concurrent mutation?
+- what happens when recovery/rollback starts?
+
+A component that improves one quality while creating another failure mode must make that trade explicit.
 
 ## Architecture-inflation guard
-Microservices, CQRS, event sourcing, Kafka/queues, distributed caches, service meshes and multi-region designs are not maturity badges. They require explicit problem forces and an explanation of why a simpler architecture is insufficient.
+
+Reject additional services, queues, caches, replicas, orchestration platforms or data stores unless they satisfy a named driver better than the simpler option.
+
+Microservices are justified by independently valuable deployment/ownership/scaling/failure-boundary needs, not by system size aesthetics. Queues are justified by decoupling, buffering or workflow semantics that tolerate asynchronous completion. Caches are justified by measured or strongly evidenced latency/load needs and a defined invalidation model.
+
+## Reversibility
+
+Prefer choices that preserve future options:
+- modular boundaries before network boundaries;
+- explicit interfaces before duplicated data;
+- adapters around legacy/vendor dependencies;
+- expand/contract migration paths;
+- feature flags only when they do not hide irreversible side effects.
+
+For irreversible choices, increase evidence and review burden.
+
+## ADR contract
+
+A significant ADR records:
+- context and driver;
+- decision;
+- alternatives considered;
+- accepted trade-offs;
+- assumptions;
+- validation evidence;
+- consequences;
+- observable revisit trigger.
+
+“Because it is best practice” is not an acceptable rationale.
+
+## Stop-analysis gate
+
+Stop comparing architectures when one option satisfies hard constraints and quality drivers with acceptable risk, alternatives have explicit switching conditions, and remaining uncertainty is cheaper to resolve by a reversible implementation slice or measurement.
 
 ## Failure analysis prompts
-For each cross-boundary workflow ask: what if the caller retries, times out, crashes after commit, receives a duplicate, executes concurrently, observes stale data, or loses a dependency? Decide whether the response is retry, idempotency, locking, compensation, queueing, outbox, rejection or operator recovery.
+
+Use these before G4:
+- Which single dependency failure can stop the user outcome?
+- Which hidden state can diverge?
+- Which retry can duplicate an external effect?
+- Which migration can strand old/new versions?
+- Which resource can saturate first?
+- Which operator action can cause broad blast radius?
+- Which architectural assumption has never been measured?
+
+The resulting risks feed Quality, Security, Performance, Delivery and Observability.

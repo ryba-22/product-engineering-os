@@ -66,6 +66,8 @@ Product Engineering OS deliberately separates four layers:
 
 Templates are intentionally short because they are forms to fill. Evidence statements are intentionally atomic because they are graph nodes. Neither is intended to carry the full method. The stage playbooks are the primary knowledge layer for execution.
 
+Short-file policy is executable: `scripts/audit_content_depth.py` fails when a substantive Markdown knowledge file falls below the depth floor unless it belongs to an explicitly concise category such as a module contract, template, adapter/crosswalk or skill router.
+
 `11-maturity/stage-coverage.json` distinguishes **deep-structural** coverage from behavioral effectiveness. Structural/depth checks can prove the knowledge package is present and connected; only executed evaluations can support behavioral claims.
 
 ## Package layout

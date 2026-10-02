@@ -1,18 +1,61 @@
 # Delivery Engineering — CI/CD
 
+Use with `STAGE-18-CI-CD.md`. CI/CD is an evidence-producing system that turns a source state into an attributable release artifact.
+
 ## Goal
-Move one immutable, attributable change through repeatable gates. CI/CD is evidence production, not only automation.
+
+Move one immutable, attributable change through repeatable gates. The pipeline should answer:
+- what source/dependencies produced this artifact?
+- which checks ran and on what version?
+- what was skipped/retried?
+- can the same artifact be promoted?
+- what migration/configuration must accompany it?
 
 ## Default gate chain
-Dependency install/lock verification → formatting/lint/typecheck → unit/domain tests → integration/DB tests → security/supply-chain checks → build → migration validation → E2E/smoke → artifact/provenance capture → deploy authorization.
 
-Not every project needs every step, but removing a gate requires a risk-based reason.
+A typical sequence:
 
-## Principles
-- build once; promote the same artifact;
-- keep production secrets out of source/build logs;
-- separate application build from production data migration;
-- fail closed on required gates;
-- preserve exact commit, dependency lock, build identity and artifact digest where feasible;
-- treat flaky required gates as defects, not as reasons to ignore failures;
-- measure delivery performance over time, not by one heroic release.
+`source policy → static/lint → unit/property → contract/integration → security/dependency → build → artifact digest/provenance → release tests → candidate`
+
+Order cheap deterministic checks early. Keep expensive environment-dependent checks later but before the release decision where risk requires them.
+
+## Build once
+
+Prefer producing an immutable artifact once and promoting it between environments. Rebuilding for staging/production can produce different dependencies/bytes and break traceability between tested and deployed code.
+
+Record:
+- commit SHA;
+- build ID;
+- dependency lock/provenance;
+- artifact digest;
+- build environment/toolchain version where material.
+
+## Secrets and configuration
+
+CI jobs use least privilege. Separate environment configuration from build output. Validate required configuration shape without echoing secret values. Prefer short-lived credentials/identity federation where available.
+
+## Database changes
+
+Pipeline/release logic should understand migration compatibility:
+- expand before code that depends on new schema;
+- mixed-version window;
+- backfill/long-running job;
+- contract old schema later.
+
+Do not assume rollback is safe after an irreversible migration.
+
+## Flakiness and infrastructure failures
+
+A retry due to CI infrastructure is different from a flaky product test. Record distinction. Quarantine product flakiness only with owner/issue/expiry.
+
+Repeated “rerun until green” destroys the evidence value of the pipeline.
+
+## Provenance and approvals
+
+Manual approval should expose decision-relevant evidence: exact artifact, failed/skipped checks, migrations, risk, rollout/rollback. Approval without evidence is ceremonial friction.
+
+## Delivery metrics
+
+Use lead/throughput and instability/failure metrics to improve the delivery system, interpreted in context. Do not game frequency at the expense of reliability or split changes artificially.
+
+The pipeline is complete when it can produce a release candidate whose identity and evidence survive intact into rollout.
