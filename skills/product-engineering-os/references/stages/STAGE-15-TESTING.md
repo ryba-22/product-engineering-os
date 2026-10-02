@@ -50,8 +50,11 @@ Risk-based Test Strategy; risk→test matrix; automated tests; manual verificati
 ## Failure modes
 Test-count vanity; all-E2E strategy; snapshot tests with no semantic oracle; mocks proving mocks; ignored flaky suite; no negative/adversarial cases; assuming CI green means production healthy.
 
+## Completion-state guard
+Designing a test strategy, writing test cases, or naming a verification command is **DECIDED**, not **VERIFIED**. Use VERIFIED only after the required checks have actually executed against the relevant artifact/environment and their results are available. If execution evidence is absent, say UNVERIFIED and preserve the next verification action.
+
 ## Exit conditions
-G7 is satisfied when material risks have trustworthy verification or an explicit accepted residual risk, failures are diagnosable, and evidence can be tied to the exact change/artifact.
+G7 is satisfied when material risks have trustworthy **executed** verification or an explicit accepted residual risk, failures are diagnosable, and evidence can be tied to the exact change/artifact.
 
 ## Handoff
 Stages 16–17 add specialist verification. Stage 18 consumes deterministic gates. Stage 19 uses release evidence rather than branch state.

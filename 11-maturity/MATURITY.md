@@ -15,3 +15,9 @@ The maturity report must therefore never use a green structural test as proof th
 Optional specialist corpora remain conditional until the exact assets are supplied, versioned and reviewed. The bundled stage playbooks provide native fallback depth so Domain and Experience stages no longer depend only on crosswalk files.
 
 Run `python scripts/validate.py`, `python scripts/audit_coverage.py`, `python scripts/audit_freshness.py` and `pytest` before a release.
+
+## Executed adversarial evidence — 2026-10-03
+
+Run ADV-RUN-2026-10-03-01 executed one realistic adversarial scenario for each of the 25 lifecycle stages. The initial result was 24/25: Stage 15 incorrectly claimed VERIFIED after designing a test strategy without executed test evidence. The stage playbook, golden evals and regression tests were changed, then the same frozen Stage-15 scenario was rerun. Final result: 25/25.
+
+This upgrades the package from depth-only evidence to executed self-assessed behavioral evidence for those scenarios. It does not upgrade the package to an independent benchmark: executor and judge were separate passes of the same GPT-5.6 Sol session. See 05-evals/adversarial-run-v1/REPORT.md and final-results.json.

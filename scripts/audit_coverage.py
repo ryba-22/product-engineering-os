@@ -30,8 +30,12 @@ for s in cov['stages']:
         if section not in text: errors.append(f"stage {s['id']} missing section {section}")
     for eid in s.get('evidence_ids',[]):
         if eid not in text: errors.append(f"stage {s['id']} playbook does not declare {eid}")
-    if s.get('behavioral_validation') not in {'pending-independent-eval','executed'}:
+    if s.get('behavioral_validation') not in {'pending-independent-eval','executed','executed-self-assessed'}:
         errors.append(f"stage {s['id']} invalid behavioral_validation")
+    if s.get('behavioral_validation') == 'executed-self-assessed':
+        ev=ROOT/s.get('behavioral_evidence','')
+        if not ev.exists(): errors.append(f"stage {s['id']} missing behavioral evidence file {ev}")
+        if s.get('behavioral_independent') is not False: errors.append(f"stage {s['id']} self-assessed run must set behavioral_independent=false")
 if errors:
     print('FAIL coverage/depth')
     for e in errors: print('-',e)

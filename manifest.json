@@ -272,7 +272,7 @@
   "knowledge_depth": {
     "stage_playbooks": 25,
     "minimum_stage_playbook_words": 350,
-    "behavioral_validation": "pending-independent-evaluation",
+    "behavioral_validation": "executed-self-assessed: ADV-RUN-2026-10-03-01 passed 25/25 after one detected defect was remediated and rerun; independent benchmark still pending",
     "rule": "Structural and depth validation do not by themselves prove behavioral effectiveness."
   }
 }

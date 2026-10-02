@@ -32,3 +32,9 @@ def test_manifest_points_to_same_playbooks_as_coverage():
     c={s['id']:s for s in json.loads((ROOT/'11-maturity/stage-coverage.json').read_text())['stages']}
     for s in m['lifecycle_stages']:
         assert s['playbook']==c[s['id']]['stage_playbook']
+
+def test_stage15_completion_state_guard():
+    text=(ROOT/'06-modules/quality-engineering/STAGE-15-TESTING.md').read_text()
+    assert 'Designing a test strategy' in text
+    assert 'not **VERIFIED**' in text
+    assert 'Use VERIFIED only after' in text
