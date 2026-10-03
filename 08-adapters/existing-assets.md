@@ -8,6 +8,9 @@ Treat as the canonical Experience decision engine for stages 7–11. Reuse its c
 ## Domain-Driven Design Architect / Event Storming
 Treat as canonical for stages 3 and 5. Its Evidence Bank epistemic labels remain valid. Product Engineering OS maps domain evidence/decisions into the shared `EVD-*`/DR graph without erasing original IDs.
 
+## Polska Myśl Architektoniczna (PMA)
+Use as an optional, versioned knowledge plane for domain/architecture heuristics, software archetypes, failure patterns and AI-engineering guidance. Import only the public machine registry; never depend on PMA private/raw-source directories. Record the PMA Git SHA used by a run.
+
 ## Refactoring UI knowledge base + Calm Enterprise UX
 Use as craft/product-language inputs under Experience, never as authority over hard accessibility/safety/domain constraints.
 

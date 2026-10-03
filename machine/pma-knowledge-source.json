@@ -1,0 +1,9 @@
+{
+  "id": "PMA-KNOWLEDGE",
+  "name": "Polska Myśl Architektoniczna",
+  "repository": "https://github.com/ryba-22/Polska-Mysl-Architektoniczna-Obsidian",
+  "default_local_path": "../Polska-Mysl-Architektoniczna-Obsidian",
+  "registry_path": "dist/peos/registry.json",
+  "publication_boundary": "public-only",
+  "role": "optional-versioned-knowledge-plane"
+}

@@ -1,0 +1,770 @@
+{
+  "schema_version": "1.0.0",
+  "source": "Polska-Mysl-Architektoniczna-Obsidian",
+  "source_repository": "https://github.com/ryba-22/Polska-Mysl-Architektoniczna-Obsidian",
+  "source_sha": "67ae04e3bd854453be43ae9c184007ce57700902",
+  "publication_boundary": "public-only",
+  "entry_count": 38,
+  "entries": [
+    {
+      "id": "PMA-MAP-001",
+      "title": "Mapa PMA",
+      "type": "map",
+      "lifecycle": "active",
+      "knowledge_status": "synthesis",
+      "peos_usable": true,
+      "tags": [
+        "map",
+        "knowledge-graph"
+      ],
+      "source_ids": [
+        "DOMAIN-DRIVERS-COURSE",
+        "DOMAIN-DRIVERS-DD-AI",
+        "SOFTWARE-ARCHETYPES",
+        "AI-THAT-WORKS"
+      ],
+      "path": "content/00-Start/Mapa PMA.md",
+      "wikilinks": [
+        "PMA-PEOS Bridge",
+        "Pattern vs Archetype vs Algorithm",
+        "Software Archetypes"
+      ]
+    },
+    {
+      "id": "PMA-START-001",
+      "title": "Polska Myśl Architektoniczna",
+      "type": "map",
+      "lifecycle": "active",
+      "knowledge_status": "synthesis",
+      "peos_usable": true,
+      "tags": [
+        "pma",
+        "start"
+      ],
+      "source_ids": [],
+      "path": "content/00-Start/Start Here.md",
+      "wikilinks": [
+        "Context Engineering",
+        "DDD jako proces decyzyjny",
+        "Event Driven Failure Patterns",
+        "Evolutionary Strict Pass Rate",
+        "Information Gathering",
+        "Problem Classification",
+        "Product Engineering Reasoning Engine",
+        "Software Archetypes",
+        "Unit of Change"
+      ]
+    },
+    {
+      "id": "PMA-CONCEPT-BC-001",
+      "title": "Bounded Context",
+      "type": "concept",
+      "lifecycle": "verified",
+      "knowledge_status": "synthesis",
+      "peos_usable": true,
+      "tags": [
+        "ddd",
+        "bounded-context",
+        "language"
+      ],
+      "source_ids": [
+        "DDD-BY-EXAMPLES-LIBRARY",
+        "DOMAIN-DRIVERS-COURSE"
+      ],
+      "path": "content/01-Concepts/Bounded Context.md",
+      "wikilinks": [
+        "Connascence"
+      ]
+    },
+    {
+      "id": "PMA-CONCEPT-CONNASCENCE-001",
+      "title": "Connascence",
+      "type": "concept",
+      "lifecycle": "verified",
+      "knowledge_status": "synthesis",
+      "peos_usable": true,
+      "tags": [
+        "coupling",
+        "boundaries",
+        "architecture"
+      ],
+      "source_ids": [
+        "DOMAIN-DRIVERS-DD-AI"
+      ],
+      "path": "content/01-Concepts/Connascence.md",
+      "wikilinks": []
+    },
+    {
+      "id": "PMA-CONCEPT-CONSISTENCY-001",
+      "title": "Consistency Boundary",
+      "type": "concept",
+      "lifecycle": "verified",
+      "knowledge_status": "synthesis",
+      "peos_usable": true,
+      "tags": [
+        "ddd",
+        "aggregate",
+        "consistency",
+        "concurrency"
+      ],
+      "source_ids": [
+        "DOMAIN-DRIVERS-COURSE",
+        "DOMAIN-DRIVERS-DD-JAVA",
+        "BSLOTA"
+      ],
+      "path": "content/01-Concepts/Consistency Boundary.md",
+      "wikilinks": [
+        "Unit of Change"
+      ]
+    },
+    {
+      "id": "PMA-CONCEPT-DDD-001",
+      "title": "DDD jako proces decyzyjny",
+      "type": "concept",
+      "lifecycle": "verified",
+      "knowledge_status": "synthesis",
+      "peos_usable": true,
+      "tags": [
+        "ddd",
+        "reasoning"
+      ],
+      "source_ids": [
+        "DOMAIN-DRIVERS-COURSE",
+        "DEVMOUNTJOB",
+        "DDD-BY-EXAMPLES-LIBRARY"
+      ],
+      "path": "content/01-Concepts/DDD jako proces decyzyjny.md",
+      "wikilinks": [
+        "Information Gathering",
+        "Linguistic Boundary",
+        "Problem Classification",
+        "Unit of Change"
+      ]
+    },
+    {
+      "id": "PMA-H-ARCH-DRIVERS-001",
+      "title": "Architecture Drivers",
+      "type": "heuristic",
+      "lifecycle": "verified",
+      "knowledge_status": "synthesis",
+      "peos_usable": true,
+      "tags": [
+        "architecture",
+        "decision",
+        "drivers"
+      ],
+      "source_ids": [
+        "DOMAIN-DRIVERS-COURSE"
+      ],
+      "path": "content/02-Heuristics/Architecture Drivers.md",
+      "wikilinks": []
+    },
+    {
+      "id": "PMA-H-DDD-INFO-001",
+      "title": "Information Gathering",
+      "type": "heuristic",
+      "lifecycle": "verified",
+      "knowledge_status": "source-derived",
+      "peos_usable": true,
+      "tags": [
+        "ddd",
+        "discovery",
+        "event-storming"
+      ],
+      "source_ids": [
+        "DOMAIN-DRIVERS-COURSE",
+        "DDD-BY-EXAMPLES-LIBRARY",
+        "DEVMOUNTJOB"
+      ],
+      "path": "content/02-Heuristics/Information Gathering.md",
+      "wikilinks": []
+    },
+    {
+      "id": "PMA-H-DDD-LANGUAGE-001",
+      "title": "Linguistic Boundary",
+      "type": "heuristic",
+      "lifecycle": "verified",
+      "knowledge_status": "source-derived",
+      "peos_usable": true,
+      "tags": [
+        "ddd",
+        "ubiquitous-language",
+        "bounded-context"
+      ],
+      "source_ids": [
+        "DDD-BY-EXAMPLES-LIBRARY",
+        "DOMAIN-DRIVERS-COURSE"
+      ],
+      "path": "content/02-Heuristics/Linguistic Boundary.md",
+      "wikilinks": []
+    },
+    {
+      "id": "PMA-H-PROBLEM-CLASS-001",
+      "title": "Problem Classification",
+      "type": "heuristic",
+      "lifecycle": "verified",
+      "knowledge_status": "synthesis",
+      "peos_usable": true,
+      "tags": [
+        "problem-classification",
+        "ddd",
+        "architecture"
+      ],
+      "source_ids": [
+        "DOMAIN-DRIVERS-DD-AI",
+        "DOMAIN-DRIVERS-COURSE",
+        "DDD-BY-EXAMPLES-LIBRARY"
+      ],
+      "path": "content/02-Heuristics/Problem Classification.md",
+      "wikilinks": [
+        "Pattern vs Archetype vs Algorithm"
+      ]
+    },
+    {
+      "id": "PMA-H-CONSISTENCY-001",
+      "title": "Unit of Change",
+      "type": "heuristic",
+      "lifecycle": "verified",
+      "knowledge_status": "source-derived",
+      "peos_usable": true,
+      "tags": [
+        "consistency",
+        "concurrency",
+        "aggregate",
+        "ddd"
+      ],
+      "source_ids": [
+        "DOMAIN-DRIVERS-COURSE",
+        "DOMAIN-DRIVERS-DD-JAVA",
+        "BSLOTA"
+      ],
+      "path": "content/02-Heuristics/Unit of Change.md",
+      "wikilinks": [
+        "Consistency Boundary"
+      ]
+    },
+    {
+      "id": "PMA-ARCHETYPE-ACCOUNTING-001",
+      "title": "Accounting",
+      "type": "software-archetype",
+      "lifecycle": "candidate",
+      "knowledge_status": "synthesis",
+      "peos_usable": true,
+      "tags": [
+        "accounting",
+        "transactions",
+        "ledger"
+      ],
+      "source_ids": [
+        "SOFTWARE-ARCHETYPES",
+        "ARCHETYPY-OPROGRAMOWANIA"
+      ],
+      "path": "content/03-Software-Archetypes/Accounting.md",
+      "wikilinks": []
+    },
+    {
+      "id": "PMA-ARCHETYPE-AVAILABILITY-001",
+      "title": "Availability",
+      "type": "software-archetype",
+      "lifecycle": "verified",
+      "knowledge_status": "synthesis",
+      "peos_usable": true,
+      "tags": [
+        "availability",
+        "reservation",
+        "resource-contention"
+      ],
+      "source_ids": [
+        "SOFTWARE-ARCHETYPES",
+        "ARCHETYPY-OPROGRAMOWANIA",
+        "DOMAIN-DRIVERS-DD-JAVA"
+      ],
+      "path": "content/03-Software-Archetypes/Availability.md",
+      "wikilinks": [
+        "Concurrency and Stale State",
+        "Unit of Change",
+        "Waitlist"
+      ]
+    },
+    {
+      "id": "PMA-ARCHETYPE-CONFIGURATOR-001",
+      "title": "Configurator",
+      "type": "software-archetype",
+      "lifecycle": "verified",
+      "knowledge_status": "synthesis",
+      "peos_usable": true,
+      "tags": [
+        "configuration",
+        "constraints",
+        "sat",
+        "algorithm"
+      ],
+      "source_ids": [
+        "SOFTWARE-ARCHETYPES"
+      ],
+      "path": "content/03-Software-Archetypes/Configurator.md",
+      "wikilinks": [
+        "Pattern vs Archetype vs Algorithm"
+      ]
+    },
+    {
+      "id": "PMA-ARCHETYPE-PLANEXEC-001",
+      "title": "Plan vs Execution",
+      "type": "software-archetype",
+      "lifecycle": "candidate",
+      "knowledge_status": "synthesis",
+      "peos_usable": true,
+      "tags": [
+        "plan",
+        "execution",
+        "delta",
+        "simulation",
+        "tolerance"
+      ],
+      "source_ids": [
+        "ARCHETYPY-OPROGRAMOWANIA"
+      ],
+      "path": "content/03-Software-Archetypes/Plan vs Execution.md",
+      "wikilinks": []
+    },
+    {
+      "id": "PMA-ARCHETYPE-PRICING-001",
+      "title": "Pricing",
+      "type": "software-archetype",
+      "lifecycle": "verified",
+      "knowledge_status": "synthesis",
+      "peos_usable": true,
+      "tags": [
+        "pricing",
+        "calculation",
+        "rules"
+      ],
+      "source_ids": [
+        "SOFTWARE-ARCHETYPES",
+        "ARCHETYPY-OPROGRAMOWANIA",
+        "BSLOTA"
+      ],
+      "path": "content/03-Software-Archetypes/Pricing.md",
+      "wikilinks": []
+    },
+    {
+      "id": "PMA-ARCHETYPE-MAP-001",
+      "title": "Software Archetypes",
+      "type": "map",
+      "lifecycle": "verified",
+      "knowledge_status": "synthesis",
+      "peos_usable": true,
+      "tags": [
+        "software-archetypes",
+        "deep-model",
+        "structural-recognition"
+      ],
+      "source_ids": [
+        "SOFTWARE-ARCHETYPES",
+        "ARCHETYPY-OPROGRAMOWANIA",
+        "BSLOTA"
+      ],
+      "path": "content/03-Software-Archetypes/Software Archetypes.md",
+      "wikilinks": [
+        "Accounting",
+        "Availability",
+        "Configurator",
+        "Plan vs Execution",
+        "Pricing",
+        "Waitlist"
+      ]
+    },
+    {
+      "id": "PMA-ARCHETYPE-WAITLIST-001",
+      "title": "Waitlist",
+      "type": "software-archetype",
+      "lifecycle": "verified",
+      "knowledge_status": "synthesis",
+      "peos_usable": true,
+      "tags": [
+        "waitlist",
+        "queue",
+        "selection-policy"
+      ],
+      "source_ids": [
+        "SOFTWARE-ARCHETYPES",
+        "ARCHETYPY-OPROGRAMOWANIA"
+      ],
+      "path": "content/03-Software-Archetypes/Waitlist.md",
+      "wikilinks": [
+        "Availability"
+      ]
+    },
+    {
+      "id": "PMA-FAIL-CONCURRENCY-001",
+      "title": "Concurrency and Stale State",
+      "type": "failure-pattern",
+      "lifecycle": "verified",
+      "knowledge_status": "synthesis",
+      "peos_usable": true,
+      "tags": [
+        "concurrency",
+        "optimistic-locking",
+        "stale-state",
+        "api"
+      ],
+      "source_ids": [
+        "BSLOTA",
+        "DOMAIN-DRIVERS-DD-JAVA",
+        "SOFTWARE-ARCHETYPES"
+      ],
+      "path": "content/04-Failure-Patterns/Concurrency and Stale State.md",
+      "wikilinks": []
+    },
+    {
+      "id": "PMA-FAIL-EDA-001",
+      "title": "Event Driven Failure Patterns",
+      "type": "failure-pattern",
+      "lifecycle": "verified",
+      "knowledge_status": "synthesis",
+      "peos_usable": true,
+      "tags": [
+        "event-driven",
+        "integration",
+        "failure-modes"
+      ],
+      "source_ids": [
+        "PILLOPL",
+        "DOMAIN-DRIVERS-DD-AI",
+        "EMMETT",
+        "DDD-BY-EXAMPLES-CQRS"
+      ],
+      "path": "content/04-Failure-Patterns/Event Driven Failure Patterns.md",
+      "wikilinks": []
+    },
+    {
+      "id": "PMA-FAIL-OUTBOX-001",
+      "title": "Transactional Outbox Atomicity",
+      "type": "failure-pattern",
+      "lifecycle": "verified",
+      "knowledge_status": "source-derived",
+      "peos_usable": true,
+      "tags": [
+        "outbox",
+        "atomicity",
+        "integration"
+      ],
+      "source_ids": [
+        "DOMAIN-DRIVERS-DD-AI"
+      ],
+      "path": "content/04-Failure-Patterns/Transactional Outbox Atomicity.md",
+      "wikilinks": []
+    },
+    {
+      "id": "PMA-CASE-LIBRARY-001",
+      "title": "DDD by Examples — Library",
+      "type": "case-study",
+      "lifecycle": "verified",
+      "knowledge_status": "synthesis",
+      "peos_usable": true,
+      "tags": [
+        "ddd",
+        "event-storming",
+        "library",
+        "case-study"
+      ],
+      "source_ids": [
+        "DDD-BY-EXAMPLES-LIBRARY"
+      ],
+      "path": "content/05-Case-Studies/DDD by Examples Library.md",
+      "wikilinks": []
+    },
+    {
+      "id": "PMA-CASE-DEVMOUNT-001",
+      "title": "DevMountJob",
+      "type": "case-study",
+      "lifecycle": "verified",
+      "knowledge_status": "synthesis",
+      "peos_usable": true,
+      "tags": [
+        "event-storming",
+        "ddd",
+        "cqrs",
+        "event-sourcing"
+      ],
+      "source_ids": [
+        "DEVMOUNTJOB"
+      ],
+      "path": "content/05-Case-Studies/DevMountJob.md",
+      "wikilinks": []
+    },
+    {
+      "id": "PMA-CASE-SMARTSCHEDULE-001",
+      "title": "Domain Drivers — SmartSchedule",
+      "type": "case-study",
+      "lifecycle": "verified",
+      "knowledge_status": "synthesis",
+      "peos_usable": true,
+      "tags": [
+        "domain-drivers",
+        "ddd",
+        "smartschedule",
+        "case-study"
+      ],
+      "source_ids": [
+        "DOMAIN-DRIVERS-ORG",
+        "DOMAIN-DRIVERS-DD-JAVA",
+        "DOMAIN-DRIVERS-DD-AI"
+      ],
+      "path": "content/05-Case-Studies/Domain Drivers SmartSchedule.md",
+      "wikilinks": []
+    },
+    {
+      "id": "PMA-CASE-TESTABLE-ARCH-001",
+      "title": "Testable Architecture and Legacy Migration",
+      "type": "case-study",
+      "lifecycle": "candidate",
+      "knowledge_status": "synthesis",
+      "peos_usable": true,
+      "tags": [
+        "legacy",
+        "migration",
+        "architecture-tests",
+        "acl"
+      ],
+      "source_ids": [
+        "PILLOPL"
+      ],
+      "path": "content/05-Case-Studies/Testable Architecture and Legacy Migration.md",
+      "wikilinks": []
+    },
+    {
+      "id": "PMA-AI-OBS-001",
+      "title": "Agent Observability",
+      "type": "concept",
+      "lifecycle": "verified",
+      "knowledge_status": "synthesis",
+      "peos_usable": true,
+      "tags": [
+        "ai",
+        "observability",
+        "tracing"
+      ],
+      "source_ids": [
+        "AI-THAT-WORKS"
+      ],
+      "path": "content/06-AI-Engineering/Agent Observability.md",
+      "wikilinks": []
+    },
+    {
+      "id": "PMA-AI-CONTEXT-001",
+      "title": "Context Engineering",
+      "type": "concept",
+      "lifecycle": "verified",
+      "knowledge_status": "synthesis",
+      "peos_usable": true,
+      "tags": [
+        "ai",
+        "context-engineering",
+        "memory"
+      ],
+      "source_ids": [
+        "AI-THAT-WORKS"
+      ],
+      "path": "content/06-AI-Engineering/Context Engineering.md",
+      "wikilinks": []
+    },
+    {
+      "id": "PMA-AI-EVAL-001",
+      "title": "Evolutionary Eval",
+      "type": "concept",
+      "lifecycle": "verified",
+      "knowledge_status": "synthesis",
+      "peos_usable": true,
+      "tags": [
+        "ai",
+        "evals",
+        "evolution",
+        "regression"
+      ],
+      "source_ids": [
+        "AI-THAT-WORKS"
+      ],
+      "path": "content/06-AI-Engineering/Evolutionary Eval.md",
+      "wikilinks": []
+    },
+    {
+      "id": "PMA-AI-FACTORY-001",
+      "title": "Software Factory",
+      "type": "concept",
+      "lifecycle": "verified",
+      "knowledge_status": "synthesis",
+      "peos_usable": true,
+      "tags": [
+        "ai",
+        "software-factory",
+        "agents",
+        "feedback-loop"
+      ],
+      "source_ids": [
+        "AI-THAT-WORKS"
+      ],
+      "path": "content/06-AI-Engineering/Software Factory.md",
+      "wikilinks": []
+    },
+    {
+      "id": "PMA-PEOS-BRIDGE-001",
+      "title": "PMA-PEOS Bridge",
+      "type": "integration",
+      "lifecycle": "active",
+      "knowledge_status": "peos-decision",
+      "peos_usable": true,
+      "tags": [
+        "peos",
+        "pma",
+        "integration",
+        "knowledge"
+      ],
+      "source_ids": [],
+      "path": "content/07-PEOS/PMA-PEOS Bridge.md",
+      "wikilinks": []
+    },
+    {
+      "id": "PMA-PEOS-REASONING-001",
+      "title": "Product Engineering Reasoning Engine",
+      "type": "peos-model",
+      "lifecycle": "verified",
+      "knowledge_status": "synthesis",
+      "peos_usable": true,
+      "tags": [
+        "peos",
+        "reasoning-engine",
+        "ddd",
+        "ai"
+      ],
+      "source_ids": [
+        "DOMAIN-DRIVERS-COURSE",
+        "DOMAIN-DRIVERS-DD-AI",
+        "SOFTWARE-ARCHETYPES",
+        "ARCHETYPY-OPROGRAMOWANIA",
+        "AI-THAT-WORKS"
+      ],
+      "path": "content/07-PEOS/Product Engineering Reasoning Engine.md",
+      "wikilinks": []
+    },
+    {
+      "id": "PMA-COMPARE-STRUCTURE-001",
+      "title": "Pattern vs Archetype vs Algorithm",
+      "type": "comparison",
+      "lifecycle": "verified",
+      "knowledge_status": "synthesis",
+      "peos_usable": true,
+      "tags": [
+        "pattern",
+        "archetype",
+        "algorithm",
+        "modeling"
+      ],
+      "source_ids": [
+        "DOMAIN-DRIVERS-DD-AI",
+        "SOFTWARE-ARCHETYPES",
+        "ARCHETYPY-OPROGRAMOWANIA"
+      ],
+      "path": "content/08-Comparisons/Pattern vs Archetype vs Algorithm.md",
+      "wikilinks": []
+    },
+    {
+      "id": "PMA-EVAL-STRICT-001",
+      "title": "Evolutionary Strict Pass Rate",
+      "type": "eval",
+      "lifecycle": "active",
+      "knowledge_status": "synthesis",
+      "peos_usable": true,
+      "tags": [
+        "evals",
+        "strict-pass",
+        "agents",
+        "maintainability"
+      ],
+      "source_ids": [
+        "AI-THAT-WORKS"
+      ],
+      "path": "content/09-Evals/Evolutionary Strict Pass Rate.md",
+      "wikilinks": []
+    },
+    {
+      "id": "PMA-GLOSSARY-001",
+      "title": "Glossary",
+      "type": "glossary",
+      "lifecycle": "active",
+      "knowledge_status": "synthesis",
+      "peos_usable": true,
+      "tags": [
+        "glossary"
+      ],
+      "source_ids": [],
+      "path": "content/90-Glossary/Glossary.md",
+      "wikilinks": []
+    },
+    {
+      "id": "PMA-META-HOSTING-001",
+      "title": "Hosting i Obsidian",
+      "type": "governance",
+      "lifecycle": "active",
+      "knowledge_status": "peos-decision",
+      "peos_usable": false,
+      "tags": [
+        "obsidian",
+        "github",
+        "hosting"
+      ],
+      "source_ids": [],
+      "path": "content/99-Meta/Hosting and Obsidian.md",
+      "wikilinks": []
+    },
+    {
+      "id": "PMA-META-LIFECYCLE-001",
+      "title": "Knowledge Lifecycle",
+      "type": "governance",
+      "lifecycle": "active",
+      "knowledge_status": "peos-decision",
+      "peos_usable": true,
+      "tags": [
+        "governance",
+        "knowledge-lifecycle"
+      ],
+      "source_ids": [],
+      "path": "content/99-Meta/Knowledge Lifecycle.md",
+      "wikilinks": []
+    },
+    {
+      "id": "PMA-META-PUBLICATION-001",
+      "title": "Polityka publikacji PMA",
+      "type": "governance",
+      "lifecycle": "active",
+      "knowledge_status": "peos-decision",
+      "peos_usable": true,
+      "tags": [
+        "governance",
+        "licensing",
+        "publication"
+      ],
+      "source_ids": [],
+      "path": "content/99-Meta/Publication Policy.md",
+      "wikilinks": [
+        "PMA-PEOS Bridge"
+      ]
+    },
+    {
+      "id": "PMA-META-PROVENANCE-001",
+      "title": "Pochodzenie wiedzy",
+      "type": "governance",
+      "lifecycle": "active",
+      "knowledge_status": "peos-decision",
+      "peos_usable": true,
+      "tags": [
+        "provenance",
+        "evidence",
+        "governance"
+      ],
+      "source_ids": [],
+      "path": "content/99-Meta/Source Provenance.md",
+      "wikilinks": []
+    }
+  ]
+}

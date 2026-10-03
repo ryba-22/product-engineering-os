@@ -739,6 +739,23 @@
       "cutoff_target": "2026-09-30",
       "availability": "optional-not-bundled",
       "verification_note": "Register and verify the actual supplied asset before relying on its claims."
+    },
+    {
+      "id": "PMA-KNOWLEDGE",
+      "tier": "D",
+      "name": "Polska Myśl Architektoniczna — public versioned knowledge graph",
+      "url": "https://github.com/ryba-22/Polska-Mysl-Architektoniczna-Obsidian",
+      "domains": [
+        "domain",
+        "architecture",
+        "ai",
+        "governance"
+      ],
+      "strength": "optional-integration",
+      "verified_at": "2026-10-03",
+      "cutoff_target": "2026-10-03",
+      "availability": "optional-not-bundled",
+      "verification_note": "Public registry snapshot may be imported, but PMA note content remains an optional external versioned knowledge plane. Consume only dist/peos public registry; private/raw PMA material is outside PEOS."
     }
   ]
 }
