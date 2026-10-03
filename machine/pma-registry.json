@@ -2,9 +2,9 @@
   "schema_version": "1.0.0",
   "source": "Polska-Mysl-Architektoniczna-Obsidian",
   "source_repository": "https://github.com/ryba-22/Polska-Mysl-Architektoniczna-Obsidian",
-  "source_sha": "2e06405908db165a1e8d39e6b512481e34fa97aa",
+  "source_sha": "be3ad436de0997614080685402d27c45c0a5a19d",
   "publication_boundary": "public-only",
-  "entry_count": 39,
+  "entry_count": 57,
   "entries": [
     {
       "id": "PMA-MAP-001",
@@ -44,14 +44,20 @@
       "source_ids": [],
       "path": "content/00-Start/Start Here.md",
       "wikilinks": [
+        "Agentic Backpressure",
+        "Algorithm Recognition",
+        "Architecture Code Gap",
         "Context Engineering",
         "DDD jako proces decyzyjny",
         "Event Driven Failure Patterns",
         "Evolutionary Strict Pass Rate",
+        "Example Mapping as Intermediate Step",
         "Information Gathering",
         "Problem Classification",
         "Product Engineering Reasoning Engine",
+        "Scenario Before Aggregate",
         "Software Archetypes",
+        "Structured Agent State",
         "Unit of Change"
       ]
     },
@@ -142,6 +148,48 @@
       ]
     },
     {
+      "id": "PMA-H-ALGORITHM-RECOGNITION-001",
+      "title": "Algorithm Recognition",
+      "type": "heuristic",
+      "lifecycle": "verified",
+      "knowledge_status": "synthesis",
+      "peos_usable": true,
+      "tags": [
+        "algorithm",
+        "structural-recognition",
+        "deep-model",
+        "ddd"
+      ],
+      "source_ids": [
+        "DOMAIN-DRIVERS-DD-AI",
+        "SOFTWARE-ARCHETYPES",
+        "ARCHETYPY-OPROGRAMOWANIA"
+      ],
+      "path": "content/02-Heuristics/Algorithm Recognition.md",
+      "wikilinks": []
+    },
+    {
+      "id": "PMA-H-ARCH-CODE-GAP-001",
+      "title": "Architecture Code Gap",
+      "type": "heuristic",
+      "lifecycle": "verified",
+      "knowledge_status": "synthesis",
+      "peos_usable": true,
+      "tags": [
+        "architecture",
+        "boundaries",
+        "verification",
+        "ci"
+      ],
+      "source_ids": [
+        "DDD-BY-EXAMPLES-LIBRARY",
+        "DOMAIN-DRIVERS-DD-JAVA",
+        "PILLOPL"
+      ],
+      "path": "content/02-Heuristics/Architecture Code Gap.md",
+      "wikilinks": []
+    },
+    {
       "id": "PMA-H-ARCH-DRIVERS-001",
       "title": "Architecture Drivers",
       "type": "heuristic",
@@ -157,6 +205,25 @@
         "DOMAIN-DRIVERS-COURSE"
       ],
       "path": "content/02-Heuristics/Architecture Drivers.md",
+      "wikilinks": []
+    },
+    {
+      "id": "PMA-H-EXAMPLE-MAPPING-001",
+      "title": "Example Mapping as Intermediate Step",
+      "type": "heuristic",
+      "lifecycle": "verified",
+      "knowledge_status": "synthesis",
+      "peos_usable": true,
+      "tags": [
+        "ddd",
+        "example-mapping",
+        "event-storming",
+        "discovery"
+      ],
+      "source_ids": [
+        "DDD-BY-EXAMPLES-LIBRARY"
+      ],
+      "path": "content/02-Heuristics/Example Mapping as Intermediate Step.md",
       "wikilinks": []
     },
     {
@@ -199,6 +266,29 @@
       "wikilinks": []
     },
     {
+      "id": "PMA-H-LOCAL-ARCH-001",
+      "title": "Local Architecture by Problem Complexity",
+      "type": "heuristic",
+      "lifecycle": "verified",
+      "knowledge_status": "synthesis",
+      "peos_usable": true,
+      "tags": [
+        "architecture",
+        "bounded-context",
+        "complexity",
+        "local-architecture"
+      ],
+      "source_ids": [
+        "DDD-BY-EXAMPLES-LIBRARY",
+        "DOMAIN-DRIVERS-COURSE"
+      ],
+      "path": "content/02-Heuristics/Local Architecture by Problem Complexity.md",
+      "wikilinks": [
+        "Architecture Drivers",
+        "Problem Classification"
+      ]
+    },
+    {
       "id": "PMA-H-PROBLEM-CLASS-001",
       "title": "Problem Classification",
       "type": "heuristic",
@@ -218,6 +308,30 @@
       "path": "content/02-Heuristics/Problem Classification.md",
       "wikilinks": [
         "Pattern vs Archetype vs Algorithm"
+      ]
+    },
+    {
+      "id": "PMA-H-SCENARIO-BEFORE-AGGREGATE-001",
+      "title": "Scenario Before Aggregate",
+      "type": "heuristic",
+      "lifecycle": "verified",
+      "knowledge_status": "synthesis",
+      "peos_usable": true,
+      "tags": [
+        "ddd",
+        "design-level",
+        "aggregate",
+        "example-mapping"
+      ],
+      "source_ids": [
+        "DDD-BY-EXAMPLES-LIBRARY",
+        "DEVMOUNTJOB",
+        "DOMAIN-DRIVERS-COURSE"
+      ],
+      "path": "content/02-Heuristics/Scenario Before Aggregate.md",
+      "wikilinks": [
+        "Consistency Boundary",
+        "Unit of Change"
       ]
     },
     {
@@ -308,6 +422,93 @@
       ]
     },
     {
+      "id": "PMA-ARCHETYPE-ASSIGNMENT-001",
+      "title": "General Assignment",
+      "type": "software-archetype",
+      "lifecycle": "candidate",
+      "knowledge_status": "synthesis",
+      "peos_usable": true,
+      "tags": [
+        "software-archetypes",
+        "assignment",
+        "optimization",
+        "knapsack"
+      ],
+      "source_ids": [
+        "SOFTWARE-ARCHETYPES",
+        "DOMAIN-DRIVERS-DD-JAVA"
+      ],
+      "path": "content/03-Software-Archetypes/General Assignment.md",
+      "wikilinks": []
+    },
+    {
+      "id": "PMA-ARCHETYPE-GRAPHS-001",
+      "title": "Graphs",
+      "type": "software-archetype",
+      "lifecycle": "candidate",
+      "knowledge_status": "synthesis",
+      "peos_usable": true,
+      "tags": [
+        "software-archetypes",
+        "graphs",
+        "scheduling",
+        "influence",
+        "journey"
+      ],
+      "source_ids": [
+        "ARCHETYPY-OPROGRAMOWANIA"
+      ],
+      "path": "content/03-Software-Archetypes/Graphs.md",
+      "wikilinks": []
+    },
+    {
+      "id": "PMA-ARCHETYPE-INVENTORY-001",
+      "title": "Inventory",
+      "type": "software-archetype",
+      "lifecycle": "candidate",
+      "knowledge_status": "synthesis",
+      "peos_usable": true,
+      "tags": [
+        "software-archetypes",
+        "inventory",
+        "availability",
+        "reservation"
+      ],
+      "source_ids": [
+        "ARCHETYPY-OPROGRAMOWANIA"
+      ],
+      "path": "content/03-Software-Archetypes/Inventory.md",
+      "wikilinks": [
+        "Availability",
+        "Concurrency and Stale State",
+        "Product",
+        "Waitlist"
+      ]
+    },
+    {
+      "id": "PMA-ARCHETYPE-ORDERING-001",
+      "title": "Ordering",
+      "type": "software-archetype",
+      "lifecycle": "candidate",
+      "knowledge_status": "synthesis",
+      "peos_usable": true,
+      "tags": [
+        "software-archetypes",
+        "ordering",
+        "workflow"
+      ],
+      "source_ids": [
+        "ARCHETYPY-OPROGRAMOWANIA"
+      ],
+      "path": "content/03-Software-Archetypes/Ordering.md",
+      "wikilinks": [
+        "Accounting",
+        "Inventory",
+        "Plan vs Execution",
+        "Pricing"
+      ]
+    },
+    {
       "id": "PMA-ARCHETYPE-PLANEXEC-001",
       "title": "Plan vs Execution",
       "type": "software-archetype",
@@ -348,6 +549,71 @@
       "wikilinks": []
     },
     {
+      "id": "PMA-ARCHETYPE-PRODUCT-001",
+      "title": "Product",
+      "type": "software-archetype",
+      "lifecycle": "candidate",
+      "knowledge_status": "synthesis",
+      "peos_usable": true,
+      "tags": [
+        "software-archetypes",
+        "product",
+        "catalog"
+      ],
+      "source_ids": [
+        "SOFTWARE-ARCHETYPES",
+        "ARCHETYPY-OPROGRAMOWANIA",
+        "BSLOTA"
+      ],
+      "path": "content/03-Software-Archetypes/Product.md",
+      "wikilinks": [
+        "Inventory",
+        "Pricing",
+        "Quantity and Units"
+      ]
+    },
+    {
+      "id": "PMA-ARCHETYPE-QUANTITY-001",
+      "title": "Quantity and Units",
+      "type": "software-archetype",
+      "lifecycle": "candidate",
+      "knowledge_status": "synthesis",
+      "peos_usable": true,
+      "tags": [
+        "software-archetypes",
+        "quantity",
+        "units",
+        "value-object"
+      ],
+      "source_ids": [
+        "SOFTWARE-ARCHETYPES",
+        "ARCHETYPY-OPROGRAMOWANIA"
+      ],
+      "path": "content/03-Software-Archetypes/Quantity and Units.md",
+      "wikilinks": [
+        "Connascence"
+      ]
+    },
+    {
+      "id": "PMA-ARCHETYPE-RULES-001",
+      "title": "Rules and Scoring",
+      "type": "software-archetype",
+      "lifecycle": "candidate",
+      "knowledge_status": "synthesis",
+      "peos_usable": true,
+      "tags": [
+        "software-archetypes",
+        "rules",
+        "scoring",
+        "decision"
+      ],
+      "source_ids": [
+        "ARCHETYPY-OPROGRAMOWANIA"
+      ],
+      "path": "content/03-Software-Archetypes/Rules and Scoring.md",
+      "wikilinks": []
+    },
+    {
       "id": "PMA-ARCHETYPE-MAP-001",
       "title": "Software Archetypes",
       "type": "map",
@@ -369,8 +635,15 @@
         "Accounting",
         "Availability",
         "Configurator",
+        "General Assignment",
+        "Graphs",
+        "Inventory",
+        "Ordering",
         "Plan vs Execution",
         "Pricing",
+        "Product",
+        "Quantity and Units",
+        "Rules and Scoring",
         "Waitlist"
       ]
     },
@@ -436,6 +709,28 @@
       ],
       "path": "content/04-Failure-Patterns/Event Driven Failure Patterns.md",
       "wikilinks": []
+    },
+    {
+      "id": "PMA-FP-STALE-CLIENT-001",
+      "title": "Stale Client State",
+      "type": "failure-pattern",
+      "lifecycle": "verified",
+      "knowledge_status": "synthesis",
+      "peos_usable": true,
+      "tags": [
+        "concurrency",
+        "api",
+        "stale-state",
+        "optimistic-locking"
+      ],
+      "source_ids": [
+        "BSLOTA",
+        "DOMAIN-DRIVERS-DD-JAVA"
+      ],
+      "path": "content/04-Failure-Patterns/Stale Client State.md",
+      "wikilinks": [
+        "Concurrency and Stale State"
+      ]
     },
     {
       "id": "PMA-FAIL-OUTBOX-001",
@@ -552,6 +847,25 @@
       "wikilinks": []
     },
     {
+      "id": "PMA-AI-BACKPRESSURE-001",
+      "title": "Agentic Backpressure",
+      "type": "concept",
+      "lifecycle": "candidate",
+      "knowledge_status": "synthesis",
+      "peos_usable": true,
+      "tags": [
+        "ai",
+        "agents",
+        "verification",
+        "backpressure"
+      ],
+      "source_ids": [
+        "AI-THAT-WORKS"
+      ],
+      "path": "content/06-AI-Engineering/Agentic Backpressure.md",
+      "wikilinks": []
+    },
+    {
       "id": "PMA-AI-CONTEXT-001",
       "title": "Context Engineering",
       "type": "concept",
@@ -567,6 +881,25 @@
         "AI-THAT-WORKS"
       ],
       "path": "content/06-AI-Engineering/Context Engineering.md",
+      "wikilinks": []
+    },
+    {
+      "id": "PMA-AI-DESIGN-DOCS-001",
+      "title": "Design Docs as Scope Reduction",
+      "type": "concept",
+      "lifecycle": "candidate",
+      "knowledge_status": "synthesis",
+      "peos_usable": true,
+      "tags": [
+        "ai",
+        "design-doc",
+        "planning",
+        "execution"
+      ],
+      "source_ids": [
+        "AI-THAT-WORKS"
+      ],
+      "path": "content/06-AI-Engineering/Design Docs as Scope Reduction.md",
       "wikilinks": []
     },
     {
@@ -589,6 +922,43 @@
       "wikilinks": []
     },
     {
+      "id": "PMA-AI-MEMORY-DECAY-001",
+      "title": "Memory Resolution Decay",
+      "type": "concept",
+      "lifecycle": "candidate",
+      "knowledge_status": "synthesis",
+      "peos_usable": true,
+      "tags": [
+        "ai",
+        "memory",
+        "context-engineering"
+      ],
+      "source_ids": [
+        "AI-THAT-WORKS"
+      ],
+      "path": "content/06-AI-Engineering/Memory Resolution Decay.md",
+      "wikilinks": []
+    },
+    {
+      "id": "PMA-AI-FACTORY-LAYERS-001",
+      "title": "Software Factory Layers",
+      "type": "concept",
+      "lifecycle": "candidate",
+      "knowledge_status": "synthesis",
+      "peos_usable": true,
+      "tags": [
+        "ai",
+        "software-factory",
+        "agents",
+        "orchestration"
+      ],
+      "source_ids": [
+        "AI-THAT-WORKS"
+      ],
+      "path": "content/06-AI-Engineering/Software Factory Layers.md",
+      "wikilinks": []
+    },
+    {
       "id": "PMA-AI-FACTORY-001",
       "title": "Software Factory",
       "type": "concept",
@@ -605,6 +975,26 @@
         "AI-THAT-WORKS"
       ],
       "path": "content/06-AI-Engineering/Software Factory.md",
+      "wikilinks": []
+    },
+    {
+      "id": "PMA-AI-STATE-001",
+      "title": "Structured Agent State",
+      "type": "concept",
+      "lifecycle": "verified",
+      "knowledge_status": "synthesis",
+      "peos_usable": true,
+      "tags": [
+        "ai",
+        "agents",
+        "state",
+        "resumability"
+      ],
+      "source_ids": [
+        "AI-THAT-WORKS",
+        "DOMAIN-DRIVERS-DD-AI"
+      ],
+      "path": "content/06-AI-Engineering/Structured Agent State.md",
       "wikilinks": []
     },
     {
