@@ -2,9 +2,9 @@
   "schema_version": "1.0.0",
   "source": "Polska-Mysl-Architektoniczna-Obsidian",
   "source_repository": "https://github.com/ryba-22/Polska-Mysl-Architektoniczna-Obsidian",
-  "source_sha": "be3ad436de0997614080685402d27c45c0a5a19d",
+  "source_sha": "4ce3daf437ac54cbe8d6be23ef7bdca11683d483",
   "publication_boundary": "public-only",
-  "entry_count": 57,
+  "entry_count": 83,
   "entries": [
     {
       "id": "PMA-MAP-001",
@@ -21,13 +21,31 @@
         "DOMAIN-DRIVERS-COURSE",
         "DOMAIN-DRIVERS-DD-AI",
         "SOFTWARE-ARCHETYPES",
-        "AI-THAT-WORKS"
+        "AI-THAT-WORKS",
+        "DEVSTYLE-DDD-EMAIL-CORPUS"
       ],
       "path": "content/00-Start/Mapa PMA.md",
       "wikilinks": [
+        "Algorithm Recognition",
+        "Architecture Drivers",
+        "Decision Gate",
+        "Deep Model Quality",
+        "Distillation",
+        "Dynamic Validation",
+        "Evidence Contract",
+        "Evolutionary Strict Pass Rate",
+        "Język polskiej myśli architektonicznej",
+        "Kanoniczne pytania PMA",
+        "Main Question",
+        "Model Alternatives",
+        "Model Breaking Change",
+        "PMA Language Contract",
         "PMA-PEOS Bridge",
-        "Pattern vs Archetype vs Algorithm",
-        "Software Archetypes"
+        "Pivotal Event",
+        "Problem Classification",
+        "Software Archetypes",
+        "Unit of Change",
+        "Workflow Preflight"
       ]
     },
     {
@@ -45,20 +63,44 @@
       "path": "content/00-Start/Start Here.md",
       "wikilinks": [
         "Agentic Backpressure",
+        "Aggregate Sizing",
         "Algorithm Recognition",
+        "Alternative Process Flow",
         "Architecture Code Gap",
+        "Architecture Drivers",
+        "Behavior Preservation Contract",
         "Context Engineering",
+        "Current vs Historical Documentation",
+        "DDD Lean",
         "DDD jako proces decyzyjny",
+        "Decision Gate",
+        "Deep Model Quality",
+        "Distillation",
+        "Dynamic Validation",
+        "Event Command Query",
         "Event Driven Failure Patterns",
+        "Evidence Contract",
         "Evolutionary Strict Pass Rate",
         "Example Mapping as Intermediate Step",
+        "Heuristic Engineering",
         "Information Gathering",
+        "Intentional Composition",
+        "Język polskiej myśli architektonicznej",
+        "Kanoniczne pytania PMA",
+        "Main Question",
+        "Model Alternatives",
+        "Model Breaking Change",
+        "Model Harness Benchmarking",
+        "PMA Language Contract",
+        "Pivotal Event",
         "Problem Classification",
         "Product Engineering Reasoning Engine",
         "Scenario Before Aggregate",
         "Software Archetypes",
         "Structured Agent State",
-        "Unit of Change"
+        "Sync to Async Migration",
+        "Unit of Change",
+        "Workflow Preflight"
       ]
     },
     {
@@ -124,6 +166,45 @@
       ]
     },
     {
+      "id": "PMA-CONCEPT-DOCS-CURRENT-HISTORY-001",
+      "title": "Current vs Historical Documentation",
+      "type": "concept",
+      "lifecycle": "verified",
+      "knowledge_status": "source-derived",
+      "peos_usable": true,
+      "tags": [
+        "documentation",
+        "adr",
+        "architecture",
+        "knowledge"
+      ],
+      "source_ids": [
+        "PROJECT-FRONTEND-EMAIL-2024-08-01"
+      ],
+      "path": "content/01-Concepts/Current vs Historical Documentation.md",
+      "wikilinks": []
+    },
+    {
+      "id": "PMA-CONCEPT-DDD-LEAN-001",
+      "title": "DDD Lean",
+      "type": "concept",
+      "lifecycle": "candidate",
+      "knowledge_status": "source-derived",
+      "peos_usable": true,
+      "tags": [
+        "ddd",
+        "lean",
+        "constraints",
+        "modeling"
+      ],
+      "source_ids": [
+        "DEVSTYLE-DDD-EMAIL-CORPUS",
+        "DOMAIN-DRIVERS-COURSE"
+      ],
+      "path": "content/01-Concepts/DDD Lean.md",
+      "wikilinks": []
+    },
+    {
       "id": "PMA-CONCEPT-DDD-001",
       "title": "DDD jako proces decyzyjny",
       "type": "concept",
@@ -137,13 +218,123 @@
       "source_ids": [
         "DOMAIN-DRIVERS-COURSE",
         "DEVMOUNTJOB",
-        "DDD-BY-EXAMPLES-LIBRARY"
+        "DDD-BY-EXAMPLES-LIBRARY",
+        "DEVSTYLE-DDD-EMAIL-CORPUS"
       ],
       "path": "content/01-Concepts/DDD jako proces decyzyjny.md",
       "wikilinks": [
+        "Aggregate Sizing",
+        "Alternative Process Flow",
+        "Deep Model Quality",
+        "Distillation",
+        "Dynamic Validation",
+        "Heuristic Engineering",
         "Information Gathering",
+        "Język polskiej myśli architektonicznej",
         "Linguistic Boundary",
+        "Main Question",
+        "Model Alternatives",
+        "Pivotal Event",
         "Problem Classification",
+        "Unit of Change"
+      ]
+    },
+    {
+      "id": "PMA-CONCEPT-HEURISTIC-ENGINEERING-001",
+      "title": "Heuristic Engineering",
+      "type": "concept",
+      "lifecycle": "verified",
+      "knowledge_status": "source-derived",
+      "peos_usable": true,
+      "tags": [
+        "ddd",
+        "heuristics",
+        "decision-making",
+        "modeling"
+      ],
+      "source_ids": [
+        "DEVSTYLE-DDD-EMAIL-CORPUS",
+        "DOMAIN-DRIVERS-COURSE"
+      ],
+      "path": "content/01-Concepts/Heuristic Engineering.md",
+      "wikilinks": [
+        "Product Engineering Reasoning Engine"
+      ]
+    },
+    {
+      "id": "PMA-CONCEPT-COMPOSITION-001",
+      "title": "Intentional Composition",
+      "type": "concept",
+      "lifecycle": "candidate",
+      "knowledge_status": "source-derived",
+      "peos_usable": true,
+      "tags": [
+        "architecture",
+        "composition",
+        "dependency-inversion",
+        "testability"
+      ],
+      "source_ids": [
+        "SOFTWARE-ESSENTIALIST-EMAIL-2025-11-25"
+      ],
+      "path": "content/01-Concepts/Intentional Composition.md",
+      "wikilinks": []
+    },
+    {
+      "id": "PMA-CONCEPT-LANGUAGE-001",
+      "title": "Język polskiej myśli architektonicznej",
+      "type": "concept",
+      "lifecycle": "verified",
+      "knowledge_status": "synthesis",
+      "peos_usable": true,
+      "tags": [
+        "language",
+        "reasoning",
+        "ddd",
+        "architecture",
+        "pma"
+      ],
+      "source_ids": [
+        "PMA-LANGUAGE-CORPUS-2026-10-03",
+        "DOMAIN-DRIVERS-COURSE",
+        "DEVSTYLE-DEVTALK",
+        "BETTER-SOFTWARE-DESIGN",
+        "DDD-WAW-VIDEOS"
+      ],
+      "path": "content/01-Concepts/Język polskiej myśli architektonicznej.md",
+      "wikilinks": [
+        "Architecture Drivers",
+        "DDD jako proces decyzyjny",
+        "Linguistic Boundary",
+        "Metodyka korpusu językowego PMA",
+        "PMA Language Contract",
+        "Problem Classification",
+        "Product Engineering Reasoning Engine",
+        "Scenario Before Aggregate",
+        "Unit of Change"
+      ]
+    },
+    {
+      "id": "PMA-H-AGGREGATE-SIZING-001",
+      "title": "Aggregate Sizing",
+      "type": "heuristic",
+      "lifecycle": "candidate",
+      "knowledge_status": "synthesis",
+      "peos_usable": true,
+      "tags": [
+        "ddd",
+        "aggregate",
+        "consistency",
+        "concurrency"
+      ],
+      "source_ids": [
+        "DOMAIN-DRIVERS-COURSE",
+        "DDD-CREW",
+        "DEVSTYLE-DDD-EMAIL-CORPUS"
+      ],
+      "path": "content/02-Heuristics/Aggregate Sizing.md",
+      "wikilinks": [
+        "Consistency Boundary",
         "Unit of Change"
       ]
     },
@@ -167,6 +358,28 @@
       ],
       "path": "content/02-Heuristics/Algorithm Recognition.md",
       "wikilinks": []
+    },
+    {
+      "id": "PMA-H-ALTERNATIVE-FLOW-001",
+      "title": "Alternative Process Flow",
+      "type": "heuristic",
+      "lifecycle": "verified",
+      "knowledge_status": "synthesis",
+      "peos_usable": true,
+      "tags": [
+        "ddd",
+        "process",
+        "boundary",
+        "event-storming"
+      ],
+      "source_ids": [
+        "DOMAIN-DRIVERS-COURSE"
+      ],
+      "path": "content/02-Heuristics/Alternative Process Flow.md",
+      "wikilinks": [
+        "Main Question",
+        "Pivotal Event"
+      ]
     },
     {
       "id": "PMA-H-ARCH-CODE-GAP-001",
@@ -208,6 +421,181 @@
       "wikilinks": []
     },
     {
+      "id": "PMA-H-BEHAVIOR-PRESERVATION-001",
+      "title": "Behavior Preservation Contract",
+      "type": "heuristic",
+      "lifecycle": "verified",
+      "knowledge_status": "synthesis",
+      "peos_usable": true,
+      "tags": [
+        "refactoring",
+        "behavior",
+        "contract",
+        "verification"
+      ],
+      "source_ids": [
+        "DOMAIN-DRIVERS-DD-AI"
+      ],
+      "path": "content/02-Heuristics/Behavior Preservation Contract.md",
+      "wikilinks": [
+        "Architecture Code Gap",
+        "Evolutionary Strict Pass Rate",
+        "Scenario Before Aggregate"
+      ]
+    },
+    {
+      "id": "PMA-H-CAPABILITY-PRODUCT-001",
+      "title": "Capability vs Product",
+      "type": "heuristic",
+      "lifecycle": "candidate",
+      "knowledge_status": "synthesis",
+      "peos_usable": true,
+      "tags": [
+        "ddd",
+        "capability",
+        "product",
+        "boundary"
+      ],
+      "source_ids": [
+        "DOMAIN-DRIVERS-COURSE",
+        "DEVSTYLE-DDD-EMAIL-CORPUS"
+      ],
+      "path": "content/02-Heuristics/Capability vs Product.md",
+      "wikilinks": []
+    },
+    {
+      "id": "PMA-H-DECISION-GATE-001",
+      "title": "Decision Gate",
+      "type": "heuristic",
+      "lifecycle": "active",
+      "knowledge_status": "peos-decision",
+      "peos_usable": true,
+      "tags": [
+        "ai",
+        "governance",
+        "decision",
+        "gate"
+      ],
+      "source_ids": [
+        "DOMAIN-DRIVERS-DD-AI",
+        "AI-THAT-WORKS"
+      ],
+      "path": "content/02-Heuristics/Decision Gate.md",
+      "wikilinks": []
+    },
+    {
+      "id": "PMA-H-DEEP-MODEL-QUALITY-001",
+      "title": "Deep Model Quality",
+      "type": "heuristic",
+      "lifecycle": "candidate",
+      "knowledge_status": "synthesis",
+      "peos_usable": true,
+      "tags": [
+        "ddd",
+        "deep-model",
+        "model-quality",
+        "evaluation"
+      ],
+      "source_ids": [
+        "DOMAIN-DRIVERS-COURSE",
+        "EVANS-DDD",
+        "DEVSTYLE-DDD-EMAIL-CORPUS"
+      ],
+      "path": "content/02-Heuristics/Deep Model Quality.md",
+      "wikilinks": []
+    },
+    {
+      "id": "PMA-H-DISTILLATION-001",
+      "title": "Distillation",
+      "type": "heuristic",
+      "lifecycle": "verified",
+      "knowledge_status": "synthesis",
+      "peos_usable": true,
+      "tags": [
+        "ddd",
+        "strategic-design",
+        "core-domain",
+        "distillation"
+      ],
+      "source_ids": [
+        "DOMAIN-DRIVERS-COURSE",
+        "DEVSTYLE-DDD-EMAIL-CORPUS"
+      ],
+      "path": "content/02-Heuristics/Distillation.md",
+      "wikilinks": [
+        "Software Archetypes"
+      ]
+    },
+    {
+      "id": "PMA-H-DYNAMIC-VALIDATION-001",
+      "title": "Dynamic Validation",
+      "type": "heuristic",
+      "lifecycle": "verified",
+      "knowledge_status": "source-derived",
+      "peos_usable": true,
+      "tags": [
+        "ddd",
+        "boundaries",
+        "runtime",
+        "validation"
+      ],
+      "source_ids": [
+        "DEVSTYLE-DDD-EMAIL-CORPUS",
+        "DOMAIN-DRIVERS-COURSE"
+      ],
+      "path": "content/02-Heuristics/Dynamic Validation.md",
+      "wikilinks": [
+        "Architecture Code Gap",
+        "Connascence"
+      ]
+    },
+    {
+      "id": "PMA-H-ECQ-001",
+      "title": "Event Command Query",
+      "type": "heuristic",
+      "lifecycle": "verified",
+      "knowledge_status": "synthesis",
+      "peos_usable": true,
+      "tags": [
+        "ddd",
+        "integration",
+        "event",
+        "command",
+        "query"
+      ],
+      "source_ids": [
+        "DOMAIN-DRIVERS-COURSE",
+        "DOMAIN-DRIVERS-DD-AI"
+      ],
+      "path": "content/02-Heuristics/Event Command Query.md",
+      "wikilinks": [
+        "Sync to Async Migration",
+        "Transactional Outbox Atomicity"
+      ]
+    },
+    {
+      "id": "PMA-H-EVIDENCE-CONTRACT-001",
+      "title": "Evidence Contract",
+      "type": "heuristic",
+      "lifecycle": "active",
+      "knowledge_status": "peos-decision",
+      "peos_usable": true,
+      "tags": [
+        "evidence",
+        "reasoning",
+        "decision",
+        "ai"
+      ],
+      "source_ids": [
+        "DOMAIN-DRIVERS-DD-AI",
+        "AI-THAT-WORKS"
+      ],
+      "path": "content/02-Heuristics/Evidence Contract.md",
+      "wikilinks": [
+        "Workflow Preflight"
+      ]
+    },
+    {
       "id": "PMA-H-EXAMPLE-MAPPING-001",
       "title": "Example Mapping as Intermediate Step",
       "type": "heuristic",
@@ -245,6 +633,35 @@
       ],
       "path": "content/02-Heuristics/Information Gathering.md",
       "wikilinks": []
+    },
+    {
+      "id": "PMA-HEURISTIC-QUESTIONS-001",
+      "title": "Kanoniczne pytania PMA",
+      "type": "heuristic",
+      "lifecycle": "verified",
+      "knowledge_status": "synthesis",
+      "peos_usable": true,
+      "tags": [
+        "questions",
+        "reasoning",
+        "facilitation",
+        "ddd",
+        "architecture"
+      ],
+      "source_ids": [
+        "PMA-LANGUAGE-CORPUS-2026-10-03",
+        "DOMAIN-DRIVERS-COURSE",
+        "DEVSTYLE-DEVTALK",
+        "BETTER-SOFTWARE-DESIGN"
+      ],
+      "path": "content/02-Heuristics/Kanoniczne pytania PMA.md",
+      "wikilinks": [
+        "Architecture Drivers",
+        "Język polskiej myśli architektonicznej",
+        "Problem Classification",
+        "Scenario Before Aggregate",
+        "Unit of Change"
+      ]
     },
     {
       "id": "PMA-H-DDD-LANGUAGE-001",
@@ -286,6 +703,95 @@
       "wikilinks": [
         "Architecture Drivers",
         "Problem Classification"
+      ]
+    },
+    {
+      "id": "PMA-H-MAIN-QUESTION-001",
+      "title": "Main Question",
+      "type": "heuristic",
+      "lifecycle": "verified",
+      "knowledge_status": "synthesis",
+      "peos_usable": true,
+      "tags": [
+        "ddd",
+        "model-boundaries",
+        "strategic-design"
+      ],
+      "source_ids": [
+        "DOMAIN-DRIVERS-COURSE",
+        "DEVSTYLE-DDD-EMAIL-CORPUS"
+      ],
+      "path": "content/02-Heuristics/Main Question.md",
+      "wikilinks": [
+        "Availability",
+        "Problem Classification"
+      ]
+    },
+    {
+      "id": "PMA-H-MODEL-ALTERNATIVES-001",
+      "title": "Model Alternatives",
+      "type": "heuristic",
+      "lifecycle": "verified",
+      "knowledge_status": "source-derived",
+      "peos_usable": true,
+      "tags": [
+        "ddd",
+        "modeling",
+        "alternatives",
+        "decision"
+      ],
+      "source_ids": [
+        "DEVSTYLE-DDD-EMAIL-CORPUS",
+        "DOMAIN-DRIVERS-COURSE"
+      ],
+      "path": "content/02-Heuristics/Model Alternatives.md",
+      "wikilinks": []
+    },
+    {
+      "id": "PMA-H-MODEL-BREAKING-CHANGE-001",
+      "title": "Model Breaking Change",
+      "type": "heuristic",
+      "lifecycle": "candidate",
+      "knowledge_status": "source-derived",
+      "peos_usable": true,
+      "tags": [
+        "ddd",
+        "model-evolution",
+        "change",
+        "refactoring"
+      ],
+      "source_ids": [
+        "DEVSTYLE-DDD-EMAIL-CORPUS",
+        "DOMAIN-DRIVERS-COURSE"
+      ],
+      "path": "content/02-Heuristics/Model Breaking Change.md",
+      "wikilinks": [
+        "Deep Model Quality",
+        "Evolutionary Strict Pass Rate",
+        "Main Question",
+        "Model Alternatives"
+      ]
+    },
+    {
+      "id": "PMA-H-PIVOTAL-EVENT-001",
+      "title": "Pivotal Event",
+      "type": "heuristic",
+      "lifecycle": "verified",
+      "knowledge_status": "synthesis",
+      "peos_usable": true,
+      "tags": [
+        "ddd",
+        "event-storming",
+        "boundary",
+        "lifecycle"
+      ],
+      "source_ids": [
+        "DOMAIN-DRIVERS-COURSE",
+        "DEVSTYLE-DDD-EMAIL-CORPUS"
+      ],
+      "path": "content/02-Heuristics/Pivotal Event.md",
+      "wikilinks": [
+        "Linguistic Boundary"
       ]
     },
     {
@@ -335,6 +841,54 @@
       ]
     },
     {
+      "id": "PMA-H-SUBPROBLEM-PRIORITY-001",
+      "title": "Subproblem Prioritization",
+      "type": "heuristic",
+      "lifecycle": "verified",
+      "knowledge_status": "source-derived",
+      "peos_usable": true,
+      "tags": [
+        "ddd",
+        "strategic-design",
+        "prioritization",
+        "subdomain"
+      ],
+      "source_ids": [
+        "DEVSTYLE-DDD-EMAIL-CORPUS"
+      ],
+      "path": "content/02-Heuristics/Subproblem Prioritization.md",
+      "wikilinks": [
+        "Architecture Drivers",
+        "Distillation",
+        "Local Architecture by Problem Complexity",
+        "Software Archetypes"
+      ]
+    },
+    {
+      "id": "PMA-H-SYNC-ASYNC-001",
+      "title": "Sync to Async Migration",
+      "type": "heuristic",
+      "lifecycle": "verified",
+      "knowledge_status": "synthesis",
+      "peos_usable": true,
+      "tags": [
+        "integration",
+        "async",
+        "migration",
+        "outbox",
+        "workflow"
+      ],
+      "source_ids": [
+        "DOMAIN-DRIVERS-DD-AI",
+        "DEVSTYLE-DDD-EMAIL-CORPUS"
+      ],
+      "path": "content/02-Heuristics/Sync to Async Migration.md",
+      "wikilinks": [
+        "Event Command Query",
+        "Transactional Outbox Atomicity"
+      ]
+    },
+    {
       "id": "PMA-H-CONSISTENCY-001",
       "title": "Unit of Change",
       "type": "heuristic",
@@ -356,6 +910,26 @@
       "wikilinks": [
         "Consistency Boundary"
       ]
+    },
+    {
+      "id": "PMA-H-WORKFLOW-PREFLIGHT-001",
+      "title": "Workflow Preflight",
+      "type": "heuristic",
+      "lifecycle": "active",
+      "knowledge_status": "synthesis",
+      "peos_usable": true,
+      "tags": [
+        "preflight",
+        "workflow",
+        "scope",
+        "overengineering"
+      ],
+      "source_ids": [
+        "DOMAIN-DRIVERS-DD-AI",
+        "DOMAIN-DRIVERS-COURSE"
+      ],
+      "path": "content/02-Heuristics/Workflow Preflight.md",
+      "wikilinks": []
     },
     {
       "id": "PMA-ARCHETYPE-ACCOUNTING-001",
@@ -998,6 +1572,34 @@
       "wikilinks": []
     },
     {
+      "id": "PMA-PEOS-LANGUAGE-001",
+      "title": "PMA Language Contract",
+      "type": "peos-model",
+      "lifecycle": "active",
+      "knowledge_status": "peos-decision",
+      "peos_usable": true,
+      "tags": [
+        "peos",
+        "ai",
+        "language",
+        "reasoning",
+        "contract"
+      ],
+      "source_ids": [
+        "PMA-LANGUAGE-CORPUS-2026-10-03",
+        "DOMAIN-DRIVERS-COURSE",
+        "DEVSTYLE-DEVTALK",
+        "BETTER-SOFTWARE-DESIGN"
+      ],
+      "path": "content/07-PEOS/PMA Language Contract.md",
+      "wikilinks": [
+        "DDD jako proces decyzyjny",
+        "Język polskiej myśli architektonicznej",
+        "Kanoniczne pytania PMA",
+        "Product Engineering Reasoning Engine"
+      ]
+    },
+    {
       "id": "PMA-PEOS-BRIDGE-001",
       "title": "PMA-PEOS Bridge",
       "type": "integration",
@@ -1032,10 +1634,29 @@
         "DOMAIN-DRIVERS-DD-AI",
         "SOFTWARE-ARCHETYPES",
         "ARCHETYPY-OPROGRAMOWANIA",
-        "AI-THAT-WORKS"
+        "AI-THAT-WORKS",
+        "DEVSTYLE-DDD-EMAIL-CORPUS"
       ],
       "path": "content/07-PEOS/Product Engineering Reasoning Engine.md",
-      "wikilinks": []
+      "wikilinks": [
+        "Algorithm Recognition",
+        "Architecture Drivers",
+        "Behavior Preservation Contract",
+        "Decision Gate",
+        "Deep Model Quality",
+        "Dynamic Validation",
+        "Event Command Query",
+        "Evidence Contract",
+        "Evolutionary Strict Pass Rate",
+        "Kanoniczne pytania PMA",
+        "Model Alternatives",
+        "PMA Language Contract",
+        "Problem Classification",
+        "Software Archetypes",
+        "Sync to Async Migration",
+        "Unit of Change",
+        "Workflow Preflight"
+      ]
     },
     {
       "id": "PMA-COMPARE-STRUCTURE-001",
@@ -1075,6 +1696,28 @@
         "AI-THAT-WORKS"
       ],
       "path": "content/09-Evals/Evolutionary Strict Pass Rate.md",
+      "wikilinks": []
+    },
+    {
+      "id": "PMA-EVAL-MODEL-HARNESS-001",
+      "title": "Model Harness Benchmarking",
+      "type": "eval",
+      "lifecycle": "verified",
+      "knowledge_status": "synthesis",
+      "peos_usable": true,
+      "tags": [
+        "ai",
+        "evals",
+        "model",
+        "harness",
+        "cost",
+        "benchmark"
+      ],
+      "source_ids": [
+        "TENXDEVS-EMAIL-2026-08-19",
+        "AI-THAT-WORKS"
+      ],
+      "path": "content/09-Evals/Model Harness Benchmarking.md",
       "wikilinks": []
     },
     {
@@ -1121,6 +1764,34 @@
       "source_ids": [],
       "path": "content/99-Meta/Knowledge Lifecycle.md",
       "wikilinks": []
+    },
+    {
+      "id": "PMA-META-LANGUAGE-CORPUS-001",
+      "title": "Metodyka korpusu językowego PMA",
+      "type": "governance",
+      "lifecycle": "active",
+      "knowledge_status": "synthesis",
+      "peos_usable": false,
+      "tags": [
+        "provenance",
+        "language",
+        "corpus",
+        "methodology"
+      ],
+      "source_ids": [
+        "PMA-LANGUAGE-CORPUS-2026-10-03",
+        "DOMAIN-DRIVERS-COURSE",
+        "DEVSTYLE-DEVTALK",
+        "BETTER-SOFTWARE-DESIGN",
+        "DDD-WAW-VIDEOS"
+      ],
+      "path": "content/99-Meta/Metodyka korpusu językowego PMA.md",
+      "wikilinks": [
+        "Język polskiej myśli architektonicznej",
+        "PMA Language Contract",
+        "Publication Policy",
+        "Source Provenance"
+      ]
     },
     {
       "id": "PMA-META-PUBLICATION-001",
@@ -1175,7 +1846,10 @@
         "00-Start/Mapa PMA",
         "00-Start/Start Here",
         "01-Concepts/DDD jako proces decyzyjny",
+        "01-Concepts/Język polskiej myśli architektonicznej",
+        "02-Heuristics/Kanoniczne pytania PMA",
         "03-Software-Archetypes/Software Archetypes",
+        "07-PEOS/PMA Language Contract",
         "07-PEOS/Product Engineering Reasoning Engine"
       ]
     }
