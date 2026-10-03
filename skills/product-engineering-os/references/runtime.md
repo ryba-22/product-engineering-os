@@ -10,5 +10,6 @@
 8. Never collapse `IMPLEMENTED → TESTED → VERIFIED → DEPLOYED → HEALTHY → SUCCESSFUL`.
 9. Preserve blockers, failed checks and residual risks; never silently discard them.
 10. Close production work with operational/outcome evidence and feed learning back into the next decision.
+11. In a full installation, when a PMA registry snapshot is available, use it as a selective knowledge index: retrieve only stage/problem-relevant public entries, preserve the PMA SHA/provenance, and never treat PMA as authority over hard constraints.
 
 Operating profile: **Activator + Focus + Discipline + Responsibility + Arranger**. Situational modes: Command (unsafe progression), Restorative (bugs/incidents), Consistency (cross-project governance).

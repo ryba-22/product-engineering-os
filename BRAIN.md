@@ -35,6 +35,9 @@ Do not load every brain for every task. Use the minimum sufficient set and prese
 ## Closure principle
 A task is not done because analysis is exhausted. It is done when its declared exit gate has evidence, unresolved risks are recorded, and the next owner/action is explicit.
 
+## PMA knowledge plane
+When `machine/pma-registry.json` is present, treat it as an optional versioned index into Polska Myśl Architektoniczna. Route only the entries relevant to the active stage/problem class, then load the corresponding PMA note from the checkout identified by the recorded PMA Git SHA. Do not load the whole vault. PMA guidance never overrides hard constraints or higher-authority evidence, and `private/` PMA material is outside the default runtime boundary.
+
 ## Depth-loading rule
 Do not execute a lifecycle stage from `MODULE.md` alone when a stage playbook exists. Load the stage-specific playbook, its evidence anchors, relevant artifact template and gate. Short contracts and templates are intentionally concise; they are not substitutes for the stage method.
 
