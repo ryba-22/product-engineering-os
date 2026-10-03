@@ -2,9 +2,9 @@
   "schema_version": "1.0.0",
   "source": "Polska-Mysl-Architektoniczna-Obsidian",
   "source_repository": "https://github.com/ryba-22/Polska-Mysl-Architektoniczna-Obsidian",
-  "source_sha": "67ae04e3bd854453be43ae9c184007ce57700902",
+  "source_sha": "2e06405908db165a1e8d39e6b512481e34fa97aa",
   "publication_boundary": "public-only",
-  "entry_count": 38,
+  "entry_count": 39,
   "entries": [
     {
       "id": "PMA-MAP-001",
@@ -765,6 +765,29 @@
       "source_ids": [],
       "path": "content/99-Meta/Source Provenance.md",
       "wikilinks": []
+    },
+    {
+      "id": "PMA-HOME-001",
+      "title": "Polska Myśl Architektoniczna",
+      "type": "map",
+      "lifecycle": "active",
+      "knowledge_status": "synthesis",
+      "peos_usable": true,
+      "tags": [
+        "pma",
+        "architecture",
+        "ddd",
+        "peos"
+      ],
+      "source_ids": [],
+      "path": "content/index.md",
+      "wikilinks": [
+        "00-Start/Mapa PMA",
+        "00-Start/Start Here",
+        "01-Concepts/DDD jako proces decyzyjny",
+        "03-Software-Archetypes/Software Archetypes",
+        "07-PEOS/Product Engineering Reasoning Engine"
+      ]
     }
   ]
 }
