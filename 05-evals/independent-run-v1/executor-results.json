@@ -1,0 +1,822 @@
+{
+  "run_id": "INDEP-RUN-2026-10-03-01",
+  "executor": {
+    "provider": "Google",
+    "model_requested": "gemini-3.1-pro-high",
+    "independent_from_self_assessed_model": true,
+    "blinded_from_judge_criteria": true
+  },
+  "cases": [
+    {
+      "actions": [
+        "Create a Product Brief separating the request (AI dashboard) from the need (missed exceptions).",
+        "Define success signals based on reducing missed exceptions, not delivering a dashboard.",
+        "Map affected actors (staff, director, support).",
+        "Record the 2-week deadline as a constraint to evaluate feasibility against."
+      ],
+      "completion_state": "DECIDED",
+      "current_outcome": "Staff are missing enrollment and billing exceptions, currently relying on manual spreadsheet checks which generate support messages.",
+      "decision": "Refocus the problem statement on reducing missed enrollment and billing exceptions. Reject the 'AI dashboard' as the mandatory problem definition and treat it as one candidate solution among others.",
+      "evidence_and_unknowns": [
+        "EVIDENCE: Support messages report missed exceptions.",
+        "EVIDENCE: Staff currently use manual spreadsheet checks.",
+        "UNKNOWN: The actual workflow failure causing exceptions to be missed.",
+        "UNKNOWN: Whether the issue is visibility, data volume, or a process gap."
+      ],
+      "handoff": "Hand off the Product Brief to Stage 02 (User / Product Discovery) to understand the actual workflow friction before committing to an architecture.",
+      "id": "ADV-S01",
+      "references": [
+        "06-modules/product-strategy/STAGE-01-PROBLEM-OUTCOME.md",
+        "EVD-PROD-002",
+        "EVD-PROD-003",
+        "G0"
+      ],
+      "residual_risks": [
+        "The director's fixed 2-week deadline may conflict with the need for proper discovery, pressuring a premature build."
+      ],
+      "risk_class": "R3",
+      "stage_id": 1,
+      "verification": [
+        "Verify that success metrics reflect the business outcome (exception rate) rather than output (dashboard usage)."
+      ]
+    },
+    {
+      "actions": [
+        "Draft a Research Plan targeting occasional operators.",
+        "Use contextual observation or usability testing of same-day change workflows rather than preference interviews.",
+        "Explicitly state the recruitment bias of the sponsor's suggested pool as a limitation to avoid."
+      ],
+      "completion_state": "EXPLORED",
+      "current_outcome": "Need to validate a new enrollment workflow, with a sponsor pushing for rapid confirmation from a biased group.",
+      "decision": "Reject the biased participant pool. The discovery plan must recruit occasional operators and focus on same-day enrollment changes to address the actual source of observed failures.",
+      "evidence_and_unknowns": [
+        "EVIDENCE: Support logs indicate most failures stem from occasional operators and same-day changes.",
+        "EVIDENCE: The sponsor's proposed 5 participants are highly engaged and like the current system (biased).",
+        "UNKNOWN: The specific friction points occasional operators face during same-day changes."
+      ],
+      "handoff": "Hand off validated needs and workflow constraints to Stage 03/04 once discovery yields decision-changing findings.",
+      "id": "ADV-S02",
+      "references": [
+        "06-modules/product-discovery/STAGE-02-DISCOVERY.md",
+        "EVD-PROD-001",
+        "EVD-PROD-004",
+        "G1"
+      ],
+      "residual_risks": [
+        "Sponsor may reject the timeline extension required to recruit occasional operators."
+      ],
+      "risk_class": "R2",
+      "stage_id": 2,
+      "verification": [
+        "Review the participant screener against support log demographics to ensure the sample matches the failure population."
+      ]
+    },
+    {
+      "actions": [
+        "Map the event timeline using business language (e.g., 'Child Enrolled', 'Child Attended', 'Child Withdrew').",
+        "Clarify temporal rules with domain experts, avoiding 'same day' ambiguity.",
+        "Extract invariants regarding presence verification against active membership status."
+      ],
+      "completion_state": "EXPLORED",
+      "current_outcome": "Contradictory presence reports are generated due to mismatched temporal granularity between dates and timestamps and duplicate membership rows.",
+      "decision": "Do not encode the legacy database columns (dates) as business rules. Extract the true temporal semantics and invariants governing membership and presence across same-day transitions.",
+      "evidence_and_unknowns": [
+        "EVIDENCE: Existing database stores memberships as dates and lessons as timestamps.",
+        "EVIDENCE: A child can leave and re-enroll on the same date, creating contradictory data.",
+        "UNKNOWN: The authoritative business policy on how same-day transitions affect billing or continuous membership.",
+        "UNKNOWN: Whether 'effective time' of membership should actually be a timestamp rather than a date."
+      ],
+      "handoff": "Hand off verified temporal rules and invariants to Stage 04 (Requirements) and Stage 05 (Domain Architecture).",
+      "id": "ADV-S03",
+      "references": [
+        "06-modules/domain/STAGE-03-DOMAIN-DISCOVERY.md",
+        "EVD-DOM-001",
+        "EVD-DOM-002",
+        "G2"
+      ],
+      "residual_risks": [
+        "Legacy reporting systems might break if they depend on the old 'date' granularity, requiring translation adapters."
+      ],
+      "risk_class": "R2",
+      "stage_id": 3,
+      "verification": [
+        "Walk through the 'attend at 10:00, leave at 16:00, re-enroll' scenario to ensure the new domain rules yield a single correct presence report."
+      ]
+    },
+    {
+      "actions": [
+        "Write acceptance criteria for deduplication based on unique phone numbers.",
+        "Specify the operator approval step as a mandatory authorization boundary/constraint.",
+        "Define exception paths for missing contact data or conflicting eligibility flags.",
+        "Trace these requirements back to the business outcome of accurate billing communication."
+      ],
+      "completion_state": "DECIDED",
+      "current_outcome": "Need to securely and accurately send monthly billing SMS to guardians based on data from two different systems, with a manual approval step.",
+      "decision": "Decompose the vague 'send SMS' requirement into explicit, testable scenarios covering deduplication, zero-value cases, authorization (approval), and failure semantics without specifying the transport mechanism.",
+      "evidence_and_unknowns": [
+        "EVIDENCE: SMS must be sent once per child/period/unique eligible number, including zero amounts.",
+        "EVIDENCE: Contacts come from Legacy; eligibility from Finance; operator approval is required.",
+        "UNKNOWN: Failure and retry semantics if an SMS gateway rejects the message.",
+        "UNKNOWN: Behavior if a guardian has multiple children with separate zero-amount bills."
+      ],
+      "handoff": "Hand off functional requirements and quality scenarios to Stage 05 (Domain Architecture) for ownership definition.",
+      "id": "ADV-S04",
+      "references": [
+        "06-modules/requirements/STAGE-04-REQUIREMENTS.md",
+        "EVD-REQ-001",
+        "G3"
+      ],
+      "residual_risks": [
+        "Inconsistencies or latency between Legacy contact updates and Finance billing runs could lead to SMS delivery failures or incorrect recipients."
+      ],
+      "risk_class": "R3",
+      "stage_id": 4,
+      "verification": [
+        "Ensure acceptance criteria can test the invariant: exactly one SMS per unique eligible number per period, regardless of child count."
+      ]
+    },
+    {
+      "actions": [
+        "Assign authoritative mutation ownership of contacts to Legacy and billing eligibility to Finance.",
+        "Design a downstream context (e.g., Billing Communications) that translates published facts from both systems to enforce the deduplication invariant.",
+        "Define the integration contracts at a semantic level.",
+        "Record the boundary decision and rejection of the shared-table approach in a Domain ADR."
+      ],
+      "completion_state": "DECIDED",
+      "current_outcome": "Need to integrate Legacy contact data and Finance eligibility to send communications without creating data corruption or split-brain mutation authority.",
+      "decision": "Enforce strict mutation boundaries. Do not allow Legacy and Finance to perform dual writes to a shared eligibility/communication table. Establish a downstream capability to consume and translate these facts.",
+      "evidence_and_unknowns": [
+        "EVIDENCE: Legacy owns relationships and contacts; Finance owns billing eligibility.",
+        "EVIDENCE: The invariant is one SMS per unique eligible number per period per child.",
+        "EVIDENCE: Contacts are sometimes shared between guardians.",
+        "UNKNOWN: The specific eventual consistency tolerance between a contact update in Legacy and a billing run in Finance."
+      ],
+      "handoff": "Hand off the context map, ownership model, and integration contracts to Stage 06 (System Architecture).",
+      "id": "ADV-S05",
+      "references": [
+        "06-modules/domain/STAGE-05-DOMAIN-ARCHITECTURE.md",
+        "EVD-DOM-003",
+        "G2"
+      ],
+      "residual_risks": [
+        "Asynchronous integration between Legacy and Finance might introduce race conditions during the operator approval window."
+      ],
+      "risk_class": "R3",
+      "stage_id": 5,
+      "verification": [
+        "Challenge the boundaries with change scenarios (e.g., a shared guardian updates their number during a billing run) to ensure no invariant is violated."
+      ]
+    },
+    {
+      "actions": [
+        "Extract actual architecture drivers (e.g., measurable throughput/latency scenarios) to see if distributed computing is required.",
+        "Define logical modularity inside the existing monolith rather than creating physical network boundaries.",
+        "Record an ADR rejecting the microservices/Kafka proposal due to lack of evidence for the complexity."
+      ],
+      "completion_state": "DECIDED",
+      "current_outcome": "Prevent unevidenced architectural inflation. Maintain the simple monolithic web application and worker model.",
+      "decision": "Reject the microservices, Kafka, and Kubernetes proposal. The current workload fits a simple design. Irreversible complexity must be justified by an explicit architecture driver, not hypothetical scale or 'future-proofing'.",
+      "evidence_and_unknowns": [
+        "EVIDENCE: Current deployment scale is small (a few thousand participants, dozens of institutions).",
+        "UNKNOWN: Specific latency, throughput, or availability SLA requirements that might force a change from a relational database."
+      ],
+      "handoff": "Handoff logical boundaries and contracts to Stages 12-14 (Implementation) and scale thresholds to Stage 20 (Observability).",
+      "id": "ADV-S06",
+      "references": [
+        "STAGE-06-SYSTEM-ARCHITECTURE.md",
+        "EVD-ARCH-004",
+        "EVD-ARCH-005"
+      ],
+      "residual_risks": [
+        "Logical boundaries might erode without physical network separation, requiring disciplined code review.",
+        "Unexpected sudden spikes in adoption might exceed single-database capacity if not monitored."
+      ],
+      "risk_class": "R3",
+      "stage_id": 6,
+      "verification": [
+        "Define fitness functions for current capacity assumptions.",
+        "Set explicit measurable switching thresholds (e.g., concurrent active users) that would trigger a re-evaluation of the architecture."
+      ]
+    },
+    {
+      "actions": [
+        "Map the task flow for the pupil-unit worklist focusing on the comparison requirement.",
+        "Design adaptive transformations: use a dense table/list on desktop and transform to cards only for the 390px mobile breakpoint.",
+        "Define URL routing and global state persistence for the school/subject/status filters."
+      ],
+      "completion_state": "DECIDED",
+      "current_outcome": "A task-aligned UX architecture supporting dense comparison and cross-flow state continuity.",
+      "decision": "Reject the universal centered card grid and ephemeral local filter state. Implement a dense table/worklist for desktop to support comparison, and persist filter states in the URL to allow users to safely navigate away and return.",
+      "evidence_and_unknowns": [
+        "EVIDENCE: Desktop sizes range up to 3200px requiring dense comparison.",
+        "EVIDENCE: Operators frequently return to filtered states.",
+        "UNKNOWN: The exact combination of filters most frequently used together."
+      ],
+      "handoff": "Handoff workflow/state contracts to Stage 08 (Interaction design) and layout rules to Stage 10 (Visual UI).",
+      "id": "ADV-S07",
+      "references": [
+        "STAGE-07-UX-ARCHITECTURE.md",
+        "EVD-UX-002",
+        "EVD-UX-003"
+      ],
+      "residual_risks": [
+        "Complex combinations of filters might exceed URL length limits if not carefully serialized.",
+        "Table-to-card transformation on mobile might hide secondary data columns required for specific edge-case tasks."
+      ],
+      "risk_class": "R2",
+      "stage_id": 7,
+      "verification": [
+        "Validate the adaptive behavior on both 3200px and 390px viewports with realistic, dense data.",
+        "Test the browser back-button and deep-linking to ensure filter state restores correctly."
+      ]
+    },
+    {
+      "actions": [
+        "Write the interaction as a state machine that includes an explicit 'conflict/stale' state.",
+        "Define the backend validation layer to reject stale data using optimistic concurrency control (e.g., version checking).",
+        "Design a recovery UI that presents Operator B's changes to Operator A and asks for explicit merge or overwrite."
+      ],
+      "completion_state": "DECIDED",
+      "current_outcome": "Ensure data integrity and provide an explicit conflict recovery path for concurrent edits.",
+      "decision": "Replace the client-side disabled button with an explicit conflict handling interaction. The server must reject the stale submit, and the UI must prompt the user with the conflict and a clear recovery path (merge/overwrite).",
+      "evidence_and_unknowns": [
+        "EVIDENCE: Operators edit the same visits concurrently, leading to stale data overwrites.",
+        "EVIDENCE: Disabling the save button locally does not prevent server-side conflicts from slow networks.",
+        "UNKNOWN: How frequently these concurrent overlaps happen in production."
+      ],
+      "handoff": "Handoff the conflict interaction contract to Stage 12 (Frontend implementation) and the versioning rejection contract to Stage 13 (Backend / API).",
+      "id": "ADV-S08",
+      "references": [
+        "STAGE-08-INTERACTION-DESIGN.md",
+        "EVD-UX-003",
+        "EVD-UX-004"
+      ],
+      "residual_risks": [
+        "Operator A might reflexively hit 'overwrite' without reading Operator B's changes.",
+        "Optimistic concurrency requires strict clock synchronization or robust entity versioning on the backend."
+      ],
+      "risk_class": "R2",
+      "stage_id": 8,
+      "verification": [
+        "Test realistic concurrent transitions including double-submit and slow network simulated delays.",
+        "Verify the server explicitly rejects outdated versions regardless of UI state."
+      ]
+    },
+    {
+      "actions": [
+        "Define the explicit keyboard model (tab order, shortcuts) and focus lifecycle for the workflow.",
+        "Replace the custom div-based tabs with native semantic HTML (e.g., button elements) or proper ARIA tablist patterns.",
+        "Implement focus management to return focus to the triggering element when the modal editor is closed."
+      ],
+      "completion_state": "DECIDED",
+      "current_outcome": "Achieve functional keyboard operability and semantic correctness beyond automated tool compliance.",
+      "decision": "Reject the claim that accessibility is complete. Axe checks alone are insufficient for a critical flow. Remediate the custom divs and modal focus loss to ensure full keyboard navigability.",
+      "evidence_and_unknowns": [
+        "EVIDENCE: Keyboard users lose focus after closing the modal.",
+        "EVIDENCE: Custom tabs are implemented as plain divs, lacking semantic meaning.",
+        "EVIDENCE: Automated tools returned zero violations, which is a false negative for true operability.",
+        "UNKNOWN: Whether the sortable columns and inline validation are fully announced to screen readers."
+      ],
+      "handoff": "Handoff the accessibility contract and semantic requirements to Stage 12 (Frontend implementation).",
+      "id": "ADV-S09",
+      "references": [
+        "STAGE-09-ACCESSIBILITY.md",
+        "EVD-UX-001",
+        "EVD-QA-003"
+      ],
+      "residual_risks": [
+        "Complex drag-and-drop sortable columns may still require specialized keyboard alternatives.",
+        "Inline validation errors might visually appear without triggering live region announcements."
+      ],
+      "risk_class": "R2",
+      "stage_id": 9,
+      "verification": [
+        "Run manual keyboard verification through the entire admin worklist workflow.",
+        "Run assistive-technology checks (screen reader) specifically on the modal return and custom tab interactions."
+      ]
+    },
+    {
+      "actions": [
+        "Set UI density intentionally high to match the enterprise scanning and comparison workload.",
+        "Remove the 1100px constrained column and establish fluid layout rules that utilize the 3200px width appropriately.",
+        "Remove oversized padding and 'premium' shadows that reduce data visibility."
+      ],
+      "completion_state": "DECIDED",
+      "current_outcome": "A wide-screen optimized visual layout that prioritizes functional data density and task efficiency over decorative aesthetics.",
+      "decision": "Reject the 'premium' redesign. The visual hierarchy and density must serve the task of dense comparison. Remove the narrow column constraint and avoid applying large padding or decorative cards to tabular data.",
+      "evidence_and_unknowns": [
+        "EVIDENCE: The application runs on 3200px monitors and requires dense row/column comparison.",
+        "EVIDENCE: The proposed redesign adds padding and shadows, reducing visible rows and forcing navigation.",
+        "UNKNOWN: Maximum safe readability line-length for any long-form text fields inside the worklist."
+      ],
+      "handoff": "Handoff the density decisions, spacing tokens, and wide-screen layout rules to Stage 12 (Frontend implementation).",
+      "id": "ADV-S10",
+      "references": [
+        "STAGE-10-VISUAL-UI.md",
+        "EVD-UI-001",
+        "EVD-UI-002"
+      ],
+      "residual_risks": [
+        "A fully fluid layout on a 3200px screen might separate related columns too far horizontally, reducing scanning efficiency."
+      ],
+      "risk_class": "R1",
+      "stage_id": 10,
+      "verification": [
+        "Review the design using realistic long data, zero data, and extreme screen widths.",
+        "Verify that the table remains a table and does not degrade comparison efficiency."
+      ]
+    },
+    {
+      "actions": [
+        "Implement the pattern as a Local component in the feature team's codebase.",
+        "Document the local component usage to track future potential reuse.",
+        "Measure reuse and exceptions to inform any future promotion decisions."
+      ],
+      "completion_state": "DECIDED",
+      "current_outcome": "DECIDED",
+      "decision": "Keep the new DataTable variant scoped as Local. Reject immediate promotion to Core because there is no usage evidence and the focus/keyboard contract is not stable.",
+      "evidence_and_unknowns": [
+        "EVD-UX-005 (promotion requires reuse and stability evidence)",
+        "No other feature uses the behavior (lack of reuse)",
+        "Focus/keyboard contract is not yet established"
+      ],
+      "handoff": "Stage 12 (Frontend implementation) to implement the local component.",
+      "id": "ADV-S11",
+      "references": [
+        "06-modules/experience/STAGE-11-DESIGN-SYSTEM.md",
+        "EVD-UX-005"
+      ],
+      "residual_risks": [
+        "Feature team may duplicate effort if another team actually needs the exact pattern before it is promoted."
+      ],
+      "risk_class": "R1",
+      "stage_id": 11,
+      "verification": [
+        "Verify the local focus/keyboard accessibility within the feature's specific context.",
+        "Verify future usage metrics before any promotion to Core."
+      ]
+    },
+    {
+      "actions": [
+        "Refactor the component to derive filter state directly from the URL route parameters.",
+        "Remove local React state (e.g. useState) for q/school/subject/view/page/limit.",
+        "Remove useEffect hooks that are used purely to synchronize the URL to the local state."
+      ],
+      "completion_state": "DECIDED",
+      "current_outcome": "DECIDED",
+      "decision": "Remove local React state for URL parameters and read directly from the URL. Remove synchronization effects to eliminate the dual source of truth.",
+      "evidence_and_unknowns": [
+        "EVD-FE-001 (Avoid redundant, contradictory and duplicated UI state)",
+        "EVD-FE-002 (Effects are for external sync, not derived state)",
+        "Back navigation shows stale filters and duplicate fetches occur due to duplicated state"
+      ],
+      "handoff": "Stage 15 (Testing) for integration testing of the refactored routing and data fetching.",
+      "id": "ADV-S12",
+      "references": [
+        "06-modules/software-engineering/STAGE-12-FRONTEND-IMPLEMENTATION.md",
+        "EVD-FE-001",
+        "EVD-FE-002"
+      ],
+      "residual_risks": [
+        "URL parameter parsing might require additional validation to handle malformed input gracefully."
+      ],
+      "risk_class": "R2",
+      "stage_id": 12,
+      "verification": [
+        "Verify back and forward browser navigation restores correct filters.",
+        "Verify shareable URLs load correct state.",
+        "Verify duplicate network fetches no longer occur."
+      ]
+    },
+    {
+      "actions": [
+        "Define a new POST/PUT command contract for the refresh action.",
+        "Implement CSRF tokens or equivalent anti-forgery protection.",
+        "Plan a migration for UI clients to adopt the new endpoint.",
+        "Add a deprecation warning and timeline for the legacy GET endpoint."
+      ],
+      "completion_state": "DECIDED",
+      "current_outcome": "DECIDED",
+      "decision": "Refactor the endpoint to a POST or PUT command with appropriate CSRF protections. Reject the proposal to merely document the vulnerable GET behavior.",
+      "evidence_and_unknowns": [
+        "EVD-API-003 (HTTP method semantics include safety and idempotency)",
+        "GET request is mutating state and vulnerable to CSRF",
+        "Endpoint lacks anti-forgery protection",
+        "Retries can repeat the mutation unsafely"
+      ],
+      "handoff": "Stage 12 for UI client migration, followed by Stage 15 for security and contract verification.",
+      "id": "ADV-S13",
+      "references": [
+        "06-modules/software-engineering/STAGE-13-BACKEND-API.md",
+        "EVD-API-003"
+      ],
+      "residual_risks": [
+        "Legacy third-party API consumers might break when the GET endpoint is eventually removed.",
+        "Migration window requires maintaining and monitoring two endpoints temporarily."
+      ],
+      "risk_class": "R3",
+      "stage_id": 13,
+      "verification": [
+        "Perform adversarial tests for CSRF on both endpoints.",
+        "Write contract tests for the new POST/PUT endpoint to ensure idempotency where applicable."
+      ]
+    },
+    {
+      "actions": [
+        "Create an expand migration to add the new time-aware columns.",
+        "Update the application to dual-write to both old and new columns.",
+        "Implement a resumable, batched backfill script that correctly translates historical DATE to time-aware values based on domain rules.",
+        "Plan the switch of reads to new columns, followed by a contract migration to drop old columns."
+      ],
+      "completion_state": "DECIDED",
+      "current_outcome": "DECIDED",
+      "decision": "Reject the direct ALTER and default midnight backfill. Use the expand-contract pattern to add new columns, dual-write, and run a safe, resumable backfill to preserve historical accuracy and rollout compatibility.",
+      "evidence_and_unknowns": [
+        "EVD-DATA-002 (Schema migrations are production changes with compatibility implications)",
+        "Old application versions will run during rollout",
+        "Direct ALTER breaks compatibility and historical accuracy",
+        "Production contains historical rows and duplicate re-enrollments"
+      ],
+      "handoff": "Stage 15 to test the migration scripts, then Stage 19 for deployment rollout.",
+      "id": "ADV-S14",
+      "references": [
+        "06-modules/software-engineering/STAGE-14-DATABASE-PERSISTENCE.md",
+        "EVD-DATA-002",
+        "07-templates/DATA-CHANGE-PLAN.md"
+      ],
+      "residual_risks": [
+        "Dual-write logic could introduce latency or application errors during the compatibility window.",
+        "Backfill process could impact database performance during execution."
+      ],
+      "risk_class": "R3",
+      "stage_id": 14,
+      "verification": [
+        "Test migration and backfill scripts against a representative staging dataset.",
+        "Validate historical invariants hold post-backfill."
+      ]
+    },
+    {
+      "actions": [
+        "Write an integration test against a real database instance simulating simultaneous concurrent enrollment requests.",
+        "Identify and implement the missing database uniqueness constraint or transaction lock.",
+        "Retain the mocked unit test only for business logic, not for concurrency validation."
+      ],
+      "completion_state": "DECIDED",
+      "current_outcome": "DECIDED",
+      "decision": "Reject closing the defect. Replace mock-based unit tests with integration tests against a real database to actually prove the concurrency guarantee.",
+      "evidence_and_unknowns": [
+        "EVD-QA-001 (Choose lowest layer that can honestly prove the property)",
+        "Mock-heavy tests bypass the integration behavior needed for concurrency",
+        "Production duplicates prove the concurrency invariant is not enforced"
+      ],
+      "handoff": "Stage 14 to add the necessary database constraints, then Stage 15 to execute the verification.",
+      "id": "ADV-S15",
+      "references": [
+        "06-modules/quality-engineering/STAGE-15-TESTING.md",
+        "EVD-QA-001"
+      ],
+      "residual_risks": [
+        "Other endpoints might share the same flawed mock-testing strategy for concurrency."
+      ],
+      "risk_class": "R3",
+      "stage_id": 15,
+      "verification": [
+        "Execute the new concurrent integration test to prove it fails without the fix and passes with it."
+      ]
+    },
+    {
+      "actions": [
+        "Classify risk as R3/R4 due to the authorization boundary and sensitive billing data cross-tenant.",
+        "Reject the 'internal only' argument as it does not eliminate misuse or broken access control risks.",
+        "Threat-model the endpoint (EVD-SEC-003) specifically for Insecure Direct Object Reference (IDOR) and Broken Object Level Authorization (BOLA).",
+        "Define a strict security requirement that the endpoint must enforce server-side authorization, verifying the authenticated caller's role and institution context against the requested finance_account_id."
+      ],
+      "completion_state": "DECIDED",
+      "current_outcome": "An endpoint exists that trusts client-provided IDs without authorization checks, creating a critical vulnerability (IDOR), while the UI merely hides the access path.",
+      "decision": "Enforce server-side role and context-based authorization on the endpoint; do not rely on UI hiding.",
+      "evidence_and_unknowns": [
+        "Unknown: Are there other endpoints in the system relying on UI hiding for access control?",
+        "Evidence: UI hiding is not access control (STAGE-16-SECURITY.md).",
+        "Evidence: Internal networks do not eliminate authorization risks (STAGE-16-SECURITY.md)."
+      ],
+      "handoff": "Stage 12/13 (Software Engineering) for implementing the server-side authorization check; Stage 15 (Testing) for automated verification.",
+      "id": "ADV-S16",
+      "references": [
+        "STAGE-16-SECURITY.md",
+        "07-templates/THREAT-MODEL.md",
+        "EVD-SEC-003",
+        "EVD-SEC-004"
+      ],
+      "residual_risks": [
+        "Compromised coordinator or admin credentials could still be used to exfiltrate data.",
+        "Vulnerabilities in the ID parsing or validation logic itself."
+      ],
+      "risk_class": "R3",
+      "stage_id": 16,
+      "verification": [
+        "Implement automated contract/integration tests proving that unauthorized roles (institution users) receive a 403 Forbidden.",
+        "Implement adversarial tests proving that authorized roles requesting cross-institution IDs they do not own receive a 403 or 404."
+      ]
+    },
+    {
+      "actions": [
+        "Reject the immediate application of indexes or buffer pool changes without baseline evidence.",
+        "Define the performance budget (EVD-PERF-002) for the report query, specifying acceptable latency (e.g., p95) and workload assumptions.",
+        "Capture the baseline performance in a controlled environment using EXPLAIN plans, current latency distributions, and resource saturation metrics.",
+        "Profile the actual bottleneck based on the evidence before deciding on database tuning."
+      ],
+      "completion_state": "UNKNOWN",
+      "current_outcome": "A slow query is reported without a defined performance baseline, budget, or profiling evidence, prompting a premature guess-and-check tuning approach.",
+      "decision": "Block infrastructure and schema changes until a performance budget is defined and a baseline profile is captured.",
+      "evidence_and_unknowns": [
+        "Unknown: What is the current p95 latency of the report query?",
+        "Unknown: What is the acceptable performance budget for this report?",
+        "Unknown: What is the actual query execution plan and resource bottleneck?",
+        "Evidence: Optimize measured bottlenecks before micro-optimizing code (STAGE-17-PERFORMANCE.md)."
+      ],
+      "handoff": "Stage 14 (Database/persistence) to implement schema or config changes if profiling evidence justifies them, and Stage 20 for monitoring.",
+      "id": "ADV-S17",
+      "references": [
+        "STAGE-17-PERFORMANCE.md",
+        "07-templates/PERFORMANCE-BUDGET.md",
+        "EVD-PERF-002",
+        "EVD-PERF-003"
+      ],
+      "residual_risks": [
+        "The report query fundamentally conflicts with operational workloads, requiring read-replica separation.",
+        "Buffer pool tuning might temporarily mask a deeper N+1 or unbounded data growth issue."
+      ],
+      "risk_class": "R2",
+      "stage_id": 17,
+      "verification": [
+        "Reproduce the slow query in a controlled environment with a representative dataset.",
+        "Verify that any proposed fix meets the defined performance budget against the baseline without degrading operational write performance."
+      ]
+    },
+    {
+      "actions": [
+        "Block the rebuild of the image for production from the branch; enforce the 'build once, promote the exact artifact' rule.",
+        "Ensure the deployment to production uses the exact immutable artifact digest (EVD-DEL-003) that was tested and verified in staging.",
+        "Refactor the frontend build process to separate build-time configuration from runtime configuration, injecting environment variables at runtime instead of via Docker ARG.",
+        "Couple the execution of the database migrations to the deployment of the specific artifact version."
+      ],
+      "completion_state": "DECIDED",
+      "current_outcome": "The deployment pipeline allows rebuilding artifacts per environment, invalidating staging tests and breaking artifact provenance.",
+      "decision": "Enforce immutable artifact promotion from staging to production based on image digests, and move environment config to runtime.",
+      "evidence_and_unknowns": [
+        "Unknown: Are there existing secrets inadvertently baked into the current staging images due to Docker ARGs?",
+        "Evidence: Rebuilding on production can invalidate previously tested artifact evidence (STAGE-18-CI-CD.md).",
+        "Evidence: A branch name is not release provenance (STAGE-18-CI-CD.md)."
+      ],
+      "handoff": "Stage 19 (Deployment / rollout) to consume and deploy the immutable release candidate.",
+      "id": "ADV-S18",
+      "references": [
+        "STAGE-18-CI-CD.md",
+        "00-core/lifecycle.md",
+        "EVD-DEL-003"
+      ],
+      "residual_risks": [
+        "The mechanism for injecting runtime configuration into the frontend lacks validation and could fail silently on startup.",
+        "Backward compatibility of database migrations with the previous release is not guaranteed."
+      ],
+      "risk_class": "R2",
+      "stage_id": 18,
+      "verification": [
+        "Verify in CI that the pipeline produces an image with a unique digest and provenance metadata.",
+        "Verify in the deployment pipeline that the deployed digest exactly matches the staging-approved digest before proceeding."
+      ]
+    },
+    {
+      "actions": [
+        "Reject the one-step global deployment proposal due to high blast radius and unclear rollback safety.",
+        "Require a Data Change Plan documenting migration 0027's side effects, locking behavior, and forward-fix/rollback strategy.",
+        "Define a staged rollout or canary strategy (EVD-DEL-002) to expose a subset of institutions first.",
+        "Define explicit smoke checks and health telemetry thresholds for the hierarchy synchronization job to observe before expanding rollout."
+      ],
+      "completion_state": "EXPLORED",
+      "current_outcome": "A high-risk deployment with irreversible data changes and global impact is proposed without a safe rollout or recovery plan.",
+      "decision": "Require a Data Change Plan and enforce a staged rollout with explicit health checks before full exposure.",
+      "evidence_and_unknowns": [
+        "Unknown: Does migration 0027 lock tables or cause contention that degrades operational queries?",
+        "Unknown: Is it possible to safely roll back the application if the new derived state is already written?",
+        "Evidence: Rollback is not automatically safe after irreversible data changes (STAGE-19-DEPLOYMENT-ROLLOUT.md).",
+        "Evidence: Deployed is an intermediate state, not evidence of health (STAGE-19-DEPLOYMENT-ROLLOUT.md)."
+      ],
+      "handoff": "Stage 14 (Database) to author the Data Change Plan; Stage 20 (Observability) to monitor the rollout signals.",
+      "id": "ADV-S19",
+      "references": [
+        "STAGE-19-DEPLOYMENT-ROLLOUT.md",
+        "07-templates/DATA-CHANGE-PLAN.md",
+        "EVD-DEL-002",
+        "EVD-OPS-001"
+      ],
+      "residual_risks": [
+        "The hierarchy synchronization job introduces severe database contention under full production load.",
+        "Data corruption in the derived state goes unnoticed during the canary phase and requires manual reconciliation later."
+      ],
+      "risk_class": "R3",
+      "stage_id": 19,
+      "verification": [
+        "Perform preflight checks on database backup freshness.",
+        "Run post-deploy smoke tests on the canary institutions and verify critical availability paths.",
+        "Monitor telemetry of the sync job (latency, errors) against thresholds before expanding from canary to 100%."
+      ]
+    },
+    {
+      "actions": [
+        "Reject the proposal to just add generic application logs, as they do not answer specific operational questions.",
+        "Define an SLI based on the user capability: 'SMS notifications successfully delivered within X minutes'.",
+        "Instrument shared context (correlation IDs) linking the outbox row, the worker execution, and the external SMS provider request.",
+        "Instrument explicit metrics for known failure modes: permanently failed rows (retries exhausted), lease expirations, and provider latency.",
+        "Define actionable alerts for conditions requiring human intervention, such as queue backlog exceeding a threshold or spikes in permanent failures."
+      ],
+      "completion_state": "DECIDED",
+      "current_outcome": "An asynchronous worker process lacks visibility into failure modes, relying on aggregate liveness rather than user-centric capability health.",
+      "decision": "Define specific SLIs for notification delivery, instrument failure modes, and create actionable alerts rather than generic logs.",
+      "evidence_and_unknowns": [
+        "Unknown: Does the SMS provider silently drop messages while returning a 200 OK status?",
+        "Evidence: More logs are not automatically better observability (STAGE-20-OBSERVABILITY.md).",
+        "Evidence: Liveness alone is not user-visible availability (STAGE-20-OBSERVABILITY.md)."
+      ],
+      "handoff": "Stage 13 (Backend) to implement the structured telemetry, correlation IDs, and specific metrics.",
+      "id": "ADV-S20",
+      "references": [
+        "STAGE-20-OBSERVABILITY.md",
+        "07-templates/SLO.md",
+        "EVD-OBS-001",
+        "EVD-REL-002"
+      ],
+      "residual_risks": [
+        "The outbox table grows unbounded if permanently failed rows are not archived or deleted.",
+        "The external SMS provider introduces latency that causes lease expirations, leading to duplicate sends."
+      ],
+      "risk_class": "R2",
+      "stage_id": 20,
+      "verification": [
+        "Trigger simulated failures (e.g., provider timeouts, invalid payloads) in a test environment and verify that the SLI degrades and correlation IDs are present.",
+        "Verify that the defined alert rules fire correctly during the simulated failure scenarios."
+      ]
+    },
+    {
+      "actions": [
+        "Define a Restore Drill Record (RESTORE-DRILL.md).",
+        "Execute an isolated restore drill using the latest backup and the current application/schema version.",
+        "Measure usable recovery time (RTO) and actual data point recovered (RPO)."
+      ],
+      "completion_state": "UNVERIFIED",
+      "current_outcome": "IMPLEMENTED",
+      "decision": "Reject the vendor dashboard as proof of recovery readiness. Declare the recovery state as UNVERIFIED until an isolated restore drill is successfully executed and measured.",
+      "evidence_and_unknowns": [
+        "EVD-DR-001: Backup configuration is not recovery evidence; restore procedures must be exercised and measured.",
+        "Unknown: Actual usable recovery time (RTO) against current schema.",
+        "Unknown: Actual data loss (RPO) against current schema.",
+        "Unknown: Schema and application compatibility upon restore."
+      ],
+      "handoff": "Stage 21 execution for the restore drill, then Stage 24 to review incident/recovery findings.",
+      "id": "ADV-S21",
+      "references": [
+        "STAGE-21-BACKUP-DR-INCIDENTS.md",
+        "EVD-DR-001",
+        "07-templates/RESTORE-DRILL.md"
+      ],
+      "residual_risks": [
+        "The business assumptions (15m RPO, 1h RTO) may be unachievable with the current backup topology.",
+        "Restored data may contain latent corruption not caught by basic startup checks."
+      ],
+      "risk_class": "R3",
+      "stage_id": 21,
+      "verification": [
+        "Successful sign-in and critical business smoke test in the isolated restore environment.",
+        "Comparison of measured RPO/RTO against the business targets."
+      ]
+    },
+    {
+      "actions": [
+        "Draft a Metric Tree mapping the business outcome to observable signals.",
+        "Define metric contracts for enrollment success rate and support contact volume.",
+        "Design a Tracking Plan with semantic event names instead of DOM clicks."
+      ],
+      "completion_state": "DECIDED",
+      "current_outcome": "EXPLORED",
+      "decision": "Reject the default click-tracking and vanity MAU. Define outcome metrics based on successful enrollment and guardrail metrics based on operator corrections and support contacts.",
+      "evidence_and_unknowns": [
+        "EVD-AN-001: Metrics should start from product purpose, not available events.",
+        "Unknown: The minimum event taxonomy required to reliably compute successful enrollment.",
+        "Unknown: The qualitative reasons for operator corrections (requires EVD-AN-003)."
+      ],
+      "handoff": "Stage 12/13 (Frontend/API) to implement the tracking plan, and Stage 24 for outcome review.",
+      "id": "ADV-S22",
+      "references": [
+        "STAGE-22-PRODUCT-ANALYTICS.md",
+        "EVD-AN-001",
+        "EVD-AN-003",
+        "07-templates/METRIC-TREE.md",
+        "07-templates/TRACKING-PLAN.md"
+      ],
+      "residual_risks": [
+        "Identity and session semantics may cause double counting if users switch devices.",
+        "Support contact categorization may be too broad to accurately measure specific funnel issues."
+      ],
+      "risk_class": "R2",
+      "stage_id": 22,
+      "verification": [
+        "Validate that semantic events fire exactly once at the correct moment in the UI.",
+        "Perform data quality checks for missingness and duplication before launching."
+      ]
+    },
+    {
+      "actions": [
+        "Draft an Experiment/Pilot Plan.",
+        "Change the assignment unit to the institution level to prevent cross-operator contamination.",
+        "Predefine the primary outcome and guardrails for the pilot."
+      ],
+      "completion_state": "DECIDED",
+      "current_outcome": "EXPLORED",
+      "decision": "Reject the A/B test due to insufficient sample size and SUTVA violations (interference). Choose a qualitative pilot or quasi-experiment at the institution level instead.",
+      "evidence_and_unknowns": [
+        "EVD-EXP-001: Randomized controlled experiments require valid randomization and analysis assumptions.",
+        "Unknown: Behavioral contamination effects between operators in the same institution.",
+        "Unknown: Minimum practically important effect size for the new workflow."
+      ],
+      "handoff": "Stage 24 (Feedback → next iteration) to review the pilot outcomes and qualitative feedback.",
+      "id": "ADV-S23",
+      "references": [
+        "STAGE-23-EXPERIMENTATION.md",
+        "EVD-EXP-001",
+        "07-templates/EXPERIMENT-PLAN.md"
+      ],
+      "residual_risks": [
+        "Institution-level assignment may suffer from baseline variability and selection bias.",
+        "Stakeholders may reject the pilot's findings if they dogmatically require a p-value."
+      ],
+      "risk_class": "R2",
+      "stage_id": 23,
+      "verification": [
+        "Check instrumentation before pilot launch.",
+        "Evaluate qualitative feedback from operators alongside quantitative metrics to understand the conflict-resolution behavior."
+      ]
+    },
+    {
+      "actions": [
+        "Draft an Outcome Review explicitly comparing the original intended outcome against observed behavior.",
+        "Log the shift in support contacts ('can't compare groups') as a new opportunity/problem.",
+        "Decide on the next action: investigate the group comparison workflow and iterate."
+      ],
+      "completion_state": "LEARNED",
+      "current_outcome": "OBSERVED",
+      "decision": "Refuse to close the initiative as a product success. Acknowledge the stable deployment, but record the product outcome as failed or partial due to persistent spreadsheet exports and new friction points.",
+      "evidence_and_unknowns": [
+        "EVD-FB-001: Production performance data should be paired with research to understand why behavior occurs.",
+        "Unknown: The qualitative reason why operators cannot compare groups effectively in the new UI."
+      ],
+      "handoff": "Stage 2 (Product Discovery) or Stage 7 (UX Architecture) to research and solve the group comparison workflow.",
+      "id": "ADV-S24",
+      "references": [
+        "STAGE-24-FEEDBACK-NEXT-ITERATION.md",
+        "EVD-FB-001",
+        "07-templates/OUTCOME-REVIEW.md"
+      ],
+      "residual_risks": [
+        "Stakeholders may resist keeping the initiative open and push for premature closure.",
+        "The new filters may have introduced cognitive overload, contributing to the need for spreadsheets."
+      ],
+      "risk_class": "R2",
+      "stage_id": 24,
+      "verification": [
+        "Conduct qualitative user research to observe how operators attempt to compare groups and why they resort to spreadsheets."
+      ]
+    },
+    {
+      "actions": [
+        "Register the new UI guidance in the source registry as a new evidence claim.",
+        "Create a new UDR for the new guidance.",
+        "Add explicit supersession links from the old UDR to the new UDR.",
+        "Preserve the history and provenance of the 2026-09-30 corpus without editing it in place."
+      ],
+      "completion_state": "DECIDED",
+      "current_outcome": "EXPLORED",
+      "decision": "Reject the in-place edit of the old UDR. Preserve the 2026-09-30 history and govern the conflict by creating a new evidence record and explicitly superseding the old one if the new guidance is proven better.",
+      "evidence_and_unknowns": [
+        "EVD-GOV-001: Reusable knowledge needs explicit supersession so new guidance does not silently erase older decisions.",
+        "EVD-GOV-002: Material decisions should record evidence and observable revisit triggers.",
+        "Unknown: Does the new UI guidance have behavioral eval evidence proving its superiority over the old UDR?"
+      ],
+      "handoff": "Stage 11 (Design System) or Stage 7 (UX Architecture) to propagate the new guidance systematically to active projects.",
+      "id": "ADV-S25",
+      "references": [
+        "STAGE-25-KNOWLEDGE-GOVERNANCE.md",
+        "EVD-GOV-001",
+        "EVD-GOV-002"
+      ],
+      "residual_risks": [
+        "Existing projects using the old guidance may become visually or behaviorally inconsistent with new projects if migration is not planned.",
+        "The new guidance may lack the scoped context that made the old UDR effective for specific domains."
+      ],
+      "risk_class": "R1",
+      "stage_id": 25,
+      "verification": [
+        "Evaluate the new guidance behaviorally (e.g., golden/adversarial UX evals) to ensure it performs better than the old guidance before promoting it to Active."
+      ]
+    }
+  ]
+}

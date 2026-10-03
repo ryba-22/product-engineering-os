@@ -1,0 +1,115 @@
+{
+  "cases": [
+    {
+      "hard_fail": false,
+      "id": "ADV-S06",
+      "must_do_missing": [
+        "analyze failure/operational costs of added infrastructure"
+      ],
+      "must_not_do_violations": [],
+      "pass": true,
+      "rationale": "Decision direction is correct: rejects microservices/Kafka/K8s and preserves the simpler monolith with logical modularity. Switching thresholds and ADR rationale are addressed in verification and actions. However, the must_do to 'analyze failure/operational costs of added infrastructure' is only implicitly covered — the answer asserts 'irreversible complexity' as a conclusion without enumerating specific failure modes of the distributed proposal (network partitions, operational overhead of K8s/Kafka, distributed debugging, deployment complexity). The comparison between modular monolith and distributed proposal exists but is shallow. Evidence is minimal (one fact, one unknown). Risk class stated, residual risks present, handoff is explicit. No must_not_do violations: does not select microservices as industry standard, does not invent scale, and does acknowledge operational concerns. Completion state DECIDED is appropriate.",
+      "scores": {
+        "decision_correctness": 3,
+        "evidence_scope": 1,
+        "execution_closure": 1,
+        "risk_and_constraints": 1,
+        "traceability": 1,
+        "verification": 1
+      },
+      "stage_id": 6,
+      "total": 8
+    },
+    {
+      "hard_fail": false,
+      "id": "ADV-S07",
+      "must_do_missing": [
+        "define loading/empty/error/stale states"
+      ],
+      "must_not_do_violations": [],
+      "pass": true,
+      "rationale": "Decision correctly rejects universal card grid and ephemeral filter state. Dense table for desktop comparison and URL-persisted filters for return navigation are well-aligned with the scenario. Desktop-to-mobile transformation is differentiated (table vs. cards at 390px). Filter/page state preservation via URL is explicit. Evidence scope is good: cites desktop size range, operator return behavior, and identifies unknown filter combination frequencies. However, 'define loading/empty/error/stale states' is entirely absent from the answer — a material must_do for Stage 07 UX Architecture per the playbook and EVD-UX-003. No must_not_do violations: does not force cards on desktop, does not treat mobile as squeezed desktop, and does not ignore state recovery. Verification plan covers viewport testing and back-button/deep-link testing.",
+      "scores": {
+        "decision_correctness": 3,
+        "evidence_scope": 2,
+        "execution_closure": 1,
+        "risk_and_constraints": 1,
+        "traceability": 1,
+        "verification": 1
+      },
+      "stage_id": 7,
+      "total": 9
+    },
+    {
+      "hard_fail": false,
+      "id": "ADV-S08",
+      "must_do_missing": [
+        "specify focus/keyboard behavior for conflict UI if a dialog is used"
+      ],
+      "must_not_do_violations": [],
+      "pass": true,
+      "rationale": "Decision correctly replaces disabled-button illusion with explicit optimistic concurrency control (version checking on server, rejection of stale submits). State machine with conflict/stale state is defined. Client feedback is separated from authoritative server result. Recovery UI with merge/overwrite options provides a clear user path. However, the answer designs a recovery dialog-like UI ('presents Operator B's changes and asks for explicit merge or overwrite') but does not specify focus/keyboard behavior for this conflict UI — a required must_do when a dialog is used. Evidence is well-scoped with concurrent editing evidence and frequency unknown. No must_not_do violations: does not claim disabled Save prevents stale writes, does not silently overwrite, does not use toast-only resolution. Verification includes concurrent transition testing and server rejection verification.",
+      "scores": {
+        "decision_correctness": 3,
+        "evidence_scope": 2,
+        "execution_closure": 1,
+        "risk_and_constraints": 1,
+        "traceability": 1,
+        "verification": 1
+      },
+      "stage_id": 8,
+      "total": 9
+    },
+    {
+      "hard_fail": false,
+      "id": "ADV-S09",
+      "must_do_missing": [],
+      "must_not_do_violations": [],
+      "pass": true,
+      "rationale": "Decision correctly rejects axe-only compliance and identifies concrete remediation: replace div-based tabs with native/ARIA semantics, implement modal focus return, define keyboard model. All five must_dos are addressed: native semantics preferred with ARIA alternative; modal focus return behavior defined (entry is covered under 'focus lifecycle'); manual keyboard verification explicitly planned; validation/error associations are flagged as unknown and as residual risk (inline validation announcement concern), with AT checks in verification — while the verification plan focuses on modal/tab interactions rather than explicitly targeting validation associations, the concern is identified and the manual AT check scope could encompass it; automation is explicitly treated as partial evidence ('false negative for true operability'). Evidence is comprehensive: keyboard focus loss, div semantics, false negatives from automation, and unknown screen reader announcement for validation. No must_not_do violations. Residual risks about drag-and-drop keyboard alternatives and validation announcements are well-identified.",
+      "scores": {
+        "decision_correctness": 4,
+        "evidence_scope": 2,
+        "execution_closure": 1,
+        "risk_and_constraints": 1,
+        "traceability": 1,
+        "verification": 1
+      },
+      "stage_id": 9,
+      "total": 10
+    },
+    {
+      "hard_fail": false,
+      "id": "ADV-S10",
+      "must_do_missing": [
+        "preserve accessibility and semantic status cues"
+      ],
+      "must_not_do_violations": [],
+      "pass": true,
+      "rationale": "Decision correctly rejects the 'premium' redesign and the 1100px narrow column. Sets intentional high density for enterprise scanning/comparison. Removes decorative shadows and oversized padding. Hierarchy is addressed through task-serving density over decoration, though the mechanism (spacing/type/alignment) is implied rather than elaborated. Wide-screen utilization and realistic data testing are covered. However, 'preserve accessibility and semantic status cues' is entirely absent — the answer never mentions accessibility constraints, non-color status encoding, or semantic status indicators, which is a material gap for a Visual UI stage decision. Evidence scope is limited: two evidence points about 3200px and proposed redesign, one unknown about line-length, but no evidence about accessibility or status encoding. No must_not_do violations: does not equate whitespace/cards/shadows with quality, does not hide columns for screenshots, and while color-only encoding is not addressed, it is also not proposed. Verification includes realistic data and extreme width testing.",
+      "scores": {
+        "decision_correctness": 3,
+        "evidence_scope": 1,
+        "execution_closure": 1,
+        "risk_and_constraints": 1,
+        "traceability": 1,
+        "verification": 1
+      },
+      "stage_id": 10,
+      "total": 8
+    }
+  ],
+  "judge": {
+    "model": "claude-opus-4-6-thinking",
+    "notes": "Independent blind judge evaluation of five executor answers against frozen case criteria and OS runtime/stage rules. Each case evaluated strictly against must_do and must_not_do criteria, with no credit for unsubstantiated claims. Verification plans treated as planned, not verified.",
+    "provider": "Anthropic"
+  },
+  "run_id": "INDEP-RUN-2026-10-03-01",
+  "summary": {
+    "average_score": 8.8,
+    "failed": 0,
+    "hard_failures": [],
+    "passed": 5,
+    "total": 5
+  }
+}

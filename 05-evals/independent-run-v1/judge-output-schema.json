@@ -1,0 +1,164 @@
+{
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "run_id",
+    "judge",
+    "cases",
+    "summary"
+  ],
+  "properties": {
+    "run_id": {
+      "type": "string"
+    },
+    "judge": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "provider",
+        "model",
+        "notes"
+      ],
+      "properties": {
+        "provider": {
+          "type": "string"
+        },
+        "model": {
+          "type": "string"
+        },
+        "notes": {
+          "type": "string"
+        }
+      }
+    },
+    "cases": {
+      "type": "array",
+      "minItems": 25,
+      "maxItems": 25,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "stage_id",
+          "scores",
+          "total",
+          "must_do_missing",
+          "must_not_do_violations",
+          "hard_fail",
+          "pass",
+          "rationale"
+        ],
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "stage_id": {
+            "type": "integer"
+          },
+          "scores": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "decision_correctness",
+              "evidence_scope",
+              "risk_and_constraints",
+              "execution_closure",
+              "verification",
+              "traceability"
+            ],
+            "properties": {
+              "decision_correctness": {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 4
+              },
+              "evidence_scope": {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 2
+              },
+              "risk_and_constraints": {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 1
+              },
+              "execution_closure": {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 1
+              },
+              "verification": {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 1
+              },
+              "traceability": {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 1
+              }
+            }
+          },
+          "total": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 10
+          },
+          "must_do_missing": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "must_not_do_violations": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "hard_fail": {
+            "type": "boolean"
+          },
+          "pass": {
+            "type": "boolean"
+          },
+          "rationale": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "summary": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "total",
+        "passed",
+        "failed",
+        "average_score",
+        "hard_failures"
+      ],
+      "properties": {
+        "total": {
+          "type": "integer"
+        },
+        "passed": {
+          "type": "integer"
+        },
+        "failed": {
+          "type": "integer"
+        },
+        "average_score": {
+          "type": "number"
+        },
+        "hard_failures": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}

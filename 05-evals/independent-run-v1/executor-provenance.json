@@ -1,0 +1,79 @@
+{
+  "batches": [
+    {
+      "batch": 1,
+      "conversation_id": "66b77ec8-4117-4646-8abd-dca5d8df08fc",
+      "status": "SUCCESS",
+      "reported_model": "gemini-3.1-pro-high",
+      "usage": {
+        "input_tokens": 18142,
+        "output_tokens": 9068,
+        "thinking_tokens": 7051,
+        "cache_read_tokens": 8142,
+        "total_tokens": 27210
+      },
+      "duration_seconds": 63.559769969,
+      "num_turns": 1
+    },
+    {
+      "batch": 2,
+      "conversation_id": "3281a959-9cc8-44c3-9874-7c85e96b4319",
+      "status": "SUCCESS",
+      "reported_model": "gemini-3.1-pro-high",
+      "usage": {
+        "input_tokens": 26092,
+        "output_tokens": 5788,
+        "thinking_tokens": 3726,
+        "cache_read_tokens": 0,
+        "total_tokens": 31880
+      },
+      "duration_seconds": 48.224675178,
+      "num_turns": 1
+    },
+    {
+      "batch": 3,
+      "conversation_id": "133237ad-60a7-4c55-924c-1b2422e3f33a",
+      "status": "SUCCESS",
+      "reported_model": "gemini-3.1-pro-high",
+      "usage": {
+        "input_tokens": 18020,
+        "output_tokens": 6113,
+        "thinking_tokens": 4350,
+        "cache_read_tokens": 8142,
+        "total_tokens": 24133
+      },
+      "duration_seconds": 46.458216479,
+      "num_turns": 1
+    },
+    {
+      "batch": 4,
+      "conversation_id": "f76ccd3d-b940-410a-996d-2bc96b668cb3",
+      "status": "SUCCESS",
+      "reported_model": "gemini-3.1-pro-high",
+      "usage": {
+        "input_tokens": 25937,
+        "output_tokens": 5330,
+        "thinking_tokens": 2901,
+        "cache_read_tokens": 0,
+        "total_tokens": 31267
+      },
+      "duration_seconds": 41.049136157,
+      "num_turns": 1
+    },
+    {
+      "batch": 5,
+      "conversation_id": "b7633fb0-42f8-4400-86ab-83e96c875a02",
+      "status": "SUCCESS",
+      "reported_model": "Gemini 3.1 Pro (High)",
+      "usage": {
+        "input_tokens": 18071,
+        "output_tokens": 6166,
+        "thinking_tokens": 4200,
+        "cache_read_tokens": 8142,
+        "total_tokens": 24237
+      },
+      "duration_seconds": 45.30261043,
+      "num_turns": 1
+    }
+  ]
+}

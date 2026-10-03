@@ -55,6 +55,26 @@ Stop researching once additional research is unlikely to change the decision. Us
 | Product Intelligence | Metrics, experiments and feedback |
 | Knowledge Governance | Sources, freshness, conflicts and decisions |
 
+## Knowledge depth model
+
+Product Engineering OS deliberately separates four layers:
+
+1. **Runtime/orchestration** — `BRAIN.md`, routing, risk and stop-analysis.
+2. **Module contracts** — short `MODULE.md` files that define responsibility, inputs, outputs and gates.
+3. **Deep stage playbooks** — 25 stage-specific files under `06-modules/**/STAGE-*.md` containing the actual operational method: decision questions, workflow, rules, evidence standard, failure modes, exit criteria and handoff.
+4. **Evidence and verification** — source registry, atomic evidence ledger, decision records, templates, gates and evals.
+
+Templates are intentionally short because they are forms to fill. Evidence statements are intentionally atomic because they are graph nodes. Neither is intended to carry the full method. The stage playbooks are the primary knowledge layer for execution.
+
+Short-file policy is executable: `scripts/audit_content_depth.py` fails when a substantive Markdown knowledge file falls below the depth floor unless it belongs to an explicitly concise category such as a module contract, template, adapter/crosswalk or skill router.
+
+`11-maturity/stage-coverage.json` distinguishes **deep-structural** coverage from behavioral effectiveness. Structural/depth checks can prove the knowledge package is present and connected; only executed evaluations can support behavioral claims.
+
+
+## Current behavioral evidence
+
+The package has completed `INDEP-RUN-2026-10-03-01`: the same frozen 25-stage adversarial suite was executed by Google Gemini 3.1 Pro (High) with judge criteria hidden, then independently scored by Anthropic Claude Opus 4.6 (Thinking). Result: **25/25 pass, 0 hard failures, 9.12/10 average**. The maturity claim is deliberately scoped to that frozen suite; judge-noted omissions remain tracked in `05-evals/independent-run-v1/weakness-backlog.json`.
+
 ## Package layout
 
 | Path | Contents |

@@ -1,0 +1,57 @@
+{
+  "run_id": "ADV-RUN-2026-10-03-01",
+  "round": 2,
+  "judge": {
+    "engine": "GPT-5.6 Sol (same session, separate rubric pass)",
+    "independence": "self-assessed; not independent model"
+  },
+  "summary": {
+    "total_cases": 1,
+    "passed": 1,
+    "failed": 0,
+    "average_score": 10.0,
+    "hard_failures": []
+  },
+  "cases": [
+    {
+      "id": "ADV-S15",
+      "stage_id": 15,
+      "scores": {
+        "decision_correctness": 4,
+        "evidence_scope": 2,
+        "risk_and_constraints": 1,
+        "execution_closure": 1,
+        "verification": 1,
+        "traceability": 1
+      },
+      "total": 10,
+      "must_do_coverage": [
+        {
+          "criterion": "identify duplicate enrollment as the violated invariant",
+          "met": true
+        },
+        {
+          "criterion": "test against real database uniqueness/transaction semantics",
+          "met": true
+        },
+        {
+          "criterion": "include concurrent/retry adversarial cases",
+          "met": true
+        },
+        {
+          "criterion": "keep cheaper unit tests only for logic they can prove",
+          "met": true
+        },
+        {
+          "criterion": "tie regression evidence to the exact guarantee",
+          "met": true
+        }
+      ],
+      "must_not_do_violations": [],
+      "hard_fail": false,
+      "pass": true,
+      "rationale": "The rerun keeps the strategy decision-ready but explicitly UNVERIFIED until the real-database concurrency tests execute. It no longer collapses planned verification into the VERIFIED lifecycle state.",
+      "judge_notes": "Targeted rerun after a playbook regression guard was added; still self-assessed rather than independently judged."
+    }
+  ]
+}

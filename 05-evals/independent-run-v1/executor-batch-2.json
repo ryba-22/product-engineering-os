@@ -1,0 +1,169 @@
+{
+  "cases": [
+    {
+      "actions": [
+        "Extract actual architecture drivers (e.g., measurable throughput/latency scenarios) to see if distributed computing is required.",
+        "Define logical modularity inside the existing monolith rather than creating physical network boundaries.",
+        "Record an ADR rejecting the microservices/Kafka proposal due to lack of evidence for the complexity."
+      ],
+      "completion_state": "DECIDED",
+      "current_outcome": "Prevent unevidenced architectural inflation. Maintain the simple monolithic web application and worker model.",
+      "decision": "Reject the microservices, Kafka, and Kubernetes proposal. The current workload fits a simple design. Irreversible complexity must be justified by an explicit architecture driver, not hypothetical scale or 'future-proofing'.",
+      "evidence_and_unknowns": [
+        "EVIDENCE: Current deployment scale is small (a few thousand participants, dozens of institutions).",
+        "UNKNOWN: Specific latency, throughput, or availability SLA requirements that might force a change from a relational database."
+      ],
+      "handoff": "Handoff logical boundaries and contracts to Stages 12-14 (Implementation) and scale thresholds to Stage 20 (Observability).",
+      "id": "ADV-S06",
+      "references": [
+        "STAGE-06-SYSTEM-ARCHITECTURE.md",
+        "EVD-ARCH-004",
+        "EVD-ARCH-005"
+      ],
+      "residual_risks": [
+        "Logical boundaries might erode without physical network separation, requiring disciplined code review.",
+        "Unexpected sudden spikes in adoption might exceed single-database capacity if not monitored."
+      ],
+      "risk_class": "R3",
+      "stage_id": 6,
+      "verification": [
+        "Define fitness functions for current capacity assumptions.",
+        "Set explicit measurable switching thresholds (e.g., concurrent active users) that would trigger a re-evaluation of the architecture."
+      ]
+    },
+    {
+      "actions": [
+        "Map the task flow for the pupil-unit worklist focusing on the comparison requirement.",
+        "Design adaptive transformations: use a dense table/list on desktop and transform to cards only for the 390px mobile breakpoint.",
+        "Define URL routing and global state persistence for the school/subject/status filters."
+      ],
+      "completion_state": "DECIDED",
+      "current_outcome": "A task-aligned UX architecture supporting dense comparison and cross-flow state continuity.",
+      "decision": "Reject the universal centered card grid and ephemeral local filter state. Implement a dense table/worklist for desktop to support comparison, and persist filter states in the URL to allow users to safely navigate away and return.",
+      "evidence_and_unknowns": [
+        "EVIDENCE: Desktop sizes range up to 3200px requiring dense comparison.",
+        "EVIDENCE: Operators frequently return to filtered states.",
+        "UNKNOWN: The exact combination of filters most frequently used together."
+      ],
+      "handoff": "Handoff workflow/state contracts to Stage 08 (Interaction design) and layout rules to Stage 10 (Visual UI).",
+      "id": "ADV-S07",
+      "references": [
+        "STAGE-07-UX-ARCHITECTURE.md",
+        "EVD-UX-002",
+        "EVD-UX-003"
+      ],
+      "residual_risks": [
+        "Complex combinations of filters might exceed URL length limits if not carefully serialized.",
+        "Table-to-card transformation on mobile might hide secondary data columns required for specific edge-case tasks."
+      ],
+      "risk_class": "R2",
+      "stage_id": 7,
+      "verification": [
+        "Validate the adaptive behavior on both 3200px and 390px viewports with realistic, dense data.",
+        "Test the browser back-button and deep-linking to ensure filter state restores correctly."
+      ]
+    },
+    {
+      "actions": [
+        "Write the interaction as a state machine that includes an explicit 'conflict/stale' state.",
+        "Define the backend validation layer to reject stale data using optimistic concurrency control (e.g., version checking).",
+        "Design a recovery UI that presents Operator B's changes to Operator A and asks for explicit merge or overwrite."
+      ],
+      "completion_state": "DECIDED",
+      "current_outcome": "Ensure data integrity and provide an explicit conflict recovery path for concurrent edits.",
+      "decision": "Replace the client-side disabled button with an explicit conflict handling interaction. The server must reject the stale submit, and the UI must prompt the user with the conflict and a clear recovery path (merge/overwrite).",
+      "evidence_and_unknowns": [
+        "EVIDENCE: Operators edit the same visits concurrently, leading to stale data overwrites.",
+        "EVIDENCE: Disabling the save button locally does not prevent server-side conflicts from slow networks.",
+        "UNKNOWN: How frequently these concurrent overlaps happen in production."
+      ],
+      "handoff": "Handoff the conflict interaction contract to Stage 12 (Frontend implementation) and the versioning rejection contract to Stage 13 (Backend / API).",
+      "id": "ADV-S08",
+      "references": [
+        "STAGE-08-INTERACTION-DESIGN.md",
+        "EVD-UX-003",
+        "EVD-UX-004"
+      ],
+      "residual_risks": [
+        "Operator A might reflexively hit 'overwrite' without reading Operator B's changes.",
+        "Optimistic concurrency requires strict clock synchronization or robust entity versioning on the backend."
+      ],
+      "risk_class": "R2",
+      "stage_id": 8,
+      "verification": [
+        "Test realistic concurrent transitions including double-submit and slow network simulated delays.",
+        "Verify the server explicitly rejects outdated versions regardless of UI state."
+      ]
+    },
+    {
+      "actions": [
+        "Define the explicit keyboard model (tab order, shortcuts) and focus lifecycle for the workflow.",
+        "Replace the custom div-based tabs with native semantic HTML (e.g., button elements) or proper ARIA tablist patterns.",
+        "Implement focus management to return focus to the triggering element when the modal editor is closed."
+      ],
+      "completion_state": "DECIDED",
+      "current_outcome": "Achieve functional keyboard operability and semantic correctness beyond automated tool compliance.",
+      "decision": "Reject the claim that accessibility is complete. Axe checks alone are insufficient for a critical flow. Remediate the custom divs and modal focus loss to ensure full keyboard navigability.",
+      "evidence_and_unknowns": [
+        "EVIDENCE: Keyboard users lose focus after closing the modal.",
+        "EVIDENCE: Custom tabs are implemented as plain divs, lacking semantic meaning.",
+        "EVIDENCE: Automated tools returned zero violations, which is a false negative for true operability.",
+        "UNKNOWN: Whether the sortable columns and inline validation are fully announced to screen readers."
+      ],
+      "handoff": "Handoff the accessibility contract and semantic requirements to Stage 12 (Frontend implementation).",
+      "id": "ADV-S09",
+      "references": [
+        "STAGE-09-ACCESSIBILITY.md",
+        "EVD-UX-001",
+        "EVD-QA-003"
+      ],
+      "residual_risks": [
+        "Complex drag-and-drop sortable columns may still require specialized keyboard alternatives.",
+        "Inline validation errors might visually appear without triggering live region announcements."
+      ],
+      "risk_class": "R2",
+      "stage_id": 9,
+      "verification": [
+        "Run manual keyboard verification through the entire admin worklist workflow.",
+        "Run assistive-technology checks (screen reader) specifically on the modal return and custom tab interactions."
+      ]
+    },
+    {
+      "actions": [
+        "Set UI density intentionally high to match the enterprise scanning and comparison workload.",
+        "Remove the 1100px constrained column and establish fluid layout rules that utilize the 3200px width appropriately.",
+        "Remove oversized padding and 'premium' shadows that reduce data visibility."
+      ],
+      "completion_state": "DECIDED",
+      "current_outcome": "A wide-screen optimized visual layout that prioritizes functional data density and task efficiency over decorative aesthetics.",
+      "decision": "Reject the 'premium' redesign. The visual hierarchy and density must serve the task of dense comparison. Remove the narrow column constraint and avoid applying large padding or decorative cards to tabular data.",
+      "evidence_and_unknowns": [
+        "EVIDENCE: The application runs on 3200px monitors and requires dense row/column comparison.",
+        "EVIDENCE: The proposed redesign adds padding and shadows, reducing visible rows and forcing navigation.",
+        "UNKNOWN: Maximum safe readability line-length for any long-form text fields inside the worklist."
+      ],
+      "handoff": "Handoff the density decisions, spacing tokens, and wide-screen layout rules to Stage 12 (Frontend implementation).",
+      "id": "ADV-S10",
+      "references": [
+        "STAGE-10-VISUAL-UI.md",
+        "EVD-UI-001",
+        "EVD-UI-002"
+      ],
+      "residual_risks": [
+        "A fully fluid layout on a 3200px screen might separate related columns too far horizontally, reducing scanning efficiency."
+      ],
+      "risk_class": "R1",
+      "stage_id": 10,
+      "verification": [
+        "Review the design using realistic long data, zero data, and extreme screen widths.",
+        "Verify that the table remains a table and does not degrade comparison efficiency."
+      ]
+    }
+  ],
+  "executor": {
+    "model": "gemini-3.1-pro-high",
+    "notes": "Faithful execution of PE OS blinded behavioral evaluation using strict evidence-based constraints and OS routing logic. No unverified states claimed.",
+    "provider": "Google"
+  },
+  "run_id": "INDEP-RUN-2026-10-03-01"
+}

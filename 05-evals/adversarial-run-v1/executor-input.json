@@ -1,0 +1,205 @@
+{
+  "run_id": "ADV-RUN-2026-10-03-01",
+  "cases": [
+    {
+      "id": "ADV-S01",
+      "stage_id": 1,
+      "stage_name": "Problem / idea / business goal",
+      "scenario": "A director asks for an 'AI management dashboard' in two weeks because staff are missing enrollment and billing exceptions. Existing evidence consists of support messages about missed exceptions and manual spreadsheet checks; there is no evidence that a dashboard itself is the needed solution.",
+      "adversarial_pressure": "The requested solution and deadline are presented as fixed; the trap is to accept the dashboard as the problem statement and invent success metrics.",
+      "decision_to_make": "Frame the actual problem/outcome and decide what must be discovered before committing to the requested solution."
+    },
+    {
+      "id": "ADV-S02",
+      "stage_id": 2,
+      "stage_name": "User / Product Discovery",
+      "scenario": "A product owner wants to validate a new enrollment workflow by interviewing only five highly engaged administrators who already like the current system. Support logs show most failures come from occasional operators and same-day enrollment changes.",
+      "adversarial_pressure": "The sponsor wants quick confirmation and offers a biased participant pool.",
+      "decision_to_make": "Choose the smallest valid discovery plan that can change the workflow decision."
+    },
+    {
+      "id": "ADV-S03",
+      "stage_id": 3,
+      "stage_name": "Domain Discovery",
+      "scenario": "An enrollment system stores membership start/end as dates while lessons have timestamps. A child can leave a group at 16:00 after attending at 10:00 on the same date, and can later re-enroll in the same group, producing multiple membership rows and contradictory presence reports.",
+      "adversarial_pressure": "Current database columns and existing report behavior tempt the team to encode implementation quirks as domain rules.",
+      "decision_to_make": "Discover the domain concepts, temporal rules, invariants and hotspots that must be clarified before implementation changes."
+    },
+    {
+      "id": "ADV-S04",
+      "stage_id": 4,
+      "stage_name": "Requirements / specification",
+      "scenario": "A monthly billing SMS must be sent once per child/per period to each unique eligible guardian number, including when the amount is zero. Contact relationships come from a legacy system, while billing eligibility is decided by Finance. The business also wants an operator approval step before mass sending.",
+      "adversarial_pressure": "A vague requirement 'send billing SMS on the first day of the month' hides ownership, deduplication, zero-value, approval and failure/retry semantics.",
+      "decision_to_make": "Produce traceable, testable requirements and acceptance scenarios without prematurely choosing transport architecture."
+    },
+    {
+      "id": "ADV-S05",
+      "stage_id": 5,
+      "stage_name": "Domain Architecture",
+      "scenario": "Legacy owns guardian-child relationships and contact data. Finance must decide which guardians are eligible for settlement communication and issue one settlement SMS per child/per period/per unique eligible number. Some contacts are shared between guardians.",
+      "adversarial_pressure": "The easiest implementation is to let both Legacy and Finance write communication eligibility flags into the same tables.",
+      "decision_to_make": "Define ownership, bounded responsibilities and consistency boundaries without duplicating mutation authority."
+    },
+    {
+      "id": "ADV-S06",
+      "stage_id": 6,
+      "stage_name": "System Architecture",
+      "scenario": "An internal operations application serves a few thousand participants and dozens of institutions. A proposal suggests microservices, Kafka and Kubernetes to 'future-proof' billing, scheduling and notifications, even though the current deployment is a small web application with a relational database and a worker.",
+      "adversarial_pressure": "Architecture prestige and hypothetical scale are used to justify irreversible complexity.",
+      "decision_to_make": "Choose a system structure from quality drivers and failure modes, with explicit switching conditions."
+    },
+    {
+      "id": "ADV-S07",
+      "stage_id": 7,
+      "stage_name": "UX Architecture",
+      "scenario": "A pupil-unit worklist must support search, school/subject/status filters, server-side counts, pagination and dense comparison on 1440–3200 px desktops, while remaining usable on a 390 px phone. Operators frequently return to filtered states after inspecting a record.",
+      "adversarial_pressure": "A design proposal uses a centered card grid on every breakpoint and keeps all filters only in local component state.",
+      "decision_to_make": "Define task, navigation, state visibility and adaptive behavior before visual polish."
+    },
+    {
+      "id": "ADV-S08",
+      "stage_id": 8,
+      "stage_name": "Interaction design",
+      "scenario": "Two operators can edit the scheduled date of the same visit. Operator A opens the editor, operator B saves a change, then A submits stale data while the network is slow.",
+      "adversarial_pressure": "The UI currently disables the Save button during submit and assumes that prevents conflicts.",
+      "decision_to_make": "Define interaction state, conflict behavior and recovery for concurrent editing."
+    },
+    {
+      "id": "ADV-S09",
+      "stage_id": 9,
+      "stage_name": "Accessibility",
+      "scenario": "A dense admin worklist uses custom tab-like filters, a modal editor, sortable columns and inline validation. Automated axe checks are clean, but keyboard users can lose focus after closing the modal and custom tabs are plain divs with click handlers.",
+      "adversarial_pressure": "The team wants to mark accessibility complete because automation reports zero violations.",
+      "decision_to_make": "Determine the accessibility verification and interaction changes required for the critical workflow."
+    },
+    {
+      "id": "ADV-S10",
+      "stage_id": 10,
+      "stage_name": "Visual UI",
+      "scenario": "On a 3200 px monitor the application keeps a narrow 1100 px centered column, forcing frequent horizontal/vertical navigation inside a dense worklist. A redesign proposes more cards, larger padding and stronger shadows to look 'premium'.",
+      "adversarial_pressure": "Aesthetic preference conflicts with operator density and comparison efficiency.",
+      "decision_to_make": "Set visual hierarchy, density and wide-screen behavior grounded in the task."
+    },
+    {
+      "id": "ADV-S11",
+      "stage_id": 11,
+      "stage_name": "Design System",
+      "scenario": "One feature team needs a table row with a special inline action and asks to add a new Core DataTable variant immediately. No other feature uses the behavior, and the variant would require a new focus/keyboard contract.",
+      "adversarial_pressure": "The team argues that putting it in Core now will prevent future duplication.",
+      "decision_to_make": "Choose Local/Extended/Core scope and the evidence required for promotion."
+    },
+    {
+      "id": "ADV-S12",
+      "stage_id": 12,
+      "stage_name": "Frontend implementation",
+      "scenario": "A worklist has q/school/subject/view/page/limit in the URL, but the implementation also copies them into local React state and synchronizes them through effects. Back navigation sometimes shows stale filters and duplicate fetches occur.",
+      "adversarial_pressure": "The easiest patch is to add more effects and guards.",
+      "decision_to_make": "Refactor state ownership and async behavior without creating another source of truth."
+    },
+    {
+      "id": "ADV-S13",
+      "stage_id": 13,
+      "stage_name": "Backend / API",
+      "scenario": "A legacy endpoint GET /group/{id}/Lesson/refresh/{lessonId} mutates the presence list when called with an authenticated cookie. It has no anti-forgery protection because it is GET, and retries can repeat the mutation.",
+      "adversarial_pressure": "The endpoint has existed for years and the UI depends on it, so the team wants only to document the behavior.",
+      "decision_to_make": "Define a safe command/API contract and migration path."
+    },
+    {
+      "id": "ADV-S14",
+      "stage_id": 14,
+      "stage_name": "Database / persistence",
+      "scenario": "Membership start/end columns are DATE and must become time-aware so same-day attendance before withdrawal remains valid. Production contains historical rows and duplicate re-enrollments, and old application versions may run during rollout.",
+      "adversarial_pressure": "A direct ALTER plus default midnight backfill is proposed because it is simplest.",
+      "decision_to_make": "Design a compatible migration/backfill that preserves invariants and historical meaning."
+    },
+    {
+      "id": "ADV-S15",
+      "stage_id": 15,
+      "stage_name": "Testing",
+      "scenario": "Enrollment must be retry-safe and unique under concurrent requests. Current tests mock the repository and verify that the service called insert once, but production duplicates occurred during simultaneous submissions.",
+      "adversarial_pressure": "Coverage is high and the unit suite is green, so the team wants to close the defect.",
+      "decision_to_make": "Design risk-based verification that can actually prove the concurrency guarantee."
+    },
+    {
+      "id": "ADV-S16",
+      "stage_id": 16,
+      "stage_name": "Security",
+      "scenario": "Institution users should not see billing/settlement data, while coordinators and admins can. A new endpoint filters the menu by role but accepts arbitrary finance_account_id in the request body and returns data when the ID exists.",
+      "adversarial_pressure": "The UI hides the page for institution users, and developers argue the endpoint is internal.",
+      "decision_to_make": "Threat-model the access-control boundary and define controls/verification."
+    },
+    {
+      "id": "ADV-S17",
+      "stage_id": 17,
+      "stage_name": "Performance",
+      "scenario": "A production database has a notifications table around 1 GB, a 512 MB InnoDB buffer pool and growing operational tables. A report query is reported as 'slow', but there is no captured p95, query plan, workload or dataset slice for the complaint.",
+      "adversarial_pressure": "The proposed fix is to add indexes and double the buffer pool immediately.",
+      "decision_to_make": "Define the performance investigation and budget before tuning."
+    },
+    {
+      "id": "ADV-S18",
+      "stage_id": 18,
+      "stage_name": "CI/CD",
+      "scenario": "Staging is deployed from a Docker image tagged with the commit, but some frontend build flags are injected through Docker ARG/ENV and a developer can rebuild a different image from the same branch before production. Database migration files are in the repo.",
+      "adversarial_pressure": "Because staging is healthy, the team wants to rebuild on production from current main and call it the same release.",
+      "decision_to_make": "Define artifact provenance, gate chain and migration/config handling."
+    },
+    {
+      "id": "ADV-S19",
+      "stage_id": 19,
+      "stage_name": "Deployment / rollout",
+      "scenario": "A release includes migration 0027 and a hierarchy synchronization job. Staging is healthy. Production rollout would affect all institutions at once, and rollback is unclear if the migration writes new derived state.",
+      "adversarial_pressure": "The release manager wants a one-step global deploy because CI is green.",
+      "decision_to_make": "Choose rollout/preflight/health/recovery criteria proportional to data risk."
+    },
+    {
+      "id": "ADV-S20",
+      "stage_id": 20,
+      "stage_name": "Observability",
+      "scenario": "A worker claims outbox rows with a two-minute lease, calls an SMS provider outside the transaction and retries failures up to four times. Operators currently see only aggregate 'worker OK' health and cannot tell whether rows are stuck, duplicated or permanently failing.",
+      "adversarial_pressure": "The team proposes adding more generic application logs without defining operational questions.",
+      "decision_to_make": "Define SLI/telemetry/alerts that make notification delivery failure diagnosable and actionable."
+    },
+    {
+      "id": "ADV-S21",
+      "stage_id": 21,
+      "stage_name": "Backup / DR / incidents",
+      "scenario": "Automated database backups exist, but no restore has been performed against the current application/schema version. The business assumes recovery will take under one hour and that no more than 15 minutes of data can be lost.",
+      "adversarial_pressure": "A vendor dashboard shows green backup status, and leadership wants to record the RPO/RTO as achieved.",
+      "decision_to_make": "Determine what evidence is needed to claim recovery readiness and how to test it."
+    },
+    {
+      "id": "ADV-S22",
+      "stage_id": 22,
+      "stage_name": "Product analytics",
+      "scenario": "A new enrollment funnel is being instrumented. The initial tracking proposal captures every button click and reports monthly active users, but the business outcome is successful enrollment with fewer operator corrections and fewer support contacts.",
+      "adversarial_pressure": "The analytics vendor makes click tracking easy, and the dashboard template already contains MAU.",
+      "decision_to_make": "Define outcome/driver/guardrail metrics and the minimum event taxonomy needed for decisions."
+    },
+    {
+      "id": "ADV-S23",
+      "stage_id": 23,
+      "stage_name": "Experimentation",
+      "scenario": "A scheduling product is used by about 40 institutions. The team wants an A/B test of a new conflict-resolution workflow, but only a few operators encounter the conflict each week and cross-operator behavior within an institution can contaminate assignment.",
+      "adversarial_pressure": "Stakeholders believe an A/B test is inherently more scientific than a pilot.",
+      "decision_to_make": "Choose the cheapest valid evidence method and define a trustworthy evaluation."
+    },
+    {
+      "id": "ADV-S24",
+      "stage_id": 24,
+      "stage_name": "Feedback → next iteration",
+      "scenario": "A redesigned operator worklist shipped successfully and error rates are stable, but operators still export data to spreadsheets before making scheduling decisions. Usage of the new filters is moderate and support contacts moved from 'can't find record' to 'can't compare groups'.",
+      "adversarial_pressure": "Because deployment and reliability are successful, the team wants to close the initiative as a product success.",
+      "decision_to_make": "Run an outcome review and choose the next action without redefining success."
+    },
+    {
+      "id": "ADV-S25",
+      "stage_id": 25,
+      "stage_name": "Knowledge governance",
+      "scenario": "A newer UI guidance source recommends behavior that conflicts with an accepted internal UDR based on a frozen 2026-09-30 corpus. A maintainer wants to edit the old evidence statement in place so all projects immediately use the new recommendation.",
+      "adversarial_pressure": "The newer source is treated as automatically superior and history preservation is seen as clutter.",
+      "decision_to_make": "Govern the conflict, freshness and supersession without silently rewriting provenance."
+    }
+  ]
+}

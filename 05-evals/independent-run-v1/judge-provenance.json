@@ -1,0 +1,100 @@
+{
+  "batches": [
+    {
+      "batch": 1,
+      "conversation_id": "65330a61-670e-4fbb-87db-c66eff701b97",
+      "status": "SUCCESS",
+      "usage": {
+        "input_tokens": 29649,
+        "output_tokens": 8791,
+        "thinking_tokens": 0,
+        "cache_read_tokens": 0,
+        "total_tokens": 38440
+      },
+      "duration_seconds": 181.801582792,
+      "num_turns": 1,
+      "reported_judge": {
+        "model": "claude-opus-4-6-thinking",
+        "notes": "Independent blind judgment of five executor answers against frozen case criteria, stage playbooks, and OS runtime/gate rules. Each answer evaluated for decision correctness, evidence discipline, constraint handling, closure, verification, and traceability. No prior self-assessment or prior judge results were consulted.",
+        "provider": "Anthropic"
+      }
+    },
+    {
+      "batch": 2,
+      "conversation_id": "f68250ae-4d72-407b-baac-292c80d2ca6a",
+      "status": "SUCCESS",
+      "usage": {
+        "input_tokens": 19172,
+        "output_tokens": 9182,
+        "thinking_tokens": 0,
+        "cache_read_tokens": 10405,
+        "total_tokens": 28354
+      },
+      "duration_seconds": 187.43173078,
+      "num_turns": 1,
+      "reported_judge": {
+        "model": "claude-opus-4-6-thinking",
+        "notes": "Independent blind judge evaluation of five executor answers against frozen case criteria and OS runtime/stage rules. Each case evaluated strictly against must_do and must_not_do criteria, with no credit for unsubstantiated claims. Verification plans treated as planned, not verified.",
+        "provider": "Anthropic"
+      }
+    },
+    {
+      "batch": 3,
+      "conversation_id": "541ce87e-660a-49bc-a64d-d0c8824fedb5",
+      "status": "SUCCESS",
+      "usage": {
+        "input_tokens": 18902,
+        "output_tokens": 9103,
+        "thinking_tokens": 0,
+        "cache_read_tokens": 10405,
+        "total_tokens": 28005
+      },
+      "duration_seconds": 178.23893513,
+      "num_turns": 1,
+      "reported_judge": {
+        "model": "claude-opus-4-6-thinking",
+        "notes": "Independent blinded judge evaluation. Scored strictly against frozen case criteria and OS runtime rules. No prior self-assessment or judge results were consulted. Each must_do was checked for substantive coverage, not just keyword mention. Evidence_scope scored for dimensional coverage of the problem space. Completion states validated against Stage 15 completion-state guard and lifecycle state semantics.",
+        "provider": "Anthropic"
+      }
+    },
+    {
+      "batch": 4,
+      "conversation_id": "180de7db-104f-4917-ba57-a3478a29e6e7",
+      "status": "SUCCESS",
+      "usage": {
+        "input_tokens": 45093,
+        "output_tokens": 11875,
+        "thinking_tokens": 0,
+        "cache_read_tokens": 24240,
+        "total_tokens": 56968
+      },
+      "duration_seconds": 229.409416845,
+      "num_turns": 1,
+      "reported_judge": {
+        "model": "claude-opus-4-6-thinking",
+        "notes": "Independent blind judge evaluation of five executor answers against frozen case criteria and Product Engineering OS stage playbooks. Scored strictly on evidence present in the answers; no credit for inferred or absent claims. Each must_do evaluated for explicit presence in the answer text. Must_not_do checked for material violations. Hard fail conditions checked: no invented critical facts, no lifecycle state overclaims, no safety gate skips, no material must_not_do violations.",
+        "provider": "Anthropic"
+      }
+    },
+    {
+      "batch": 5,
+      "conversation_id": "90684424-86e4-444b-926f-bc102a7b09ff",
+      "status": "SUCCESS",
+      "usage": {
+        "input_tokens": 19164,
+        "output_tokens": 11456,
+        "thinking_tokens": 0,
+        "cache_read_tokens": 10405,
+        "total_tokens": 30620
+      },
+      "duration_seconds": 229.191840658,
+      "num_turns": 1,
+      "reported_judge": {
+        "model": "claude-opus-4-6-thinking",
+        "notes": "Independent blind judge. Evaluated each executor answer strictly against frozen case criteria, stage playbooks, evidence anchors, lifecycle state semantics, and hard-fail conditions. No prior self-assessment or prior judge results were consulted.",
+        "provider": "Anthropic"
+      }
+    }
+  ],
+  "total_tokens": 182387
+}

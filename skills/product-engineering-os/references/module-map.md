@@ -14,3 +14,7 @@
 - Knowledge Governance — provenance, freshness, conflicts, supersession and evals.
 
 Use only the modules required by the current outcome and missing evidence.
+
+## Stage depth
+
+After selecting a module, load the matching canonical stage playbook from `references/stages/`. MODULE contracts route work; stage playbooks contain the deeper operational method. Load only stages needed for the current outcome.

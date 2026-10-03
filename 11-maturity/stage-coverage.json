@@ -1,12 +1,12 @@
 {
-  "version": "1.0.0",
-  "rubric": "very-strong requires scoped corpus, >=2 evidence anchors, decision system, workflow, canonical artifacts, gate, adversarial eval and integration path",
+  "version": "1.1.0",
+  "rubric": "deep-structural requires scoped corpus, >=2 evidence anchors, stage-specific decision workflow, canonical artifacts, gate, adversarial eval link, integration path and a substantive stage playbook; behavioral effectiveness requires separate executed evaluation.",
   "stages": [
     {
       "id": 1,
       "name": "Problem / idea / business goal",
       "module": "product-strategy",
-      "status": "very-strong",
+      "status": "deep-structural",
       "evidence_ids": [
         "EVD-PROD-002",
         "EVD-PROD-003"
@@ -15,7 +15,7 @@
         "EV-S01"
       ],
       "gate": "G0",
-      "decision_system": "06-modules/product-strategy/PLAYBOOK.md",
+      "decision_system": "06-modules/product-strategy/STAGE-01-PROBLEM-OUTCOME.md",
       "artifact_refs": [
         "07-templates/PRODUCT-BRIEF.md"
       ],
@@ -27,14 +27,22 @@
         "artifacts": true,
         "gate": true,
         "eval": true,
-        "integration": true
-      }
+        "integration": true,
+        "deep_playbook": true
+      },
+      "stage_playbook": "06-modules/product-strategy/STAGE-01-PROBLEM-OUTCOME.md",
+      "behavioral_validation": "independently-behaviorally-validated-v1",
+      "behavioral_run_id": "INDEP-RUN-2026-10-03-01",
+      "behavioral_evidence": "05-evals/independent-run-v1/judge-results.json",
+      "behavioral_independent": true,
+      "behavioral_score": 9,
+      "behavioral_hard_fail": false
     },
     {
       "id": 2,
       "name": "User / Product Discovery",
       "module": "product-discovery",
-      "status": "very-strong",
+      "status": "deep-structural",
       "evidence_ids": [
         "EVD-PROD-001",
         "EVD-PROD-004"
@@ -43,7 +51,7 @@
         "EV-S02"
       ],
       "gate": "G1",
-      "decision_system": "06-modules/product-discovery/PLAYBOOK.md",
+      "decision_system": "06-modules/product-discovery/STAGE-02-DISCOVERY.md",
       "artifact_refs": [
         "07-templates/RESEARCH-PLAN.md"
       ],
@@ -55,14 +63,22 @@
         "artifacts": true,
         "gate": true,
         "eval": true,
-        "integration": true
-      }
+        "integration": true,
+        "deep_playbook": true
+      },
+      "stage_playbook": "06-modules/product-discovery/STAGE-02-DISCOVERY.md",
+      "behavioral_validation": "independently-behaviorally-validated-v1",
+      "behavioral_run_id": "INDEP-RUN-2026-10-03-01",
+      "behavioral_evidence": "05-evals/independent-run-v1/judge-results.json",
+      "behavioral_independent": true,
+      "behavioral_score": 9,
+      "behavioral_hard_fail": false
     },
     {
       "id": 3,
       "name": "Domain Discovery",
       "module": "domain",
-      "status": "very-strong",
+      "status": "deep-structural",
       "evidence_ids": [
         "EVD-DOM-001",
         "EVD-DOM-002"
@@ -71,7 +87,7 @@
         "EV-S03"
       ],
       "gate": "G2",
-      "decision_system": "08-adapters/ddd-brain-crosswalk.md",
+      "decision_system": "06-modules/domain/STAGE-03-DOMAIN-DISCOVERY.md",
       "artifact_refs": [
         "08-adapters/ddd-brain-crosswalk.md"
       ],
@@ -83,14 +99,22 @@
         "artifacts": true,
         "gate": true,
         "eval": true,
-        "integration": true
-      }
+        "integration": true,
+        "deep_playbook": true
+      },
+      "stage_playbook": "06-modules/domain/STAGE-03-DOMAIN-DISCOVERY.md",
+      "behavioral_validation": "independently-behaviorally-validated-v1",
+      "behavioral_run_id": "INDEP-RUN-2026-10-03-01",
+      "behavioral_evidence": "05-evals/independent-run-v1/judge-results.json",
+      "behavioral_independent": true,
+      "behavioral_score": 9,
+      "behavioral_hard_fail": false
     },
     {
       "id": 4,
       "name": "Requirements / specification",
       "module": "requirements",
-      "status": "very-strong",
+      "status": "deep-structural",
       "evidence_ids": [
         "EVD-REQ-001",
         "EVD-ARCH-001"
@@ -99,7 +123,7 @@
         "EV-S04"
       ],
       "gate": "G3",
-      "decision_system": "06-modules/requirements/PLAYBOOK.md",
+      "decision_system": "06-modules/requirements/STAGE-04-REQUIREMENTS.md",
       "artifact_refs": [
         "07-templates/PRD.md",
         "07-templates/TRACEABILITY.json"
@@ -112,14 +136,22 @@
         "artifacts": true,
         "gate": true,
         "eval": true,
-        "integration": true
-      }
+        "integration": true,
+        "deep_playbook": true
+      },
+      "stage_playbook": "06-modules/requirements/STAGE-04-REQUIREMENTS.md",
+      "behavioral_validation": "independently-behaviorally-validated-v1",
+      "behavioral_run_id": "INDEP-RUN-2026-10-03-01",
+      "behavioral_evidence": "05-evals/independent-run-v1/judge-results.json",
+      "behavioral_independent": true,
+      "behavioral_score": 9,
+      "behavioral_hard_fail": false
     },
     {
       "id": 5,
       "name": "Domain Architecture",
       "module": "domain",
-      "status": "very-strong",
+      "status": "deep-structural",
       "evidence_ids": [
         "EVD-DOM-002",
         "EVD-DOM-003"
@@ -128,7 +160,7 @@
         "EV-S05"
       ],
       "gate": "G2",
-      "decision_system": "08-adapters/ddd-brain-crosswalk.md",
+      "decision_system": "06-modules/domain/STAGE-05-DOMAIN-ARCHITECTURE.md",
       "artifact_refs": [
         "08-adapters/ddd-brain-crosswalk.md"
       ],
@@ -140,14 +172,22 @@
         "artifacts": true,
         "gate": true,
         "eval": true,
-        "integration": true
-      }
+        "integration": true,
+        "deep_playbook": true
+      },
+      "stage_playbook": "06-modules/domain/STAGE-05-DOMAIN-ARCHITECTURE.md",
+      "behavioral_validation": "independently-behaviorally-validated-v1",
+      "behavioral_run_id": "INDEP-RUN-2026-10-03-01",
+      "behavioral_evidence": "05-evals/independent-run-v1/judge-results.json",
+      "behavioral_independent": true,
+      "behavioral_score": 9,
+      "behavioral_hard_fail": false
     },
     {
       "id": 6,
       "name": "System Architecture",
       "module": "system-architecture",
-      "status": "very-strong",
+      "status": "deep-structural",
       "evidence_ids": [
         "EVD-ARCH-004",
         "EVD-ARCH-005"
@@ -156,7 +196,7 @@
         "EV-S06"
       ],
       "gate": "G4",
-      "decision_system": "06-modules/system-architecture/DECISION-PROTOCOL.md",
+      "decision_system": "06-modules/system-architecture/STAGE-06-SYSTEM-ARCHITECTURE.md",
       "artifact_refs": [
         "07-templates/ARCHITECTURE-DRIVERS.md"
       ],
@@ -168,14 +208,22 @@
         "artifacts": true,
         "gate": true,
         "eval": true,
-        "integration": true
-      }
+        "integration": true,
+        "deep_playbook": true
+      },
+      "stage_playbook": "06-modules/system-architecture/STAGE-06-SYSTEM-ARCHITECTURE.md",
+      "behavioral_validation": "independently-behaviorally-validated-v1",
+      "behavioral_run_id": "INDEP-RUN-2026-10-03-01",
+      "behavioral_evidence": "05-evals/independent-run-v1/judge-results.json",
+      "behavioral_independent": true,
+      "behavioral_score": 8,
+      "behavioral_hard_fail": false
     },
     {
       "id": 7,
       "name": "UX Architecture",
       "module": "experience",
-      "status": "very-strong",
+      "status": "deep-structural",
       "evidence_ids": [
         "EVD-UX-002",
         "EVD-UX-003"
@@ -184,7 +232,7 @@
         "EV-S07"
       ],
       "gate": "G5",
-      "decision_system": "08-adapters/ui-brain-crosswalk.md",
+      "decision_system": "06-modules/experience/STAGE-07-UX-ARCHITECTURE.md",
       "artifact_refs": [
         "08-adapters/ui-brain-crosswalk.md"
       ],
@@ -196,14 +244,22 @@
         "artifacts": true,
         "gate": true,
         "eval": true,
-        "integration": true
-      }
+        "integration": true,
+        "deep_playbook": true
+      },
+      "stage_playbook": "06-modules/experience/STAGE-07-UX-ARCHITECTURE.md",
+      "behavioral_validation": "independently-behaviorally-validated-v1",
+      "behavioral_run_id": "INDEP-RUN-2026-10-03-01",
+      "behavioral_evidence": "05-evals/independent-run-v1/judge-results.json",
+      "behavioral_independent": true,
+      "behavioral_score": 9,
+      "behavioral_hard_fail": false
     },
     {
       "id": 8,
       "name": "Interaction design",
       "module": "experience",
-      "status": "very-strong",
+      "status": "deep-structural",
       "evidence_ids": [
         "EVD-UX-003",
         "EVD-UX-004"
@@ -212,7 +268,7 @@
         "EV-S08"
       ],
       "gate": "G5",
-      "decision_system": "08-adapters/ui-brain-crosswalk.md",
+      "decision_system": "06-modules/experience/STAGE-08-INTERACTION-DESIGN.md",
       "artifact_refs": [
         "08-adapters/ui-brain-crosswalk.md"
       ],
@@ -224,14 +280,22 @@
         "artifacts": true,
         "gate": true,
         "eval": true,
-        "integration": true
-      }
+        "integration": true,
+        "deep_playbook": true
+      },
+      "stage_playbook": "06-modules/experience/STAGE-08-INTERACTION-DESIGN.md",
+      "behavioral_validation": "independently-behaviorally-validated-v1",
+      "behavioral_run_id": "INDEP-RUN-2026-10-03-01",
+      "behavioral_evidence": "05-evals/independent-run-v1/judge-results.json",
+      "behavioral_independent": true,
+      "behavioral_score": 9,
+      "behavioral_hard_fail": false
     },
     {
       "id": 9,
       "name": "Accessibility",
       "module": "experience",
-      "status": "very-strong",
+      "status": "deep-structural",
       "evidence_ids": [
         "EVD-UX-001",
         "EVD-QA-003"
@@ -240,7 +304,7 @@
         "EV-S09"
       ],
       "gate": "G5",
-      "decision_system": "08-adapters/ui-brain-crosswalk.md",
+      "decision_system": "06-modules/experience/STAGE-09-ACCESSIBILITY.md",
       "artifact_refs": [
         "08-adapters/ui-brain-crosswalk.md",
         "07-templates/TEST-STRATEGY.md"
@@ -253,14 +317,22 @@
         "artifacts": true,
         "gate": true,
         "eval": true,
-        "integration": true
-      }
+        "integration": true,
+        "deep_playbook": true
+      },
+      "stage_playbook": "06-modules/experience/STAGE-09-ACCESSIBILITY.md",
+      "behavioral_validation": "independently-behaviorally-validated-v1",
+      "behavioral_run_id": "INDEP-RUN-2026-10-03-01",
+      "behavioral_evidence": "05-evals/independent-run-v1/judge-results.json",
+      "behavioral_independent": true,
+      "behavioral_score": 10,
+      "behavioral_hard_fail": false
     },
     {
       "id": 10,
       "name": "Visual UI",
       "module": "experience",
-      "status": "very-strong",
+      "status": "deep-structural",
       "evidence_ids": [
         "EVD-UI-001",
         "EVD-UI-002"
@@ -269,7 +341,7 @@
         "EV-S10"
       ],
       "gate": "G5",
-      "decision_system": "08-adapters/ui-brain-crosswalk.md",
+      "decision_system": "06-modules/experience/STAGE-10-VISUAL-UI.md",
       "artifact_refs": [
         "08-adapters/ui-brain-crosswalk.md"
       ],
@@ -281,14 +353,22 @@
         "artifacts": true,
         "gate": true,
         "eval": true,
-        "integration": true
-      }
+        "integration": true,
+        "deep_playbook": true
+      },
+      "stage_playbook": "06-modules/experience/STAGE-10-VISUAL-UI.md",
+      "behavioral_validation": "independently-behaviorally-validated-v1",
+      "behavioral_run_id": "INDEP-RUN-2026-10-03-01",
+      "behavioral_evidence": "05-evals/independent-run-v1/judge-results.json",
+      "behavioral_independent": true,
+      "behavioral_score": 8,
+      "behavioral_hard_fail": false
     },
     {
       "id": 11,
       "name": "Design System",
       "module": "experience",
-      "status": "very-strong",
+      "status": "deep-structural",
       "evidence_ids": [
         "EVD-UX-005",
         "EVD-GOV-001"
@@ -297,7 +377,7 @@
         "EV-S11"
       ],
       "gate": "G5",
-      "decision_system": "08-adapters/ui-brain-crosswalk.md",
+      "decision_system": "06-modules/experience/STAGE-11-DESIGN-SYSTEM.md",
       "artifact_refs": [
         "08-adapters/ui-brain-crosswalk.md"
       ],
@@ -309,14 +389,22 @@
         "artifacts": true,
         "gate": true,
         "eval": true,
-        "integration": true
-      }
+        "integration": true,
+        "deep_playbook": true
+      },
+      "stage_playbook": "06-modules/experience/STAGE-11-DESIGN-SYSTEM.md",
+      "behavioral_validation": "independently-behaviorally-validated-v1",
+      "behavioral_run_id": "INDEP-RUN-2026-10-03-01",
+      "behavioral_evidence": "05-evals/independent-run-v1/judge-results.json",
+      "behavioral_independent": true,
+      "behavioral_score": 9,
+      "behavioral_hard_fail": false
     },
     {
       "id": 12,
       "name": "Frontend implementation",
       "module": "software-engineering",
-      "status": "very-strong",
+      "status": "deep-structural",
       "evidence_ids": [
         "EVD-FE-001",
         "EVD-FE-002"
@@ -325,7 +413,7 @@
         "EV-S12"
       ],
       "gate": "G6",
-      "decision_system": "06-modules/software-engineering/FRONTEND-ARCHITECTURE.md",
+      "decision_system": "06-modules/software-engineering/STAGE-12-FRONTEND-IMPLEMENTATION.md",
       "artifact_refs": [
         "06-modules/software-engineering/FRONTEND-ARCHITECTURE.md"
       ],
@@ -337,14 +425,22 @@
         "artifacts": true,
         "gate": true,
         "eval": true,
-        "integration": true
-      }
+        "integration": true,
+        "deep_playbook": true
+      },
+      "stage_playbook": "06-modules/software-engineering/STAGE-12-FRONTEND-IMPLEMENTATION.md",
+      "behavioral_validation": "independently-behaviorally-validated-v1",
+      "behavioral_run_id": "INDEP-RUN-2026-10-03-01",
+      "behavioral_evidence": "05-evals/independent-run-v1/judge-results.json",
+      "behavioral_independent": true,
+      "behavioral_score": 9,
+      "behavioral_hard_fail": false
     },
     {
       "id": 13,
       "name": "Backend / API",
       "module": "software-engineering",
-      "status": "very-strong",
+      "status": "deep-structural",
       "evidence_ids": [
         "EVD-API-001",
         "EVD-API-003"
@@ -353,7 +449,7 @@
         "EV-S13"
       ],
       "gate": "G6",
-      "decision_system": "06-modules/software-engineering/BACKEND-API.md",
+      "decision_system": "06-modules/software-engineering/STAGE-13-BACKEND-API.md",
       "artifact_refs": [
         "07-templates/API-CONTRACT.md"
       ],
@@ -365,14 +461,22 @@
         "artifacts": true,
         "gate": true,
         "eval": true,
-        "integration": true
-      }
+        "integration": true,
+        "deep_playbook": true
+      },
+      "stage_playbook": "06-modules/software-engineering/STAGE-13-BACKEND-API.md",
+      "behavioral_validation": "independently-behaviorally-validated-v1",
+      "behavioral_run_id": "INDEP-RUN-2026-10-03-01",
+      "behavioral_evidence": "05-evals/independent-run-v1/judge-results.json",
+      "behavioral_independent": true,
+      "behavioral_score": 8,
+      "behavioral_hard_fail": false
     },
     {
       "id": 14,
       "name": "Database / persistence",
       "module": "software-engineering",
-      "status": "very-strong",
+      "status": "deep-structural",
       "evidence_ids": [
         "EVD-DATA-001",
         "EVD-DATA-002"
@@ -381,7 +485,7 @@
         "EV-S14"
       ],
       "gate": "G6",
-      "decision_system": "06-modules/software-engineering/DATA-PERSISTENCE.md",
+      "decision_system": "06-modules/software-engineering/STAGE-14-DATABASE-PERSISTENCE.md",
       "artifact_refs": [
         "07-templates/DATA-CHANGE-PLAN.md"
       ],
@@ -393,14 +497,22 @@
         "artifacts": true,
         "gate": true,
         "eval": true,
-        "integration": true
-      }
+        "integration": true,
+        "deep_playbook": true
+      },
+      "stage_playbook": "06-modules/software-engineering/STAGE-14-DATABASE-PERSISTENCE.md",
+      "behavioral_validation": "independently-behaviorally-validated-v1",
+      "behavioral_run_id": "INDEP-RUN-2026-10-03-01",
+      "behavioral_evidence": "05-evals/independent-run-v1/judge-results.json",
+      "behavioral_independent": true,
+      "behavioral_score": 9,
+      "behavioral_hard_fail": false
     },
     {
       "id": 15,
       "name": "Testing",
       "module": "quality-engineering",
-      "status": "very-strong",
+      "status": "deep-structural",
       "evidence_ids": [
         "EVD-QA-001",
         "EVD-QA-002"
@@ -409,7 +521,7 @@
         "EV-S15"
       ],
       "gate": "G7",
-      "decision_system": "06-modules/quality-engineering/RISK-BASED-TESTING.md",
+      "decision_system": "06-modules/quality-engineering/STAGE-15-TESTING.md",
       "artifact_refs": [
         "07-templates/TEST-STRATEGY.md"
       ],
@@ -421,14 +533,22 @@
         "artifacts": true,
         "gate": true,
         "eval": true,
-        "integration": true
-      }
+        "integration": true,
+        "deep_playbook": true
+      },
+      "stage_playbook": "06-modules/quality-engineering/STAGE-15-TESTING.md",
+      "behavioral_validation": "independently-behaviorally-validated-v1",
+      "behavioral_run_id": "INDEP-RUN-2026-10-03-01",
+      "behavioral_evidence": "05-evals/independent-run-v1/judge-results.json",
+      "behavioral_independent": true,
+      "behavioral_score": 10,
+      "behavioral_hard_fail": false
     },
     {
       "id": 16,
       "name": "Security",
       "module": "security-reliability",
-      "status": "very-strong",
+      "status": "deep-structural",
       "evidence_ids": [
         "EVD-SEC-003",
         "EVD-SEC-004"
@@ -437,7 +557,7 @@
         "EV-S16"
       ],
       "gate": "G8",
-      "decision_system": "06-modules/security-reliability/THREAT-MODELING.md",
+      "decision_system": "06-modules/security-reliability/STAGE-16-SECURITY.md",
       "artifact_refs": [
         "07-templates/THREAT-MODEL.md"
       ],
@@ -449,14 +569,22 @@
         "artifacts": true,
         "gate": true,
         "eval": true,
-        "integration": true
-      }
+        "integration": true,
+        "deep_playbook": true
+      },
+      "stage_playbook": "06-modules/security-reliability/STAGE-16-SECURITY.md",
+      "behavioral_validation": "independently-behaviorally-validated-v1",
+      "behavioral_run_id": "INDEP-RUN-2026-10-03-01",
+      "behavioral_evidence": "05-evals/independent-run-v1/judge-results.json",
+      "behavioral_independent": true,
+      "behavioral_score": 10,
+      "behavioral_hard_fail": false
     },
     {
       "id": 17,
       "name": "Performance",
       "module": "quality-engineering",
-      "status": "very-strong",
+      "status": "deep-structural",
       "evidence_ids": [
         "EVD-PERF-002",
         "EVD-PERF-003"
@@ -465,7 +593,7 @@
         "EV-S17"
       ],
       "gate": "G8",
-      "decision_system": "06-modules/quality-engineering/PERFORMANCE-ENGINEERING.md",
+      "decision_system": "06-modules/quality-engineering/STAGE-17-PERFORMANCE.md",
       "artifact_refs": [
         "07-templates/PERFORMANCE-BUDGET.md"
       ],
@@ -477,14 +605,22 @@
         "artifacts": true,
         "gate": true,
         "eval": true,
-        "integration": true
-      }
+        "integration": true,
+        "deep_playbook": true
+      },
+      "stage_playbook": "06-modules/quality-engineering/STAGE-17-PERFORMANCE.md",
+      "behavioral_validation": "independently-behaviorally-validated-v1",
+      "behavioral_run_id": "INDEP-RUN-2026-10-03-01",
+      "behavioral_evidence": "05-evals/independent-run-v1/judge-results.json",
+      "behavioral_independent": true,
+      "behavioral_score": 10,
+      "behavioral_hard_fail": false
     },
     {
       "id": 18,
       "name": "CI/CD",
       "module": "delivery-production",
-      "status": "very-strong",
+      "status": "deep-structural",
       "evidence_ids": [
         "EVD-DEL-001",
         "EVD-DEL-003"
@@ -493,7 +629,7 @@
         "EV-S18"
       ],
       "gate": "G9",
-      "decision_system": "06-modules/delivery-production/CI-CD.md",
+      "decision_system": "06-modules/delivery-production/STAGE-18-CI-CD.md",
       "artifact_refs": [
         "06-modules/delivery-production/CI-CD.md"
       ],
@@ -505,14 +641,22 @@
         "artifacts": true,
         "gate": true,
         "eval": true,
-        "integration": true
-      }
+        "integration": true,
+        "deep_playbook": true
+      },
+      "stage_playbook": "06-modules/delivery-production/STAGE-18-CI-CD.md",
+      "behavioral_validation": "independently-behaviorally-validated-v1",
+      "behavioral_run_id": "INDEP-RUN-2026-10-03-01",
+      "behavioral_evidence": "05-evals/independent-run-v1/judge-results.json",
+      "behavioral_independent": true,
+      "behavioral_score": 9,
+      "behavioral_hard_fail": false
     },
     {
       "id": 19,
       "name": "Deployment / rollout",
       "module": "delivery-production",
-      "status": "very-strong",
+      "status": "deep-structural",
       "evidence_ids": [
         "EVD-DEL-002",
         "EVD-OPS-001"
@@ -521,7 +665,7 @@
         "EV-S19"
       ],
       "gate": "G9",
-      "decision_system": "06-modules/delivery-production/RELEASE-ENGINEERING.md",
+      "decision_system": "06-modules/delivery-production/STAGE-19-DEPLOYMENT-ROLLOUT.md",
       "artifact_refs": [
         "07-templates/RELEASE-EVIDENCE.md"
       ],
@@ -533,14 +677,22 @@
         "artifacts": true,
         "gate": true,
         "eval": true,
-        "integration": true
-      }
+        "integration": true,
+        "deep_playbook": true
+      },
+      "stage_playbook": "06-modules/delivery-production/STAGE-19-DEPLOYMENT-ROLLOUT.md",
+      "behavioral_validation": "independently-behaviorally-validated-v1",
+      "behavioral_run_id": "INDEP-RUN-2026-10-03-01",
+      "behavioral_evidence": "05-evals/independent-run-v1/judge-results.json",
+      "behavioral_independent": true,
+      "behavioral_score": 9,
+      "behavioral_hard_fail": false
     },
     {
       "id": 20,
       "name": "Observability",
       "module": "security-reliability",
-      "status": "very-strong",
+      "status": "deep-structural",
       "evidence_ids": [
         "EVD-OBS-001",
         "EVD-REL-002"
@@ -549,7 +701,7 @@
         "EV-S20"
       ],
       "gate": "G10",
-      "decision_system": "06-modules/security-reliability/OBSERVABILITY.md",
+      "decision_system": "06-modules/security-reliability/STAGE-20-OBSERVABILITY.md",
       "artifact_refs": [
         "07-templates/SLO.md",
         "06-modules/security-reliability/OBSERVABILITY.md"
@@ -562,14 +714,22 @@
         "artifacts": true,
         "gate": true,
         "eval": true,
-        "integration": true
-      }
+        "integration": true,
+        "deep_playbook": true
+      },
+      "stage_playbook": "06-modules/security-reliability/STAGE-20-OBSERVABILITY.md",
+      "behavioral_validation": "independently-behaviorally-validated-v1",
+      "behavioral_run_id": "INDEP-RUN-2026-10-03-01",
+      "behavioral_evidence": "05-evals/independent-run-v1/judge-results.json",
+      "behavioral_independent": true,
+      "behavioral_score": 10,
+      "behavioral_hard_fail": false
     },
     {
       "id": 21,
       "name": "Backup / DR / incidents",
       "module": "security-reliability",
-      "status": "very-strong",
+      "status": "deep-structural",
       "evidence_ids": [
         "EVD-DR-001",
         "EVD-INC-001"
@@ -578,7 +738,7 @@
         "EV-S21"
       ],
       "gate": "G10",
-      "decision_system": "06-modules/security-reliability/RESILIENCE-INCIDENTS.md",
+      "decision_system": "06-modules/security-reliability/STAGE-21-BACKUP-DR-INCIDENTS.md",
       "artifact_refs": [
         "07-templates/RESTORE-DRILL.md",
         "07-templates/INCIDENT-RUNBOOK.md"
@@ -591,14 +751,22 @@
         "artifacts": true,
         "gate": true,
         "eval": true,
-        "integration": true
-      }
+        "integration": true,
+        "deep_playbook": true
+      },
+      "stage_playbook": "06-modules/security-reliability/STAGE-21-BACKUP-DR-INCIDENTS.md",
+      "behavioral_validation": "independently-behaviorally-validated-v1",
+      "behavioral_run_id": "INDEP-RUN-2026-10-03-01",
+      "behavioral_evidence": "05-evals/independent-run-v1/judge-results.json",
+      "behavioral_independent": true,
+      "behavioral_score": 9,
+      "behavioral_hard_fail": false
     },
     {
       "id": 22,
       "name": "Product analytics",
       "module": "product-intelligence",
-      "status": "very-strong",
+      "status": "deep-structural",
       "evidence_ids": [
         "EVD-AN-001",
         "EVD-AN-003"
@@ -607,7 +775,7 @@
         "EV-S22"
       ],
       "gate": "G11",
-      "decision_system": "06-modules/product-intelligence/PRODUCT-ANALYTICS.md",
+      "decision_system": "06-modules/product-intelligence/STAGE-22-PRODUCT-ANALYTICS.md",
       "artifact_refs": [
         "07-templates/METRIC-TREE.md",
         "07-templates/TRACKING-PLAN.md"
@@ -620,14 +788,22 @@
         "artifacts": true,
         "gate": true,
         "eval": true,
-        "integration": true
-      }
+        "integration": true,
+        "deep_playbook": true
+      },
+      "stage_playbook": "06-modules/product-intelligence/STAGE-22-PRODUCT-ANALYTICS.md",
+      "behavioral_validation": "independently-behaviorally-validated-v1",
+      "behavioral_run_id": "INDEP-RUN-2026-10-03-01",
+      "behavioral_evidence": "05-evals/independent-run-v1/judge-results.json",
+      "behavioral_independent": true,
+      "behavioral_score": 9,
+      "behavioral_hard_fail": false
     },
     {
       "id": 23,
       "name": "Experimentation",
       "module": "product-intelligence",
-      "status": "very-strong",
+      "status": "deep-structural",
       "evidence_ids": [
         "EVD-EXP-001",
         "EVD-EXP-003"
@@ -636,7 +812,7 @@
         "EV-S23"
       ],
       "gate": "G11",
-      "decision_system": "06-modules/product-intelligence/EXPERIMENTATION.md",
+      "decision_system": "06-modules/product-intelligence/STAGE-23-EXPERIMENTATION.md",
       "artifact_refs": [
         "07-templates/EXPERIMENT-PLAN.md"
       ],
@@ -648,14 +824,22 @@
         "artifacts": true,
         "gate": true,
         "eval": true,
-        "integration": true
-      }
+        "integration": true,
+        "deep_playbook": true
+      },
+      "stage_playbook": "06-modules/product-intelligence/STAGE-23-EXPERIMENTATION.md",
+      "behavioral_validation": "independently-behaviorally-validated-v1",
+      "behavioral_run_id": "INDEP-RUN-2026-10-03-01",
+      "behavioral_evidence": "05-evals/independent-run-v1/judge-results.json",
+      "behavioral_independent": true,
+      "behavioral_score": 9,
+      "behavioral_hard_fail": false
     },
     {
       "id": 24,
       "name": "Feedback → next iteration",
       "module": "product-intelligence",
-      "status": "very-strong",
+      "status": "deep-structural",
       "evidence_ids": [
         "EVD-FB-001",
         "EVD-FB-002"
@@ -664,7 +848,7 @@
         "EV-S24"
       ],
       "gate": "G11",
-      "decision_system": "06-modules/product-intelligence/FEEDBACK-LOOP.md",
+      "decision_system": "06-modules/product-intelligence/STAGE-24-FEEDBACK-NEXT-ITERATION.md",
       "artifact_refs": [
         "07-templates/OUTCOME-REVIEW.md"
       ],
@@ -676,14 +860,22 @@
         "artifacts": true,
         "gate": true,
         "eval": true,
-        "integration": true
-      }
+        "integration": true,
+        "deep_playbook": true
+      },
+      "stage_playbook": "06-modules/product-intelligence/STAGE-24-FEEDBACK-NEXT-ITERATION.md",
+      "behavioral_validation": "independently-behaviorally-validated-v1",
+      "behavioral_run_id": "INDEP-RUN-2026-10-03-01",
+      "behavioral_evidence": "05-evals/independent-run-v1/judge-results.json",
+      "behavioral_independent": true,
+      "behavioral_score": 10,
+      "behavioral_hard_fail": false
     },
     {
       "id": 25,
       "name": "Knowledge governance",
       "module": "knowledge-governance",
-      "status": "very-strong",
+      "status": "deep-structural",
       "evidence_ids": [
         "EVD-GOV-001",
         "EVD-GOV-002"
@@ -692,7 +884,7 @@
         "EV-S25"
       ],
       "gate": "continuous",
-      "decision_system": "01-governance/knowledge-lifecycle.md",
+      "decision_system": "06-modules/knowledge-governance/STAGE-25-KNOWLEDGE-GOVERNANCE.md",
       "artifact_refs": [
         "01-governance/knowledge-lifecycle.md"
       ],
@@ -704,8 +896,16 @@
         "artifacts": true,
         "gate": true,
         "eval": true,
-        "integration": true
-      }
+        "integration": true,
+        "deep_playbook": true
+      },
+      "stage_playbook": "06-modules/knowledge-governance/STAGE-25-KNOWLEDGE-GOVERNANCE.md",
+      "behavioral_validation": "independently-behaviorally-validated-v1",
+      "behavioral_run_id": "INDEP-RUN-2026-10-03-01",
+      "behavioral_evidence": "05-evals/independent-run-v1/judge-results.json",
+      "behavioral_independent": true,
+      "behavioral_score": 9,
+      "behavioral_hard_fail": false
     }
   ]
 }

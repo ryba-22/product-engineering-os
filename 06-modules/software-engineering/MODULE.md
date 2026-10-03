@@ -23,3 +23,9 @@ The module may declare its gate satisfied only when the gate's required evidence
 - Contract: complete.
 - Shared evidence/governance integration: complete.
 - Deep corpus/workflows: Wave 2 implemented.
+
+## Deep stage playbooks
+
+- Stage 12: [STAGE-12-FRONTEND-IMPLEMENTATION](./STAGE-12-FRONTEND-IMPLEMENTATION.md)
+- Stage 13: [STAGE-13-BACKEND-API](./STAGE-13-BACKEND-API.md)
+- Stage 14: [STAGE-14-DATABASE-PERSISTENCE](./STAGE-14-DATABASE-PERSISTENCE.md)

@@ -1,0 +1,110 @@
+{
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "run_id",
+    "executor",
+    "cases"
+  ],
+  "properties": {
+    "run_id": {
+      "type": "string"
+    },
+    "executor": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "provider",
+        "model",
+        "notes"
+      ],
+      "properties": {
+        "provider": {
+          "type": "string"
+        },
+        "model": {
+          "type": "string"
+        },
+        "notes": {
+          "type": "string"
+        }
+      }
+    },
+    "cases": {
+      "type": "array",
+      "minItems": 25,
+      "maxItems": 25,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "stage_id",
+          "risk_class",
+          "current_outcome",
+          "decision",
+          "evidence_and_unknowns",
+          "actions",
+          "verification",
+          "handoff",
+          "completion_state",
+          "residual_risks",
+          "references"
+        ],
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "stage_id": {
+            "type": "integer"
+          },
+          "risk_class": {
+            "type": "string"
+          },
+          "current_outcome": {
+            "type": "string"
+          },
+          "decision": {
+            "type": "string"
+          },
+          "evidence_and_unknowns": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "actions": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "verification": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "handoff": {
+            "type": "string"
+          },
+          "completion_state": {
+            "type": "string"
+          },
+          "residual_risks": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "references": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,48 @@
+{
+  "run_id": "ADV-RUN-2026-10-03-01",
+  "round": 2,
+  "scope": "ADV-S15 only after Stage-15 completion-state guard remediation",
+  "executor": {
+    "engine": "GPT-5.6 Sol (current ChatGPT session)",
+    "mode": "targeted rerun using patched Stage-15 playbook",
+    "independence": "not independent"
+  },
+  "cases": [
+    {
+      "id": "ADV-S15",
+      "stage_id": 15,
+      "risk_class": "R3",
+      "current_outcome": "Produce regression evidence for retry-safe unique enrollment under the same concurrency/database semantics that failed in production.",
+      "decision": "Do not close the defect on mocked tests or on a test plan. The invariant must be enforced atomically and then exercised concurrently against the real database semantics; until those checks actually run, verification remains UNVERIFIED.",
+      "evidence_and_unknowns": [
+        "Observed production duplicates falsify the mocked unit-test guarantee.",
+        "The critical property is durable uniqueness/retry behavior, not number of insert calls.",
+        "Unknown: exact uniqueness key and transaction strategy; tests must follow the accepted domain/API contract."
+      ],
+      "actions": [
+        "Write the violated invariant and risk consequence explicitly.",
+        "Keep unit/property tests for normalization/business-key logic.",
+        "Add integration tests that issue concurrent equivalent enrollment commands against the real DB engine/constraint semantics.",
+        "Test retry after lost response/duplicate idempotency token and existing-record behavior.",
+        "Verify resulting durable rows/state/events, not internal method calls."
+      ],
+      "verification": [
+        "NEXT ACTION (not yet executed): run the real-database concurrent/retry regression suite against the vulnerable and fixed implementations, recording artifact/database version and durable resulting state.",
+        "Only after those checks execute and pass may this case move from DECIDED/UNVERIFIED to VERIFIED; browser coverage remains complementary, not concurrency proof."
+      ],
+      "handoff": "Stages 13–14 own any required command/constraint fix; Stage 18 promotes the verified artifact only after the concurrency test passes.",
+      "completion_state": "DECIDED",
+      "residual_risks": [
+        "If production DB differs materially from test DB, concurrency evidence may still be invalid.",
+        "Natural uniqueness semantics must be domain-approved before encoding the constraint."
+      ],
+      "references": [
+        "06-modules/quality-engineering/STAGE-15-TESTING.md",
+        "EVD-QA-001",
+        "EVD-QA-002",
+        "06-modules/quality-engineering/RISK-BASED-TESTING.md",
+        "G7"
+      ]
+    }
+  ]
+}

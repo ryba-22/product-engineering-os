@@ -1,0 +1,1021 @@
+{
+  "run_id": "ADV-RUN-2026-10-03-01",
+  "round": 1,
+  "judge": {
+    "engine": "GPT-5.6 Sol (same session, separate rubric pass)",
+    "independence": "self-assessed; not independent model"
+  },
+  "summary": {
+    "total_cases": 25,
+    "passed": 24,
+    "failed": 1,
+    "average_score": 9.92,
+    "hard_failures": [
+      "ADV-S15"
+    ]
+  },
+  "cases": [
+    {
+      "id": "ADV-S01",
+      "stage_id": 1,
+      "scores": {
+        "decision_correctness": 4,
+        "evidence_scope": 2,
+        "risk_and_constraints": 1,
+        "execution_closure": 1,
+        "verification": 1,
+        "traceability": 1
+      },
+      "total": 10,
+      "must_do_coverage": [
+        {
+          "criterion": "separate requested dashboard from the underlying problem",
+          "met": true
+        },
+        {
+          "criterion": "define observable outcome and affected actors",
+          "met": true
+        },
+        {
+          "criterion": "surface hard versus assumed constraints",
+          "met": true
+        },
+        {
+          "criterion": "identify decision-changing product risks",
+          "met": true
+        },
+        {
+          "criterion": "apply a stop-analysis threshold and route unresolved user questions to Discovery",
+          "met": true
+        }
+      ],
+      "must_not_do_violations": [],
+      "hard_fail": false,
+      "pass": true,
+      "rationale": "Correctly resists solution-first pressure, frames an observable exception-detection outcome, preserves unknown baselines, and routes only decision-changing workflow questions.",
+      "judge_notes": "Judged against the frozen scenario criteria and stage/runtime semantics. This is a rubric-based second pass by the same GPT-5.6 Sol session, not an independent model."
+    },
+    {
+      "id": "ADV-S02",
+      "stage_id": 2,
+      "scores": {
+        "decision_correctness": 4,
+        "evidence_scope": 2,
+        "risk_and_constraints": 1,
+        "execution_closure": 1,
+        "verification": 1,
+        "traceability": 1
+      },
+      "total": 10,
+      "must_do_coverage": [
+        {
+          "criterion": "identify sampling/confirmation bias",
+          "met": true
+        },
+        {
+          "criterion": "include relevant occasional operators or evidence from their behavior",
+          "met": true
+        },
+        {
+          "criterion": "use recent concrete behavior rather than hypothetical preference",
+          "met": true
+        },
+        {
+          "criterion": "triangulate support/operational evidence where useful",
+          "met": true
+        },
+        {
+          "criterion": "state when discovery can stop",
+          "met": true
+        }
+      ],
+      "must_not_do_violations": [],
+      "hard_fail": false,
+      "pass": true,
+      "rationale": "Detects biased recruitment, selects evidence methods from the uncertainty, scopes qualitative evidence correctly, and defines a valid stop condition.",
+      "judge_notes": "Judged against the frozen scenario criteria and stage/runtime semantics. This is a rubric-based second pass by the same GPT-5.6 Sol session, not an independent model."
+    },
+    {
+      "id": "ADV-S03",
+      "stage_id": 3,
+      "scores": {
+        "decision_correctness": 4,
+        "evidence_scope": 2,
+        "risk_and_constraints": 1,
+        "execution_closure": 1,
+        "verification": 1,
+        "traceability": 1
+      },
+      "total": 10,
+      "must_do_coverage": [
+        {
+          "criterion": "model concrete event timelines",
+          "met": true
+        },
+        {
+          "criterion": "distinguish business time from storage representation",
+          "met": true
+        },
+        {
+          "criterion": "identify invariants and ambiguity around re-enrollment",
+          "met": true
+        },
+        {
+          "criterion": "record hotspots instead of guessing policy",
+          "met": true
+        },
+        {
+          "criterion": "avoid treating table structure as the domain",
+          "met": true
+        }
+      ],
+      "must_not_do_violations": [],
+      "hard_fail": false,
+      "pass": true,
+      "rationale": "Treats DATE storage as implementation evidence rather than domain truth, models temporal scenarios and repeated memberships, and preserves the unresolved policy instead of inventing it.",
+      "judge_notes": "Judged against the frozen scenario criteria and stage/runtime semantics. This is a rubric-based second pass by the same GPT-5.6 Sol session, not an independent model."
+    },
+    {
+      "id": "ADV-S04",
+      "stage_id": 4,
+      "scores": {
+        "decision_correctness": 4,
+        "evidence_scope": 2,
+        "risk_and_constraints": 1,
+        "execution_closure": 1,
+        "verification": 1,
+        "traceability": 1
+      },
+      "total": 10,
+      "must_do_coverage": [
+        {
+          "criterion": "separate legacy contact source from Finance eligibility rules",
+          "met": true
+        },
+        {
+          "criterion": "define deduplication and zero-amount behavior",
+          "met": true
+        },
+        {
+          "criterion": "include approval and exceptional/failure scenarios",
+          "met": true
+        },
+        {
+          "criterion": "state quality/security/data constraints when material",
+          "met": true
+        },
+        {
+          "criterion": "link acceptance criteria to evidence/decisions",
+          "met": true
+        }
+      ],
+      "must_not_do_violations": [],
+      "hard_fail": false,
+      "pass": true,
+      "rationale": "Separates contact-source ownership from Finance policy, captures deduplication/zero-value/approval/failure scenarios, and keeps transport architecture out of the requirement.",
+      "judge_notes": "Judged against the frozen scenario criteria and stage/runtime semantics. This is a rubric-based second pass by the same GPT-5.6 Sol session, not an independent model."
+    },
+    {
+      "id": "ADV-S05",
+      "stage_id": 5,
+      "scores": {
+        "decision_correctness": 4,
+        "evidence_scope": 2,
+        "risk_and_constraints": 1,
+        "execution_closure": 1,
+        "verification": 1,
+        "traceability": 1
+      },
+      "total": 10,
+      "must_do_coverage": [
+        {
+          "criterion": "assign Legacy ownership of relationships/contact facts",
+          "met": true
+        },
+        {
+          "criterion": "assign Finance ownership of billing eligibility and settlement communication decisions",
+          "met": true
+        },
+        {
+          "criterion": "define semantic integration between contexts",
+          "met": true
+        },
+        {
+          "criterion": "define uniqueness/invariant boundary for SMS decisions",
+          "met": true
+        },
+        {
+          "criterion": "keep shared physical storage separate from logical ownership if legacy constraints require it",
+          "met": true
+        }
+      ],
+      "must_not_do_violations": [],
+      "hard_fail": false,
+      "pass": true,
+      "rationale": "Defines single mutation ownership across Legacy and Finance, uses semantic integration, protects the SMS uniqueness invariant, and does not derive contexts from tables.",
+      "judge_notes": "Judged against the frozen scenario criteria and stage/runtime semantics. This is a rubric-based second pass by the same GPT-5.6 Sol session, not an independent model."
+    },
+    {
+      "id": "ADV-S06",
+      "stage_id": 6,
+      "scores": {
+        "decision_correctness": 4,
+        "evidence_scope": 2,
+        "risk_and_constraints": 1,
+        "execution_closure": 1,
+        "verification": 1,
+        "traceability": 1
+      },
+      "total": 10,
+      "must_do_coverage": [
+        {
+          "criterion": "identify actual architecture-driving qualities and workload assumptions",
+          "met": true
+        },
+        {
+          "criterion": "compare a simpler modular option against the distributed proposal",
+          "met": true
+        },
+        {
+          "criterion": "analyze failure/operational costs of added infrastructure",
+          "met": true
+        },
+        {
+          "criterion": "prefer reversible structure unless drivers justify distribution",
+          "met": true
+        },
+        {
+          "criterion": "record switching thresholds and ADR rationale",
+          "met": true
+        }
+      ],
+      "must_not_do_violations": [],
+      "hard_fail": false,
+      "pass": true,
+      "rationale": "Rejects architecture inflation from prestige/future-proofing, compares the simpler option explicitly, models failure cost, and records switching conditions.",
+      "judge_notes": "Judged against the frozen scenario criteria and stage/runtime semantics. This is a rubric-based second pass by the same GPT-5.6 Sol session, not an independent model."
+    },
+    {
+      "id": "ADV-S07",
+      "stage_id": 7,
+      "scores": {
+        "decision_correctness": 4,
+        "evidence_scope": 2,
+        "risk_and_constraints": 1,
+        "execution_closure": 1,
+        "verification": 1,
+        "traceability": 1
+      },
+      "total": 10,
+      "must_do_coverage": [
+        {
+          "criterion": "treat the worklist as a comparison/operator workflow",
+          "met": true
+        },
+        {
+          "criterion": "preserve meaningful filter/page state for return/share/back navigation",
+          "met": true
+        },
+        {
+          "criterion": "define loading/empty/error/stale states",
+          "met": true
+        },
+        {
+          "criterion": "differentiate desktop table and mobile transformation",
+          "met": true
+        },
+        {
+          "criterion": "keep critical context visible",
+          "met": true
+        }
+      ],
+      "must_not_do_violations": [],
+      "hard_fail": false,
+      "pass": true,
+      "rationale": "Treats the screen as an operator comparison workflow, makes navigation state durable, defines non-happy states and adaptive table-to-mobile transformation.",
+      "judge_notes": "Judged against the frozen scenario criteria and stage/runtime semantics. This is a rubric-based second pass by the same GPT-5.6 Sol session, not an independent model."
+    },
+    {
+      "id": "ADV-S08",
+      "stage_id": 8,
+      "scores": {
+        "decision_correctness": 4,
+        "evidence_scope": 2,
+        "risk_and_constraints": 1,
+        "execution_closure": 1,
+        "verification": 1,
+        "traceability": 1
+      },
+      "total": 10,
+      "must_do_coverage": [
+        {
+          "criterion": "model editing/submitting/conflict/recovery states",
+          "met": true
+        },
+        {
+          "criterion": "separate client feedback from authoritative server result",
+          "met": true
+        },
+        {
+          "criterion": "define optimistic/concurrency semantics",
+          "met": true
+        },
+        {
+          "criterion": "provide a clear user recovery path",
+          "met": true
+        },
+        {
+          "criterion": "specify focus/keyboard behavior for conflict UI if a dialog is used",
+          "met": true
+        }
+      ],
+      "must_not_do_violations": [],
+      "hard_fail": false,
+      "pass": true,
+      "rationale": "Models stale editing as an explicit conflict state, requires server-side version enforcement, preserves the draft and provides recoverable interaction behavior.",
+      "judge_notes": "Judged against the frozen scenario criteria and stage/runtime semantics. This is a rubric-based second pass by the same GPT-5.6 Sol session, not an independent model."
+    },
+    {
+      "id": "ADV-S09",
+      "stage_id": 9,
+      "scores": {
+        "decision_correctness": 4,
+        "evidence_scope": 2,
+        "risk_and_constraints": 1,
+        "execution_closure": 1,
+        "verification": 1,
+        "traceability": 1
+      },
+      "total": 10,
+      "must_do_coverage": [
+        {
+          "criterion": "prefer native semantics or implement complete ARIA/keyboard behavior",
+          "met": true
+        },
+        {
+          "criterion": "define modal focus entry/return behavior",
+          "met": true
+        },
+        {
+          "criterion": "verify keyboard operation manually",
+          "met": true
+        },
+        {
+          "criterion": "test validation/error associations",
+          "met": true
+        },
+        {
+          "criterion": "treat automation as partial evidence",
+          "met": true
+        }
+      ],
+      "must_not_do_violations": [],
+      "hard_fail": false,
+      "pass": true,
+      "rationale": "Rejects automated-scan-only completion, fixes semantics/focus lifecycle and requires keyboard plus assistive-technology evidence for the critical flow.",
+      "judge_notes": "Judged against the frozen scenario criteria and stage/runtime semantics. This is a rubric-based second pass by the same GPT-5.6 Sol session, not an independent model."
+    },
+    {
+      "id": "ADV-S10",
+      "stage_id": 10,
+      "scores": {
+        "decision_correctness": 4,
+        "evidence_scope": 2,
+        "risk_and_constraints": 1,
+        "execution_closure": 1,
+        "verification": 1,
+        "traceability": 1
+      },
+      "total": 10,
+      "must_do_coverage": [
+        {
+          "criterion": "use wide-screen space where it improves comparison",
+          "met": true
+        },
+        {
+          "criterion": "set intentional density for frequent operator work",
+          "met": true
+        },
+        {
+          "criterion": "prioritize hierarchy through spacing/type/alignment before decoration",
+          "met": true
+        },
+        {
+          "criterion": "preserve accessibility and semantic status cues",
+          "met": true
+        },
+        {
+          "criterion": "test realistic long/empty/error data",
+          "met": true
+        }
+      ],
+      "must_not_do_violations": [],
+      "hard_fail": false,
+      "pass": true,
+      "rationale": "Grounds hierarchy and density in comparison work, uses wide-screen space deliberately, keeps semantic/accessibility constraints, and verifies realistic states rather than screenshot aesthetics.",
+      "judge_notes": "Judged against the frozen scenario criteria and stage/runtime semantics. This is a rubric-based second pass by the same GPT-5.6 Sol session, not an independent model."
+    },
+    {
+      "id": "ADV-S11",
+      "stage_id": 11,
+      "scores": {
+        "decision_correctness": 4,
+        "evidence_scope": 2,
+        "risk_and_constraints": 1,
+        "execution_closure": 1,
+        "verification": 1,
+        "traceability": 1
+      },
+      "total": 10,
+      "must_do_coverage": [
+        {
+          "criterion": "evaluate semantic stability and actual reuse",
+          "met": true
+        },
+        {
+          "criterion": "keep one-off behavior local unless promotion criteria are met",
+          "met": true
+        },
+        {
+          "criterion": "define accessibility/behavior contract before promotion",
+          "met": true
+        },
+        {
+          "criterion": "assign ownership and migration/deprecation policy",
+          "met": true
+        },
+        {
+          "criterion": "use repeated overrides as feedback on abstraction quality",
+          "met": true
+        }
+      ],
+      "must_not_do_violations": [],
+      "hard_fail": false,
+      "pass": true,
+      "rationale": "Correctly keeps a one-off pattern Local, requires semantic reuse and accessibility contract before promotion, and defines ownership/migration obligations.",
+      "judge_notes": "Judged against the frozen scenario criteria and stage/runtime semantics. This is a rubric-based second pass by the same GPT-5.6 Sol session, not an independent model."
+    },
+    {
+      "id": "ADV-S12",
+      "stage_id": 12,
+      "scores": {
+        "decision_correctness": 4,
+        "evidence_scope": 2,
+        "risk_and_constraints": 1,
+        "execution_closure": 1,
+        "verification": 1,
+        "traceability": 1
+      },
+      "total": 10,
+      "must_do_coverage": [
+        {
+          "criterion": "make URL the source of truth for navigational state where appropriate",
+          "met": true
+        },
+        {
+          "criterion": "derive values instead of duplicating state",
+          "met": true
+        },
+        {
+          "criterion": "use event-driven updates instead of effect chains",
+          "met": true
+        },
+        {
+          "criterion": "define loading/stale/error behavior for server state",
+          "met": true
+        },
+        {
+          "criterion": "test back/forward/shareable URL behavior",
+          "met": true
+        }
+      ],
+      "must_not_do_violations": [],
+      "hard_fail": false,
+      "pass": true,
+      "rationale": "Restores one source of truth in URL state, removes effect synchronization, separates server/local state and defines navigation regression verification.",
+      "judge_notes": "Judged against the frozen scenario criteria and stage/runtime semantics. This is a rubric-based second pass by the same GPT-5.6 Sol session, not an independent model."
+    },
+    {
+      "id": "ADV-S13",
+      "stage_id": 13,
+      "scores": {
+        "decision_correctness": 4,
+        "evidence_scope": 2,
+        "risk_and_constraints": 1,
+        "execution_closure": 1,
+        "verification": 1,
+        "traceability": 1
+      },
+      "total": 10,
+      "must_do_coverage": [
+        {
+          "criterion": "reject state mutation through GET semantics",
+          "met": true
+        },
+        {
+          "criterion": "define authorization/business capability explicitly",
+          "met": true
+        },
+        {
+          "criterion": "define idempotency/retry and concurrency behavior",
+          "met": true
+        },
+        {
+          "criterion": "separate durable mutation from external side effects if any",
+          "met": true
+        },
+        {
+          "criterion": "plan compatibility/migration for existing callers",
+          "met": true
+        }
+      ],
+      "must_not_do_violations": [],
+      "hard_fail": false,
+      "pass": true,
+      "rationale": "Treats mutating GET as an unsafe contract, defines capability/resource authorization plus retry/concurrency semantics, and includes a compatibility migration instead of documenting the defect.",
+      "judge_notes": "Judged against the frozen scenario criteria and stage/runtime semantics. This is a rubric-based second pass by the same GPT-5.6 Sol session, not an independent model."
+    },
+    {
+      "id": "ADV-S14",
+      "stage_id": 14,
+      "scores": {
+        "decision_correctness": 4,
+        "evidence_scope": 2,
+        "risk_and_constraints": 1,
+        "execution_closure": 1,
+        "verification": 1,
+        "traceability": 1
+      },
+      "total": 10,
+      "must_do_coverage": [
+        {
+          "criterion": "define authoritative temporal semantics before backfill",
+          "met": true
+        },
+        {
+          "criterion": "use an expand/migrate/switch/contract path",
+          "met": true
+        },
+        {
+          "criterion": "treat ambiguous historical rows explicitly rather than inventing times",
+          "met": true
+        },
+        {
+          "criterion": "make backfill resumable/observable",
+          "met": true
+        },
+        {
+          "criterion": "plan mixed-version compatibility and verification",
+          "met": true
+        }
+      ],
+      "must_not_do_violations": [],
+      "hard_fail": false,
+      "pass": true,
+      "rationale": "Rejects fabricated historical timestamps and a one-step ALTER, uses expand/migrate/switch/contract, preserves ambiguity and requires observable resumable backfill.",
+      "judge_notes": "Judged against the frozen scenario criteria and stage/runtime semantics. This is a rubric-based second pass by the same GPT-5.6 Sol session, not an independent model."
+    },
+    {
+      "id": "ADV-S15",
+      "stage_id": 15,
+      "scores": {
+        "decision_correctness": 4,
+        "evidence_scope": 2,
+        "risk_and_constraints": 1,
+        "execution_closure": 0,
+        "verification": 0,
+        "traceability": 1
+      },
+      "total": 8,
+      "must_do_coverage": [
+        {
+          "criterion": "identify duplicate enrollment as the violated invariant",
+          "met": true
+        },
+        {
+          "criterion": "test against real database uniqueness/transaction semantics",
+          "met": true
+        },
+        {
+          "criterion": "include concurrent/retry adversarial cases",
+          "met": true
+        },
+        {
+          "criterion": "keep cheaper unit tests only for logic they can prove",
+          "met": true
+        },
+        {
+          "criterion": "tie regression evidence to the exact guarantee",
+          "met": true
+        }
+      ],
+      "must_not_do_violations": [
+        "claims a later lifecycle state (VERIFIED) without executed verification evidence"
+      ],
+      "hard_fail": true,
+      "pass": false,
+      "rationale": "The proposed test strategy is strong, but the response sets completion_state=VERIFIED even though no concurrency test was actually executed. That violates the global lifecycle evidence rule and is a hard fail despite otherwise correct reasoning.",
+      "judge_notes": "Judged against the frozen scenario criteria and stage/runtime semantics. This is a rubric-based second pass by the same GPT-5.6 Sol session, not an independent model."
+    },
+    {
+      "id": "ADV-S16",
+      "stage_id": 16,
+      "scores": {
+        "decision_correctness": 4,
+        "evidence_scope": 2,
+        "risk_and_constraints": 1,
+        "execution_closure": 1,
+        "verification": 1,
+        "traceability": 1
+      },
+      "total": 10,
+      "must_do_coverage": [
+        {
+          "criterion": "distinguish authentication from resource-level authorization",
+          "met": true
+        },
+        {
+          "criterion": "model IDOR/cross-scope abuse case",
+          "met": true
+        },
+        {
+          "criterion": "enforce capability and resource scope server-side",
+          "met": true
+        },
+        {
+          "criterion": "add negative authorization tests and audit signals",
+          "met": true
+        },
+        {
+          "criterion": "treat internal-only exposure as reduced but not eliminated risk",
+          "met": true
+        }
+      ],
+      "must_not_do_violations": [],
+      "hard_fail": false,
+      "pass": true,
+      "rationale": "Models resource-ID abuse, distinguishes authentication from authorization, enforces scope server-side and includes negative tests/audit without relying on hidden UI.",
+      "judge_notes": "Judged against the frozen scenario criteria and stage/runtime semantics. This is a rubric-based second pass by the same GPT-5.6 Sol session, not an independent model."
+    },
+    {
+      "id": "ADV-S17",
+      "stage_id": 17,
+      "scores": {
+        "decision_correctness": 4,
+        "evidence_scope": 2,
+        "risk_and_constraints": 1,
+        "execution_closure": 1,
+        "verification": 1,
+        "traceability": 1
+      },
+      "total": 10,
+      "must_do_coverage": [
+        {
+          "criterion": "define user/business scenario and measurable budget",
+          "met": true
+        },
+        {
+          "criterion": "capture baseline and representative workload/data",
+          "met": true
+        },
+        {
+          "criterion": "inspect query plans/waits/resource signals",
+          "met": true
+        },
+        {
+          "criterion": "optimize the measured bottleneck",
+          "met": true
+        },
+        {
+          "criterion": "record trade-offs/capacity assumptions",
+          "met": true
+        }
+      ],
+      "must_not_do_violations": [],
+      "hard_fail": false,
+      "pass": true,
+      "rationale": "Refuses speculative index/memory tuning, requires a budget and representative baseline, and routes optimization to measured query/resource evidence.",
+      "judge_notes": "Judged against the frozen scenario criteria and stage/runtime semantics. This is a rubric-based second pass by the same GPT-5.6 Sol session, not an independent model."
+    },
+    {
+      "id": "ADV-S18",
+      "stage_id": 18,
+      "scores": {
+        "decision_correctness": 4,
+        "evidence_scope": 2,
+        "risk_and_constraints": 1,
+        "execution_closure": 1,
+        "verification": 1,
+        "traceability": 1
+      },
+      "total": 10,
+      "must_do_coverage": [
+        {
+          "criterion": "build once and promote the same immutable artifact where possible",
+          "met": true
+        },
+        {
+          "criterion": "record commit/build/artifact digest",
+          "met": true
+        },
+        {
+          "criterion": "distinguish build-time config from secrets/runtime config",
+          "met": true
+        },
+        {
+          "criterion": "include migration compatibility/gates",
+          "met": true
+        },
+        {
+          "criterion": "retain evidence of skipped/failed/retried checks",
+          "met": true
+        }
+      ],
+      "must_not_do_violations": [],
+      "hard_fail": false,
+      "pass": true,
+      "rationale": "Requires immutable artifact promotion and provenance, separates build/runtime configuration from secrets, and integrates migration compatibility into the gate chain.",
+      "judge_notes": "Judged against the frozen scenario criteria and stage/runtime semantics. This is a rubric-based second pass by the same GPT-5.6 Sol session, not an independent model."
+    },
+    {
+      "id": "ADV-S19",
+      "stage_id": 19,
+      "scores": {
+        "decision_correctness": 4,
+        "evidence_scope": 2,
+        "risk_and_constraints": 1,
+        "execution_closure": 1,
+        "verification": 1,
+        "traceability": 1
+      },
+      "total": 10,
+      "must_do_coverage": [
+        {
+          "criterion": "verify exact artifact and migration state",
+          "met": true
+        },
+        {
+          "criterion": "assess rollback versus forward-fix after data change",
+          "met": true
+        },
+        {
+          "criterion": "use staged exposure or another blast-radius control where feasible",
+          "met": true
+        },
+        {
+          "criterion": "define smoke/telemetry pause thresholds",
+          "met": true
+        },
+        {
+          "criterion": "record stable-state evidence after observation",
+          "met": true
+        }
+      ],
+      "must_not_do_violations": [],
+      "hard_fail": false,
+      "pass": true,
+      "rationale": "Distinguishes green CI/staging from production safety, handles data irreversibility, defines blast-radius controls and requires observation before STABLE.",
+      "judge_notes": "Judged against the frozen scenario criteria and stage/runtime semantics. This is a rubric-based second pass by the same GPT-5.6 Sol session, not an independent model."
+    },
+    {
+      "id": "ADV-S20",
+      "stage_id": 20,
+      "scores": {
+        "decision_correctness": 4,
+        "evidence_scope": 2,
+        "risk_and_constraints": 1,
+        "execution_closure": 1,
+        "verification": 1,
+        "traceability": 1
+      },
+      "total": 10,
+      "must_do_coverage": [
+        {
+          "criterion": "instrument outbox/notification state transitions and lease age",
+          "met": true
+        },
+        {
+          "criterion": "correlate job/notification/provider attempts",
+          "met": true
+        },
+        {
+          "criterion": "define actionable stuck/failure alerts and owner",
+          "met": true
+        },
+        {
+          "criterion": "avoid logging sensitive message content unnecessarily",
+          "met": true
+        },
+        {
+          "criterion": "distinguish service liveness from user-visible delivery capability",
+          "met": true
+        }
+      ],
+      "must_not_do_violations": [],
+      "hard_fail": false,
+      "pass": true,
+      "rationale": "Defines state-machine-level telemetry and actionable stuck/failure signals, separates worker liveness from delivery capability and avoids sensitive log content.",
+      "judge_notes": "Judged against the frozen scenario criteria and stage/runtime semantics. This is a rubric-based second pass by the same GPT-5.6 Sol session, not an independent model."
+    },
+    {
+      "id": "ADV-S21",
+      "stage_id": 21,
+      "scores": {
+        "decision_correctness": 4,
+        "evidence_scope": 2,
+        "risk_and_constraints": 1,
+        "execution_closure": 1,
+        "verification": 1,
+        "traceability": 1
+      },
+      "total": 10,
+      "must_do_coverage": [
+        {
+          "criterion": "treat RPO/RTO as unverified until measured",
+          "met": true
+        },
+        {
+          "criterion": "run an isolated restore drill with a real backup timestamp",
+          "met": true
+        },
+        {
+          "criterion": "verify application/schema/config compatibility and business capability",
+          "met": true
+        },
+        {
+          "criterion": "record measured recovery/data point",
+          "met": true
+        },
+        {
+          "criterion": "define incident ownership and follow-up for gaps",
+          "met": true
+        }
+      ],
+      "must_not_do_violations": [],
+      "hard_fail": false,
+      "pass": true,
+      "rationale": "Correctly marks RPO/RTO unverified, requires isolated measured restore through usable business capability, and rejects backup-dashboard status as recovery evidence.",
+      "judge_notes": "Judged against the frozen scenario criteria and stage/runtime semantics. This is a rubric-based second pass by the same GPT-5.6 Sol session, not an independent model."
+    },
+    {
+      "id": "ADV-S22",
+      "stage_id": 22,
+      "scores": {
+        "decision_correctness": 4,
+        "evidence_scope": 2,
+        "risk_and_constraints": 1,
+        "execution_closure": 1,
+        "verification": 1,
+        "traceability": 1
+      },
+      "total": 10,
+      "must_do_coverage": [
+        {
+          "criterion": "start from enrollment outcome and correction/support guardrails",
+          "met": true
+        },
+        {
+          "criterion": "define metric denominator/cohort/window",
+          "met": true
+        },
+        {
+          "criterion": "instrument semantic events rather than every click",
+          "met": true
+        },
+        {
+          "criterion": "define identity/session semantics and data-quality checks",
+          "met": true
+        },
+        {
+          "criterion": "avoid causal claims from observational movement",
+          "met": true
+        }
+      ],
+      "must_not_do_violations": [],
+      "hard_fail": false,
+      "pass": true,
+      "rationale": "Starts from enrollment outcome and guardrails, defines semantic events and denominator/cohort/data-quality contracts, and avoids causal claims from observational metrics.",
+      "judge_notes": "Judged against the frozen scenario criteria and stage/runtime semantics. This is a rubric-based second pass by the same GPT-5.6 Sol session, not an independent model."
+    },
+    {
+      "id": "ADV-S23",
+      "stage_id": 23,
+      "scores": {
+        "decision_correctness": 4,
+        "evidence_scope": 2,
+        "risk_and_constraints": 1,
+        "execution_closure": 1,
+        "verification": 1,
+        "traceability": 1
+      },
+      "total": 10,
+      "must_do_coverage": [
+        {
+          "criterion": "question whether A/B has enough eligible traffic and stable assignment",
+          "met": true
+        },
+        {
+          "criterion": "consider institution-level pilot or task-based usability/operational pilot",
+          "met": true
+        },
+        {
+          "criterion": "predefine decision, outcome and guardrails",
+          "met": true
+        },
+        {
+          "criterion": "address contamination/interference",
+          "met": true
+        },
+        {
+          "criterion": "state what evidence would justify broader rollout",
+          "met": true
+        }
+      ],
+      "must_not_do_violations": [],
+      "hard_fail": false,
+      "pass": true,
+      "rationale": "Rejects an underpowered contaminated A/B test, selects institution-level pilot/task evidence, predefines decisions/guardrails and scopes causal conclusions.",
+      "judge_notes": "Judged against the frozen scenario criteria and stage/runtime semantics. This is a rubric-based second pass by the same GPT-5.6 Sol session, not an independent model."
+    },
+    {
+      "id": "ADV-S24",
+      "stage_id": 24,
+      "scores": {
+        "decision_correctness": 4,
+        "evidence_scope": 2,
+        "risk_and_constraints": 1,
+        "execution_closure": 1,
+        "verification": 1,
+        "traceability": 1
+      },
+      "total": 10,
+      "must_do_coverage": [
+        {
+          "criterion": "reopen original outcome and confirm actual exposure",
+          "met": true
+        },
+        {
+          "criterion": "combine usage/support/workaround evidence",
+          "met": true
+        },
+        {
+          "criterion": "distinguish reliability success from product outcome",
+          "met": true
+        },
+        {
+          "criterion": "update the opportunity/assumption model",
+          "met": true
+        },
+        {
+          "criterion": "choose a next action with evidence and owner",
+          "met": true
+        }
+      ],
+      "must_not_do_violations": [],
+      "hard_fail": false,
+      "pass": true,
+      "rationale": "Separates deployment reliability from product success, integrates spreadsheet/support behavior with usage evidence, preserves the original outcome and routes the next bounded learning loop.",
+      "judge_notes": "Judged against the frozen scenario criteria and stage/runtime semantics. This is a rubric-based second pass by the same GPT-5.6 Sol session, not an independent model."
+    },
+    {
+      "id": "ADV-S25",
+      "stage_id": 25,
+      "scores": {
+        "decision_correctness": 4,
+        "evidence_scope": 2,
+        "risk_and_constraints": 1,
+        "execution_closure": 1,
+        "verification": 1,
+        "traceability": 1
+      },
+      "total": 10,
+      "must_do_coverage": [
+        {
+          "criterion": "register the new source with date/scope",
+          "met": true
+        },
+        {
+          "criterion": "preserve the old claim/decision",
+          "met": true
+        },
+        {
+          "criterion": "compare scope/method/authority before supersession",
+          "met": true
+        },
+        {
+          "criterion": "use explicit supersedes/deprecated links when warranted",
+          "met": true
+        },
+        {
+          "criterion": "inspect affected downstream decisions/evals and keep project-local overrides separate",
+          "met": true
+        }
+      ],
+      "must_not_do_violations": [],
+      "hard_fail": false,
+      "pass": true,
+      "rationale": "Preserves provenance and frozen-corpus history, treats newer guidance as a scoped Candidate until reviewed, and uses explicit supersession plus downstream eval impact.",
+      "judge_notes": "Judged against the frozen scenario criteria and stage/runtime semantics. This is a rubric-based second pass by the same GPT-5.6 Sol session, not an independent model."
+    }
+  ]
+}

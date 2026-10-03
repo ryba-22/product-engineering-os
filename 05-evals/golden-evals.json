@@ -1201,6 +1201,25 @@
         "claim later lifecycle state without evidence",
         "skip the stage gate without equivalent evidence"
       ]
+    },
+    {
+      "id": "EV-S15-STATE",
+      "scenario": "A test strategy and concurrency test cases are designed, but no test command has executed yet.",
+      "module": "quality-engineering",
+      "stage_ids": [
+        15
+      ],
+      "tags": [
+        "stage-15",
+        "verification",
+        "lifecycle-state"
+      ],
+      "expected": "Keep completion state at DECIDED/UNVERIFIED; move to VERIFIED only after executed evidence exists for the relevant artifact/environment.",
+      "forbidden": [
+        "claim VERIFIED from a test plan",
+        "invent test results",
+        "collapse designed verification into executed verification"
+      ]
     }
   ]
 }

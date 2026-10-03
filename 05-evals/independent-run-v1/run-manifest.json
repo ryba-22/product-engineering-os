@@ -1,0 +1,53 @@
+{
+  "version": "1.0.0",
+  "run_id": "INDEP-RUN-2026-10-03-01",
+  "source_adversarial_run_id": "ADV-RUN-2026-10-03-01",
+  "source_scenario_file": "05-evals/adversarial-run-v1/scenarios.json",
+  "source_executor_input_file": "05-evals/adversarial-run-v1/executor-input.json",
+  "source_scenario_sha256": "ebbb77da2ab67361901e2b67929696f2447b300476e7a0a8124e7eec069e98e2",
+  "source_executor_input_sha256": "5df12c9e8a5f64643f38a34a58ecb22168a400dd5e2fbf0440dba42baa5234cb",
+  "protocol": {
+    "executor_must_not_read": [
+      "05-evals/adversarial-run-v1/scenarios.json",
+      "05-evals/adversarial-run-v1/judge-results-round1.json",
+      "05-evals/adversarial-run-v1/judge-results-round2-s15.json",
+      "05-evals/adversarial-run-v1/final-results.json",
+      "05-evals/independent-run-v1/judge-rubric.json",
+      "05-evals/independent-run-v1/judge-results.json"
+    ],
+    "executor_reads": "blinded executor input + runtime/stage playbooks/evidence anchors/gates only",
+    "judge_reads": "frozen scenario criteria + independent executor output + runtime/stage playbooks",
+    "judge_must_not_read": [
+      "05-evals/adversarial-run-v1/executor-results-round1.json",
+      "05-evals/adversarial-run-v1/executor-results-round2-s15.json",
+      "05-evals/adversarial-run-v1/judge-results-round1.json",
+      "05-evals/adversarial-run-v1/judge-results-round2-s15.json",
+      "05-evals/adversarial-run-v1/final-results.json"
+    ],
+    "pass_threshold": 8,
+    "independence_requirement": "Executor model must differ from GPT-5.6 Sol. Judge must be a third distinct model or a human reviewer.",
+    "promotion_rule": "independently-behaviorally-validated may be claimed only if 25/25 pass with no hard fail and provenance identifies distinct executor and judge."
+  },
+  "status": "completed",
+  "runtime_commit": "c775a1772ab24f90c9cda4093460bd81fa1caa65",
+  "executor": {
+    "provider": "Google",
+    "model_requested": "gemini-3.1-pro-high",
+    "result_file": "05-evals/independent-run-v1/executor-results.json",
+    "result_sha256": "3deb2ba6534f60c0a7b0091eff83a56b6a5136e58c22dbd881e783a3fa6cdaf1"
+  },
+  "judge": {
+    "provider": "Anthropic",
+    "model_requested": "claude-opus-4-6-thinking",
+    "result_file": "05-evals/independent-run-v1/judge-results.json",
+    "result_sha256": "e25bba77a268115d73fe2f9a87d8769b6f1a4e48d884ee2d26ba780d32ae8b9e"
+  },
+  "final_summary": {
+    "total": 25,
+    "passed": 25,
+    "failed": 0,
+    "average_score": 9.12,
+    "hard_failures": []
+  },
+  "maturity_claim": "independently-behaviorally-validated-v1 (scoped to these 25 frozen scenarios)"
+}

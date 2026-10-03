@@ -1,0 +1,171 @@
+{
+  "cases": [
+    {
+      "actions": [
+        "Define a Restore Drill Record (RESTORE-DRILL.md).",
+        "Execute an isolated restore drill using the latest backup and the current application/schema version.",
+        "Measure usable recovery time (RTO) and actual data point recovered (RPO)."
+      ],
+      "completion_state": "UNVERIFIED",
+      "current_outcome": "IMPLEMENTED",
+      "decision": "Reject the vendor dashboard as proof of recovery readiness. Declare the recovery state as UNVERIFIED until an isolated restore drill is successfully executed and measured.",
+      "evidence_and_unknowns": [
+        "EVD-DR-001: Backup configuration is not recovery evidence; restore procedures must be exercised and measured.",
+        "Unknown: Actual usable recovery time (RTO) against current schema.",
+        "Unknown: Actual data loss (RPO) against current schema.",
+        "Unknown: Schema and application compatibility upon restore."
+      ],
+      "handoff": "Stage 21 execution for the restore drill, then Stage 24 to review incident/recovery findings.",
+      "id": "ADV-S21",
+      "references": [
+        "STAGE-21-BACKUP-DR-INCIDENTS.md",
+        "EVD-DR-001",
+        "07-templates/RESTORE-DRILL.md"
+      ],
+      "residual_risks": [
+        "The business assumptions (15m RPO, 1h RTO) may be unachievable with the current backup topology.",
+        "Restored data may contain latent corruption not caught by basic startup checks."
+      ],
+      "risk_class": "R3",
+      "stage_id": 21,
+      "verification": [
+        "Successful sign-in and critical business smoke test in the isolated restore environment.",
+        "Comparison of measured RPO/RTO against the business targets."
+      ]
+    },
+    {
+      "actions": [
+        "Draft a Metric Tree mapping the business outcome to observable signals.",
+        "Define metric contracts for enrollment success rate and support contact volume.",
+        "Design a Tracking Plan with semantic event names instead of DOM clicks."
+      ],
+      "completion_state": "DECIDED",
+      "current_outcome": "EXPLORED",
+      "decision": "Reject the default click-tracking and vanity MAU. Define outcome metrics based on successful enrollment and guardrail metrics based on operator corrections and support contacts.",
+      "evidence_and_unknowns": [
+        "EVD-AN-001: Metrics should start from product purpose, not available events.",
+        "Unknown: The minimum event taxonomy required to reliably compute successful enrollment.",
+        "Unknown: The qualitative reasons for operator corrections (requires EVD-AN-003)."
+      ],
+      "handoff": "Stage 12/13 (Frontend/API) to implement the tracking plan, and Stage 24 for outcome review.",
+      "id": "ADV-S22",
+      "references": [
+        "STAGE-22-PRODUCT-ANALYTICS.md",
+        "EVD-AN-001",
+        "EVD-AN-003",
+        "07-templates/METRIC-TREE.md",
+        "07-templates/TRACKING-PLAN.md"
+      ],
+      "residual_risks": [
+        "Identity and session semantics may cause double counting if users switch devices.",
+        "Support contact categorization may be too broad to accurately measure specific funnel issues."
+      ],
+      "risk_class": "R2",
+      "stage_id": 22,
+      "verification": [
+        "Validate that semantic events fire exactly once at the correct moment in the UI.",
+        "Perform data quality checks for missingness and duplication before launching."
+      ]
+    },
+    {
+      "actions": [
+        "Draft an Experiment/Pilot Plan.",
+        "Change the assignment unit to the institution level to prevent cross-operator contamination.",
+        "Predefine the primary outcome and guardrails for the pilot."
+      ],
+      "completion_state": "DECIDED",
+      "current_outcome": "EXPLORED",
+      "decision": "Reject the A/B test due to insufficient sample size and SUTVA violations (interference). Choose a qualitative pilot or quasi-experiment at the institution level instead.",
+      "evidence_and_unknowns": [
+        "EVD-EXP-001: Randomized controlled experiments require valid randomization and analysis assumptions.",
+        "Unknown: Behavioral contamination effects between operators in the same institution.",
+        "Unknown: Minimum practically important effect size for the new workflow."
+      ],
+      "handoff": "Stage 24 (Feedback → next iteration) to review the pilot outcomes and qualitative feedback.",
+      "id": "ADV-S23",
+      "references": [
+        "STAGE-23-EXPERIMENTATION.md",
+        "EVD-EXP-001",
+        "07-templates/EXPERIMENT-PLAN.md"
+      ],
+      "residual_risks": [
+        "Institution-level assignment may suffer from baseline variability and selection bias.",
+        "Stakeholders may reject the pilot's findings if they dogmatically require a p-value."
+      ],
+      "risk_class": "R2",
+      "stage_id": 23,
+      "verification": [
+        "Check instrumentation before pilot launch.",
+        "Evaluate qualitative feedback from operators alongside quantitative metrics to understand the conflict-resolution behavior."
+      ]
+    },
+    {
+      "actions": [
+        "Draft an Outcome Review explicitly comparing the original intended outcome against observed behavior.",
+        "Log the shift in support contacts ('can't compare groups') as a new opportunity/problem.",
+        "Decide on the next action: investigate the group comparison workflow and iterate."
+      ],
+      "completion_state": "LEARNED",
+      "current_outcome": "OBSERVED",
+      "decision": "Refuse to close the initiative as a product success. Acknowledge the stable deployment, but record the product outcome as failed or partial due to persistent spreadsheet exports and new friction points.",
+      "evidence_and_unknowns": [
+        "EVD-FB-001: Production performance data should be paired with research to understand why behavior occurs.",
+        "Unknown: The qualitative reason why operators cannot compare groups effectively in the new UI."
+      ],
+      "handoff": "Stage 2 (Product Discovery) or Stage 7 (UX Architecture) to research and solve the group comparison workflow.",
+      "id": "ADV-S24",
+      "references": [
+        "STAGE-24-FEEDBACK-NEXT-ITERATION.md",
+        "EVD-FB-001",
+        "07-templates/OUTCOME-REVIEW.md"
+      ],
+      "residual_risks": [
+        "Stakeholders may resist keeping the initiative open and push for premature closure.",
+        "The new filters may have introduced cognitive overload, contributing to the need for spreadsheets."
+      ],
+      "risk_class": "R2",
+      "stage_id": 24,
+      "verification": [
+        "Conduct qualitative user research to observe how operators attempt to compare groups and why they resort to spreadsheets."
+      ]
+    },
+    {
+      "actions": [
+        "Register the new UI guidance in the source registry as a new evidence claim.",
+        "Create a new UDR for the new guidance.",
+        "Add explicit supersession links from the old UDR to the new UDR.",
+        "Preserve the history and provenance of the 2026-09-30 corpus without editing it in place."
+      ],
+      "completion_state": "DECIDED",
+      "current_outcome": "EXPLORED",
+      "decision": "Reject the in-place edit of the old UDR. Preserve the 2026-09-30 history and govern the conflict by creating a new evidence record and explicitly superseding the old one if the new guidance is proven better.",
+      "evidence_and_unknowns": [
+        "EVD-GOV-001: Reusable knowledge needs explicit supersession so new guidance does not silently erase older decisions.",
+        "EVD-GOV-002: Material decisions should record evidence and observable revisit triggers.",
+        "Unknown: Does the new UI guidance have behavioral eval evidence proving its superiority over the old UDR?"
+      ],
+      "handoff": "Stage 11 (Design System) or Stage 7 (UX Architecture) to propagate the new guidance systematically to active projects.",
+      "id": "ADV-S25",
+      "references": [
+        "STAGE-25-KNOWLEDGE-GOVERNANCE.md",
+        "EVD-GOV-001",
+        "EVD-GOV-002"
+      ],
+      "residual_risks": [
+        "Existing projects using the old guidance may become visually or behaviorally inconsistent with new projects if migration is not planned.",
+        "The new guidance may lack the scoped context that made the old UDR effective for specific domains."
+      ],
+      "risk_class": "R1",
+      "stage_id": 25,
+      "verification": [
+        "Evaluate the new guidance behaviorally (e.g., golden/adversarial UX evals) to ensure it performs better than the old guidance before promoting it to Active."
+      ]
+    }
+  ],
+  "executor": {
+    "model": "Gemini 3.1 Pro (High)",
+    "notes": "Faithful execution of the Product Engineering OS runtime rules, relying strictly on the provided Brain.md, lifecycle semantics, risk models, stage playbooks, and evidence anchors.",
+    "provider": "Google"
+  },
+  "run_id": "INDEP-RUN-2026-10-03-01"
+}

@@ -1,0 +1,116 @@
+{
+  "cases": [
+    {
+      "hard_fail": false,
+      "id": "ADV-S16",
+      "must_do_missing": [
+        "audit signals: answer defines negative authorization tests (403/404 for unauthorized roles and cross-institution access) but does not address audit signals for access-control events (logging denied authorization attempts, access patterns for detection/forensics)"
+      ],
+      "must_not_do_violations": [],
+      "pass": true,
+      "rationale": "Core decision is precisely correct: enforce server-side role and institution-context-based authorization, reject UI hiding as access control. Explicitly models IDOR/BOLA abuse cases. Distinguishes authentication (authenticated caller) from resource-level authorization (role + institution context checked against finance_account_id). Treats internal-only exposure as reduced but not eliminated risk. Risk classified R3/R4 with residual risks (compromised credentials, ID parsing vulnerabilities). Handoff to Stage 12/13 for implementation and Stage 15 for verification is explicit. Verification plan includes adversarial negative tests for both unauthorized roles and cross-scope access. Only gap is the omission of audit signals as a detection/containment layer alongside the prevention controls. No must_not_do violations: does not treat hidden UI as access control, does not authorize by object existence, does not propose logging billing payloads.",
+      "scores": {
+        "decision_correctness": 4,
+        "evidence_scope": 2,
+        "execution_closure": 1,
+        "risk_and_constraints": 1,
+        "traceability": 1,
+        "verification": 1
+      },
+      "stage_id": 16,
+      "total": 10
+    },
+    {
+      "hard_fail": false,
+      "id": "ADV-S17",
+      "must_do_missing": [],
+      "must_not_do_violations": [],
+      "pass": true,
+      "rationale": "Decision to block infrastructure/schema changes until performance budget is defined and baseline captured is exactly right for the scenario. Defines measurable budget with p95 latency and workload assumptions, satisfying the 'not average alone' constraint. Captures baseline via EXPLAIN plans, latency distributions, and resource saturation covering query plans/waits/resource signals. Explicitly rejects premature index or buffer pool changes without evidence. Profiles the actual bottleneck before tuning. Trade-offs addressed through residual risks (read-replica separation vs. operational workload conflict, buffer pool masking N+1/growth issues) and verification includes 'without degrading operational write performance.' Capacity assumptions implicit in workload model and representative dataset requirement. Completion state UNKNOWN is appropriate. Verification plan tests with representative data, not empty/small. No must_not_do violations.",
+      "scores": {
+        "decision_correctness": 4,
+        "evidence_scope": 2,
+        "execution_closure": 1,
+        "risk_and_constraints": 1,
+        "traceability": 1,
+        "verification": 1
+      },
+      "stage_id": 17,
+      "total": 10
+    },
+    {
+      "hard_fail": false,
+      "id": "ADV-S18",
+      "must_do_missing": [
+        "retain evidence of skipped/failed/retried checks: answer does not address how pipeline gate results (pass/fail/skip/retry) are persisted for release decisions, despite the stage playbook requiring 'Persist gate results' and the evidence standard requiring distinction between skipped, failed, retried and passed checks"
+      ],
+      "must_not_do_violations": [],
+      "pass": true,
+      "rationale": "Core decision is correct: enforce build-once-promote-immutable-artifact by digest, refactor Docker ARG build-time config to runtime injection, and couple migrations to artifact versions. Records commit/build/artifact digest through provenance metadata and verification of unique digest. Clearly distinguishes build-time config from runtime config/secrets. Migration compatibility is addressed via coupling migrations to artifact versions, though backward compatibility is noted as a residual risk rather than a gate. Explicitly rejects branch-name provenance and environment-specific rebuilds. Identifies the unknown about existing secrets in Docker ARGs. However, the answer does not address how evidence of skipped, failed, or retried pipeline checks is retained for release decision traceability, a specific must_do from the frozen criteria and a core requirement of STAGE-18-CI-CD.md. No must_not_do violations: does not infer provenance from branch, does not rebuild for production, does not expose secrets.",
+      "scores": {
+        "decision_correctness": 3,
+        "evidence_scope": 2,
+        "execution_closure": 1,
+        "risk_and_constraints": 1,
+        "traceability": 1,
+        "verification": 1
+      },
+      "stage_id": 18,
+      "total": 9
+    },
+    {
+      "hard_fail": false,
+      "id": "ADV-S19",
+      "must_do_missing": [
+        "verify exact artifact identity: answer documents migration state (Data Change Plan for 0027) and backup preflight but does not explicitly state verification of the exact artifact digest/SHA before production deployment, which is the first must_do and the first step in the stage playbook workflow",
+        "record stable-state evidence after observation: monitoring and thresholds are defined for the canary-to-full expansion decision, but recording the final stable-state evidence as an explicit artifact after the observation window is not stated"
+      ],
+      "must_not_do_violations": [],
+      "pass": true,
+      "rationale": "Decision quality is high: requires a Data Change Plan for migration 0027 covering side effects, locking, and rollback/forward-fix strategy; mandates staged rollout or canary for blast-radius control; defines explicit smoke checks and telemetry thresholds for the hierarchy sync job. Correctly identifies rollback uncertainty after derived-state writes and does not promise rollback without checking data reversibility. Completion state EXPLORED is appropriate. Residual risks (database contention under full load, undetected data corruption during canary) are realistic. However, two must_do items are not explicitly addressed: (1) verifying exact artifact identity before deployment, as the answer focuses on migration and rollout mechanics but omits the artifact digest/SHA verification step; (2) recording stable-state evidence as an explicit deliverable after the observation window. The S18 handoff partially compensates for artifact identity, and monitoring inherently produces evidence, but S19 should independently verify and record both. No must_not_do violations: does not equate CI green with production safety, does not promise rollback without data checks, does not declare immediate success.",
+      "scores": {
+        "decision_correctness": 3,
+        "evidence_scope": 2,
+        "execution_closure": 1,
+        "risk_and_constraints": 1,
+        "traceability": 1,
+        "verification": 1
+      },
+      "stage_id": 19,
+      "total": 9
+    },
+    {
+      "hard_fail": false,
+      "id": "ADV-S20",
+      "must_do_missing": [
+        "avoid logging sensitive message content unnecessarily: answer does not explicitly address the sensitive-data-in-telemetry concern despite the stage playbook listing it as a key question and the frozen criteria requiring it; the answer neither proposes nor prohibits logging SMS content, but the explicit acknowledgment is absent"
+      ],
+      "must_not_do_violations": [],
+      "pass": true,
+      "rationale": "Excellent decision that defines user-centric SLI ('SMS notifications successfully delivered within X minutes'), instruments correlation IDs linking outbox row to worker execution to SMS provider request, and instruments specific failure modes (permanently failed rows, lease expirations, provider latency). Explicitly distinguishes service liveness from user-visible delivery capability. Defines actionable alerts for conditions requiring human intervention (queue backlog, permanent failure spikes) rather than alerting on every transient retry. Rejects generic application logs as observability. Residual risks (unbounded outbox growth, lease-expiration-induced duplicates) are operationally relevant. Verification plan includes simulated failures to validate SLI degradation, correlation ID presence, and alert rule firing. The one gap is that the answer does not explicitly address avoiding sensitive SMS message content in telemetry, an omission rather than a violation, as no sensitive logging is proposed. No must_not_do violations: does not treat unstructured logs as observability, does not alert on every retry, does not declare delivery healthy from worker uptime alone.",
+      "scores": {
+        "decision_correctness": 4,
+        "evidence_scope": 2,
+        "execution_closure": 1,
+        "risk_and_constraints": 1,
+        "traceability": 1,
+        "verification": 1
+      },
+      "stage_id": 20,
+      "total": 10
+    }
+  ],
+  "judge": {
+    "model": "claude-opus-4-6-thinking",
+    "notes": "Independent blind judge evaluation of five executor answers against frozen case criteria and Product Engineering OS stage playbooks. Scored strictly on evidence present in the answers; no credit for inferred or absent claims. Each must_do evaluated for explicit presence in the answer text. Must_not_do checked for material violations. Hard fail conditions checked: no invented critical facts, no lifecycle state overclaims, no safety gate skips, no material must_not_do violations.",
+    "provider": "Anthropic"
+  },
+  "run_id": "INDEP-RUN-2026-10-03-01",
+  "summary": {
+    "average_score": 9.6,
+    "failed": 0,
+    "hard_failures": [],
+    "passed": 5,
+    "total": 5
+  }
+}
