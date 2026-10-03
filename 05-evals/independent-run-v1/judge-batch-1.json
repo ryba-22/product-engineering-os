@@ -1,0 +1,116 @@
+{
+  "cases": [
+    {
+      "hard_fail": false,
+      "id": "ADV-S01",
+      "must_do_missing": [
+        "surface hard versus assumed constraints: the 2-week deadline is recorded as a constraint to 'evaluate feasibility against' but is never explicitly classified as hard or assumed; no other constraints (technical, organizational) are surfaced or classified"
+      ],
+      "must_not_do_violations": [],
+      "pass": true,
+      "rationale": "Core decision is correct: dashboard is separated from the underlying problem (missed exceptions), outcome is defined in terms of exception reduction not dashboard delivery, actors are mapped (staff, director, support), and unresolved questions are routed to Stage 02 Discovery. Evidence is grounded in scenario facts (support messages, spreadsheet checks) with no invention. Unknowns (actual workflow failure cause, visibility vs volume vs process gap) are properly labeled. The main gap is that hard-vs-assumed constraint analysis is shallow—the deadline is noted but not explicitly classified, and no other constraints are surfaced or evaluated. Risk class R3 is stated but not deeply justified. Completion state DECIDED is appropriate for problem framing at G0. Handoff to Stage 02 is clear and correct. Residual risk (timeline pressure forcing premature build) is relevant. Verification step (check success metrics reflect outcome) is appropriate for this stage.",
+      "scores": {
+        "decision_correctness": 3,
+        "evidence_scope": 2,
+        "execution_closure": 1,
+        "risk_and_constraints": 1,
+        "traceability": 1,
+        "verification": 1
+      },
+      "stage_id": 1,
+      "total": 9
+    },
+    {
+      "hard_fail": false,
+      "id": "ADV-S02",
+      "must_do_missing": [
+        "state when discovery can stop: handoff condition is vaguely stated as 'once discovery yields decision-changing findings' without specifying concrete stop criteria or what constitutes sufficient evidence",
+        "triangulate support/operational evidence where useful: support logs are referenced as evidence and contextual observation is planned, but an explicit triangulation strategy combining multiple evidence sources is not articulated"
+      ],
+      "must_not_do_violations": [],
+      "pass": true,
+      "rationale": "Decision to reject the biased 5-participant pool is correct and well-justified from scenario evidence. Sampling/confirmation bias is explicitly identified. Occasional operators are correctly targeted as the failure population per support log evidence. Method selection (contextual observation/usability testing over preference interviews) properly prioritizes observed behavior over stated preference. No generalization from the five favorable users is made. Two gaps prevent a higher decision_correctness score: (1) the stop condition for discovery is vague—'decision-changing findings' lacks specificity about what evidence threshold or number of participants would satisfy G1; (2) triangulation is implicit (support logs + observation) but not framed as a deliberate multi-source strategy. Completion state EXPLORED is appropriate—the research plan is proposed, not executed. Verification step (screener vs support log demographics) is well-targeted. Residual risk about sponsor resistance is realistic.",
+      "scores": {
+        "decision_correctness": 3,
+        "evidence_scope": 2,
+        "execution_closure": 1,
+        "risk_and_constraints": 1,
+        "traceability": 1,
+        "verification": 1
+      },
+      "stage_id": 2,
+      "total": 9
+    },
+    {
+      "hard_fail": false,
+      "id": "ADV-S03",
+      "must_do_missing": [],
+      "must_not_do_violations": [],
+      "pass": true,
+      "rationale": "Decision not to encode legacy DATE columns as business rules is correct and directly addresses the scenario's temporal mismatch. Event timeline modeling uses business language (Enrolled, Attended, Withdrew). Business time vs storage representation is clearly distinguished. Re-enrollment ambiguity is acknowledged as an unknown rather than resolved by guessing policy—the authoritative business policy on same-day transitions is explicitly flagged as UNKNOWN, satisfying the 'record hotspots' requirement. Table structure is not treated as the domain. No must_not_do violations: date-only semantics are not declared correct, repeated memberships are not collapsed, and no business rule is invented. The invariant identification around re-enrollment could be deeper (e.g., what specific invariants might govern whether a child can hold two overlapping membership rows?), but the answer correctly defers to domain expert clarification rather than guessing. Completion state EXPLORED is appropriate. Verification scenario (walk through attend-at-10:00, leave-at-16:00, re-enroll) is well-targeted. The verification phrasing 'ensure the new domain rules yield a single correct presence report' slightly presupposes the answer, but the intent to scenario-walk is sound.",
+      "scores": {
+        "decision_correctness": 3,
+        "evidence_scope": 2,
+        "execution_closure": 1,
+        "risk_and_constraints": 1,
+        "traceability": 1,
+        "verification": 1
+      },
+      "stage_id": 3,
+      "total": 9
+    },
+    {
+      "hard_fail": false,
+      "id": "ADV-S04",
+      "must_do_missing": [
+        "state quality/security/data constraints when material: the system handles PII (phone numbers), billing data, and mass SMS sending with consent/compliance implications, yet no explicit data protection, privacy, consent, or PII-handling constraints are stated as requirements"
+      ],
+      "must_not_do_violations": [],
+      "pass": true,
+      "rationale": "Core decomposition is sound: legacy contact source is separated from Finance eligibility, deduplication is defined per unique phone number, zero-amount behavior is explicitly included, the approval step is specified as a mandatory authorization boundary, and transport mechanism is correctly left unspecified. Exception paths for missing contacts and conflicting eligibility are defined. Retry/failure semantics are acknowledged as unknown rather than omitted or invented. Acceptance criteria are linked back to business outcome. The main gap is the absence of explicit quality/security/data constraints: for a billing SMS system handling phone numbers (PII) with mass-send capability, data protection requirements, consent rules, and PII handling should be stated as material constraints per the must_do. This prevents a score of 4 on decision_correctness. No must_not_do violations: no specific queue/provider is encoded, retry/duplicate scenarios are addressed (retry flagged as unknown, dedup defined), and no unknown policy is confirmed as a rule. Completion state DECIDED is borderline appropriate—core requirements are decided though some failure semantics remain unknown and are flagged.",
+      "scores": {
+        "decision_correctness": 3,
+        "evidence_scope": 2,
+        "execution_closure": 1,
+        "risk_and_constraints": 1,
+        "traceability": 1,
+        "verification": 1
+      },
+      "stage_id": 4,
+      "total": 9
+    },
+    {
+      "hard_fail": false,
+      "id": "ADV-S05",
+      "must_do_missing": [
+        "keep shared physical storage separate from logical ownership if legacy constraints require it: the answer rejects the shared-table approach via ADR but does not address the scenario where legacy constraints actually force shared physical storage—the playbook requires acknowledging that physical sharing may be unavoidable while logical ownership remains separate"
+      ],
+      "must_not_do_violations": [],
+      "pass": true,
+      "rationale": "Ownership assignment is clear and correct: Legacy owns relationships/contacts (mutation authority), Finance owns billing eligibility and settlement decisions. The downstream Billing Communications context that consumes and translates published facts from both systems is a sound architectural pattern that enforces the deduplication invariant without dual writes. Integration is defined at the semantic level. The invariant (one SMS per unique eligible number per period per child) is explicitly stated and assigned to the downstream context boundary. No must_not_do violations: dual write authority is explicitly prevented, contexts are derived from business ownership not tables, and microservices are not mandated. The gap preventing a 4 on decision_correctness is the handling of shared physical storage: the answer records 'rejection of the shared-table approach' but doesn't address what happens if legacy constraints make shared storage unavoidable—the playbook requires keeping logical ownership separate from physical storage in that case, not simply rejecting shared storage. Completion state DECIDED is appropriate for boundary decisions. Verification via change scenario (shared guardian updates number during billing run) is well-targeted adversarial testing. Residual risk about race conditions during the approval window is realistic and relevant.",
+      "scores": {
+        "decision_correctness": 3,
+        "evidence_scope": 2,
+        "execution_closure": 1,
+        "risk_and_constraints": 1,
+        "traceability": 1,
+        "verification": 1
+      },
+      "stage_id": 5,
+      "total": 9
+    }
+  ],
+  "judge": {
+    "model": "claude-opus-4-6-thinking",
+    "notes": "Independent blind judgment of five executor answers against frozen case criteria, stage playbooks, and OS runtime/gate rules. Each answer evaluated for decision correctness, evidence discipline, constraint handling, closure, verification, and traceability. No prior self-assessment or prior judge results were consulted.",
+    "provider": "Anthropic"
+  },
+  "run_id": "INDEP-RUN-2026-10-03-01",
+  "summary": {
+    "average_score": 9,
+    "failed": 0,
+    "hard_failures": [],
+    "passed": 5,
+    "total": 5
+  }
+}

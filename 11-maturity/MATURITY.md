@@ -21,3 +21,11 @@ Run `python scripts/validate.py`, `python scripts/audit_coverage.py`, `python sc
 Run ADV-RUN-2026-10-03-01 executed one realistic adversarial scenario for each of the 25 lifecycle stages. The initial result was 24/25: Stage 15 incorrectly claimed VERIFIED after designing a test strategy without executed test evidence. The stage playbook, golden evals and regression tests were changed, then the same frozen Stage-15 scenario was rerun. Final result: 25/25.
 
 This upgrades the package from depth-only evidence to executed self-assessed behavioral evidence for those scenarios. It does not upgrade the package to an independent benchmark: executor and judge were separate passes of the same GPT-5.6 Sol session. See 05-evals/adversarial-run-v1/REPORT.md and final-results.json.
+
+## Independent behavioral validation — 2026-10-03
+
+Run `INDEP-RUN-2026-10-03-01` reused the exact frozen 25 adversarial lifecycle scenarios. The executor was **Google Gemini 3.1 Pro (High)** and saw blinded scenario inputs plus the Product Engineering OS runtime/playbooks/evidence, but not `must_do`, `must_not_do`, scoring criteria or prior self-assessed results. A distinct **Anthropic Claude Opus 4.6 (Thinking)** judge scored the independent outputs against the frozen rubric without access to prior self-assessed answers/judgments.
+
+Result: **25/25 passed**, **0 hard failures**, average **9.12/10**. The judge still identified explicit coverage gaps in a number of passing answers; these are preserved in `05-evals/independent-run-v1/weakness-backlog.json` rather than hidden by the pass result.
+
+This supports the scoped maturity status **`independently-behaviorally-validated-v1` for these 25 frozen scenarios**. It does not establish universal Product Engineering competence, production correctness, or performance on unseen distributions. Future maturity claims require additional unseen/adversarial sets and periodic revalidation after material corpus/runtime changes.

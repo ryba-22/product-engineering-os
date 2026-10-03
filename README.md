@@ -70,6 +70,11 @@ Short-file policy is executable: `scripts/audit_content_depth.py` fails when a s
 
 `11-maturity/stage-coverage.json` distinguishes **deep-structural** coverage from behavioral effectiveness. Structural/depth checks can prove the knowledge package is present and connected; only executed evaluations can support behavioral claims.
 
+
+## Current behavioral evidence
+
+The package has completed `INDEP-RUN-2026-10-03-01`: the same frozen 25-stage adversarial suite was executed by Google Gemini 3.1 Pro (High) with judge criteria hidden, then independently scored by Anthropic Claude Opus 4.6 (Thinking). Result: **25/25 pass, 0 hard failures, 9.12/10 average**. The maturity claim is deliberately scoped to that frozen suite; judge-noted omissions remain tracked in `05-evals/independent-run-v1/weakness-backlog.json`.
+
 ## Package layout
 
 | Path | Contents |

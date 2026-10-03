@@ -1,0 +1,168 @@
+{
+  "cases": [
+    {
+      "actions": [
+        "Implement the pattern as a Local component in the feature team's codebase.",
+        "Document the local component usage to track future potential reuse.",
+        "Measure reuse and exceptions to inform any future promotion decisions."
+      ],
+      "completion_state": "DECIDED",
+      "current_outcome": "DECIDED",
+      "decision": "Keep the new DataTable variant scoped as Local. Reject immediate promotion to Core because there is no usage evidence and the focus/keyboard contract is not stable.",
+      "evidence_and_unknowns": [
+        "EVD-UX-005 (promotion requires reuse and stability evidence)",
+        "No other feature uses the behavior (lack of reuse)",
+        "Focus/keyboard contract is not yet established"
+      ],
+      "handoff": "Stage 12 (Frontend implementation) to implement the local component.",
+      "id": "ADV-S11",
+      "references": [
+        "06-modules/experience/STAGE-11-DESIGN-SYSTEM.md",
+        "EVD-UX-005"
+      ],
+      "residual_risks": [
+        "Feature team may duplicate effort if another team actually needs the exact pattern before it is promoted."
+      ],
+      "risk_class": "R1",
+      "stage_id": 11,
+      "verification": [
+        "Verify the local focus/keyboard accessibility within the feature's specific context.",
+        "Verify future usage metrics before any promotion to Core."
+      ]
+    },
+    {
+      "actions": [
+        "Refactor the component to derive filter state directly from the URL route parameters.",
+        "Remove local React state (e.g. useState) for q/school/subject/view/page/limit.",
+        "Remove useEffect hooks that are used purely to synchronize the URL to the local state."
+      ],
+      "completion_state": "DECIDED",
+      "current_outcome": "DECIDED",
+      "decision": "Remove local React state for URL parameters and read directly from the URL. Remove synchronization effects to eliminate the dual source of truth.",
+      "evidence_and_unknowns": [
+        "EVD-FE-001 (Avoid redundant, contradictory and duplicated UI state)",
+        "EVD-FE-002 (Effects are for external sync, not derived state)",
+        "Back navigation shows stale filters and duplicate fetches occur due to duplicated state"
+      ],
+      "handoff": "Stage 15 (Testing) for integration testing of the refactored routing and data fetching.",
+      "id": "ADV-S12",
+      "references": [
+        "06-modules/software-engineering/STAGE-12-FRONTEND-IMPLEMENTATION.md",
+        "EVD-FE-001",
+        "EVD-FE-002"
+      ],
+      "residual_risks": [
+        "URL parameter parsing might require additional validation to handle malformed input gracefully."
+      ],
+      "risk_class": "R2",
+      "stage_id": 12,
+      "verification": [
+        "Verify back and forward browser navigation restores correct filters.",
+        "Verify shareable URLs load correct state.",
+        "Verify duplicate network fetches no longer occur."
+      ]
+    },
+    {
+      "actions": [
+        "Define a new POST/PUT command contract for the refresh action.",
+        "Implement CSRF tokens or equivalent anti-forgery protection.",
+        "Plan a migration for UI clients to adopt the new endpoint.",
+        "Add a deprecation warning and timeline for the legacy GET endpoint."
+      ],
+      "completion_state": "DECIDED",
+      "current_outcome": "DECIDED",
+      "decision": "Refactor the endpoint to a POST or PUT command with appropriate CSRF protections. Reject the proposal to merely document the vulnerable GET behavior.",
+      "evidence_and_unknowns": [
+        "EVD-API-003 (HTTP method semantics include safety and idempotency)",
+        "GET request is mutating state and vulnerable to CSRF",
+        "Endpoint lacks anti-forgery protection",
+        "Retries can repeat the mutation unsafely"
+      ],
+      "handoff": "Stage 12 for UI client migration, followed by Stage 15 for security and contract verification.",
+      "id": "ADV-S13",
+      "references": [
+        "06-modules/software-engineering/STAGE-13-BACKEND-API.md",
+        "EVD-API-003"
+      ],
+      "residual_risks": [
+        "Legacy third-party API consumers might break when the GET endpoint is eventually removed.",
+        "Migration window requires maintaining and monitoring two endpoints temporarily."
+      ],
+      "risk_class": "R3",
+      "stage_id": 13,
+      "verification": [
+        "Perform adversarial tests for CSRF on both endpoints.",
+        "Write contract tests for the new POST/PUT endpoint to ensure idempotency where applicable."
+      ]
+    },
+    {
+      "actions": [
+        "Create an expand migration to add the new time-aware columns.",
+        "Update the application to dual-write to both old and new columns.",
+        "Implement a resumable, batched backfill script that correctly translates historical DATE to time-aware values based on domain rules.",
+        "Plan the switch of reads to new columns, followed by a contract migration to drop old columns."
+      ],
+      "completion_state": "DECIDED",
+      "current_outcome": "DECIDED",
+      "decision": "Reject the direct ALTER and default midnight backfill. Use the expand-contract pattern to add new columns, dual-write, and run a safe, resumable backfill to preserve historical accuracy and rollout compatibility.",
+      "evidence_and_unknowns": [
+        "EVD-DATA-002 (Schema migrations are production changes with compatibility implications)",
+        "Old application versions will run during rollout",
+        "Direct ALTER breaks compatibility and historical accuracy",
+        "Production contains historical rows and duplicate re-enrollments"
+      ],
+      "handoff": "Stage 15 to test the migration scripts, then Stage 19 for deployment rollout.",
+      "id": "ADV-S14",
+      "references": [
+        "06-modules/software-engineering/STAGE-14-DATABASE-PERSISTENCE.md",
+        "EVD-DATA-002",
+        "07-templates/DATA-CHANGE-PLAN.md"
+      ],
+      "residual_risks": [
+        "Dual-write logic could introduce latency or application errors during the compatibility window.",
+        "Backfill process could impact database performance during execution."
+      ],
+      "risk_class": "R3",
+      "stage_id": 14,
+      "verification": [
+        "Test migration and backfill scripts against a representative staging dataset.",
+        "Validate historical invariants hold post-backfill."
+      ]
+    },
+    {
+      "actions": [
+        "Write an integration test against a real database instance simulating simultaneous concurrent enrollment requests.",
+        "Identify and implement the missing database uniqueness constraint or transaction lock.",
+        "Retain the mocked unit test only for business logic, not for concurrency validation."
+      ],
+      "completion_state": "DECIDED",
+      "current_outcome": "DECIDED",
+      "decision": "Reject closing the defect. Replace mock-based unit tests with integration tests against a real database to actually prove the concurrency guarantee.",
+      "evidence_and_unknowns": [
+        "EVD-QA-001 (Choose lowest layer that can honestly prove the property)",
+        "Mock-heavy tests bypass the integration behavior needed for concurrency",
+        "Production duplicates prove the concurrency invariant is not enforced"
+      ],
+      "handoff": "Stage 14 to add the necessary database constraints, then Stage 15 to execute the verification.",
+      "id": "ADV-S15",
+      "references": [
+        "06-modules/quality-engineering/STAGE-15-TESTING.md",
+        "EVD-QA-001"
+      ],
+      "residual_risks": [
+        "Other endpoints might share the same flawed mock-testing strategy for concurrency."
+      ],
+      "risk_class": "R3",
+      "stage_id": 15,
+      "verification": [
+        "Execute the new concurrent integration test to prove it fails without the fix and passes with it."
+      ]
+    }
+  ],
+  "executor": {
+    "model": "gemini-3.1-pro-high",
+    "notes": "Execution of the five scenarios completed strictly following the Core Runtime and Stage Playbooks constraints. No invented facts; states appropriately kept to DECIDED as requested.",
+    "provider": "Google"
+  },
+  "run_id": "INDEP-RUN-2026-10-03-01"
+}

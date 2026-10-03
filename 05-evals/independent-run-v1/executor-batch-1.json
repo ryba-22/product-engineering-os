@@ -1,0 +1,170 @@
+{
+  "cases": [
+    {
+      "actions": [
+        "Create a Product Brief separating the request (AI dashboard) from the need (missed exceptions).",
+        "Define success signals based on reducing missed exceptions, not delivering a dashboard.",
+        "Map affected actors (staff, director, support).",
+        "Record the 2-week deadline as a constraint to evaluate feasibility against."
+      ],
+      "completion_state": "DECIDED",
+      "current_outcome": "Staff are missing enrollment and billing exceptions, currently relying on manual spreadsheet checks which generate support messages.",
+      "decision": "Refocus the problem statement on reducing missed enrollment and billing exceptions. Reject the 'AI dashboard' as the mandatory problem definition and treat it as one candidate solution among others.",
+      "evidence_and_unknowns": [
+        "EVIDENCE: Support messages report missed exceptions.",
+        "EVIDENCE: Staff currently use manual spreadsheet checks.",
+        "UNKNOWN: The actual workflow failure causing exceptions to be missed.",
+        "UNKNOWN: Whether the issue is visibility, data volume, or a process gap."
+      ],
+      "handoff": "Hand off the Product Brief to Stage 02 (User / Product Discovery) to understand the actual workflow friction before committing to an architecture.",
+      "id": "ADV-S01",
+      "references": [
+        "06-modules/product-strategy/STAGE-01-PROBLEM-OUTCOME.md",
+        "EVD-PROD-002",
+        "EVD-PROD-003",
+        "G0"
+      ],
+      "residual_risks": [
+        "The director's fixed 2-week deadline may conflict with the need for proper discovery, pressuring a premature build."
+      ],
+      "risk_class": "R3",
+      "stage_id": 1,
+      "verification": [
+        "Verify that success metrics reflect the business outcome (exception rate) rather than output (dashboard usage)."
+      ]
+    },
+    {
+      "actions": [
+        "Draft a Research Plan targeting occasional operators.",
+        "Use contextual observation or usability testing of same-day change workflows rather than preference interviews.",
+        "Explicitly state the recruitment bias of the sponsor's suggested pool as a limitation to avoid."
+      ],
+      "completion_state": "EXPLORED",
+      "current_outcome": "Need to validate a new enrollment workflow, with a sponsor pushing for rapid confirmation from a biased group.",
+      "decision": "Reject the biased participant pool. The discovery plan must recruit occasional operators and focus on same-day enrollment changes to address the actual source of observed failures.",
+      "evidence_and_unknowns": [
+        "EVIDENCE: Support logs indicate most failures stem from occasional operators and same-day changes.",
+        "EVIDENCE: The sponsor's proposed 5 participants are highly engaged and like the current system (biased).",
+        "UNKNOWN: The specific friction points occasional operators face during same-day changes."
+      ],
+      "handoff": "Hand off validated needs and workflow constraints to Stage 03/04 once discovery yields decision-changing findings.",
+      "id": "ADV-S02",
+      "references": [
+        "06-modules/product-discovery/STAGE-02-DISCOVERY.md",
+        "EVD-PROD-001",
+        "EVD-PROD-004",
+        "G1"
+      ],
+      "residual_risks": [
+        "Sponsor may reject the timeline extension required to recruit occasional operators."
+      ],
+      "risk_class": "R2",
+      "stage_id": 2,
+      "verification": [
+        "Review the participant screener against support log demographics to ensure the sample matches the failure population."
+      ]
+    },
+    {
+      "actions": [
+        "Map the event timeline using business language (e.g., 'Child Enrolled', 'Child Attended', 'Child Withdrew').",
+        "Clarify temporal rules with domain experts, avoiding 'same day' ambiguity.",
+        "Extract invariants regarding presence verification against active membership status."
+      ],
+      "completion_state": "EXPLORED",
+      "current_outcome": "Contradictory presence reports are generated due to mismatched temporal granularity between dates and timestamps and duplicate membership rows.",
+      "decision": "Do not encode the legacy database columns (dates) as business rules. Extract the true temporal semantics and invariants governing membership and presence across same-day transitions.",
+      "evidence_and_unknowns": [
+        "EVIDENCE: Existing database stores memberships as dates and lessons as timestamps.",
+        "EVIDENCE: A child can leave and re-enroll on the same date, creating contradictory data.",
+        "UNKNOWN: The authoritative business policy on how same-day transitions affect billing or continuous membership.",
+        "UNKNOWN: Whether 'effective time' of membership should actually be a timestamp rather than a date."
+      ],
+      "handoff": "Hand off verified temporal rules and invariants to Stage 04 (Requirements) and Stage 05 (Domain Architecture).",
+      "id": "ADV-S03",
+      "references": [
+        "06-modules/domain/STAGE-03-DOMAIN-DISCOVERY.md",
+        "EVD-DOM-001",
+        "EVD-DOM-002",
+        "G2"
+      ],
+      "residual_risks": [
+        "Legacy reporting systems might break if they depend on the old 'date' granularity, requiring translation adapters."
+      ],
+      "risk_class": "R2",
+      "stage_id": 3,
+      "verification": [
+        "Walk through the 'attend at 10:00, leave at 16:00, re-enroll' scenario to ensure the new domain rules yield a single correct presence report."
+      ]
+    },
+    {
+      "actions": [
+        "Write acceptance criteria for deduplication based on unique phone numbers.",
+        "Specify the operator approval step as a mandatory authorization boundary/constraint.",
+        "Define exception paths for missing contact data or conflicting eligibility flags.",
+        "Trace these requirements back to the business outcome of accurate billing communication."
+      ],
+      "completion_state": "DECIDED",
+      "current_outcome": "Need to securely and accurately send monthly billing SMS to guardians based on data from two different systems, with a manual approval step.",
+      "decision": "Decompose the vague 'send SMS' requirement into explicit, testable scenarios covering deduplication, zero-value cases, authorization (approval), and failure semantics without specifying the transport mechanism.",
+      "evidence_and_unknowns": [
+        "EVIDENCE: SMS must be sent once per child/period/unique eligible number, including zero amounts.",
+        "EVIDENCE: Contacts come from Legacy; eligibility from Finance; operator approval is required.",
+        "UNKNOWN: Failure and retry semantics if an SMS gateway rejects the message.",
+        "UNKNOWN: Behavior if a guardian has multiple children with separate zero-amount bills."
+      ],
+      "handoff": "Hand off functional requirements and quality scenarios to Stage 05 (Domain Architecture) for ownership definition.",
+      "id": "ADV-S04",
+      "references": [
+        "06-modules/requirements/STAGE-04-REQUIREMENTS.md",
+        "EVD-REQ-001",
+        "G3"
+      ],
+      "residual_risks": [
+        "Inconsistencies or latency between Legacy contact updates and Finance billing runs could lead to SMS delivery failures or incorrect recipients."
+      ],
+      "risk_class": "R3",
+      "stage_id": 4,
+      "verification": [
+        "Ensure acceptance criteria can test the invariant: exactly one SMS per unique eligible number per period, regardless of child count."
+      ]
+    },
+    {
+      "actions": [
+        "Assign authoritative mutation ownership of contacts to Legacy and billing eligibility to Finance.",
+        "Design a downstream context (e.g., Billing Communications) that translates published facts from both systems to enforce the deduplication invariant.",
+        "Define the integration contracts at a semantic level.",
+        "Record the boundary decision and rejection of the shared-table approach in a Domain ADR."
+      ],
+      "completion_state": "DECIDED",
+      "current_outcome": "Need to integrate Legacy contact data and Finance eligibility to send communications without creating data corruption or split-brain mutation authority.",
+      "decision": "Enforce strict mutation boundaries. Do not allow Legacy and Finance to perform dual writes to a shared eligibility/communication table. Establish a downstream capability to consume and translate these facts.",
+      "evidence_and_unknowns": [
+        "EVIDENCE: Legacy owns relationships and contacts; Finance owns billing eligibility.",
+        "EVIDENCE: The invariant is one SMS per unique eligible number per period per child.",
+        "EVIDENCE: Contacts are sometimes shared between guardians.",
+        "UNKNOWN: The specific eventual consistency tolerance between a contact update in Legacy and a billing run in Finance."
+      ],
+      "handoff": "Hand off the context map, ownership model, and integration contracts to Stage 06 (System Architecture).",
+      "id": "ADV-S05",
+      "references": [
+        "06-modules/domain/STAGE-05-DOMAIN-ARCHITECTURE.md",
+        "EVD-DOM-003",
+        "G2"
+      ],
+      "residual_risks": [
+        "Asynchronous integration between Legacy and Finance might introduce race conditions during the operator approval window."
+      ],
+      "risk_class": "R3",
+      "stage_id": 5,
+      "verification": [
+        "Challenge the boundaries with change scenarios (e.g., a shared guardian updates their number during a billing run) to ensure no invariant is violated."
+      ]
+    }
+  ],
+  "executor": {
+    "model": "gemini-3.1-pro-high",
+    "notes": "Faithful execution of the OS rules. Applying rigorous stop-analysis and evidence-before-claims principles.",
+    "provider": "Google"
+  },
+  "run_id": "INDEP-RUN-2026-10-03-01"
+}

@@ -1,0 +1,514 @@
+{
+  "run_id": "INDEP-RUN-2026-10-03-01",
+  "judge": {
+    "provider": "Anthropic",
+    "model_requested": "claude-opus-4-6-thinking",
+    "independent_from_executor": true,
+    "independent_from_original_self_assessment": true
+  },
+  "summary": {
+    "total": 25,
+    "passed": 25,
+    "failed": 0,
+    "average_score": 9.12,
+    "hard_failures": []
+  },
+  "cases": [
+    {
+      "hard_fail": false,
+      "id": "ADV-S01",
+      "must_do_missing": [
+        "surface hard versus assumed constraints: the 2-week deadline is recorded as a constraint to 'evaluate feasibility against' but is never explicitly classified as hard or assumed; no other constraints (technical, organizational) are surfaced or classified"
+      ],
+      "must_not_do_violations": [],
+      "pass": true,
+      "rationale": "Core decision is correct: dashboard is separated from the underlying problem (missed exceptions), outcome is defined in terms of exception reduction not dashboard delivery, actors are mapped (staff, director, support), and unresolved questions are routed to Stage 02 Discovery. Evidence is grounded in scenario facts (support messages, spreadsheet checks) with no invention. Unknowns (actual workflow failure cause, visibility vs volume vs process gap) are properly labeled. The main gap is that hard-vs-assumed constraint analysis is shallow—the deadline is noted but not explicitly classified, and no other constraints are surfaced or evaluated. Risk class R3 is stated but not deeply justified. Completion state DECIDED is appropriate for problem framing at G0. Handoff to Stage 02 is clear and correct. Residual risk (timeline pressure forcing premature build) is relevant. Verification step (check success metrics reflect outcome) is appropriate for this stage.",
+      "scores": {
+        "decision_correctness": 3,
+        "evidence_scope": 2,
+        "execution_closure": 1,
+        "risk_and_constraints": 1,
+        "traceability": 1,
+        "verification": 1
+      },
+      "stage_id": 1,
+      "total": 9
+    },
+    {
+      "hard_fail": false,
+      "id": "ADV-S02",
+      "must_do_missing": [
+        "state when discovery can stop: handoff condition is vaguely stated as 'once discovery yields decision-changing findings' without specifying concrete stop criteria or what constitutes sufficient evidence",
+        "triangulate support/operational evidence where useful: support logs are referenced as evidence and contextual observation is planned, but an explicit triangulation strategy combining multiple evidence sources is not articulated"
+      ],
+      "must_not_do_violations": [],
+      "pass": true,
+      "rationale": "Decision to reject the biased 5-participant pool is correct and well-justified from scenario evidence. Sampling/confirmation bias is explicitly identified. Occasional operators are correctly targeted as the failure population per support log evidence. Method selection (contextual observation/usability testing over preference interviews) properly prioritizes observed behavior over stated preference. No generalization from the five favorable users is made. Two gaps prevent a higher decision_correctness score: (1) the stop condition for discovery is vague—'decision-changing findings' lacks specificity about what evidence threshold or number of participants would satisfy G1; (2) triangulation is implicit (support logs + observation) but not framed as a deliberate multi-source strategy. Completion state EXPLORED is appropriate—the research plan is proposed, not executed. Verification step (screener vs support log demographics) is well-targeted. Residual risk about sponsor resistance is realistic.",
+      "scores": {
+        "decision_correctness": 3,
+        "evidence_scope": 2,
+        "execution_closure": 1,
+        "risk_and_constraints": 1,
+        "traceability": 1,
+        "verification": 1
+      },
+      "stage_id": 2,
+      "total": 9
+    },
+    {
+      "hard_fail": false,
+      "id": "ADV-S03",
+      "must_do_missing": [],
+      "must_not_do_violations": [],
+      "pass": true,
+      "rationale": "Decision not to encode legacy DATE columns as business rules is correct and directly addresses the scenario's temporal mismatch. Event timeline modeling uses business language (Enrolled, Attended, Withdrew). Business time vs storage representation is clearly distinguished. Re-enrollment ambiguity is acknowledged as an unknown rather than resolved by guessing policy—the authoritative business policy on same-day transitions is explicitly flagged as UNKNOWN, satisfying the 'record hotspots' requirement. Table structure is not treated as the domain. No must_not_do violations: date-only semantics are not declared correct, repeated memberships are not collapsed, and no business rule is invented. The invariant identification around re-enrollment could be deeper (e.g., what specific invariants might govern whether a child can hold two overlapping membership rows?), but the answer correctly defers to domain expert clarification rather than guessing. Completion state EXPLORED is appropriate. Verification scenario (walk through attend-at-10:00, leave-at-16:00, re-enroll) is well-targeted. The verification phrasing 'ensure the new domain rules yield a single correct presence report' slightly presupposes the answer, but the intent to scenario-walk is sound.",
+      "scores": {
+        "decision_correctness": 3,
+        "evidence_scope": 2,
+        "execution_closure": 1,
+        "risk_and_constraints": 1,
+        "traceability": 1,
+        "verification": 1
+      },
+      "stage_id": 3,
+      "total": 9
+    },
+    {
+      "hard_fail": false,
+      "id": "ADV-S04",
+      "must_do_missing": [
+        "state quality/security/data constraints when material: the system handles PII (phone numbers), billing data, and mass SMS sending with consent/compliance implications, yet no explicit data protection, privacy, consent, or PII-handling constraints are stated as requirements"
+      ],
+      "must_not_do_violations": [],
+      "pass": true,
+      "rationale": "Core decomposition is sound: legacy contact source is separated from Finance eligibility, deduplication is defined per unique phone number, zero-amount behavior is explicitly included, the approval step is specified as a mandatory authorization boundary, and transport mechanism is correctly left unspecified. Exception paths for missing contacts and conflicting eligibility are defined. Retry/failure semantics are acknowledged as unknown rather than omitted or invented. Acceptance criteria are linked back to business outcome. The main gap is the absence of explicit quality/security/data constraints: for a billing SMS system handling phone numbers (PII) with mass-send capability, data protection requirements, consent rules, and PII handling should be stated as material constraints per the must_do. This prevents a score of 4 on decision_correctness. No must_not_do violations: no specific queue/provider is encoded, retry/duplicate scenarios are addressed (retry flagged as unknown, dedup defined), and no unknown policy is confirmed as a rule. Completion state DECIDED is borderline appropriate—core requirements are decided though some failure semantics remain unknown and are flagged.",
+      "scores": {
+        "decision_correctness": 3,
+        "evidence_scope": 2,
+        "execution_closure": 1,
+        "risk_and_constraints": 1,
+        "traceability": 1,
+        "verification": 1
+      },
+      "stage_id": 4,
+      "total": 9
+    },
+    {
+      "hard_fail": false,
+      "id": "ADV-S05",
+      "must_do_missing": [
+        "keep shared physical storage separate from logical ownership if legacy constraints require it: the answer rejects the shared-table approach via ADR but does not address the scenario where legacy constraints actually force shared physical storage—the playbook requires acknowledging that physical sharing may be unavoidable while logical ownership remains separate"
+      ],
+      "must_not_do_violations": [],
+      "pass": true,
+      "rationale": "Ownership assignment is clear and correct: Legacy owns relationships/contacts (mutation authority), Finance owns billing eligibility and settlement decisions. The downstream Billing Communications context that consumes and translates published facts from both systems is a sound architectural pattern that enforces the deduplication invariant without dual writes. Integration is defined at the semantic level. The invariant (one SMS per unique eligible number per period per child) is explicitly stated and assigned to the downstream context boundary. No must_not_do violations: dual write authority is explicitly prevented, contexts are derived from business ownership not tables, and microservices are not mandated. The gap preventing a 4 on decision_correctness is the handling of shared physical storage: the answer records 'rejection of the shared-table approach' but doesn't address what happens if legacy constraints make shared storage unavoidable—the playbook requires keeping logical ownership separate from physical storage in that case, not simply rejecting shared storage. Completion state DECIDED is appropriate for boundary decisions. Verification via change scenario (shared guardian updates number during billing run) is well-targeted adversarial testing. Residual risk about race conditions during the approval window is realistic and relevant.",
+      "scores": {
+        "decision_correctness": 3,
+        "evidence_scope": 2,
+        "execution_closure": 1,
+        "risk_and_constraints": 1,
+        "traceability": 1,
+        "verification": 1
+      },
+      "stage_id": 5,
+      "total": 9
+    },
+    {
+      "hard_fail": false,
+      "id": "ADV-S06",
+      "must_do_missing": [
+        "analyze failure/operational costs of added infrastructure"
+      ],
+      "must_not_do_violations": [],
+      "pass": true,
+      "rationale": "Decision direction is correct: rejects microservices/Kafka/K8s and preserves the simpler monolith with logical modularity. Switching thresholds and ADR rationale are addressed in verification and actions. However, the must_do to 'analyze failure/operational costs of added infrastructure' is only implicitly covered — the answer asserts 'irreversible complexity' as a conclusion without enumerating specific failure modes of the distributed proposal (network partitions, operational overhead of K8s/Kafka, distributed debugging, deployment complexity). The comparison between modular monolith and distributed proposal exists but is shallow. Evidence is minimal (one fact, one unknown). Risk class stated, residual risks present, handoff is explicit. No must_not_do violations: does not select microservices as industry standard, does not invent scale, and does acknowledge operational concerns. Completion state DECIDED is appropriate.",
+      "scores": {
+        "decision_correctness": 3,
+        "evidence_scope": 1,
+        "execution_closure": 1,
+        "risk_and_constraints": 1,
+        "traceability": 1,
+        "verification": 1
+      },
+      "stage_id": 6,
+      "total": 8
+    },
+    {
+      "hard_fail": false,
+      "id": "ADV-S07",
+      "must_do_missing": [
+        "define loading/empty/error/stale states"
+      ],
+      "must_not_do_violations": [],
+      "pass": true,
+      "rationale": "Decision correctly rejects universal card grid and ephemeral filter state. Dense table for desktop comparison and URL-persisted filters for return navigation are well-aligned with the scenario. Desktop-to-mobile transformation is differentiated (table vs. cards at 390px). Filter/page state preservation via URL is explicit. Evidence scope is good: cites desktop size range, operator return behavior, and identifies unknown filter combination frequencies. However, 'define loading/empty/error/stale states' is entirely absent from the answer — a material must_do for Stage 07 UX Architecture per the playbook and EVD-UX-003. No must_not_do violations: does not force cards on desktop, does not treat mobile as squeezed desktop, and does not ignore state recovery. Verification plan covers viewport testing and back-button/deep-link testing.",
+      "scores": {
+        "decision_correctness": 3,
+        "evidence_scope": 2,
+        "execution_closure": 1,
+        "risk_and_constraints": 1,
+        "traceability": 1,
+        "verification": 1
+      },
+      "stage_id": 7,
+      "total": 9
+    },
+    {
+      "hard_fail": false,
+      "id": "ADV-S08",
+      "must_do_missing": [
+        "specify focus/keyboard behavior for conflict UI if a dialog is used"
+      ],
+      "must_not_do_violations": [],
+      "pass": true,
+      "rationale": "Decision correctly replaces disabled-button illusion with explicit optimistic concurrency control (version checking on server, rejection of stale submits). State machine with conflict/stale state is defined. Client feedback is separated from authoritative server result. Recovery UI with merge/overwrite options provides a clear user path. However, the answer designs a recovery dialog-like UI ('presents Operator B's changes and asks for explicit merge or overwrite') but does not specify focus/keyboard behavior for this conflict UI — a required must_do when a dialog is used. Evidence is well-scoped with concurrent editing evidence and frequency unknown. No must_not_do violations: does not claim disabled Save prevents stale writes, does not silently overwrite, does not use toast-only resolution. Verification includes concurrent transition testing and server rejection verification.",
+      "scores": {
+        "decision_correctness": 3,
+        "evidence_scope": 2,
+        "execution_closure": 1,
+        "risk_and_constraints": 1,
+        "traceability": 1,
+        "verification": 1
+      },
+      "stage_id": 8,
+      "total": 9
+    },
+    {
+      "hard_fail": false,
+      "id": "ADV-S09",
+      "must_do_missing": [],
+      "must_not_do_violations": [],
+      "pass": true,
+      "rationale": "Decision correctly rejects axe-only compliance and identifies concrete remediation: replace div-based tabs with native/ARIA semantics, implement modal focus return, define keyboard model. All five must_dos are addressed: native semantics preferred with ARIA alternative; modal focus return behavior defined (entry is covered under 'focus lifecycle'); manual keyboard verification explicitly planned; validation/error associations are flagged as unknown and as residual risk (inline validation announcement concern), with AT checks in verification — while the verification plan focuses on modal/tab interactions rather than explicitly targeting validation associations, the concern is identified and the manual AT check scope could encompass it; automation is explicitly treated as partial evidence ('false negative for true operability'). Evidence is comprehensive: keyboard focus loss, div semantics, false negatives from automation, and unknown screen reader announcement for validation. No must_not_do violations. Residual risks about drag-and-drop keyboard alternatives and validation announcements are well-identified.",
+      "scores": {
+        "decision_correctness": 4,
+        "evidence_scope": 2,
+        "execution_closure": 1,
+        "risk_and_constraints": 1,
+        "traceability": 1,
+        "verification": 1
+      },
+      "stage_id": 9,
+      "total": 10
+    },
+    {
+      "hard_fail": false,
+      "id": "ADV-S10",
+      "must_do_missing": [
+        "preserve accessibility and semantic status cues"
+      ],
+      "must_not_do_violations": [],
+      "pass": true,
+      "rationale": "Decision correctly rejects the 'premium' redesign and the 1100px narrow column. Sets intentional high density for enterprise scanning/comparison. Removes decorative shadows and oversized padding. Hierarchy is addressed through task-serving density over decoration, though the mechanism (spacing/type/alignment) is implied rather than elaborated. Wide-screen utilization and realistic data testing are covered. However, 'preserve accessibility and semantic status cues' is entirely absent — the answer never mentions accessibility constraints, non-color status encoding, or semantic status indicators, which is a material gap for a Visual UI stage decision. Evidence scope is limited: two evidence points about 3200px and proposed redesign, one unknown about line-length, but no evidence about accessibility or status encoding. No must_not_do violations: does not equate whitespace/cards/shadows with quality, does not hide columns for screenshots, and while color-only encoding is not addressed, it is also not proposed. Verification includes realistic data and extreme width testing.",
+      "scores": {
+        "decision_correctness": 3,
+        "evidence_scope": 1,
+        "execution_closure": 1,
+        "risk_and_constraints": 1,
+        "traceability": 1,
+        "verification": 1
+      },
+      "stage_id": 10,
+      "total": 8
+    },
+    {
+      "hard_fail": false,
+      "id": "ADV-S11",
+      "must_do_missing": [
+        "assign ownership and migration/deprecation policy — ownership is only implicit (feature team's codebase) with no explicit maintainer assignment or deprecation/migration policy stated",
+        "use repeated overrides as feedback on abstraction quality — 'Measure reuse and exceptions' captures the feedback loop concept but does not explicitly frame repeated overrides as signals about the abstraction's fitness"
+      ],
+      "must_not_do_violations": [],
+      "pass": true,
+      "rationale": "Core decision is correct: keeps the one-off variant Local, rejects immediate Core promotion due to no reuse evidence and unstable keyboard/focus contract. References EVD-UX-005 appropriately. Evaluates semantic stability and reuse (must_do 1), keeps behavior local (must_do 2), and recognizes the accessibility contract gap as a blocker for promotion (must_do 3). Two must_dos are partially addressed: ownership is implicit rather than explicit, and override-as-feedback is captured in spirit ('measure exceptions') but not framed as abstraction quality signal. No must_not_do violations — the answer does not promote on visual similarity, does not inject business rules into Core, and does not ignore keyboard/focus guarantees. DECIDED completion state is appropriate since no implementation or verification has occurred. R1 classification is reasonable for a scoped local component decision.",
+      "scores": {
+        "decision_correctness": 3,
+        "evidence_scope": 2,
+        "execution_closure": 1,
+        "risk_and_constraints": 1,
+        "traceability": 1,
+        "verification": 1
+      },
+      "stage_id": 11,
+      "total": 9
+    },
+    {
+      "hard_fail": false,
+      "id": "ADV-S12",
+      "must_do_missing": [
+        "define loading/stale/error behavior for server state — completely unaddressed; no mention of how pending, stale, or error states for server data are represented after the refactor",
+        "use event-driven updates instead of effect chains — the answer removes effects but does not explicitly specify event-driven handlers as the replacement mechanism for state transitions"
+      ],
+      "must_not_do_violations": [],
+      "pass": true,
+      "rationale": "Correct directional decision: URL becomes the single source of truth, local React state for URL params is removed, synchronization effects are eliminated. References EVD-FE-001 and EVD-FE-002 accurately. Correctly identifies the dual source of truth as the root cause of stale filters and duplicate fetches. Verification plan covers back/forward navigation, shareable URLs, and duplicate fetch elimination — all required by must_do 5. Two significant must_dos are missing: (1) server state loading/stale/error behavior is never discussed despite the Stage 12 playbook requiring explicit async transition modeling, and (2) event-driven updates are implied by effect removal but not explicitly stated as the replacement pattern. No must_not_do violations — no new state copy, no effects for derived state, no timing guards. DECIDED state is correct. R2 is a reasonable classification for a material workflow refactor with bounded recovery.",
+      "scores": {
+        "decision_correctness": 3,
+        "evidence_scope": 2,
+        "execution_closure": 1,
+        "risk_and_constraints": 1,
+        "traceability": 1,
+        "verification": 1
+      },
+      "stage_id": 12,
+      "total": 9
+    },
+    {
+      "hard_fail": false,
+      "id": "ADV-S13",
+      "must_do_missing": [
+        "define authorization/business capability explicitly — CSRF protection is addressed but the answer does not define what business capability or authorization model the new endpoint enforces beyond anti-forgery; the scenario's cookie-based authentication is noted but no replacement authorization design is specified",
+        "define idempotency/retry and concurrency behavior — mentioned only in verification ('ensure idempotency where applicable') but never designed as an action; the actual idempotency mechanism (idempotency keys, natural deduplication, optimistic concurrency) is unspecified",
+        "separate durable mutation from external side effects if any — completely unaddressed; no analysis of whether the presence-list refresh triggers downstream effects that should be decoupled from the commit"
+      ],
+      "must_not_do_violations": [],
+      "pass": true,
+      "rationale": "Core decision is correct: rejects mutating GET, moves to POST/PUT with CSRF protection, and plans a migration path with deprecation timeline. References EVD-API-003 and correctly identifies HTTP method semantics, CSRF vulnerability, and retry unsafety. However, three must_dos have material gaps: authorization is reduced to CSRF token addition without defining the business capability model; idempotency appears only as a verification aspiration without a design; and mutation/side-effect separation is absent entirely. These gaps reduce evidence_scope to 1 since the authorization and side-effect dimensions are not covered in the evidence inventory. No must_not_do violations — the answer does not treat the cookie as sufficient, does not assume GET retries are harmless, and does not propose hiding rules in controller behavior. R3 classification is appropriate for a security-relevant endpoint change. DECIDED state is correct.",
+      "scores": {
+        "decision_correctness": 3,
+        "evidence_scope": 1,
+        "execution_closure": 1,
+        "risk_and_constraints": 1,
+        "traceability": 1,
+        "verification": 1
+      },
+      "stage_id": 13,
+      "total": 8
+    },
+    {
+      "hard_fail": false,
+      "id": "ADV-S14",
+      "must_do_missing": [
+        "define authoritative temporal semantics before backfill — the answer references 'domain rules' for translating historical DATE values but does not actually define what those temporal semantics are (e.g., what time does a DATE enrollment start represent? what is the boundary for same-day attendance?); the must_do requires definition before backfill, not deferral"
+      ],
+      "must_not_do_violations": [],
+      "pass": true,
+      "rationale": "Strong directional decision: explicitly rejects destructive ALTER with midnight default, adopts expand/migrate/switch/contract pattern, plans dual-write for mixed-version compatibility, and specifies resumable batched backfill. References EVD-DATA-002 and the DATA-CHANGE-PLAN template. Correctly identifies the constraints: historical rows, duplicate re-enrollments, and concurrent old application versions. The expand-contract path (must_do 2) is well articulated with clear phases. Mixed-version compatibility (must_do 5) is addressed through dual-write. Backfill is resumable and batched (must_do 4). The key gap is must_do 1: the answer says the backfill will use 'domain rules' to translate dates but never defines those rules, which the must_do requires before backfill design. For ambiguous historical rows (must_do 3), the answer rejects midnight assignment (good) but doesn't specify what explicit treatment replaces it for genuinely ambiguous cases. No must_not_do violations — midnight is rejected, expand-contract prevents destructive one-step migration, and applied migration history is not modified. R3 is appropriate. DECIDED state is correct.",
+      "scores": {
+        "decision_correctness": 3,
+        "evidence_scope": 2,
+        "execution_closure": 1,
+        "risk_and_constraints": 1,
+        "traceability": 1,
+        "verification": 1
+      },
+      "stage_id": 14,
+      "total": 9
+    },
+    {
+      "hard_fail": false,
+      "id": "ADV-S15",
+      "must_do_missing": [],
+      "must_not_do_violations": [],
+      "pass": true,
+      "rationale": "All five must_dos are substantively addressed. Duplicate enrollment is identified as the violated invariant with production evidence (must_do 1). Integration test against a real database is specified (must_do 2). Concurrent adversarial simulation is planned (must_do 3). Unit tests are properly scoped to business logic only, not concurrency proof (must_do 4). Regression evidence is tied to the exact guarantee via fail-without/pass-with methodology (must_do 5). No must_not_do violations — mocked call-count tests are explicitly rejected as concurrency proof, coverage is not used as closure criterion, and browser tests are not the strategy. The answer also correctly routes the database constraint fix to Stage 14 before Stage 15 verification, showing proper lifecycle awareness. EVD-QA-001 is referenced appropriately. Residual risk about similar patterns elsewhere is a valuable observation. R3 classification is appropriate for a concurrency/data-integrity guarantee. DECIDED state is correct per the Stage 15 completion-state guard: the test strategy is designed but not yet executed, which is DECIDED not VERIFIED.",
+      "scores": {
+        "decision_correctness": 4,
+        "evidence_scope": 2,
+        "execution_closure": 1,
+        "risk_and_constraints": 1,
+        "traceability": 1,
+        "verification": 1
+      },
+      "stage_id": 15,
+      "total": 10
+    },
+    {
+      "hard_fail": false,
+      "id": "ADV-S16",
+      "must_do_missing": [
+        "audit signals: answer defines negative authorization tests (403/404 for unauthorized roles and cross-institution access) but does not address audit signals for access-control events (logging denied authorization attempts, access patterns for detection/forensics)"
+      ],
+      "must_not_do_violations": [],
+      "pass": true,
+      "rationale": "Core decision is precisely correct: enforce server-side role and institution-context-based authorization, reject UI hiding as access control. Explicitly models IDOR/BOLA abuse cases. Distinguishes authentication (authenticated caller) from resource-level authorization (role + institution context checked against finance_account_id). Treats internal-only exposure as reduced but not eliminated risk. Risk classified R3/R4 with residual risks (compromised credentials, ID parsing vulnerabilities). Handoff to Stage 12/13 for implementation and Stage 15 for verification is explicit. Verification plan includes adversarial negative tests for both unauthorized roles and cross-scope access. Only gap is the omission of audit signals as a detection/containment layer alongside the prevention controls. No must_not_do violations: does not treat hidden UI as access control, does not authorize by object existence, does not propose logging billing payloads.",
+      "scores": {
+        "decision_correctness": 4,
+        "evidence_scope": 2,
+        "execution_closure": 1,
+        "risk_and_constraints": 1,
+        "traceability": 1,
+        "verification": 1
+      },
+      "stage_id": 16,
+      "total": 10
+    },
+    {
+      "hard_fail": false,
+      "id": "ADV-S17",
+      "must_do_missing": [],
+      "must_not_do_violations": [],
+      "pass": true,
+      "rationale": "Decision to block infrastructure/schema changes until performance budget is defined and baseline captured is exactly right for the scenario. Defines measurable budget with p95 latency and workload assumptions, satisfying the 'not average alone' constraint. Captures baseline via EXPLAIN plans, latency distributions, and resource saturation covering query plans/waits/resource signals. Explicitly rejects premature index or buffer pool changes without evidence. Profiles the actual bottleneck before tuning. Trade-offs addressed through residual risks (read-replica separation vs. operational workload conflict, buffer pool masking N+1/growth issues) and verification includes 'without degrading operational write performance.' Capacity assumptions implicit in workload model and representative dataset requirement. Completion state UNKNOWN is appropriate. Verification plan tests with representative data, not empty/small. No must_not_do violations.",
+      "scores": {
+        "decision_correctness": 4,
+        "evidence_scope": 2,
+        "execution_closure": 1,
+        "risk_and_constraints": 1,
+        "traceability": 1,
+        "verification": 1
+      },
+      "stage_id": 17,
+      "total": 10
+    },
+    {
+      "hard_fail": false,
+      "id": "ADV-S18",
+      "must_do_missing": [
+        "retain evidence of skipped/failed/retried checks: answer does not address how pipeline gate results (pass/fail/skip/retry) are persisted for release decisions, despite the stage playbook requiring 'Persist gate results' and the evidence standard requiring distinction between skipped, failed, retried and passed checks"
+      ],
+      "must_not_do_violations": [],
+      "pass": true,
+      "rationale": "Core decision is correct: enforce build-once-promote-immutable-artifact by digest, refactor Docker ARG build-time config to runtime injection, and couple migrations to artifact versions. Records commit/build/artifact digest through provenance metadata and verification of unique digest. Clearly distinguishes build-time config from runtime config/secrets. Migration compatibility is addressed via coupling migrations to artifact versions, though backward compatibility is noted as a residual risk rather than a gate. Explicitly rejects branch-name provenance and environment-specific rebuilds. Identifies the unknown about existing secrets in Docker ARGs. However, the answer does not address how evidence of skipped, failed, or retried pipeline checks is retained for release decision traceability, a specific must_do from the frozen criteria and a core requirement of STAGE-18-CI-CD.md. No must_not_do violations: does not infer provenance from branch, does not rebuild for production, does not expose secrets.",
+      "scores": {
+        "decision_correctness": 3,
+        "evidence_scope": 2,
+        "execution_closure": 1,
+        "risk_and_constraints": 1,
+        "traceability": 1,
+        "verification": 1
+      },
+      "stage_id": 18,
+      "total": 9
+    },
+    {
+      "hard_fail": false,
+      "id": "ADV-S19",
+      "must_do_missing": [
+        "verify exact artifact identity: answer documents migration state (Data Change Plan for 0027) and backup preflight but does not explicitly state verification of the exact artifact digest/SHA before production deployment, which is the first must_do and the first step in the stage playbook workflow",
+        "record stable-state evidence after observation: monitoring and thresholds are defined for the canary-to-full expansion decision, but recording the final stable-state evidence as an explicit artifact after the observation window is not stated"
+      ],
+      "must_not_do_violations": [],
+      "pass": true,
+      "rationale": "Decision quality is high: requires a Data Change Plan for migration 0027 covering side effects, locking, and rollback/forward-fix strategy; mandates staged rollout or canary for blast-radius control; defines explicit smoke checks and telemetry thresholds for the hierarchy sync job. Correctly identifies rollback uncertainty after derived-state writes and does not promise rollback without checking data reversibility. Completion state EXPLORED is appropriate. Residual risks (database contention under full load, undetected data corruption during canary) are realistic. However, two must_do items are not explicitly addressed: (1) verifying exact artifact identity before deployment, as the answer focuses on migration and rollout mechanics but omits the artifact digest/SHA verification step; (2) recording stable-state evidence as an explicit deliverable after the observation window. The S18 handoff partially compensates for artifact identity, and monitoring inherently produces evidence, but S19 should independently verify and record both. No must_not_do violations: does not equate CI green with production safety, does not promise rollback without data checks, does not declare immediate success.",
+      "scores": {
+        "decision_correctness": 3,
+        "evidence_scope": 2,
+        "execution_closure": 1,
+        "risk_and_constraints": 1,
+        "traceability": 1,
+        "verification": 1
+      },
+      "stage_id": 19,
+      "total": 9
+    },
+    {
+      "hard_fail": false,
+      "id": "ADV-S20",
+      "must_do_missing": [
+        "avoid logging sensitive message content unnecessarily: answer does not explicitly address the sensitive-data-in-telemetry concern despite the stage playbook listing it as a key question and the frozen criteria requiring it; the answer neither proposes nor prohibits logging SMS content, but the explicit acknowledgment is absent"
+      ],
+      "must_not_do_violations": [],
+      "pass": true,
+      "rationale": "Excellent decision that defines user-centric SLI ('SMS notifications successfully delivered within X minutes'), instruments correlation IDs linking outbox row to worker execution to SMS provider request, and instruments specific failure modes (permanently failed rows, lease expirations, provider latency). Explicitly distinguishes service liveness from user-visible delivery capability. Defines actionable alerts for conditions requiring human intervention (queue backlog, permanent failure spikes) rather than alerting on every transient retry. Rejects generic application logs as observability. Residual risks (unbounded outbox growth, lease-expiration-induced duplicates) are operationally relevant. Verification plan includes simulated failures to validate SLI degradation, correlation ID presence, and alert rule firing. The one gap is that the answer does not explicitly address avoiding sensitive SMS message content in telemetry, an omission rather than a violation, as no sensitive logging is proposed. No must_not_do violations: does not treat unstructured logs as observability, does not alert on every retry, does not declare delivery healthy from worker uptime alone.",
+      "scores": {
+        "decision_correctness": 4,
+        "evidence_scope": 2,
+        "execution_closure": 1,
+        "risk_and_constraints": 1,
+        "traceability": 1,
+        "verification": 1
+      },
+      "stage_id": 20,
+      "total": 10
+    },
+    {
+      "hard_fail": false,
+      "id": "ADV-S21",
+      "must_do_missing": [
+        "define incident ownership and follow-up for gaps"
+      ],
+      "must_not_do_violations": [],
+      "pass": true,
+      "rationale": "Core decision is correct and well-articulated: rejects vendor dashboard as recovery proof, declares RPO/RTO UNVERIFIED, plans isolated restore drill with real backup timestamp, and measures actual recovery metrics against business targets. Backup configuration is explicitly not treated as restore evidence (EVD-DR-001 cited). Schema/config compatibility is addressed through planned smoke tests. Residual risks (topology limitations, latent corruption) are identified. R3 classification is appropriate for DR. However, the answer has no action, reference, or discussion of incident ownership, severity definitions, escalation paths, or follow-up processes for gaps discovered during drills — a required must_do. All three must_not_do constraints are satisfied. completion_state UNVERIFIED and current_outcome IMPLEMENTED are consistent with the scenario (backups exist, restore not yet tested). Traceability to stage playbook, evidence anchor, and template is present.",
+      "scores": {
+        "decision_correctness": 4,
+        "evidence_scope": 1,
+        "execution_closure": 1,
+        "risk_and_constraints": 1,
+        "traceability": 1,
+        "verification": 1
+      },
+      "stage_id": 21,
+      "total": 9
+    },
+    {
+      "hard_fail": false,
+      "id": "ADV-S22",
+      "must_do_missing": [
+        "avoid causal claims from observational movement (not explicitly stated as an analytics plan constraint)"
+      ],
+      "must_not_do_violations": [],
+      "pass": true,
+      "rationale": "Decision correctly rejects vanity MAU and click-tracking in favor of outcome-first metric design rooted in enrollment success and correction/support guardrails. Semantic event taxonomy replaces DOM-click tracking. Metric tree and tracking plan artifacts are referenced. Identity/session semantics are acknowledged as a residual risk (double counting on device switch) and data-quality checks appear in verification, though neither is formalized as an explicit action in the plan. Metric denominator/cohort/window is implicitly covered through 'metric contracts' reference but not spelled out. The principle of avoiding causal claims from observational data is not explicitly stated anywhere in the answer — the answer doesn't violate it, but also doesn't establish it as a constraint for the analytics plan, which the must_do requires. All three must_not_do constraints are cleanly satisfied. R2 risk classification is appropriate. Handoff to implementation and outcome review stages is clear.",
+      "scores": {
+        "decision_correctness": 4,
+        "evidence_scope": 1,
+        "execution_closure": 1,
+        "risk_and_constraints": 1,
+        "traceability": 1,
+        "verification": 1
+      },
+      "stage_id": 22,
+      "total": 9
+    },
+    {
+      "hard_fail": false,
+      "id": "ADV-S23",
+      "must_do_missing": [
+        "state what evidence would justify broader rollout"
+      ],
+      "must_not_do_violations": [],
+      "pass": true,
+      "rationale": "Decision correctly rejects the A/B test on sound statistical and methodological grounds: insufficient eligible traffic (~40 institutions, few weekly conflict encounters) and SUTVA violations from cross-operator contamination within institutions. Proposes institution-level pilot or quasi-experiment as the appropriate evidence method. Assignment unit changed to institution level to address interference. Primary outcome and guardrails are predefined. Contamination is explicitly addressed both in the decision rationale (SUTVA) and as an unknown (behavioral contamination effects). However, the answer does not state what specific evidence or decision criteria would justify broader rollout beyond the pilot — the handoff mentions Stage 24 review but no explicit thresholds or conditions for scaling. All three must_not_do constraints are satisfied: no forced underpowered A/B, no session-level randomization, and the pilot approach avoids the non-significance-as-equivalence trap. R2 classification and residual risks (baseline variability, stakeholder skepticism) are reasonable.",
+      "scores": {
+        "decision_correctness": 4,
+        "evidence_scope": 1,
+        "execution_closure": 1,
+        "risk_and_constraints": 1,
+        "traceability": 1,
+        "verification": 1
+      },
+      "stage_id": 23,
+      "total": 9
+    },
+    {
+      "hard_fail": false,
+      "id": "ADV-S24",
+      "must_do_missing": [],
+      "must_not_do_violations": [],
+      "pass": true,
+      "rationale": "Decision correctly refuses to equate stable deployment with product success — the core principle of this stage. The answer explicitly distinguishes reliability success (stable error rates) from product outcome (operators still exporting to spreadsheets, support contacts shifted from 'can't find record' to 'can't compare groups'). Original outcome is reopened and compared against observed behavior. Evidence combination is strong: usage data (moderate filter adoption), support contact analysis (topic shift), and workaround evidence (persistent spreadsheet exports) are all integrated. The support contact shift is logged as a new opportunity rather than dismissed. Next action (investigate group comparison workflow) has a clear owner route (Stage 2 or Stage 7). The opportunity/assumption model is updated by recording the new friction point. All three must_not_do constraints are cleanly satisfied: deployment ≠ success is explicit, spreadsheet use is treated as material evidence, and no success metric redefinition occurs. Minor gap: actual exposure confirmation (who received the change and for how long) is not explicitly addressed, but this is a minor analytical step within an otherwise comprehensive evidence review. completion_state LEARNED is slightly aspirational given that the outcome review is proposed rather than completed, but the answer doesn't claim the work is done and correctly routes next steps.",
+      "scores": {
+        "decision_correctness": 4,
+        "evidence_scope": 2,
+        "execution_closure": 1,
+        "risk_and_constraints": 1,
+        "traceability": 1,
+        "verification": 1
+      },
+      "stage_id": 24,
+      "total": 10
+    },
+    {
+      "hard_fail": false,
+      "id": "ADV-S25",
+      "must_do_missing": [
+        "inspect affected downstream decisions/evals and keep project-local overrides separate"
+      ],
+      "must_not_do_violations": [],
+      "pass": true,
+      "rationale": "Decision correctly rejects the in-place edit of the old UDR, preserving the 2026-09-30 corpus history and provenance. New UI guidance is registered as a separate evidence claim in the source registry. Explicit supersession links are planned between old and new UDRs. The answer correctly questions whether the new guidance has behavioral eval evidence before promoting it, avoiding the trap of assuming newer publication date automatically wins. Scope/method/authority comparison is implied through the unknown about behavioral eval evidence. However, the answer lacks an explicit action to inspect which downstream decisions, projects, or evals are affected by the conflict — this is mentioned only as a residual risk (visual/behavioral inconsistency) and in the handoff (propagate to active projects), but not as an inspection action. Project-local overrides are not mentioned at all, which is the second part of the must_do. All three must_not_do constraints are satisfied: no in-place overwrite, no assumption that newer wins, and no claimed specialist review that didn't occur. R1 classification is reasonable for a governance decision. Behavioral verification of the new guidance before promotion is appropriately planned.",
+      "scores": {
+        "decision_correctness": 4,
+        "evidence_scope": 1,
+        "execution_closure": 1,
+        "risk_and_constraints": 1,
+        "traceability": 1,
+        "verification": 1
+      },
+      "stage_id": 25,
+      "total": 9
+    }
+  ]
+}

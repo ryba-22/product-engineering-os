@@ -1,0 +1,183 @@
+{
+  "cases": [
+    {
+      "actions": [
+        "Classify risk as R3/R4 due to the authorization boundary and sensitive billing data cross-tenant.",
+        "Reject the 'internal only' argument as it does not eliminate misuse or broken access control risks.",
+        "Threat-model the endpoint (EVD-SEC-003) specifically for Insecure Direct Object Reference (IDOR) and Broken Object Level Authorization (BOLA).",
+        "Define a strict security requirement that the endpoint must enforce server-side authorization, verifying the authenticated caller's role and institution context against the requested finance_account_id."
+      ],
+      "completion_state": "DECIDED",
+      "current_outcome": "An endpoint exists that trusts client-provided IDs without authorization checks, creating a critical vulnerability (IDOR), while the UI merely hides the access path.",
+      "decision": "Enforce server-side role and context-based authorization on the endpoint; do not rely on UI hiding.",
+      "evidence_and_unknowns": [
+        "Unknown: Are there other endpoints in the system relying on UI hiding for access control?",
+        "Evidence: UI hiding is not access control (STAGE-16-SECURITY.md).",
+        "Evidence: Internal networks do not eliminate authorization risks (STAGE-16-SECURITY.md)."
+      ],
+      "handoff": "Stage 12/13 (Software Engineering) for implementing the server-side authorization check; Stage 15 (Testing) for automated verification.",
+      "id": "ADV-S16",
+      "references": [
+        "STAGE-16-SECURITY.md",
+        "07-templates/THREAT-MODEL.md",
+        "EVD-SEC-003",
+        "EVD-SEC-004"
+      ],
+      "residual_risks": [
+        "Compromised coordinator or admin credentials could still be used to exfiltrate data.",
+        "Vulnerabilities in the ID parsing or validation logic itself."
+      ],
+      "risk_class": "R3",
+      "stage_id": 16,
+      "verification": [
+        "Implement automated contract/integration tests proving that unauthorized roles (institution users) receive a 403 Forbidden.",
+        "Implement adversarial tests proving that authorized roles requesting cross-institution IDs they do not own receive a 403 or 404."
+      ]
+    },
+    {
+      "actions": [
+        "Reject the immediate application of indexes or buffer pool changes without baseline evidence.",
+        "Define the performance budget (EVD-PERF-002) for the report query, specifying acceptable latency (e.g., p95) and workload assumptions.",
+        "Capture the baseline performance in a controlled environment using EXPLAIN plans, current latency distributions, and resource saturation metrics.",
+        "Profile the actual bottleneck based on the evidence before deciding on database tuning."
+      ],
+      "completion_state": "UNKNOWN",
+      "current_outcome": "A slow query is reported without a defined performance baseline, budget, or profiling evidence, prompting a premature guess-and-check tuning approach.",
+      "decision": "Block infrastructure and schema changes until a performance budget is defined and a baseline profile is captured.",
+      "evidence_and_unknowns": [
+        "Unknown: What is the current p95 latency of the report query?",
+        "Unknown: What is the acceptable performance budget for this report?",
+        "Unknown: What is the actual query execution plan and resource bottleneck?",
+        "Evidence: Optimize measured bottlenecks before micro-optimizing code (STAGE-17-PERFORMANCE.md)."
+      ],
+      "handoff": "Stage 14 (Database/persistence) to implement schema or config changes if profiling evidence justifies them, and Stage 20 for monitoring.",
+      "id": "ADV-S17",
+      "references": [
+        "STAGE-17-PERFORMANCE.md",
+        "07-templates/PERFORMANCE-BUDGET.md",
+        "EVD-PERF-002",
+        "EVD-PERF-003"
+      ],
+      "residual_risks": [
+        "The report query fundamentally conflicts with operational workloads, requiring read-replica separation.",
+        "Buffer pool tuning might temporarily mask a deeper N+1 or unbounded data growth issue."
+      ],
+      "risk_class": "R2",
+      "stage_id": 17,
+      "verification": [
+        "Reproduce the slow query in a controlled environment with a representative dataset.",
+        "Verify that any proposed fix meets the defined performance budget against the baseline without degrading operational write performance."
+      ]
+    },
+    {
+      "actions": [
+        "Block the rebuild of the image for production from the branch; enforce the 'build once, promote the exact artifact' rule.",
+        "Ensure the deployment to production uses the exact immutable artifact digest (EVD-DEL-003) that was tested and verified in staging.",
+        "Refactor the frontend build process to separate build-time configuration from runtime configuration, injecting environment variables at runtime instead of via Docker ARG.",
+        "Couple the execution of the database migrations to the deployment of the specific artifact version."
+      ],
+      "completion_state": "DECIDED",
+      "current_outcome": "The deployment pipeline allows rebuilding artifacts per environment, invalidating staging tests and breaking artifact provenance.",
+      "decision": "Enforce immutable artifact promotion from staging to production based on image digests, and move environment config to runtime.",
+      "evidence_and_unknowns": [
+        "Unknown: Are there existing secrets inadvertently baked into the current staging images due to Docker ARGs?",
+        "Evidence: Rebuilding on production can invalidate previously tested artifact evidence (STAGE-18-CI-CD.md).",
+        "Evidence: A branch name is not release provenance (STAGE-18-CI-CD.md)."
+      ],
+      "handoff": "Stage 19 (Deployment / rollout) to consume and deploy the immutable release candidate.",
+      "id": "ADV-S18",
+      "references": [
+        "STAGE-18-CI-CD.md",
+        "00-core/lifecycle.md",
+        "EVD-DEL-003"
+      ],
+      "residual_risks": [
+        "The mechanism for injecting runtime configuration into the frontend lacks validation and could fail silently on startup.",
+        "Backward compatibility of database migrations with the previous release is not guaranteed."
+      ],
+      "risk_class": "R2",
+      "stage_id": 18,
+      "verification": [
+        "Verify in CI that the pipeline produces an image with a unique digest and provenance metadata.",
+        "Verify in the deployment pipeline that the deployed digest exactly matches the staging-approved digest before proceeding."
+      ]
+    },
+    {
+      "actions": [
+        "Reject the one-step global deployment proposal due to high blast radius and unclear rollback safety.",
+        "Require a Data Change Plan documenting migration 0027's side effects, locking behavior, and forward-fix/rollback strategy.",
+        "Define a staged rollout or canary strategy (EVD-DEL-002) to expose a subset of institutions first.",
+        "Define explicit smoke checks and health telemetry thresholds for the hierarchy synchronization job to observe before expanding rollout."
+      ],
+      "completion_state": "EXPLORED",
+      "current_outcome": "A high-risk deployment with irreversible data changes and global impact is proposed without a safe rollout or recovery plan.",
+      "decision": "Require a Data Change Plan and enforce a staged rollout with explicit health checks before full exposure.",
+      "evidence_and_unknowns": [
+        "Unknown: Does migration 0027 lock tables or cause contention that degrades operational queries?",
+        "Unknown: Is it possible to safely roll back the application if the new derived state is already written?",
+        "Evidence: Rollback is not automatically safe after irreversible data changes (STAGE-19-DEPLOYMENT-ROLLOUT.md).",
+        "Evidence: Deployed is an intermediate state, not evidence of health (STAGE-19-DEPLOYMENT-ROLLOUT.md)."
+      ],
+      "handoff": "Stage 14 (Database) to author the Data Change Plan; Stage 20 (Observability) to monitor the rollout signals.",
+      "id": "ADV-S19",
+      "references": [
+        "STAGE-19-DEPLOYMENT-ROLLOUT.md",
+        "07-templates/DATA-CHANGE-PLAN.md",
+        "EVD-DEL-002",
+        "EVD-OPS-001"
+      ],
+      "residual_risks": [
+        "The hierarchy synchronization job introduces severe database contention under full production load.",
+        "Data corruption in the derived state goes unnoticed during the canary phase and requires manual reconciliation later."
+      ],
+      "risk_class": "R3",
+      "stage_id": 19,
+      "verification": [
+        "Perform preflight checks on database backup freshness.",
+        "Run post-deploy smoke tests on the canary institutions and verify critical availability paths.",
+        "Monitor telemetry of the sync job (latency, errors) against thresholds before expanding from canary to 100%."
+      ]
+    },
+    {
+      "actions": [
+        "Reject the proposal to just add generic application logs, as they do not answer specific operational questions.",
+        "Define an SLI based on the user capability: 'SMS notifications successfully delivered within X minutes'.",
+        "Instrument shared context (correlation IDs) linking the outbox row, the worker execution, and the external SMS provider request.",
+        "Instrument explicit metrics for known failure modes: permanently failed rows (retries exhausted), lease expirations, and provider latency.",
+        "Define actionable alerts for conditions requiring human intervention, such as queue backlog exceeding a threshold or spikes in permanent failures."
+      ],
+      "completion_state": "DECIDED",
+      "current_outcome": "An asynchronous worker process lacks visibility into failure modes, relying on aggregate liveness rather than user-centric capability health.",
+      "decision": "Define specific SLIs for notification delivery, instrument failure modes, and create actionable alerts rather than generic logs.",
+      "evidence_and_unknowns": [
+        "Unknown: Does the SMS provider silently drop messages while returning a 200 OK status?",
+        "Evidence: More logs are not automatically better observability (STAGE-20-OBSERVABILITY.md).",
+        "Evidence: Liveness alone is not user-visible availability (STAGE-20-OBSERVABILITY.md)."
+      ],
+      "handoff": "Stage 13 (Backend) to implement the structured telemetry, correlation IDs, and specific metrics.",
+      "id": "ADV-S20",
+      "references": [
+        "STAGE-20-OBSERVABILITY.md",
+        "07-templates/SLO.md",
+        "EVD-OBS-001",
+        "EVD-REL-002"
+      ],
+      "residual_risks": [
+        "The outbox table grows unbounded if permanently failed rows are not archived or deleted.",
+        "The external SMS provider introduces latency that causes lease expirations, leading to duplicate sends."
+      ],
+      "risk_class": "R2",
+      "stage_id": 20,
+      "verification": [
+        "Trigger simulated failures (e.g., provider timeouts, invalid payloads) in a test environment and verify that the SLI degrades and correlation IDs are present.",
+        "Verify that the defined alert rules fire correctly during the simulated failure scenarios."
+      ]
+    }
+  ],
+  "executor": {
+    "model": "gemini-3.1-pro-high",
+    "notes": "Strict adherence to Product Engineering OS rules. Addressed adversarial pressures by anchoring decisions in documented evidence and gates. Preserved scenario order and restricted claims to provided evidence.",
+    "provider": "Google"
+  },
+  "run_id": "INDEP-RUN-2026-10-03-01"
+}

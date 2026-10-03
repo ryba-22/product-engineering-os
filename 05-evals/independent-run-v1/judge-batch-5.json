@@ -1,0 +1,115 @@
+{
+  "cases": [
+    {
+      "hard_fail": false,
+      "id": "ADV-S21",
+      "must_do_missing": [
+        "define incident ownership and follow-up for gaps"
+      ],
+      "must_not_do_violations": [],
+      "pass": true,
+      "rationale": "Core decision is correct and well-articulated: rejects vendor dashboard as recovery proof, declares RPO/RTO UNVERIFIED, plans isolated restore drill with real backup timestamp, and measures actual recovery metrics against business targets. Backup configuration is explicitly not treated as restore evidence (EVD-DR-001 cited). Schema/config compatibility is addressed through planned smoke tests. Residual risks (topology limitations, latent corruption) are identified. R3 classification is appropriate for DR. However, the answer has no action, reference, or discussion of incident ownership, severity definitions, escalation paths, or follow-up processes for gaps discovered during drills — a required must_do. All three must_not_do constraints are satisfied. completion_state UNVERIFIED and current_outcome IMPLEMENTED are consistent with the scenario (backups exist, restore not yet tested). Traceability to stage playbook, evidence anchor, and template is present.",
+      "scores": {
+        "decision_correctness": 4,
+        "evidence_scope": 1,
+        "execution_closure": 1,
+        "risk_and_constraints": 1,
+        "traceability": 1,
+        "verification": 1
+      },
+      "stage_id": 21,
+      "total": 9
+    },
+    {
+      "hard_fail": false,
+      "id": "ADV-S22",
+      "must_do_missing": [
+        "avoid causal claims from observational movement (not explicitly stated as an analytics plan constraint)"
+      ],
+      "must_not_do_violations": [],
+      "pass": true,
+      "rationale": "Decision correctly rejects vanity MAU and click-tracking in favor of outcome-first metric design rooted in enrollment success and correction/support guardrails. Semantic event taxonomy replaces DOM-click tracking. Metric tree and tracking plan artifacts are referenced. Identity/session semantics are acknowledged as a residual risk (double counting on device switch) and data-quality checks appear in verification, though neither is formalized as an explicit action in the plan. Metric denominator/cohort/window is implicitly covered through 'metric contracts' reference but not spelled out. The principle of avoiding causal claims from observational data is not explicitly stated anywhere in the answer — the answer doesn't violate it, but also doesn't establish it as a constraint for the analytics plan, which the must_do requires. All three must_not_do constraints are cleanly satisfied. R2 risk classification is appropriate. Handoff to implementation and outcome review stages is clear.",
+      "scores": {
+        "decision_correctness": 4,
+        "evidence_scope": 1,
+        "execution_closure": 1,
+        "risk_and_constraints": 1,
+        "traceability": 1,
+        "verification": 1
+      },
+      "stage_id": 22,
+      "total": 9
+    },
+    {
+      "hard_fail": false,
+      "id": "ADV-S23",
+      "must_do_missing": [
+        "state what evidence would justify broader rollout"
+      ],
+      "must_not_do_violations": [],
+      "pass": true,
+      "rationale": "Decision correctly rejects the A/B test on sound statistical and methodological grounds: insufficient eligible traffic (~40 institutions, few weekly conflict encounters) and SUTVA violations from cross-operator contamination within institutions. Proposes institution-level pilot or quasi-experiment as the appropriate evidence method. Assignment unit changed to institution level to address interference. Primary outcome and guardrails are predefined. Contamination is explicitly addressed both in the decision rationale (SUTVA) and as an unknown (behavioral contamination effects). However, the answer does not state what specific evidence or decision criteria would justify broader rollout beyond the pilot — the handoff mentions Stage 24 review but no explicit thresholds or conditions for scaling. All three must_not_do constraints are satisfied: no forced underpowered A/B, no session-level randomization, and the pilot approach avoids the non-significance-as-equivalence trap. R2 classification and residual risks (baseline variability, stakeholder skepticism) are reasonable.",
+      "scores": {
+        "decision_correctness": 4,
+        "evidence_scope": 1,
+        "execution_closure": 1,
+        "risk_and_constraints": 1,
+        "traceability": 1,
+        "verification": 1
+      },
+      "stage_id": 23,
+      "total": 9
+    },
+    {
+      "hard_fail": false,
+      "id": "ADV-S24",
+      "must_do_missing": [],
+      "must_not_do_violations": [],
+      "pass": true,
+      "rationale": "Decision correctly refuses to equate stable deployment with product success — the core principle of this stage. The answer explicitly distinguishes reliability success (stable error rates) from product outcome (operators still exporting to spreadsheets, support contacts shifted from 'can't find record' to 'can't compare groups'). Original outcome is reopened and compared against observed behavior. Evidence combination is strong: usage data (moderate filter adoption), support contact analysis (topic shift), and workaround evidence (persistent spreadsheet exports) are all integrated. The support contact shift is logged as a new opportunity rather than dismissed. Next action (investigate group comparison workflow) has a clear owner route (Stage 2 or Stage 7). The opportunity/assumption model is updated by recording the new friction point. All three must_not_do constraints are cleanly satisfied: deployment ≠ success is explicit, spreadsheet use is treated as material evidence, and no success metric redefinition occurs. Minor gap: actual exposure confirmation (who received the change and for how long) is not explicitly addressed, but this is a minor analytical step within an otherwise comprehensive evidence review. completion_state LEARNED is slightly aspirational given that the outcome review is proposed rather than completed, but the answer doesn't claim the work is done and correctly routes next steps.",
+      "scores": {
+        "decision_correctness": 4,
+        "evidence_scope": 2,
+        "execution_closure": 1,
+        "risk_and_constraints": 1,
+        "traceability": 1,
+        "verification": 1
+      },
+      "stage_id": 24,
+      "total": 10
+    },
+    {
+      "hard_fail": false,
+      "id": "ADV-S25",
+      "must_do_missing": [
+        "inspect affected downstream decisions/evals and keep project-local overrides separate"
+      ],
+      "must_not_do_violations": [],
+      "pass": true,
+      "rationale": "Decision correctly rejects the in-place edit of the old UDR, preserving the 2026-09-30 corpus history and provenance. New UI guidance is registered as a separate evidence claim in the source registry. Explicit supersession links are planned between old and new UDRs. The answer correctly questions whether the new guidance has behavioral eval evidence before promoting it, avoiding the trap of assuming newer publication date automatically wins. Scope/method/authority comparison is implied through the unknown about behavioral eval evidence. However, the answer lacks an explicit action to inspect which downstream decisions, projects, or evals are affected by the conflict — this is mentioned only as a residual risk (visual/behavioral inconsistency) and in the handoff (propagate to active projects), but not as an inspection action. Project-local overrides are not mentioned at all, which is the second part of the must_do. All three must_not_do constraints are satisfied: no in-place overwrite, no assumption that newer wins, and no claimed specialist review that didn't occur. R1 classification is reasonable for a governance decision. Behavioral verification of the new guidance before promotion is appropriately planned.",
+      "scores": {
+        "decision_correctness": 4,
+        "evidence_scope": 1,
+        "execution_closure": 1,
+        "risk_and_constraints": 1,
+        "traceability": 1,
+        "verification": 1
+      },
+      "stage_id": 25,
+      "total": 9
+    }
+  ],
+  "judge": {
+    "model": "claude-opus-4-6-thinking",
+    "notes": "Independent blind judge. Evaluated each executor answer strictly against frozen case criteria, stage playbooks, evidence anchors, lifecycle state semantics, and hard-fail conditions. No prior self-assessment or prior judge results were consulted.",
+    "provider": "Anthropic"
+  },
+  "run_id": "INDEP-RUN-2026-10-03-01",
+  "summary": {
+    "average_score": 9.2,
+    "failed": 0,
+    "hard_failures": [],
+    "passed": 5,
+    "total": 5
+  }
+}

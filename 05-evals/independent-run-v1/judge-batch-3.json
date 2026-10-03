@@ -1,0 +1,119 @@
+{
+  "cases": [
+    {
+      "hard_fail": false,
+      "id": "ADV-S11",
+      "must_do_missing": [
+        "assign ownership and migration/deprecation policy — ownership is only implicit (feature team's codebase) with no explicit maintainer assignment or deprecation/migration policy stated",
+        "use repeated overrides as feedback on abstraction quality — 'Measure reuse and exceptions' captures the feedback loop concept but does not explicitly frame repeated overrides as signals about the abstraction's fitness"
+      ],
+      "must_not_do_violations": [],
+      "pass": true,
+      "rationale": "Core decision is correct: keeps the one-off variant Local, rejects immediate Core promotion due to no reuse evidence and unstable keyboard/focus contract. References EVD-UX-005 appropriately. Evaluates semantic stability and reuse (must_do 1), keeps behavior local (must_do 2), and recognizes the accessibility contract gap as a blocker for promotion (must_do 3). Two must_dos are partially addressed: ownership is implicit rather than explicit, and override-as-feedback is captured in spirit ('measure exceptions') but not framed as abstraction quality signal. No must_not_do violations — the answer does not promote on visual similarity, does not inject business rules into Core, and does not ignore keyboard/focus guarantees. DECIDED completion state is appropriate since no implementation or verification has occurred. R1 classification is reasonable for a scoped local component decision.",
+      "scores": {
+        "decision_correctness": 3,
+        "evidence_scope": 2,
+        "execution_closure": 1,
+        "risk_and_constraints": 1,
+        "traceability": 1,
+        "verification": 1
+      },
+      "stage_id": 11,
+      "total": 9
+    },
+    {
+      "hard_fail": false,
+      "id": "ADV-S12",
+      "must_do_missing": [
+        "define loading/stale/error behavior for server state — completely unaddressed; no mention of how pending, stale, or error states for server data are represented after the refactor",
+        "use event-driven updates instead of effect chains — the answer removes effects but does not explicitly specify event-driven handlers as the replacement mechanism for state transitions"
+      ],
+      "must_not_do_violations": [],
+      "pass": true,
+      "rationale": "Correct directional decision: URL becomes the single source of truth, local React state for URL params is removed, synchronization effects are eliminated. References EVD-FE-001 and EVD-FE-002 accurately. Correctly identifies the dual source of truth as the root cause of stale filters and duplicate fetches. Verification plan covers back/forward navigation, shareable URLs, and duplicate fetch elimination — all required by must_do 5. Two significant must_dos are missing: (1) server state loading/stale/error behavior is never discussed despite the Stage 12 playbook requiring explicit async transition modeling, and (2) event-driven updates are implied by effect removal but not explicitly stated as the replacement pattern. No must_not_do violations — no new state copy, no effects for derived state, no timing guards. DECIDED state is correct. R2 is a reasonable classification for a material workflow refactor with bounded recovery.",
+      "scores": {
+        "decision_correctness": 3,
+        "evidence_scope": 2,
+        "execution_closure": 1,
+        "risk_and_constraints": 1,
+        "traceability": 1,
+        "verification": 1
+      },
+      "stage_id": 12,
+      "total": 9
+    },
+    {
+      "hard_fail": false,
+      "id": "ADV-S13",
+      "must_do_missing": [
+        "define authorization/business capability explicitly — CSRF protection is addressed but the answer does not define what business capability or authorization model the new endpoint enforces beyond anti-forgery; the scenario's cookie-based authentication is noted but no replacement authorization design is specified",
+        "define idempotency/retry and concurrency behavior — mentioned only in verification ('ensure idempotency where applicable') but never designed as an action; the actual idempotency mechanism (idempotency keys, natural deduplication, optimistic concurrency) is unspecified",
+        "separate durable mutation from external side effects if any — completely unaddressed; no analysis of whether the presence-list refresh triggers downstream effects that should be decoupled from the commit"
+      ],
+      "must_not_do_violations": [],
+      "pass": true,
+      "rationale": "Core decision is correct: rejects mutating GET, moves to POST/PUT with CSRF protection, and plans a migration path with deprecation timeline. References EVD-API-003 and correctly identifies HTTP method semantics, CSRF vulnerability, and retry unsafety. However, three must_dos have material gaps: authorization is reduced to CSRF token addition without defining the business capability model; idempotency appears only as a verification aspiration without a design; and mutation/side-effect separation is absent entirely. These gaps reduce evidence_scope to 1 since the authorization and side-effect dimensions are not covered in the evidence inventory. No must_not_do violations — the answer does not treat the cookie as sufficient, does not assume GET retries are harmless, and does not propose hiding rules in controller behavior. R3 classification is appropriate for a security-relevant endpoint change. DECIDED state is correct.",
+      "scores": {
+        "decision_correctness": 3,
+        "evidence_scope": 1,
+        "execution_closure": 1,
+        "risk_and_constraints": 1,
+        "traceability": 1,
+        "verification": 1
+      },
+      "stage_id": 13,
+      "total": 8
+    },
+    {
+      "hard_fail": false,
+      "id": "ADV-S14",
+      "must_do_missing": [
+        "define authoritative temporal semantics before backfill — the answer references 'domain rules' for translating historical DATE values but does not actually define what those temporal semantics are (e.g., what time does a DATE enrollment start represent? what is the boundary for same-day attendance?); the must_do requires definition before backfill, not deferral"
+      ],
+      "must_not_do_violations": [],
+      "pass": true,
+      "rationale": "Strong directional decision: explicitly rejects destructive ALTER with midnight default, adopts expand/migrate/switch/contract pattern, plans dual-write for mixed-version compatibility, and specifies resumable batched backfill. References EVD-DATA-002 and the DATA-CHANGE-PLAN template. Correctly identifies the constraints: historical rows, duplicate re-enrollments, and concurrent old application versions. The expand-contract path (must_do 2) is well articulated with clear phases. Mixed-version compatibility (must_do 5) is addressed through dual-write. Backfill is resumable and batched (must_do 4). The key gap is must_do 1: the answer says the backfill will use 'domain rules' to translate dates but never defines those rules, which the must_do requires before backfill design. For ambiguous historical rows (must_do 3), the answer rejects midnight assignment (good) but doesn't specify what explicit treatment replaces it for genuinely ambiguous cases. No must_not_do violations — midnight is rejected, expand-contract prevents destructive one-step migration, and applied migration history is not modified. R3 is appropriate. DECIDED state is correct.",
+      "scores": {
+        "decision_correctness": 3,
+        "evidence_scope": 2,
+        "execution_closure": 1,
+        "risk_and_constraints": 1,
+        "traceability": 1,
+        "verification": 1
+      },
+      "stage_id": 14,
+      "total": 9
+    },
+    {
+      "hard_fail": false,
+      "id": "ADV-S15",
+      "must_do_missing": [],
+      "must_not_do_violations": [],
+      "pass": true,
+      "rationale": "All five must_dos are substantively addressed. Duplicate enrollment is identified as the violated invariant with production evidence (must_do 1). Integration test against a real database is specified (must_do 2). Concurrent adversarial simulation is planned (must_do 3). Unit tests are properly scoped to business logic only, not concurrency proof (must_do 4). Regression evidence is tied to the exact guarantee via fail-without/pass-with methodology (must_do 5). No must_not_do violations — mocked call-count tests are explicitly rejected as concurrency proof, coverage is not used as closure criterion, and browser tests are not the strategy. The answer also correctly routes the database constraint fix to Stage 14 before Stage 15 verification, showing proper lifecycle awareness. EVD-QA-001 is referenced appropriately. Residual risk about similar patterns elsewhere is a valuable observation. R3 classification is appropriate for a concurrency/data-integrity guarantee. DECIDED state is correct per the Stage 15 completion-state guard: the test strategy is designed but not yet executed, which is DECIDED not VERIFIED.",
+      "scores": {
+        "decision_correctness": 4,
+        "evidence_scope": 2,
+        "execution_closure": 1,
+        "risk_and_constraints": 1,
+        "traceability": 1,
+        "verification": 1
+      },
+      "stage_id": 15,
+      "total": 10
+    }
+  ],
+  "judge": {
+    "model": "claude-opus-4-6-thinking",
+    "notes": "Independent blinded judge evaluation. Scored strictly against frozen case criteria and OS runtime rules. No prior self-assessment or judge results were consulted. Each must_do was checked for substantive coverage, not just keyword mention. Evidence_scope scored for dimensional coverage of the problem space. Completion states validated against Stage 15 completion-state guard and lifecycle state semantics.",
+    "provider": "Anthropic"
+  },
+  "run_id": "INDEP-RUN-2026-10-03-01",
+  "summary": {
+    "average_score": 9,
+    "failed": 0,
+    "hard_failures": [],
+    "passed": 5,
+    "total": 5
+  }
+}

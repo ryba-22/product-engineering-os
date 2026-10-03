@@ -32,3 +32,6 @@ Deep Stage Pass: added 25 stage-specific operational playbooks, made them canoni
 
 ### Behavioral “very strong” rule
 A stage can be called behaviorally very strong only after representative and adversarial executions demonstrate decision quality, evidence discipline, failure handling and correct handoff. File presence, word count, IDs and linked eval specifications are necessary but not sufficient.
+
+## Wave 9 — COMPLETE: Independent behavioral validation
+Independent executor/judge separation completed on the frozen 25-stage adversarial suite. Gemini 3.1 Pro executed blinded cases; Claude Opus 4.6 independently judged them. Final result: 25/25 pass, zero hard failures, average 9.12/10. Status is scoped to this eval set; judge-identified omissions remain an explicit improvement backlog.

@@ -1,0 +1,211 @@
+{
+  "run_id": "INDEP-RUN-2026-10-03-01",
+  "items": [
+    {
+      "case_id": "ADV-S01",
+      "stage_id": 1,
+      "score": 9,
+      "must_do_missing": [
+        "surface hard versus assumed constraints: the 2-week deadline is recorded as a constraint to 'evaluate feasibility against' but is never explicitly classified as hard or assumed; no other constraints (technical, organizational) are surfaced or classified"
+      ],
+      "must_not_do_violations": [],
+      "action": "Review as corpus/playbook improvement candidate; do not alter frozen eval criteria post hoc."
+    },
+    {
+      "case_id": "ADV-S02",
+      "stage_id": 2,
+      "score": 9,
+      "must_do_missing": [
+        "state when discovery can stop: handoff condition is vaguely stated as 'once discovery yields decision-changing findings' without specifying concrete stop criteria or what constitutes sufficient evidence",
+        "triangulate support/operational evidence where useful: support logs are referenced as evidence and contextual observation is planned, but an explicit triangulation strategy combining multiple evidence sources is not articulated"
+      ],
+      "must_not_do_violations": [],
+      "action": "Review as corpus/playbook improvement candidate; do not alter frozen eval criteria post hoc."
+    },
+    {
+      "case_id": "ADV-S04",
+      "stage_id": 4,
+      "score": 9,
+      "must_do_missing": [
+        "state quality/security/data constraints when material: the system handles PII (phone numbers), billing data, and mass SMS sending with consent/compliance implications, yet no explicit data protection, privacy, consent, or PII-handling constraints are stated as requirements"
+      ],
+      "must_not_do_violations": [],
+      "action": "Review as corpus/playbook improvement candidate; do not alter frozen eval criteria post hoc."
+    },
+    {
+      "case_id": "ADV-S05",
+      "stage_id": 5,
+      "score": 9,
+      "must_do_missing": [
+        "keep shared physical storage separate from logical ownership if legacy constraints require it: the answer rejects the shared-table approach via ADR but does not address the scenario where legacy constraints actually force shared physical storage—the playbook requires acknowledging that physical sharing may be unavoidable while logical ownership remains separate"
+      ],
+      "must_not_do_violations": [],
+      "action": "Review as corpus/playbook improvement candidate; do not alter frozen eval criteria post hoc."
+    },
+    {
+      "case_id": "ADV-S06",
+      "stage_id": 6,
+      "score": 8,
+      "must_do_missing": [
+        "analyze failure/operational costs of added infrastructure"
+      ],
+      "must_not_do_violations": [],
+      "action": "Review as corpus/playbook improvement candidate; do not alter frozen eval criteria post hoc."
+    },
+    {
+      "case_id": "ADV-S07",
+      "stage_id": 7,
+      "score": 9,
+      "must_do_missing": [
+        "define loading/empty/error/stale states"
+      ],
+      "must_not_do_violations": [],
+      "action": "Review as corpus/playbook improvement candidate; do not alter frozen eval criteria post hoc."
+    },
+    {
+      "case_id": "ADV-S08",
+      "stage_id": 8,
+      "score": 9,
+      "must_do_missing": [
+        "specify focus/keyboard behavior for conflict UI if a dialog is used"
+      ],
+      "must_not_do_violations": [],
+      "action": "Review as corpus/playbook improvement candidate; do not alter frozen eval criteria post hoc."
+    },
+    {
+      "case_id": "ADV-S10",
+      "stage_id": 10,
+      "score": 8,
+      "must_do_missing": [
+        "preserve accessibility and semantic status cues"
+      ],
+      "must_not_do_violations": [],
+      "action": "Review as corpus/playbook improvement candidate; do not alter frozen eval criteria post hoc."
+    },
+    {
+      "case_id": "ADV-S11",
+      "stage_id": 11,
+      "score": 9,
+      "must_do_missing": [
+        "assign ownership and migration/deprecation policy — ownership is only implicit (feature team's codebase) with no explicit maintainer assignment or deprecation/migration policy stated",
+        "use repeated overrides as feedback on abstraction quality — 'Measure reuse and exceptions' captures the feedback loop concept but does not explicitly frame repeated overrides as signals about the abstraction's fitness"
+      ],
+      "must_not_do_violations": [],
+      "action": "Review as corpus/playbook improvement candidate; do not alter frozen eval criteria post hoc."
+    },
+    {
+      "case_id": "ADV-S12",
+      "stage_id": 12,
+      "score": 9,
+      "must_do_missing": [
+        "define loading/stale/error behavior for server state — completely unaddressed; no mention of how pending, stale, or error states for server data are represented after the refactor",
+        "use event-driven updates instead of effect chains — the answer removes effects but does not explicitly specify event-driven handlers as the replacement mechanism for state transitions"
+      ],
+      "must_not_do_violations": [],
+      "action": "Review as corpus/playbook improvement candidate; do not alter frozen eval criteria post hoc."
+    },
+    {
+      "case_id": "ADV-S13",
+      "stage_id": 13,
+      "score": 8,
+      "must_do_missing": [
+        "define authorization/business capability explicitly — CSRF protection is addressed but the answer does not define what business capability or authorization model the new endpoint enforces beyond anti-forgery; the scenario's cookie-based authentication is noted but no replacement authorization design is specified",
+        "define idempotency/retry and concurrency behavior — mentioned only in verification ('ensure idempotency where applicable') but never designed as an action; the actual idempotency mechanism (idempotency keys, natural deduplication, optimistic concurrency) is unspecified",
+        "separate durable mutation from external side effects if any — completely unaddressed; no analysis of whether the presence-list refresh triggers downstream effects that should be decoupled from the commit"
+      ],
+      "must_not_do_violations": [],
+      "action": "Review as corpus/playbook improvement candidate; do not alter frozen eval criteria post hoc."
+    },
+    {
+      "case_id": "ADV-S14",
+      "stage_id": 14,
+      "score": 9,
+      "must_do_missing": [
+        "define authoritative temporal semantics before backfill — the answer references 'domain rules' for translating historical DATE values but does not actually define what those temporal semantics are (e.g., what time does a DATE enrollment start represent? what is the boundary for same-day attendance?); the must_do requires definition before backfill, not deferral"
+      ],
+      "must_not_do_violations": [],
+      "action": "Review as corpus/playbook improvement candidate; do not alter frozen eval criteria post hoc."
+    },
+    {
+      "case_id": "ADV-S16",
+      "stage_id": 16,
+      "score": 10,
+      "must_do_missing": [
+        "audit signals: answer defines negative authorization tests (403/404 for unauthorized roles and cross-institution access) but does not address audit signals for access-control events (logging denied authorization attempts, access patterns for detection/forensics)"
+      ],
+      "must_not_do_violations": [],
+      "action": "Review as corpus/playbook improvement candidate; do not alter frozen eval criteria post hoc."
+    },
+    {
+      "case_id": "ADV-S18",
+      "stage_id": 18,
+      "score": 9,
+      "must_do_missing": [
+        "retain evidence of skipped/failed/retried checks: answer does not address how pipeline gate results (pass/fail/skip/retry) are persisted for release decisions, despite the stage playbook requiring 'Persist gate results' and the evidence standard requiring distinction between skipped, failed, retried and passed checks"
+      ],
+      "must_not_do_violations": [],
+      "action": "Review as corpus/playbook improvement candidate; do not alter frozen eval criteria post hoc."
+    },
+    {
+      "case_id": "ADV-S19",
+      "stage_id": 19,
+      "score": 9,
+      "must_do_missing": [
+        "verify exact artifact identity: answer documents migration state (Data Change Plan for 0027) and backup preflight but does not explicitly state verification of the exact artifact digest/SHA before production deployment, which is the first must_do and the first step in the stage playbook workflow",
+        "record stable-state evidence after observation: monitoring and thresholds are defined for the canary-to-full expansion decision, but recording the final stable-state evidence as an explicit artifact after the observation window is not stated"
+      ],
+      "must_not_do_violations": [],
+      "action": "Review as corpus/playbook improvement candidate; do not alter frozen eval criteria post hoc."
+    },
+    {
+      "case_id": "ADV-S20",
+      "stage_id": 20,
+      "score": 10,
+      "must_do_missing": [
+        "avoid logging sensitive message content unnecessarily: answer does not explicitly address the sensitive-data-in-telemetry concern despite the stage playbook listing it as a key question and the frozen criteria requiring it; the answer neither proposes nor prohibits logging SMS content, but the explicit acknowledgment is absent"
+      ],
+      "must_not_do_violations": [],
+      "action": "Review as corpus/playbook improvement candidate; do not alter frozen eval criteria post hoc."
+    },
+    {
+      "case_id": "ADV-S21",
+      "stage_id": 21,
+      "score": 9,
+      "must_do_missing": [
+        "define incident ownership and follow-up for gaps"
+      ],
+      "must_not_do_violations": [],
+      "action": "Review as corpus/playbook improvement candidate; do not alter frozen eval criteria post hoc."
+    },
+    {
+      "case_id": "ADV-S22",
+      "stage_id": 22,
+      "score": 9,
+      "must_do_missing": [
+        "avoid causal claims from observational movement (not explicitly stated as an analytics plan constraint)"
+      ],
+      "must_not_do_violations": [],
+      "action": "Review as corpus/playbook improvement candidate; do not alter frozen eval criteria post hoc."
+    },
+    {
+      "case_id": "ADV-S23",
+      "stage_id": 23,
+      "score": 9,
+      "must_do_missing": [
+        "state what evidence would justify broader rollout"
+      ],
+      "must_not_do_violations": [],
+      "action": "Review as corpus/playbook improvement candidate; do not alter frozen eval criteria post hoc."
+    },
+    {
+      "case_id": "ADV-S25",
+      "stage_id": 25,
+      "score": 9,
+      "must_do_missing": [
+        "inspect affected downstream decisions/evals and keep project-local overrides separate"
+      ],
+      "must_not_do_violations": [],
+      "action": "Review as corpus/playbook improvement candidate; do not alter frozen eval criteria post hoc."
+    }
+  ]
+}
