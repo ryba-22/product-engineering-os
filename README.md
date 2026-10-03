@@ -68,12 +68,14 @@ Templates are intentionally short because they are forms to fill. Evidence state
 
 Short-file policy is executable: `scripts/audit_content_depth.py` fails when a substantive Markdown knowledge file falls below the depth floor unless it belongs to an explicitly concise category such as a module contract, template, adapter/crosswalk or skill router.
 
-`11-maturity/stage-coverage.json` distinguishes **deep-structural** coverage from behavioral effectiveness. Structural/depth checks can prove the knowledge package is present and connected; only executed evaluations can support behavioral claims.
+`11-maturity/stage-coverage.json` distinguishes **deep-structural** coverage from behavioral effectiveness. Structural/depth checks can prove the knowledge package is present and connected; only executed evaluations can support behavioral claims. The frozen 25-stage adversarial suite has now also passed two independent executions/judgments; the second run is explicitly treated as repeatability evidence, not unseen-distribution proof.
 
 
 ## Current behavioral evidence
 
 The package has completed `INDEP-RUN-2026-10-03-01`: the same frozen 25-stage adversarial suite was executed by Google Gemini 3.1 Pro (High) with judge criteria hidden, then independently scored by Anthropic Claude Opus 4.6 (Thinking). Result: **25/25 pass, 0 hard failures, 9.12/10 average**. The maturity claim is deliberately scoped to that frozen suite; judge-noted omissions remain tracked in `05-evals/independent-run-v1/weakness-backlog.json`.
+
+A fresh replication, `INDEP-REPL-2026-10-03-01`, again produced **25/25 pass and 0 hard failures** using a one-shot Gemini 3.1 Pro High executor and a separate first-party Claude Opus 4.6 judge. The deterministic average from the 25 case totals is **9.16/10**; the exact judge model output (which misreported that arithmetic field as 9.12) is preserved alongside the normalization record in `05-evals/independent-replication-v1/`.
 
 ## Package layout
 

@@ -1,0 +1,24 @@
+{
+  "type": "deterministic-summary-normalization",
+  "reason": "The independent Claude judge returned a summary.average_score of 9.12, while the 25 immutable per-case totals sum to 229, which deterministically yields 9.16. No per-case score, pass/fail, hard-fail, rationale, or criterion judgment was changed.",
+  "model_output_file": "05-evals/independent-replication-v1/judge-model-output.json",
+  "model_output_sha256": "5bae8083e47cdbe4fdf32051dc93938a6b4ceb2738607e5d8770b5bdc74ab657",
+  "original_summary": {
+    "total": 25,
+    "passed": 25,
+    "failed": 0,
+    "average_score": 9.12,
+    "hard_failures": []
+  },
+  "normalized_result_file": "05-evals/independent-replication-v1/judge-results.json",
+  "normalized_summary": {
+    "total": 25,
+    "passed": 25,
+    "failed": 0,
+    "average_score": 9.16,
+    "hard_failures": []
+  },
+  "formula": "round(sum(case.total)/25, 2)",
+  "sum_case_totals": 229,
+  "case_count": 25
+}

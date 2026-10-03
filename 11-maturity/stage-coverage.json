@@ -36,7 +36,11 @@
       "behavioral_evidence": "05-evals/independent-run-v1/judge-results.json",
       "behavioral_independent": true,
       "behavioral_score": 9,
-      "behavioral_hard_fail": false
+      "behavioral_hard_fail": false,
+      "behavioral_replication_run_id": "INDEP-REPL-2026-10-03-01",
+      "behavioral_replication_evidence": "05-evals/independent-replication-v1/judge-results.json",
+      "behavioral_replication_score": 9,
+      "behavioral_replication_hard_fail": false
     },
     {
       "id": 2,
@@ -72,7 +76,11 @@
       "behavioral_evidence": "05-evals/independent-run-v1/judge-results.json",
       "behavioral_independent": true,
       "behavioral_score": 9,
-      "behavioral_hard_fail": false
+      "behavioral_hard_fail": false,
+      "behavioral_replication_run_id": "INDEP-REPL-2026-10-03-01",
+      "behavioral_replication_evidence": "05-evals/independent-replication-v1/judge-results.json",
+      "behavioral_replication_score": 8,
+      "behavioral_replication_hard_fail": false
     },
     {
       "id": 3,
@@ -108,7 +116,11 @@
       "behavioral_evidence": "05-evals/independent-run-v1/judge-results.json",
       "behavioral_independent": true,
       "behavioral_score": 9,
-      "behavioral_hard_fail": false
+      "behavioral_hard_fail": false,
+      "behavioral_replication_run_id": "INDEP-REPL-2026-10-03-01",
+      "behavioral_replication_evidence": "05-evals/independent-replication-v1/judge-results.json",
+      "behavioral_replication_score": 8,
+      "behavioral_replication_hard_fail": false
     },
     {
       "id": 4,
@@ -145,7 +157,11 @@
       "behavioral_evidence": "05-evals/independent-run-v1/judge-results.json",
       "behavioral_independent": true,
       "behavioral_score": 9,
-      "behavioral_hard_fail": false
+      "behavioral_hard_fail": false,
+      "behavioral_replication_run_id": "INDEP-REPL-2026-10-03-01",
+      "behavioral_replication_evidence": "05-evals/independent-replication-v1/judge-results.json",
+      "behavioral_replication_score": 9,
+      "behavioral_replication_hard_fail": false
     },
     {
       "id": 5,
@@ -181,7 +197,11 @@
       "behavioral_evidence": "05-evals/independent-run-v1/judge-results.json",
       "behavioral_independent": true,
       "behavioral_score": 9,
-      "behavioral_hard_fail": false
+      "behavioral_hard_fail": false,
+      "behavioral_replication_run_id": "INDEP-REPL-2026-10-03-01",
+      "behavioral_replication_evidence": "05-evals/independent-replication-v1/judge-results.json",
+      "behavioral_replication_score": 9,
+      "behavioral_replication_hard_fail": false
     },
     {
       "id": 6,
@@ -217,7 +237,11 @@
       "behavioral_evidence": "05-evals/independent-run-v1/judge-results.json",
       "behavioral_independent": true,
       "behavioral_score": 8,
-      "behavioral_hard_fail": false
+      "behavioral_hard_fail": false,
+      "behavioral_replication_run_id": "INDEP-REPL-2026-10-03-01",
+      "behavioral_replication_evidence": "05-evals/independent-replication-v1/judge-results.json",
+      "behavioral_replication_score": 9,
+      "behavioral_replication_hard_fail": false
     },
     {
       "id": 7,
@@ -253,7 +277,11 @@
       "behavioral_evidence": "05-evals/independent-run-v1/judge-results.json",
       "behavioral_independent": true,
       "behavioral_score": 9,
-      "behavioral_hard_fail": false
+      "behavioral_hard_fail": false,
+      "behavioral_replication_run_id": "INDEP-REPL-2026-10-03-01",
+      "behavioral_replication_evidence": "05-evals/independent-replication-v1/judge-results.json",
+      "behavioral_replication_score": 8,
+      "behavioral_replication_hard_fail": false
     },
     {
       "id": 8,
@@ -289,7 +317,11 @@
       "behavioral_evidence": "05-evals/independent-run-v1/judge-results.json",
       "behavioral_independent": true,
       "behavioral_score": 9,
-      "behavioral_hard_fail": false
+      "behavioral_hard_fail": false,
+      "behavioral_replication_run_id": "INDEP-REPL-2026-10-03-01",
+      "behavioral_replication_evidence": "05-evals/independent-replication-v1/judge-results.json",
+      "behavioral_replication_score": 9,
+      "behavioral_replication_hard_fail": false
     },
     {
       "id": 9,
@@ -326,7 +358,11 @@
       "behavioral_evidence": "05-evals/independent-run-v1/judge-results.json",
       "behavioral_independent": true,
       "behavioral_score": 10,
-      "behavioral_hard_fail": false
+      "behavioral_hard_fail": false,
+      "behavioral_replication_run_id": "INDEP-REPL-2026-10-03-01",
+      "behavioral_replication_evidence": "05-evals/independent-replication-v1/judge-results.json",
+      "behavioral_replication_score": 10,
+      "behavioral_replication_hard_fail": false
     },
     {
       "id": 10,
@@ -362,7 +398,11 @@
       "behavioral_evidence": "05-evals/independent-run-v1/judge-results.json",
       "behavioral_independent": true,
       "behavioral_score": 8,
-      "behavioral_hard_fail": false
+      "behavioral_hard_fail": false,
+      "behavioral_replication_run_id": "INDEP-REPL-2026-10-03-01",
+      "behavioral_replication_evidence": "05-evals/independent-replication-v1/judge-results.json",
+      "behavioral_replication_score": 8,
+      "behavioral_replication_hard_fail": false
     },
     {
       "id": 11,
@@ -398,7 +438,11 @@
       "behavioral_evidence": "05-evals/independent-run-v1/judge-results.json",
       "behavioral_independent": true,
       "behavioral_score": 9,
-      "behavioral_hard_fail": false
+      "behavioral_hard_fail": false,
+      "behavioral_replication_run_id": "INDEP-REPL-2026-10-03-01",
+      "behavioral_replication_evidence": "05-evals/independent-replication-v1/judge-results.json",
+      "behavioral_replication_score": 9,
+      "behavioral_replication_hard_fail": false
     },
     {
       "id": 12,
@@ -434,7 +478,11 @@
       "behavioral_evidence": "05-evals/independent-run-v1/judge-results.json",
       "behavioral_independent": true,
       "behavioral_score": 9,
-      "behavioral_hard_fail": false
+      "behavioral_hard_fail": false,
+      "behavioral_replication_run_id": "INDEP-REPL-2026-10-03-01",
+      "behavioral_replication_evidence": "05-evals/independent-replication-v1/judge-results.json",
+      "behavioral_replication_score": 10,
+      "behavioral_replication_hard_fail": false
     },
     {
       "id": 13,
@@ -470,7 +518,11 @@
       "behavioral_evidence": "05-evals/independent-run-v1/judge-results.json",
       "behavioral_independent": true,
       "behavioral_score": 8,
-      "behavioral_hard_fail": false
+      "behavioral_hard_fail": false,
+      "behavioral_replication_run_id": "INDEP-REPL-2026-10-03-01",
+      "behavioral_replication_evidence": "05-evals/independent-replication-v1/judge-results.json",
+      "behavioral_replication_score": 10,
+      "behavioral_replication_hard_fail": false
     },
     {
       "id": 14,
@@ -506,7 +558,11 @@
       "behavioral_evidence": "05-evals/independent-run-v1/judge-results.json",
       "behavioral_independent": true,
       "behavioral_score": 9,
-      "behavioral_hard_fail": false
+      "behavioral_hard_fail": false,
+      "behavioral_replication_run_id": "INDEP-REPL-2026-10-03-01",
+      "behavioral_replication_evidence": "05-evals/independent-replication-v1/judge-results.json",
+      "behavioral_replication_score": 10,
+      "behavioral_replication_hard_fail": false
     },
     {
       "id": 15,
@@ -542,7 +598,11 @@
       "behavioral_evidence": "05-evals/independent-run-v1/judge-results.json",
       "behavioral_independent": true,
       "behavioral_score": 10,
-      "behavioral_hard_fail": false
+      "behavioral_hard_fail": false,
+      "behavioral_replication_run_id": "INDEP-REPL-2026-10-03-01",
+      "behavioral_replication_evidence": "05-evals/independent-replication-v1/judge-results.json",
+      "behavioral_replication_score": 10,
+      "behavioral_replication_hard_fail": false
     },
     {
       "id": 16,
@@ -578,7 +638,11 @@
       "behavioral_evidence": "05-evals/independent-run-v1/judge-results.json",
       "behavioral_independent": true,
       "behavioral_score": 10,
-      "behavioral_hard_fail": false
+      "behavioral_hard_fail": false,
+      "behavioral_replication_run_id": "INDEP-REPL-2026-10-03-01",
+      "behavioral_replication_evidence": "05-evals/independent-replication-v1/judge-results.json",
+      "behavioral_replication_score": 9,
+      "behavioral_replication_hard_fail": false
     },
     {
       "id": 17,
@@ -614,7 +678,11 @@
       "behavioral_evidence": "05-evals/independent-run-v1/judge-results.json",
       "behavioral_independent": true,
       "behavioral_score": 10,
-      "behavioral_hard_fail": false
+      "behavioral_hard_fail": false,
+      "behavioral_replication_run_id": "INDEP-REPL-2026-10-03-01",
+      "behavioral_replication_evidence": "05-evals/independent-replication-v1/judge-results.json",
+      "behavioral_replication_score": 10,
+      "behavioral_replication_hard_fail": false
     },
     {
       "id": 18,
@@ -650,7 +718,11 @@
       "behavioral_evidence": "05-evals/independent-run-v1/judge-results.json",
       "behavioral_independent": true,
       "behavioral_score": 9,
-      "behavioral_hard_fail": false
+      "behavioral_hard_fail": false,
+      "behavioral_replication_run_id": "INDEP-REPL-2026-10-03-01",
+      "behavioral_replication_evidence": "05-evals/independent-replication-v1/judge-results.json",
+      "behavioral_replication_score": 9,
+      "behavioral_replication_hard_fail": false
     },
     {
       "id": 19,
@@ -686,7 +758,11 @@
       "behavioral_evidence": "05-evals/independent-run-v1/judge-results.json",
       "behavioral_independent": true,
       "behavioral_score": 9,
-      "behavioral_hard_fail": false
+      "behavioral_hard_fail": false,
+      "behavioral_replication_run_id": "INDEP-REPL-2026-10-03-01",
+      "behavioral_replication_evidence": "05-evals/independent-replication-v1/judge-results.json",
+      "behavioral_replication_score": 9,
+      "behavioral_replication_hard_fail": false
     },
     {
       "id": 20,
@@ -723,7 +799,11 @@
       "behavioral_evidence": "05-evals/independent-run-v1/judge-results.json",
       "behavioral_independent": true,
       "behavioral_score": 10,
-      "behavioral_hard_fail": false
+      "behavioral_hard_fail": false,
+      "behavioral_replication_run_id": "INDEP-REPL-2026-10-03-01",
+      "behavioral_replication_evidence": "05-evals/independent-replication-v1/judge-results.json",
+      "behavioral_replication_score": 10,
+      "behavioral_replication_hard_fail": false
     },
     {
       "id": 21,
@@ -760,7 +840,11 @@
       "behavioral_evidence": "05-evals/independent-run-v1/judge-results.json",
       "behavioral_independent": true,
       "behavioral_score": 9,
-      "behavioral_hard_fail": false
+      "behavioral_hard_fail": false,
+      "behavioral_replication_run_id": "INDEP-REPL-2026-10-03-01",
+      "behavioral_replication_evidence": "05-evals/independent-replication-v1/judge-results.json",
+      "behavioral_replication_score": 10,
+      "behavioral_replication_hard_fail": false
     },
     {
       "id": 22,
@@ -797,7 +881,11 @@
       "behavioral_evidence": "05-evals/independent-run-v1/judge-results.json",
       "behavioral_independent": true,
       "behavioral_score": 9,
-      "behavioral_hard_fail": false
+      "behavioral_hard_fail": false,
+      "behavioral_replication_run_id": "INDEP-REPL-2026-10-03-01",
+      "behavioral_replication_evidence": "05-evals/independent-replication-v1/judge-results.json",
+      "behavioral_replication_score": 9,
+      "behavioral_replication_hard_fail": false
     },
     {
       "id": 23,
@@ -833,7 +921,11 @@
       "behavioral_evidence": "05-evals/independent-run-v1/judge-results.json",
       "behavioral_independent": true,
       "behavioral_score": 9,
-      "behavioral_hard_fail": false
+      "behavioral_hard_fail": false,
+      "behavioral_replication_run_id": "INDEP-REPL-2026-10-03-01",
+      "behavioral_replication_evidence": "05-evals/independent-replication-v1/judge-results.json",
+      "behavioral_replication_score": 9,
+      "behavioral_replication_hard_fail": false
     },
     {
       "id": 24,
@@ -869,7 +961,11 @@
       "behavioral_evidence": "05-evals/independent-run-v1/judge-results.json",
       "behavioral_independent": true,
       "behavioral_score": 10,
-      "behavioral_hard_fail": false
+      "behavioral_hard_fail": false,
+      "behavioral_replication_run_id": "INDEP-REPL-2026-10-03-01",
+      "behavioral_replication_evidence": "05-evals/independent-replication-v1/judge-results.json",
+      "behavioral_replication_score": 10,
+      "behavioral_replication_hard_fail": false
     },
     {
       "id": 25,
@@ -905,7 +1001,11 @@
       "behavioral_evidence": "05-evals/independent-run-v1/judge-results.json",
       "behavioral_independent": true,
       "behavioral_score": 9,
-      "behavioral_hard_fail": false
+      "behavioral_hard_fail": false,
+      "behavioral_replication_run_id": "INDEP-REPL-2026-10-03-01",
+      "behavioral_replication_evidence": "05-evals/independent-replication-v1/judge-results.json",
+      "behavioral_replication_score": 8,
+      "behavioral_replication_hard_fail": false
     }
   ]
 }

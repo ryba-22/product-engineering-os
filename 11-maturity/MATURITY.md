@@ -29,3 +29,11 @@ Run `INDEP-RUN-2026-10-03-01` reused the exact frozen 25 adversarial lifecycle s
 Result: **25/25 passed**, **0 hard failures**, average **9.12/10**. The judge still identified explicit coverage gaps in a number of passing answers; these are preserved in `05-evals/independent-run-v1/weakness-backlog.json` rather than hidden by the pass result.
 
 This supports the scoped maturity status **`independently-behaviorally-validated-v1` for these 25 frozen scenarios**. It does not establish universal Product Engineering competence, production correctness, or performance on unseen distributions. Future maturity claims require additional unseen/adversarial sets and periodic revalidation after material corpus/runtime changes.
+
+## Independent replication — 2026-10-03
+
+Run `INDEP-REPL-2026-10-03-01` repeated the same frozen 25 scenarios with fresh independent sessions and a different execution shape: **Google Antigravity / Gemini 3.1 Pro High** executed all 25 cases in one blinded run, then **Anthropic Claude Code / Claude Opus 4.6** judged the outputs in a separate first-party session.
+
+Result: **25/25 passed**, **0 hard failures**, average **9.16/10**. The replication judge was more granular than the original run: it recorded 44 omitted secondary `must_do` details across 24 passing answers, with zero material `must_not_do` violations. Per-stage scores matched the original independent run exactly on 15/25 stages; mean absolute score delta was 0.44.
+
+This strengthens **repeatability** of `independently-behaviorally-validated-v1` for the frozen scenario set. It does not create unseen-distribution evidence and therefore does not justify a broader maturity label. The next maturity increase should use an unseen holdout/mutation set and specialist human review for selected R3–R4 stages.

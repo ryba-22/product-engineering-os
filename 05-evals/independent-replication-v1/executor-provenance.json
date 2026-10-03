@@ -1,0 +1,20 @@
+{
+  "provider": "Google Antigravity",
+  "model": "gemini-3.1-pro-high",
+  "cli_version": "1.2.15",
+  "conversation_id": "1931edac-5408-464f-992b-b83ffe9429ad",
+  "status": "SUCCESS",
+  "duration_seconds": 232.732090301,
+  "num_turns": 1,
+  "usage": {
+    "input_tokens": 98678,
+    "output_tokens": 27964,
+    "thinking_tokens": 20253,
+    "cache_read_tokens": 211224,
+    "total_tokens": 126642
+  },
+  "raw_output_sha256": "89fd4a7afbaf241a0287ed8ffe2b046a25c7dcd4745d112c7757dc4c94e51d0c",
+  "structured_output_sha256": "ff220f4cd686f54d2d43a8ff9ff165883aac0af70f3f7609f506fe5bc26a6c21",
+  "workspace": "isolated executor workspace with judge/prior-results files physically absent",
+  "criteria_blinded": true
+}

@@ -273,6 +273,7 @@
     "stage_playbooks": 25,
     "minimum_stage_playbook_words": 350,
     "behavioral_validation": "independently-behaviorally-validated-v1: INDEP-RUN-2026-10-03-01 passed 25/25 with independent Gemini 3.1 Pro executor and Claude Opus 4.6 judge; scope limited to frozen scenarios",
-    "rule": "Structural and depth validation do not by themselves prove behavioral effectiveness."
+    "rule": "Structural and depth validation do not by themselves prove behavioral effectiveness.",
+    "behavioral_replication": "INDEP-REPL-2026-10-03-01: 25/25 pass, deterministic avg 9.16/10, 0 hard failures; fresh Gemini 3.1 Pro High executor + Claude Opus 4.6 first-party judge; same frozen scenario set, so this is repeatability evidence rather than unseen-distribution evidence"
   }
 }

@@ -1,0 +1,70 @@
+{
+  "provider": "Anthropic Claude Code",
+  "model": "claude-opus-4-6",
+  "cli_version": "2.1.288",
+  "session_id": "54451319-c73f-4125-80e5-5e2efa11aa10",
+  "status": "success",
+  "is_error": false,
+  "duration_ms": 600121,
+  "duration_api_ms": 599352,
+  "num_turns": 35,
+  "total_cost_usd": 1.607176,
+  "usage": {
+    "input_tokens": 11,
+    "cache_creation_input_tokens": 66007,
+    "cache_read_input_tokens": 415702,
+    "output_tokens": 29568,
+    "output_tokens_details": {
+      "thinking_tokens": 20126
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 66007,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 1,
+        "output_tokens": 27209,
+        "cache_read_input_tokens": 71071,
+        "cache_creation_input_tokens": 5372,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 5372
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard",
+    "fallback_credit": null
+  },
+  "model_usage": {
+    "claude-opus-4-6": {
+      "inputTokens": 11,
+      "outputTokens": 29568,
+      "cacheReadInputTokens": 415702,
+      "cacheCreationInputTokens": 66007,
+      "webSearchRequests": 0,
+      "costUSD": 1.607176,
+      "contextWindow": 200000,
+      "maxOutputTokens": 64000,
+      "thinkingTokens": 20126,
+      "canonicalModel": "claude-opus-4-6",
+      "provider": "firstParty",
+      "costBasis": "list"
+    }
+  },
+  "permission_denials": [],
+  "raw_output_sha256": "080f0971bb76eb528f8faec251068e9dbb5af2ecbde4d063c571b73b7843ab5e",
+  "workspace": "isolated judge workspace containing the frozen rubric and independent executor output; prior self-assessed executor/judge/final results physically absent",
+  "prior_results_blinded": true,
+  "model_structured_output_sha256": "5bae8083e47cdbe4fdf32051dc93938a6b4ceb2738607e5d8770b5bdc74ab657",
+  "normalized_result_sha256": "10217c439cac30f01844035b1401b07b682319bcea2599948f3f2bac6d7c1cba",
+  "normalization_file": "05-evals/independent-replication-v1/judge-normalization.json",
+  "normalization": "summary.average_score only; 9.12 model-reported -> 9.16 deterministic from case totals; all case judgments unchanged"
+}

@@ -1,0 +1,297 @@
+{
+  "independent_v1_summary": {
+    "total": 25,
+    "passed": 25,
+    "failed": 0,
+    "average_score": 9.12,
+    "hard_failures": []
+  },
+  "replication_summary": {
+    "total": 25,
+    "passed": 25,
+    "failed": 0,
+    "average_score": 9.16,
+    "hard_failures": []
+  },
+  "all_25_pass_both_runs": true,
+  "hard_fail_in_either_run": false,
+  "score_agreement_exact": 15,
+  "mean_absolute_score_delta": 0.44,
+  "cases": [
+    {
+      "id": "ADV-S01",
+      "stage_id": 1,
+      "independent_v1_score": 9,
+      "replication_score": 9,
+      "score_delta": 0,
+      "v1_missing_count": 1,
+      "replication_missing_count": 3,
+      "both_pass": true,
+      "either_hard_fail": false
+    },
+    {
+      "id": "ADV-S02",
+      "stage_id": 2,
+      "independent_v1_score": 9,
+      "replication_score": 8,
+      "score_delta": -1,
+      "v1_missing_count": 2,
+      "replication_missing_count": 2,
+      "both_pass": true,
+      "either_hard_fail": false
+    },
+    {
+      "id": "ADV-S03",
+      "stage_id": 3,
+      "independent_v1_score": 9,
+      "replication_score": 8,
+      "score_delta": -1,
+      "v1_missing_count": 0,
+      "replication_missing_count": 2,
+      "both_pass": true,
+      "either_hard_fail": false
+    },
+    {
+      "id": "ADV-S04",
+      "stage_id": 4,
+      "independent_v1_score": 9,
+      "replication_score": 9,
+      "score_delta": 0,
+      "v1_missing_count": 1,
+      "replication_missing_count": 2,
+      "both_pass": true,
+      "either_hard_fail": false
+    },
+    {
+      "id": "ADV-S05",
+      "stage_id": 5,
+      "independent_v1_score": 9,
+      "replication_score": 9,
+      "score_delta": 0,
+      "v1_missing_count": 1,
+      "replication_missing_count": 2,
+      "both_pass": true,
+      "either_hard_fail": false
+    },
+    {
+      "id": "ADV-S06",
+      "stage_id": 6,
+      "independent_v1_score": 8,
+      "replication_score": 9,
+      "score_delta": 1,
+      "v1_missing_count": 1,
+      "replication_missing_count": 2,
+      "both_pass": true,
+      "either_hard_fail": false
+    },
+    {
+      "id": "ADV-S07",
+      "stage_id": 7,
+      "independent_v1_score": 9,
+      "replication_score": 8,
+      "score_delta": -1,
+      "v1_missing_count": 1,
+      "replication_missing_count": 2,
+      "both_pass": true,
+      "either_hard_fail": false
+    },
+    {
+      "id": "ADV-S08",
+      "stage_id": 8,
+      "independent_v1_score": 9,
+      "replication_score": 9,
+      "score_delta": 0,
+      "v1_missing_count": 1,
+      "replication_missing_count": 2,
+      "both_pass": true,
+      "either_hard_fail": false
+    },
+    {
+      "id": "ADV-S09",
+      "stage_id": 9,
+      "independent_v1_score": 10,
+      "replication_score": 10,
+      "score_delta": 0,
+      "v1_missing_count": 0,
+      "replication_missing_count": 1,
+      "both_pass": true,
+      "either_hard_fail": false
+    },
+    {
+      "id": "ADV-S10",
+      "stage_id": 10,
+      "independent_v1_score": 8,
+      "replication_score": 8,
+      "score_delta": 0,
+      "v1_missing_count": 1,
+      "replication_missing_count": 2,
+      "both_pass": true,
+      "either_hard_fail": false
+    },
+    {
+      "id": "ADV-S11",
+      "stage_id": 11,
+      "independent_v1_score": 9,
+      "replication_score": 9,
+      "score_delta": 0,
+      "v1_missing_count": 2,
+      "replication_missing_count": 2,
+      "both_pass": true,
+      "either_hard_fail": false
+    },
+    {
+      "id": "ADV-S12",
+      "stage_id": 12,
+      "independent_v1_score": 9,
+      "replication_score": 10,
+      "score_delta": 1,
+      "v1_missing_count": 2,
+      "replication_missing_count": 1,
+      "both_pass": true,
+      "either_hard_fail": false
+    },
+    {
+      "id": "ADV-S13",
+      "stage_id": 13,
+      "independent_v1_score": 8,
+      "replication_score": 10,
+      "score_delta": 2,
+      "v1_missing_count": 3,
+      "replication_missing_count": 2,
+      "both_pass": true,
+      "either_hard_fail": false
+    },
+    {
+      "id": "ADV-S14",
+      "stage_id": 14,
+      "independent_v1_score": 9,
+      "replication_score": 10,
+      "score_delta": 1,
+      "v1_missing_count": 1,
+      "replication_missing_count": 2,
+      "both_pass": true,
+      "either_hard_fail": false
+    },
+    {
+      "id": "ADV-S15",
+      "stage_id": 15,
+      "independent_v1_score": 10,
+      "replication_score": 10,
+      "score_delta": 0,
+      "v1_missing_count": 0,
+      "replication_missing_count": 0,
+      "both_pass": true,
+      "either_hard_fail": false
+    },
+    {
+      "id": "ADV-S16",
+      "stage_id": 16,
+      "independent_v1_score": 10,
+      "replication_score": 9,
+      "score_delta": -1,
+      "v1_missing_count": 1,
+      "replication_missing_count": 1,
+      "both_pass": true,
+      "either_hard_fail": false
+    },
+    {
+      "id": "ADV-S17",
+      "stage_id": 17,
+      "independent_v1_score": 10,
+      "replication_score": 10,
+      "score_delta": 0,
+      "v1_missing_count": 0,
+      "replication_missing_count": 1,
+      "both_pass": true,
+      "either_hard_fail": false
+    },
+    {
+      "id": "ADV-S18",
+      "stage_id": 18,
+      "independent_v1_score": 9,
+      "replication_score": 9,
+      "score_delta": 0,
+      "v1_missing_count": 1,
+      "replication_missing_count": 2,
+      "both_pass": true,
+      "either_hard_fail": false
+    },
+    {
+      "id": "ADV-S19",
+      "stage_id": 19,
+      "independent_v1_score": 9,
+      "replication_score": 9,
+      "score_delta": 0,
+      "v1_missing_count": 2,
+      "replication_missing_count": 2,
+      "both_pass": true,
+      "either_hard_fail": false
+    },
+    {
+      "id": "ADV-S20",
+      "stage_id": 20,
+      "independent_v1_score": 10,
+      "replication_score": 10,
+      "score_delta": 0,
+      "v1_missing_count": 1,
+      "replication_missing_count": 2,
+      "both_pass": true,
+      "either_hard_fail": false
+    },
+    {
+      "id": "ADV-S21",
+      "stage_id": 21,
+      "independent_v1_score": 9,
+      "replication_score": 10,
+      "score_delta": 1,
+      "v1_missing_count": 1,
+      "replication_missing_count": 1,
+      "both_pass": true,
+      "either_hard_fail": false
+    },
+    {
+      "id": "ADV-S22",
+      "stage_id": 22,
+      "independent_v1_score": 9,
+      "replication_score": 9,
+      "score_delta": 0,
+      "v1_missing_count": 1,
+      "replication_missing_count": 2,
+      "both_pass": true,
+      "either_hard_fail": false
+    },
+    {
+      "id": "ADV-S23",
+      "stage_id": 23,
+      "independent_v1_score": 9,
+      "replication_score": 9,
+      "score_delta": 0,
+      "v1_missing_count": 1,
+      "replication_missing_count": 2,
+      "both_pass": true,
+      "either_hard_fail": false
+    },
+    {
+      "id": "ADV-S24",
+      "stage_id": 24,
+      "independent_v1_score": 10,
+      "replication_score": 10,
+      "score_delta": 0,
+      "v1_missing_count": 0,
+      "replication_missing_count": 1,
+      "both_pass": true,
+      "either_hard_fail": false
+    },
+    {
+      "id": "ADV-S25",
+      "stage_id": 25,
+      "independent_v1_score": 9,
+      "replication_score": 8,
+      "score_delta": -1,
+      "v1_missing_count": 1,
+      "replication_missing_count": 3,
+      "both_pass": true,
+      "either_hard_fail": false
+    }
+  ]
+}

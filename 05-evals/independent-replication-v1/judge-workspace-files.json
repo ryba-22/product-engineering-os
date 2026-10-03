@@ -1,0 +1,10 @@
+{
+  "workspace": "judge",
+  "file_count": 175,
+  "evaluation_files": [
+    "05-evals/independent-run-v1/executor-results.json",
+    "05-evals/independent-run-v1/judge-output-schema.json",
+    "05-evals/independent-run-v1/judge-rubric.json"
+  ],
+  "forbidden_prior_result_files_present": []
+}

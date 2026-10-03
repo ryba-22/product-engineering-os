@@ -1,0 +1,41 @@
+{
+  "version": "1.0.0",
+  "run_id": "INDEP-REPL-2026-10-03-01",
+  "relationship": "Independent replication of INDEP-RUN-2026-10-03-01 using the same frozen 25 scenarios and rubric but a fresh one-shot executor session and a separate first-party Claude Code judge session.",
+  "validated_runtime_commit": "c775a1772ab24f90c9cda4093460bd81fa1caa65",
+  "source_scenario_file": "05-evals/adversarial-run-v1/scenarios.json",
+  "source_executor_input_file": "05-evals/adversarial-run-v1/executor-input.json",
+  "source_scenario_sha256": "ebbb77da2ab67361901e2b67929696f2447b300476e7a0a8124e7eec069e98e2",
+  "source_executor_input_sha256": "5df12c9e8a5f64643f38a34a58ecb22168a400dd5e2fbf0440dba42baa5234cb",
+  "rubric_sha256": "5717060536c380f75dff0d1446a7bd48d6fbcc81460cfb6246ca75f31ffeb278",
+  "status": "completed",
+  "executor": {
+    "provider": "Google Antigravity",
+    "model": "gemini-3.1-pro-high",
+    "mode": "single-shot blinded execution of all 25 cases",
+    "result_file": "05-evals/independent-replication-v1/executor-results.json",
+    "result_sha256": "ff220f4cd686f54d2d43a8ff9ff165883aac0af70f3f7609f506fe5bc26a6c21",
+    "provenance_file": "05-evals/independent-replication-v1/executor-provenance.json",
+    "criteria_blinded": true
+  },
+  "judge": {
+    "provider": "Anthropic Claude Code",
+    "model": "claude-opus-4-6",
+    "mode": "single independent judge pass over all 25 executor outputs",
+    "result_file": "05-evals/independent-replication-v1/judge-results.json",
+    "result_sha256": "10217c439cac30f01844035b1401b07b682319bcea2599948f3f2bac6d7c1cba",
+    "provenance_file": "05-evals/independent-replication-v1/judge-provenance.json",
+    "prior_self_assessed_results_blinded": true,
+    "model_output_file": "05-evals/independent-replication-v1/judge-model-output.json",
+    "model_output_sha256": "5bae8083e47cdbe4fdf32051dc93938a6b4ceb2738607e5d8770b5bdc74ab657",
+    "normalization_file": "05-evals/independent-replication-v1/judge-normalization.json"
+  },
+  "final_summary": {
+    "total": 25,
+    "passed": 25,
+    "failed": 0,
+    "average_score": 9.16,
+    "hard_failures": []
+  },
+  "claim": "replicates the scoped independent behavioral validation on the same frozen 25-scenario set; does not add unseen-distribution evidence"
+}

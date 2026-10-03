@@ -1,0 +1,535 @@
+{
+  "run_id": "INDEP-RUN-2026-10-03-01",
+  "judge": {
+    "provider": "Anthropic Claude Code",
+    "model": "claude-opus-4-6",
+    "notes": "Independent third-model judge pass. Each case evaluated against stage playbook, rubric must_do/must_not_do criteria, BRAIN.md runtime rules, lifecycle state semantics, and risk model evidence burdens. No prior judge or self-assessment results were consulted."
+  },
+  "cases": [
+    {
+      "id": "ADV-S01",
+      "stage_id": 1,
+      "scores": {
+        "decision_correctness": 3,
+        "evidence_scope": 2,
+        "risk_and_constraints": 1,
+        "execution_closure": 1,
+        "verification": 1,
+        "traceability": 1
+      },
+      "total": 9,
+      "must_do_missing": [
+        "surface hard versus assumed constraints (two-week deadline not analyzed as hard or assumed)",
+        "identify decision-changing product risks (value/usability/feasibility/viability not explicitly addressed)",
+        "define observable outcome and affected actors (actors not explicitly mapped, outcome implied but not stated as observable change)"
+      ],
+      "must_not_do_violations": [],
+      "hard_fail": false,
+      "pass": true,
+      "rationale": "Correctly separates the dashboard request from the missed-exceptions problem and routes to Discovery. Evidence and unknowns are properly distinguished. However, the two-week deadline is not surfaced as hard vs assumed, affected actors are not mapped, and product risks are not itemized. Completion state EXPLORED is appropriate. Risk class R2 is reasonable. No must_not_do violations."
+    },
+    {
+      "id": "ADV-S02",
+      "stage_id": 2,
+      "scores": {
+        "decision_correctness": 3,
+        "evidence_scope": 1,
+        "risk_and_constraints": 1,
+        "execution_closure": 1,
+        "verification": 1,
+        "traceability": 1
+      },
+      "total": 8,
+      "must_do_missing": [
+        "state when discovery can stop (no stopping criterion or decision-changing question threshold defined)",
+        "triangulate support/operational evidence where useful (mentions support logs but no triangulation strategy)"
+      ],
+      "must_not_do_violations": [],
+      "hard_fail": false,
+      "pass": true,
+      "rationale": "Correctly identifies confirmation/sampling bias and redirects to occasional operators whose failures appear in support logs. Uses concrete behavior (support logs, same-day changes) rather than hypothetical preference. But the answer does not define when discovery should stop, and evidence scope is thin with no triangulation across sources. Completion state EXPLORED is appropriate for a discovery plan not yet executed."
+    },
+    {
+      "id": "ADV-S03",
+      "stage_id": 3,
+      "scores": {
+        "decision_correctness": 3,
+        "evidence_scope": 1,
+        "risk_and_constraints": 1,
+        "execution_closure": 1,
+        "verification": 1,
+        "traceability": 1
+      },
+      "total": 8,
+      "must_do_missing": [
+        "model concrete event timelines (same-day scenario mentioned but no explicit event timeline constructed)",
+        "record hotspots instead of guessing policy (hotspots not explicitly catalogued)"
+      ],
+      "must_not_do_violations": [],
+      "hard_fail": false,
+      "pass": true,
+      "rationale": "Correctly refuses to encode table structure as domain truth and insists on clarifying temporal rules and invariants before implementation. UNKNOWN state is appropriate since business rules are genuinely not yet known. However, the playbook's emphasis on modeling concrete event timelines and recording hotspots is not followed—the answer stays at a higher level of abstraction. R3 is appropriate given potential for report and billing impact."
+    },
+    {
+      "id": "ADV-S04",
+      "stage_id": 4,
+      "scores": {
+        "decision_correctness": 3,
+        "evidence_scope": 2,
+        "risk_and_constraints": 1,
+        "execution_closure": 1,
+        "verification": 1,
+        "traceability": 1
+      },
+      "total": 9,
+      "must_do_missing": [
+        "state quality/security/data constraints when material (no mention of PII, consent, or SMS delivery security constraints)",
+        "link acceptance criteria to evidence/decisions (traceability chain from evidence to acceptance not established)"
+      ],
+      "must_not_do_violations": [],
+      "hard_fail": false,
+      "pass": true,
+      "rationale": "Correctly rejects the vague requirement and demands testable acceptance scenarios for deduplication, zero-value, approval, and retry/failure semantics. Evidence properly separates Legacy contact ownership from Finance eligibility. Transport independence is correctly preserved. Missing explicit quality/security/data constraints for SMS containing billing data, and no explicit traceability chain from evidence to acceptance criteria."
+    },
+    {
+      "id": "ADV-S05",
+      "stage_id": 5,
+      "scores": {
+        "decision_correctness": 3,
+        "evidence_scope": 2,
+        "risk_and_constraints": 1,
+        "execution_closure": 1,
+        "verification": 1,
+        "traceability": 1
+      },
+      "total": 9,
+      "must_do_missing": [
+        "define uniqueness/invariant boundary for SMS decisions (one SMS per child/period/unique number invariant not explicitly located in a consistency boundary)",
+        "define semantic integration between contexts (composition mechanism mentioned but not specified)"
+      ],
+      "must_not_do_violations": [],
+      "hard_fail": false,
+      "pass": true,
+      "rationale": "Correctly assigns Legacy as authoritative for contacts and Finance for eligibility, and explicitly prevents shared mutation authority. The verification criterion (no single table with dual mutation) is well-chosen. However, the uniqueness invariant for SMS delivery is not explicitly assigned to a consistency boundary, and the semantic integration pattern between contexts is mentioned but not defined."
+    },
+    {
+      "id": "ADV-S06",
+      "stage_id": 6,
+      "scores": {
+        "decision_correctness": 3,
+        "evidence_scope": 2,
+        "risk_and_constraints": 1,
+        "execution_closure": 1,
+        "verification": 1,
+        "traceability": 1
+      },
+      "total": 9,
+      "must_do_missing": [
+        "compare a simpler modular option against the distributed proposal (implied but no explicit side-by-side trade-off comparison)",
+        "analyze failure/operational costs of added infrastructure (Kafka/K8s failure modes not enumerated)"
+      ],
+      "must_not_do_violations": [],
+      "hard_fail": false,
+      "pass": true,
+      "rationale": "Correctly rejects speculative microservices/Kafka/K8s architecture for a small-scale internal app, and requires switching conditions before adding complexity. Evidence about current scale is properly cited. However, the playbook requires an explicit comparison of at least two structures and analysis of operational failure costs of the distributed proposal, which are not present. Switching thresholds are mentioned as an action but not defined."
+    },
+    {
+      "id": "ADV-S07",
+      "stage_id": 7,
+      "scores": {
+        "decision_correctness": 3,
+        "evidence_scope": 1,
+        "risk_and_constraints": 1,
+        "execution_closure": 1,
+        "verification": 1,
+        "traceability": 1
+      },
+      "total": 8,
+      "must_do_missing": [
+        "define loading/empty/error/stale states (not addressed)",
+        "differentiate desktop table and mobile transformation (adaptive behavior mentioned in actions but no mobile-specific transformation defined)"
+      ],
+      "must_not_do_violations": [],
+      "hard_fail": false,
+      "pass": true,
+      "rationale": "Correctly rejects the centered card grid for a dense comparison task and mandates URL-driven state for filter persistence. Viewport range evidence is used appropriately. However, the playbook requires explicit loading/empty/error/stale state definitions and a clear desktop-vs-mobile transformation strategy, both of which are absent. Evidence scope is limited—critical data points for comparison are flagged as unknown but not further investigated."
+    },
+    {
+      "id": "ADV-S08",
+      "stage_id": 8,
+      "scores": {
+        "decision_correctness": 3,
+        "evidence_scope": 2,
+        "risk_and_constraints": 1,
+        "execution_closure": 1,
+        "verification": 1,
+        "traceability": 1
+      },
+      "total": 9,
+      "must_do_missing": [
+        "specify focus/keyboard behavior for conflict UI if a dialog is used (not mentioned)",
+        "model editing/submitting/conflict/recovery states as explicit state machine (states implied but not formally modeled)"
+      ],
+      "must_not_do_violations": [],
+      "hard_fail": false,
+      "pass": true,
+      "rationale": "Correctly identifies that disabling Save does not prevent stale data submission and demands explicit conflict detection and recovery with concurrency tokens. Evidence about the gap between UI prevention and server authority is clear. Recovery path is honestly marked as unknown rather than invented. Missing focus/keyboard specification for conflict UI and explicit state machine modeling per the interaction design playbook."
+    },
+    {
+      "id": "ADV-S09",
+      "stage_id": 9,
+      "scores": {
+        "decision_correctness": 4,
+        "evidence_scope": 2,
+        "risk_and_constraints": 1,
+        "execution_closure": 1,
+        "verification": 1,
+        "traceability": 1
+      },
+      "total": 10,
+      "must_do_missing": [
+        "test validation/error associations (form validation and error association with fields not addressed)"
+      ],
+      "must_not_do_violations": [],
+      "hard_fail": false,
+      "pass": true,
+      "rationale": "Strong answer. Correctly rejects automated-only accessibility verification, mandates semantic HTML for custom tab controls, and requires explicit focus restoration on modal close. All three must_not_do items are cleanly avoided. Actions are precise and implementable. Only gap is lack of mention of validation/error field associations, which the playbook lists as a verification requirement."
+    },
+    {
+      "id": "ADV-S10",
+      "stage_id": 10,
+      "scores": {
+        "decision_correctness": 3,
+        "evidence_scope": 1,
+        "risk_and_constraints": 1,
+        "execution_closure": 1,
+        "verification": 1,
+        "traceability": 1
+      },
+      "total": 8,
+      "must_do_missing": [
+        "preserve accessibility and semantic status cues (no mention of non-color status encoding or accessibility constraints)",
+        "test realistic long/empty/error data (verification mentions realistic dataset but not edge content states)"
+      ],
+      "must_not_do_violations": [],
+      "hard_fail": false,
+      "pass": true,
+      "rationale": "Correctly prioritizes functional density and wide-screen utilization over decorative premium aesthetic for an operator comparison task. The 1100px-on-3200px evidence is used well. However, the playbook requires preserving accessibility and semantic status cues (must_not_do: encode status by color alone) and testing with realistic edge content, neither of which is addressed. Evidence scope is limited to layout concerns."
+    },
+    {
+      "id": "ADV-S11",
+      "stage_id": 11,
+      "scores": {
+        "decision_correctness": 3,
+        "evidence_scope": 2,
+        "risk_and_constraints": 1,
+        "execution_closure": 1,
+        "verification": 1,
+        "traceability": 1
+      },
+      "total": 9,
+      "must_do_missing": [
+        "assign ownership and migration/deprecation policy (not addressed for the local variant)",
+        "use repeated overrides as feedback on abstraction quality (no mention of override tracking)"
+      ],
+      "must_not_do_violations": [],
+      "hard_fail": false,
+      "pass": true,
+      "rationale": "Correctly keeps the single-use variant Local and defines explicit promotion criteria based on proven reuse. Evidence of one-team usage and new keyboard contract requirement is properly cited. Documenting as a candidate in the registry is a good practice. Missing ownership assignment for the local variant and the playbook's guidance on using repeated overrides as abstraction quality feedback."
+    },
+    {
+      "id": "ADV-S12",
+      "stage_id": 12,
+      "scores": {
+        "decision_correctness": 4,
+        "evidence_scope": 2,
+        "risk_and_constraints": 1,
+        "execution_closure": 1,
+        "verification": 1,
+        "traceability": 1
+      },
+      "total": 10,
+      "must_do_missing": [
+        "define loading/stale/error behavior for server state (not mentioned)"
+      ],
+      "must_not_do_violations": [],
+      "hard_fail": false,
+      "pass": true,
+      "rationale": "Precise and correct. Eliminates the dual-state ownership bug by removing useEffect synchronization and making URL the single source of truth. Actions are concrete and implementable (remove effects, read from URL, update URL on navigation). Verification criterion (back/forward without duplicate requests) directly tests the defect. Only gap is loading/stale/error behavior for the server state, which the playbook requires."
+    },
+    {
+      "id": "ADV-S13",
+      "stage_id": 13,
+      "scores": {
+        "decision_correctness": 4,
+        "evidence_scope": 2,
+        "risk_and_constraints": 1,
+        "execution_closure": 1,
+        "verification": 1,
+        "traceability": 1
+      },
+      "total": 10,
+      "must_do_missing": [
+        "separate durable mutation from external side effects if any (not addressed)",
+        "define authorization/business capability explicitly (CSRF addressed but business-level authorization not detailed)"
+      ],
+      "must_not_do_violations": [],
+      "hard_fail": false,
+      "pass": true,
+      "rationale": "Strong answer. Correctly rejects GET-as-mutation, requires proper HTTP method, CSRF protection, and idempotency keys. Migration plan for legacy callers is included. Two verification criteria are well-chosen (CSRF rejection and no duplicate mutations). Routes to both Security and Frontend. Gaps are in separating durable mutation from side effects and fully specifying the authorization boundary beyond CSRF."
+    },
+    {
+      "id": "ADV-S14",
+      "stage_id": 14,
+      "scores": {
+        "decision_correctness": 4,
+        "evidence_scope": 2,
+        "risk_and_constraints": 1,
+        "execution_closure": 1,
+        "verification": 1,
+        "traceability": 1
+      },
+      "total": 10,
+      "must_do_missing": [
+        "make backfill resumable/observable (backfill mentioned but resumability and observability not specified)",
+        "define authoritative temporal semantics before backfill (partially: 'based on domain rules' implies this but doesn't define the semantics)"
+      ],
+      "must_not_do_violations": [],
+      "hard_fail": false,
+      "pass": true,
+      "rationale": "Correct and specific. Rejects destructive one-step ALTER in favor of expand/contract pattern with dual-write and intelligent backfill. Correctly identifies that historical same-day re-enrollments cannot be naively assigned midnight. Mixed-version compatibility is addressed. Verification against production-like data is appropriate for R3. Gaps: backfill resumability/observability and pre-defined temporal semantics are not explicit."
+    },
+    {
+      "id": "ADV-S15",
+      "stage_id": 15,
+      "scores": {
+        "decision_correctness": 4,
+        "evidence_scope": 2,
+        "risk_and_constraints": 1,
+        "execution_closure": 1,
+        "verification": 1,
+        "traceability": 1
+      },
+      "total": 10,
+      "must_do_missing": [],
+      "must_not_do_violations": [],
+      "hard_fail": false,
+      "pass": true,
+      "rationale": "Excellent answer. Correctly rejects mock-based verification as incapable of proving concurrency guarantees and requires integration tests with real database under concurrent requests. The verification criterion (test must fail without fix, pass with fix) is the gold standard for regression evidence. All must_do items are covered. Completion state EXPLORED is conservative—DECIDED would be more precise since a binding decision is made—but claiming an earlier state is not a hard fail."
+    },
+    {
+      "id": "ADV-S16",
+      "stage_id": 16,
+      "scores": {
+        "decision_correctness": 3,
+        "evidence_scope": 2,
+        "risk_and_constraints": 1,
+        "execution_closure": 1,
+        "verification": 1,
+        "traceability": 1
+      },
+      "total": 9,
+      "must_do_missing": [
+        "treat internal-only exposure as reduced but not eliminated risk (not discussed)"
+      ],
+      "must_not_do_violations": [],
+      "hard_fail": false,
+      "pass": true,
+      "rationale": "Correctly identifies the IDOR vulnerability and distinguishes authentication from resource-level authorization. R4 classification is appropriate for an authorization boundary failure. Actions (server-side auth checks, audit logs, IDOR tests) are concrete. Verification (403 for unauthorized requests) is precise. However, the R4 evidence burden calls for specialist/independent verification which is not mentioned. Completion state EXPLORED is conservative when a binding remediation decision has been made. Internal-only exposure discussion is absent."
+    },
+    {
+      "id": "ADV-S17",
+      "stage_id": 17,
+      "scores": {
+        "decision_correctness": 4,
+        "evidence_scope": 2,
+        "risk_and_constraints": 1,
+        "execution_closure": 1,
+        "verification": 1,
+        "traceability": 1
+      },
+      "total": 10,
+      "must_do_missing": [
+        "record trade-offs/capacity assumptions (not addressed, though appropriate at UNKNOWN state)"
+      ],
+      "must_not_do_violations": [],
+      "hard_fail": false,
+      "pass": true,
+      "rationale": "Correct decision to reject blind tuning without evidence. UNKNOWN state is precisely right—baseline, query plan, and budget are all missing. Actions (capture plan, measure p95, define budget) follow the playbook's investigate-before-tuning workflow. Uses p95 rather than average per must_not_do. Routes to Observability for telemetry. Verification against budget is appropriate. Missing trade-off/capacity documentation is understandable at UNKNOWN state."
+    },
+    {
+      "id": "ADV-S18",
+      "stage_id": 18,
+      "scores": {
+        "decision_correctness": 3,
+        "evidence_scope": 2,
+        "risk_and_constraints": 1,
+        "execution_closure": 1,
+        "verification": 1,
+        "traceability": 1
+      },
+      "total": 9,
+      "must_do_missing": [
+        "include migration compatibility/gates (scenario mentions database migration files but executor ignores migration handling entirely)",
+        "retain evidence of skipped/failed/retried checks (not mentioned)"
+      ],
+      "must_not_do_violations": [],
+      "hard_fail": false,
+      "pass": true,
+      "rationale": "Correctly identifies the artifact immutability violation (staging and production images differ due to build-time flags) and prescribes build-once-promote with runtime config injection. Hash-based verification is strong. However, the scenario includes database migration files in the repo, and the must_do requires migration compatibility/gates—this is completely unaddressed. Evidence retention for gate results is also missing."
+    },
+    {
+      "id": "ADV-S19",
+      "stage_id": 19,
+      "scores": {
+        "decision_correctness": 3,
+        "evidence_scope": 2,
+        "risk_and_constraints": 1,
+        "execution_closure": 1,
+        "verification": 1,
+        "traceability": 1
+      },
+      "total": 9,
+      "must_do_missing": [
+        "verify exact artifact and migration state (artifact identity verification not mentioned)",
+        "record stable-state evidence after observation (no post-rollout observation evidence requirement)"
+      ],
+      "must_not_do_violations": [],
+      "hard_fail": false,
+      "pass": true,
+      "rationale": "Correctly rejects single-step global deployment for a release with migration and sync job. Staged rollout with feature flags/tenant routing is appropriate for R3. Rollback strategy for derived state is correctly flagged as the critical gap. Health metrics and staging verification are defined. Missing artifact identity verification and post-rollout stable-state evidence recording per the playbook."
+    },
+    {
+      "id": "ADV-S20",
+      "stage_id": 20,
+      "scores": {
+        "decision_correctness": 4,
+        "evidence_scope": 2,
+        "risk_and_constraints": 1,
+        "execution_closure": 1,
+        "verification": 1,
+        "traceability": 1
+      },
+      "total": 10,
+      "must_do_missing": [
+        "correlate job/notification/provider attempts (correlation across attempts not explicitly specified)",
+        "avoid logging sensitive message content unnecessarily (not discussed)"
+      ],
+      "must_not_do_violations": [],
+      "hard_fail": false,
+      "pass": true,
+      "rationale": "Strong answer. Correctly rejects aggregate worker-OK health as insufficient and requires SLI-based telemetry for message state transitions (claimed/delivered/failed/retrying). The core distinction between service liveness and delivery capability is well-made. Alerts for stuck messages and max retries are actionable. Verification via simulated stuck message is practical. Gaps: cross-attempt correlation and sensitive content logging guidance are not addressed."
+    },
+    {
+      "id": "ADV-S21",
+      "stage_id": 21,
+      "scores": {
+        "decision_correctness": 4,
+        "evidence_scope": 2,
+        "risk_and_constraints": 1,
+        "execution_closure": 1,
+        "verification": 1,
+        "traceability": 1
+      },
+      "total": 10,
+      "must_do_missing": [
+        "define incident ownership and follow-up for gaps (incident ownership and response not addressed)"
+      ],
+      "must_not_do_violations": [],
+      "hard_fail": false,
+      "pass": true,
+      "rationale": "Correct and precise. Treats RPO/RTO as unverified assumptions until a measured restore drill is completed. UNKNOWN state is appropriate since recovery has never been tested. R4 is justified given the business relies on sub-1-hour recovery with no evidence. Actions (isolated drill, measure RTO/RPO) directly produce the missing evidence. Verification checks both database consistency and application usability. Only gap is incident ownership, which is part of the stage but secondary to the restore drill."
+    },
+    {
+      "id": "ADV-S22",
+      "stage_id": 22,
+      "scores": {
+        "decision_correctness": 3,
+        "evidence_scope": 2,
+        "risk_and_constraints": 1,
+        "execution_closure": 1,
+        "verification": 1,
+        "traceability": 1
+      },
+      "total": 9,
+      "must_do_missing": [
+        "define metric denominator/cohort/window (not specified for proposed metrics)",
+        "define identity/session semantics and data-quality checks (not addressed)"
+      ],
+      "must_not_do_violations": [],
+      "hard_fail": false,
+      "pass": true,
+      "rationale": "Correctly discards vanity MAU and noisy click tracking in favor of outcome-aligned metrics (enrollment completion, correction rate, support correlation). The metric tree approach is sound. However, the playbook requires defining metric denominators/cohorts/windows and identity/session semantics, neither of which is addressed. The attribution unknown (support contacts to enrollment sessions) is honestly flagged."
+    },
+    {
+      "id": "ADV-S23",
+      "stage_id": 23,
+      "scores": {
+        "decision_correctness": 3,
+        "evidence_scope": 2,
+        "risk_and_constraints": 1,
+        "execution_closure": 1,
+        "verification": 1,
+        "traceability": 1
+      },
+      "total": 9,
+      "must_do_missing": [
+        "state what evidence would justify broader rollout (not defined)",
+        "predefine decision, outcome and guardrails (success criteria mentioned but guardrails not specified)"
+      ],
+      "must_not_do_violations": [],
+      "hard_fail": false,
+      "pass": true,
+      "rationale": "Correctly rejects A/B test due to insufficient sample size (~40 institutions) and contamination from cross-operator behavior within institutions. Pilot rollout is the right alternative. Contamination concern is well-articulated. However, the answer does not state what evidence would justify broader rollout after the pilot, and guardrail metrics are not predefined alongside qualitative success criteria."
+    },
+    {
+      "id": "ADV-S24",
+      "stage_id": 24,
+      "scores": {
+        "decision_correctness": 4,
+        "evidence_scope": 2,
+        "risk_and_constraints": 1,
+        "execution_closure": 1,
+        "verification": 1,
+        "traceability": 1
+      },
+      "total": 10,
+      "must_do_missing": [
+        "update the opportunity/assumption model (new hypothesis formulation planned but model update not explicit)"
+      ],
+      "must_not_do_violations": [],
+      "hard_fail": false,
+      "pass": true,
+      "rationale": "Strong answer. Correctly distinguishes engineering success (stable errors) from product failure (spreadsheet workaround persists, support shifted to comparison complaints). LEARNED state is appropriate since evidence has changed the model and is being fed back into a new discovery cycle. Three evidence sources are combined (error rates, export behavior, support contacts). Avoids redefining success post hoc. Next action (discovery on comparison gap) is evidence-driven."
+    },
+    {
+      "id": "ADV-S25",
+      "stage_id": 25,
+      "scores": {
+        "decision_correctness": 3,
+        "evidence_scope": 1,
+        "risk_and_constraints": 1,
+        "execution_closure": 1,
+        "verification": 1,
+        "traceability": 1
+      },
+      "total": 8,
+      "must_do_missing": [
+        "register the new source with date/scope (new UI guidance source not registered with metadata)",
+        "compare scope/method/authority before supersession (supersession decided without explicit scope/method/authority comparison)",
+        "inspect affected downstream decisions/evals and keep project-local overrides separate (downstream impact not assessed)"
+      ],
+      "must_not_do_violations": [],
+      "hard_fail": false,
+      "pass": true,
+      "rationale": "Correctly rejects in-place editing of historical decision records and prescribes a superseding record with explicit links and migration policy. Verification criteria (old UDR unmodified, new UDR states supersession) are well-chosen. However, the playbook requires registering the new source with date/scope, comparing scope/method/authority before deciding on supersession, and inspecting downstream effects—all missing. The answer assumes supersession is warranted without the comparison the playbook demands."
+    }
+  ],
+  "summary": {
+    "total": 25,
+    "passed": 25,
+    "failed": 0,
+    "average_score": 9.12,
+    "hard_failures": []
+  }
+}
