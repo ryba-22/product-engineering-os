@@ -2,6 +2,8 @@
 
 An evidence-driven framework for taking software products from an initial idea to verified delivery and measurable outcomes.
 
+Operational entry: [RUNBOOK.md](RUNBOOK.md).
+
 Product Engineering OS helps an AI assistant or engineering team connect product goals, domain rules, architecture, user experience, implementation, testing, release and operations. It provides instructions, templates, schemas, quality gates and evaluation scenarios. It is not an autonomous agent service or a deployment tool.
 
 ## Who it is for
