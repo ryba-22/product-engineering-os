@@ -1151,6 +1151,64 @@
       "status": "active",
       "verified_at": "2026-10-02",
       "supersedes": []
+    },
+    {
+      "id": "EVD-AI-001",
+      "statement": "AI-assisted delivery quality depends on the surrounding harness: explicit context, tool and capability constraints, quality gates, observability and security controls; model capability alone is not sufficient evidence of safe delivery.",
+      "source_ids": [
+        "BOTTEGA-SOFTWARE-FACTORY-2026",
+        "BOTTEGA-AI-COST-2026"
+      ],
+      "domains": [
+        "ai-engineering",
+        "quality",
+        "security",
+        "delivery"
+      ],
+      "strength": "supporting",
+      "scope": "AI-assisted software engineering workflows",
+      "limitations": "Practitioner reports and operational observations support the direction; project-specific controls still require local threat/risk analysis and verification.",
+      "status": "active",
+      "verified_at": "2026-10-04",
+      "supersedes": []
+    },
+    {
+      "id": "EVD-LOOP-001",
+      "statement": "Production telemetry, user feedback and operational evidence should feed back into product and engineering decisions rather than treating deployment as the terminal lifecycle state.",
+      "source_ids": [
+        "BOTTEGA-SOFTWARE-FACTORY-2026"
+      ],
+      "domains": [
+        "product",
+        "analytics",
+        "reliability",
+        "governance"
+      ],
+      "strength": "supporting",
+      "scope": "production learning and outcome-driven software lifecycle",
+      "limitations": "The report frames the lifecycle and Definition of Value; concrete learning classification and propagation rules in this OS are a local design decision.",
+      "status": "active",
+      "verified_at": "2026-10-04",
+      "supersedes": []
+    },
+    {
+      "id": "EVD-AI-COST-001",
+      "statement": "Model selection, context reuse and tool-output volume can materially change AI operating cost; context/tool contracts are therefore engineering and cost controls, not only prompt concerns.",
+      "source_ids": [
+        "BOTTEGA-AI-COST-2026"
+      ],
+      "domains": [
+        "ai-engineering",
+        "cost",
+        "tooling",
+        "context-engineering"
+      ],
+      "strength": "contextual",
+      "scope": "coding-agent workloads comparable to the report's measured environment",
+      "limitations": "Reported percentages are workload/model/provider specific and must not be generalized as universal savings.",
+      "status": "active",
+      "verified_at": "2026-10-04",
+      "supersedes": []
     }
   ]
 }

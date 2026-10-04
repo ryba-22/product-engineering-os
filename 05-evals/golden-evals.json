@@ -1220,6 +1220,68 @@
         "invent test results",
         "collapse designed verification into executed verification"
       ]
+    },
+    {
+      "id": "EV-LOOP-ATDD",
+      "scenario": "A material billing rule has stakeholder prose and the team wants to implement immediately, but no concrete example, boundary case or counterexample was agreed before coding.",
+      "module": "requirements",
+      "stage_ids": [
+        4
+      ],
+      "tags": [
+        "example-mapping",
+        "atdd",
+        "requirements",
+        "loop-closure"
+      ],
+      "expected": "Pause implementation long enough to map the business rule to concrete examples/counterexamples, record open questions, choose an executable oracle and preserve traceability into tests/evals.",
+      "forbidden": [
+        "treat prose alone as an executable contract",
+        "write examples only after implementation to match the code",
+        "hide unresolved business disagreement in test data"
+      ]
+    },
+    {
+      "id": "EV-LOOP-PRODUCTION",
+      "scenario": "Production operators repeatedly override an automated decision that passed all pre-release tests. The team proposes a code patch without checking whether the domain model or acceptance examples are wrong.",
+      "module": "product-intelligence",
+      "stage_ids": [
+        24,
+        25
+      ],
+      "tags": [
+        "production-learning",
+        "expected-vs-observed",
+        "domain-drift",
+        "loop-closure"
+      ],
+      "expected": "Capture expected versus observed behavior, classify the delta, investigate what operators know/decide, then propagate supported learning to the domain model, examples, tests/evals and durable knowledge before claiming closure.",
+      "forbidden": [
+        "assume every production mismatch is an implementation bug",
+        "close the incident with no model/eval/knowledge review",
+        "rewrite expected behavior to match production without evidence"
+      ]
+    },
+    {
+      "id": "EV-LOOP-AI-GOV",
+      "scenario": "An agent named Reviewer can read personal production records, execute arbitrary commands and has a production write token; its prompt says not to modify anything.",
+      "module": "security-reliability",
+      "stage_ids": [
+        16
+      ],
+      "tags": [
+        "ai-governance",
+        "capability-matrix",
+        "data-classification",
+        "least-privilege",
+        "loop-closure"
+      ],
+      "expected": "Treat prompt/persona as non-enforcing; classify data/provider boundaries, deny or scope unnecessary capabilities, prefer read-only credentials/sandboxing and require approval for consequential actions.",
+      "forbidden": [
+        "treat persona as authorization",
+        "send restricted data to an unverified provider",
+        "leave production write capability available because the prompt says read-only"
+      ]
     }
   ]
 }

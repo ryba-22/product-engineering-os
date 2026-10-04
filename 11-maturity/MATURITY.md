@@ -29,3 +29,11 @@ Run `INDEP-RUN-2026-10-03-01` reused the exact frozen 25 adversarial lifecycle s
 Result: **25/25 passed**, **0 hard failures**, average **9.12/10**. The judge still identified explicit coverage gaps in a number of passing answers; these are preserved in `05-evals/independent-run-v1/weakness-backlog.json` rather than hidden by the pass result.
 
 This supports the scoped maturity status **`independently-behaviorally-validated-v1` for these 25 frozen scenarios**. It does not establish universal Product Engineering competence, production correctness, or performance on unseen distributions. Future maturity claims require additional unseen/adversarial sets and periodic revalidation after material corpus/runtime changes.
+
+## Loop-closure extension — 2026-10-04
+
+v1.2 materially changes the runtime contract in three areas: pre-implementation ATDD/Example Mapping, expected-vs-observed production learning with propagation into model/test/eval/knowledge, and explicit AI data/model/tool capability governance.
+
+Structural evidence now exists through updated G3/G8/G10/G11 gates, focused playbooks, templates, runtime instructions and new golden eval specifications. This is sufficient to call the extension **structurally implemented**.
+
+It is **not** yet sufficient to extend the prior independent behavioral claim. `INDEP-RUN-2026-10-03-01` used the frozen v1 corpus before these rules were added. Therefore v1.2 must not claim that the new loop-closure behaviors are independently validated until a new blinded executor/judge run exercises them, including failure cases where implementation passes tests but production falsifies the model, and where prompt-only AI restrictions conflict with actual capabilities.

@@ -11,10 +11,10 @@ Translate validated outcomes and domain evidence into traceable requirements, sc
 Upstream evidence and decisions, explicit current outcome, risk class, project constraints, and existing artifacts. Do not re-research what is already current and sufficient.
 
 ## Canonical outputs
-Product brief; PRD; NFR quality scenarios; scenarios; acceptance criteria; traceability matrix.
+Product brief; PRD; NFR quality scenarios; Example Map; scenarios/counterexamples; acceptance criteria; traceability matrix.
 
 ## Decision behavior
-Every material requirement should trace to evidence/outcome and forward to verification. Avoid implementation detail unless it is a real constraint.
+Every material requirement should trace to evidence/outcome and forward to verification. Material business rules should be made concrete through pre-implementation examples/counterexamples and an executable oracle. Avoid implementation detail unless it is a real constraint.
 
 ## Exit rule
 The module may declare its gate satisfied only when the gate's required evidence is present, unresolved decision-changing uncertainty is recorded, and downstream consumers can identify the canonical artifact/decision IDs.
@@ -27,3 +27,4 @@ The module may declare its gate satisfied only when the gate's required evidence
 ## Deep stage playbooks
 
 - Stage 04: [STAGE-04-REQUIREMENTS](./STAGE-04-REQUIREMENTS.md)
+- Focused method: [ATDD / Example Mapping](./ATDD-EXAMPLE-MAPPING.md)
