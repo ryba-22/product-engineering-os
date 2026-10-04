@@ -1,6 +1,6 @@
 {
   "name": "product-engineering-os",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "status": "deep-stage-playbooks",
   "corpus_cutoff_target": "2026-09-30",
   "verified_at": "2026-10-02",
@@ -274,5 +274,12 @@
     "minimum_stage_playbook_words": 350,
     "behavioral_validation": "independently-behaviorally-validated-v1: INDEP-RUN-2026-10-03-01 passed 25/25 with independent Gemini 3.1 Pro executor and Claude Opus 4.6 judge; scope limited to frozen scenarios",
     "rule": "Structural and depth validation do not by themselves prove behavioral effectiveness."
+  },
+  "loop_closure": {
+    "atdd_example_mapping": "06-modules/requirements/ATDD-EXAMPLE-MAPPING.md",
+    "production_learning": "06-modules/product-intelligence/PRODUCTION-LEARNING-LOOP.md",
+    "ai_governance": "06-modules/security-reliability/AI-GOVERNANCE.md",
+    "terminal_product_claim": "Definition of Value",
+    "behavioral_validation": "structural-and-golden-specification-only; independent revalidation required after this material runtime change"
   }
 }
