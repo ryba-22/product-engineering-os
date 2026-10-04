@@ -1,0 +1,396 @@
+{
+  "run_id": "INDEP-RUN-2026-10-05-03",
+  "provider": "Anthropic",
+  "model": "claude-opus-5-5",
+  "interface": "Claude Code CLI",
+  "cases": [
+    {
+      "id": "V3-H01",
+      "decision": "R3 (money, unknown external side effect, retry ambiguity, async callback). Treat a timeout as UNKNOWN, never as FAILED. Stop blind retries right away. Model each payment attempt as a durable server-side intent. Give it one stable idempotency key that is created once per business intent, persisted before the first provider call and reused on every retry. Only resolve the payment to SUCCEEDED or FAILED from authoritative provider evidence, meaning a verified webhook or a status query. A local guess or a 2xx response is not enough. We do not assume that the provider deduplicates on our key, delivers webhooks in order or exactly once, or offers a status/query API, until the provider's documentation or a sandbox test proves it.",
+      "actions": [
+        "Freeze or guard the retry path now. While the payment intent is PENDING or UNKNOWN, the operator's retry must not issue a new charge. Disabling the button in the UI is not an idempotency guarantee, so enforce this on the server.",
+        "Introduce a persisted PaymentIntent (or charge attempt) record with a state machine: CREATED \u2192 SUBMITTED \u2192 UNKNOWN (timeout) \u2192 SUCCEEDED / FAILED / NEEDS_RECONCILIATION. Allow transitions only through explicit commands with optimistic concurrency (version or compare-and-set).",
+        "Generate the idempotency key once per business intent (per invoice/charge, not per HTTP attempt). Store it before calling the provider, reuse it on every retry, and add a DB uniqueness constraint so there is at most one active intent per business obligation.",
+        "If the provider supports idempotency keys, send ours and record the documented dedup window and semantics. If it does not, a retry after UNKNOWN must be preceded by a status lookup or reconciliation and must never be a blind resubmit.",
+        "Make webhook handling idempotent and order-independent. Verify the signature, dedupe on the provider event ID, correlate to the intent through our key or the provider charge ID, apply the transition with compare-and-set, and let a late or duplicate webhook never downgrade a terminal state.",
+        "Handle the race explicitly. If a webhook confirms success while a second request is in flight, the second request has to resolve to the same intent: either a provider-deduplicated response or a detected duplicate that is refunded or voided through a defined compensating action with an audit trail.",
+        "Add a reconciliation job that queries provider status (or matches settlement reports) for every intent stuck in UNKNOWN or SUBMITTED beyond a threshold, and a manual-review queue for intents it cannot resolve.",
+        "Give the operator explicit feedback: show 'Payment outcome unknown \u2013 confirming with provider' rather than an error. Replace Retry with 'Check status', show the intent ID, and show the last provider evidence and its timestamp.",
+        "Write an Example Map with an executable oracle covering: timeout then success webhook, timeout then failure webhook, timeout with no webhook, duplicate webhook, webhook arriving before the HTTP response, retry while in flight, and a double charge detected and compensated.",
+        "Add adversarial and concurrency tests against the provider sandbox or a fault-injecting fake (timeouts, delayed, duplicate and reordered webhooks), then a staged rollout with monitoring for UNKNOWN age, duplicate-charge count and reconciliation mismatches.",
+        "Run a one-off reconciliation of historical charges that went through the current per-HTTP-attempt UUID path to find existing double charges."
+      ],
+      "required_evidence": [
+        "Provider documentation or a sandbox test proving or disproving: idempotency-key support and its dedup window, webhook delivery semantics (at-least-once, ordering, retry policy), signature verification, and the existence and consistency of a charge status/query API.",
+        "The current code path for creating, retrying and handling webhooks for charges, plus the DB schema showing where the request UUID lives.",
+        "Production logs and provider records quantifying past timeouts, operator retries and any duplicate charges.",
+        "Passing concurrency and adversarial tests for the Example Map scenarios, including the race between webhook and in-flight retry.",
+        "A defined compensation path (refund/void) and who owns approving it, plus an audit trail.",
+        "Post-release observation: UNKNOWN intents resolved within the SLA, zero unreconciled duplicate charges, and reconciliation drift at or near zero."
+      ],
+      "risks_or_unknowns": [
+        "Whether the provider deduplicates on a client idempotency key at all, and over what window. This is unknown and must not be assumed.",
+        "Whether the first request actually charged. The outcome is unknown until the webhook or status query confirms it.",
+        "Webhooks may be duplicated, delayed, reordered or lost, and the provider's retry policy is unknown.",
+        "Double charges may already exist from the current code path.",
+        "A status API may be eventually consistent, so it may briefly report not-found for a charge that succeeded.",
+        "Compensation (refund) may carry fees, delays or customer-visible effects.",
+        "Operators may bypass the UI guard through other tools."
+      ],
+      "stop_condition": "Do not re-enable operator retry or ship the change until four things hold: provider idempotency and webhook semantics are confirmed from documentation or sandbox evidence (or the design explicitly works without them through status-before-retry); the idempotency key is persisted per business intent and protected by a uniqueness constraint; the adversarial and concurrency tests pass; and reconciliation plus compensation are implemented and owned. Analysis stops once these are evidenced. Until then the payment remains UNVERIFIED, and any UNKNOWN intent goes to reconciliation or manual review, not retry."
+    },
+    {
+      "id": "V3-H02",
+      "decision": "R2/R3. It is R3 if the bulk action is destructive or financial, or cannot easily be undone. Selection must have a single owner and a clear meaning. Replace the client-held ID list from a stale result set with an explicit, server-resolved selection: either an explicit list of IDs, each carrying a version, or a query-based selection (a filter snapshot plus exclusions) re-evaluated on the server at execution time. Any change of filter clears the selection or requires explicit confirmation to keep it. The bulk action runs per item with optimistic concurrency and returns a per-item result (applied / skipped-stale / conflict / not-eligible / forbidden), never one global success.",
+      "actions": [
+        "Decide the selection model with Product and record it as a UDR. Option A: explicit IDs plus versions, limited to what the user has seen. Option B: 'all matching filter F' plus exclusions, resolved by the server with a count and a preview. Do not mix the two silently.",
+        "Define what happens when the filter changes. The default is to clear the selection and tell the user. If selection must persist across filters, show an explicit '180 selected (143 not in the current view)' state and offer 'show selected' and 'clear'.",
+        "Before execution, have the server revalidate eligibility, authorization and the current version for every target. Show a confirmation summary with the resolved count, the number no longer matching or changed, and the action to be applied.",
+        "Run the bulk mutation with per-item optimistic concurrency (version/ETag compare-and-set). Records changed by another operator after selection go to conflict or skip, not overwrite, unless the domain rule explicitly allows last-write-wins for that field.",
+        "Make the bulk job idempotent with a client-generated job ID, so a resubmit does not double-apply. Run large sets asynchronously with progress, partial-failure reporting and a 'retry failed / review conflicts' path.",
+        "Define recovery: an undo or compensating action where the domain permits, otherwise a mandatory confirmation step and an audit log per item (who, what, old value to new value, job ID).",
+        "Build an Example Map covering: filter changed after selection, a record edited by another operator, a record deleted, a record no longer eligible, a permission revoked, a partial failure, a resubmit, and selection across pages.",
+        "Add interaction-state tests and backend concurrency tests derived from the same examples, plus accessible announcements for the selection count and the results."
+      ],
+      "required_evidence": [
+        "Which bulk actions exist and whether they are reversible, financial or destructive, which sets the final risk class.",
+        "The current selection store and API contract, and whether the records carry a version or updated_at usable for concurrency control.",
+        "The domain rule for concurrent edits: should a conflicting change block, skip or override? This needs a product or domain owner decision.",
+        "The authorization rules for the bulk action, checked per record at execution time.",
+        "Usage evidence on whether operators intend 'these specific rows' or 'everything matching the filter'.",
+        "Passing tests for the Example Map, including the concurrent-modification and filter-change cases, and a per-item result report in staging."
+      ],
+      "risks_or_unknowns": [
+        "The intended meaning of a cross-filter selection is not defined.",
+        "Stale IDs may point at records that changed state, moved scope or were deleted.",
+        "Silent overwrites of another operator's work.",
+        "Partial failure leaves a mixed state with no recovery path.",
+        "Large-set performance and timeouts for the bulk job.",
+        "Whether the action is reversible is unknown."
+      ],
+      "stop_condition": "Do not start implementation until the selection semantics (explicit vs. query-based), the filter-change behavior, the conflict policy and the per-item result/recovery contract are decided and recorded, with the Example Map agreed by the product/domain owner. Do not release until concurrency and stale-selection tests pass. Further research stops once those decisions exist. Remaining UX tuning can proceed through a reversible iteration."
+    },
+    {
+      "id": "V3-H03",
+      "decision": "R3, since this is a semantic migration of money-related data with mixed versions running and historical meaning at stake. Do not reuse settlement_status for the new meaning. Keep the existing field's meaning frozen as 'bank transaction imported', perhaps renamed in code and docs to make that explicit. Introduce a separate concept and field for allocation ('money allocated to charges'), using an expand \u2192 dual-write/backfill \u2192 switch reads \u2192 contract sequence that is compatible with both old and new versions. Historical rows whose interpretation is ambiguous are classified explicitly ('unknown/legacy-ambiguous'), not silently reinterpreted.",
+      "actions": [
+        "Run domain discovery to confirm the two meanings with the domain owners. Record both in the glossary and an ADR as distinct domain concepts (import status vs. allocation status) with separate lifecycles.",
+        "Expand: add a new nullable column or table, such as allocation_status, possibly with an allocation record linked to charges. Leave the existing column and its values untouched so old versions keep working.",
+        "Stop the new service from writing allocation meaning into settlement_status. Gate it behind a feature flag until the new field exists.",
+        "Inventory historical rows. Determine which writer or version produced each value (deploy dates, service identity, audit logs, correlated allocation records) and classify each row as import-meaning, allocation-meaning or ambiguous. Ambiguous rows get an explicit marker and are routed to reconciliation, not guessed.",
+        "Backfill allocation_status from authoritative evidence (actual allocation records or ledger entries), not from the overloaded enum. Make the backfill idempotent, resumable and verified by row-count and sum checks.",
+        "Update reports to read the field matching the question being asked, and annotate or segregate periods with mixed meaning. Get finance or report owners to sign off on any change in reported figures.",
+        "Switch reads only after the backfill is verified and every running version understands the new field. Keep dual-read comparisons during the transition.",
+        "Contract, by restricting or renaming the old field's semantics, only after all old versions are gone and the rollback window has closed. Until then rollback means turning off the flag, with no data rewrite, because the old field was never mutated.",
+        "Write a DATA-CHANGE-PLAN covering compatibility, verification queries, rollback and cutover criteria, plus a decision record with the risk class and the facts that would trigger reclassification."
+      ],
+      "required_evidence": [
+        "Confirmation from the domain owner of both meanings and of whether any consumer depends on the current meaning.",
+        "An inventory of every reader and writer of settlement_status: services, reports, exports and integrations.",
+        "The provenance needed to disambiguate historical rows (audit logs, version and deploy history, allocation records), and the count of rows that remain ambiguous.",
+        "A compatibility test showing that the old and new application versions run against the expanded schema without errors or misinterpretation.",
+        "Backfill verification: reconciled counts and amounts against the ledger or allocation source of truth.",
+        "Report diffs before and after, reviewed and accepted by finance or report owners.",
+        "A rollback rehearsal showing that disabling the flag restores the prior behavior with no data loss."
+      ],
+      "risks_or_unknowns": [
+        "Some historical rows may be impossible to disambiguate.",
+        "Unknown downstream consumers (BI, exports, partners) may rely on the current meaning.",
+        "Past reports may already be wrong because of the mixed interpretation, which may be a finance or compliance issue.",
+        "The rollout window and version skew are unknown.",
+        "Allocation may be many-to-many (one bank transaction to several charges), in which case a status enum is not enough and a relation is needed."
+      ],
+      "stop_condition": "Do not let the new service write allocation semantics anywhere until the separate field or model exists and the mixed-version compatibility tests pass. Do not cut reads over or contract the old field until the backfill is reconciled, ambiguous rows are explicitly classified, report owners have signed off and rollback has been rehearsed. Analysis stops once the meanings are confirmed and the consumer inventory is complete. The rest is resolved through the staged migration."
+    },
+    {
+      "id": "V3-H04",
+      "decision": "Do not commit to broad AI automation of all overdue-account cases. Reframe the outcome as cutting operator review time on overdue accounts while preserving correct, fair handling, and measure it as a baseline. The evidence points to the 4% subgroup with disputed guardian relationships as the cost driver, and that subgroup is exactly where automation has no safety evidence. It likely involves sensitive personal and legal data, so treat it as R3/R4. The smallest evidence path is to decompose where review time goes and why. Then target the high-cost segment with assistive, human-in-the-loop support (case summary, evidence assembly, routing). Only consider automating the low-risk 96% if evidence shows it is safe and worth the effort.",
+      "actions": [
+        "Write a problem/outcome brief with the director: the target outcome (for example, operator hours per resolved case, time-to-resolution, error and complaint rate), the baseline, the non-goals and the constraints. Confirm what 'resolve' means and which actions are consequential (collections, account changes, notifications).",
+        "Analyse the review-time logs to confirm the 4% concentration. Break down which activities in disputed-guardian cases consume time (document gathering, identity or relationship verification, legal checks, waiting on third parties).",
+        "Run small discovery with operators on a sample of disputed-guardian cases to find root causes, such as missing guardian data, an unclear policy, or no source of truth for relationships. These may have non-AI fixes.",
+        "Classify the data and provider boundary and fill in the AI capability matrix before any AI use: guardian and minor data, legal authority, provider data retention. An unknown provider or data compatibility fails closed.",
+        "Pick the smallest intervention: an assistive tool for the 4% (summarise case history, flag missing documents, suggest routing to a specialist), where a human makes every decision and AI has no autonomous action or write credentials. Consider a process or data fix in parallel, for example capturing the guardian relationship at intake.",
+        "For the remaining 96%, check whether they consume meaningful review time at all. If they do, evaluate rule-based or AI-assisted triage offline (shadow mode) against human decisions before any automation.",
+        "Define an experiment plan: shadow-mode or assistive pilot with success metrics (time saved), guardrail metrics (wrong-decision rate, escalations, complaints, fairness across segments) and a kill criterion.",
+        "Get explicit approval from legal, compliance and the accountable owner before any automated action on accounts. Keep an audit trail and a human override."
+      ],
+      "required_evidence": [
+        "A baseline from the review-time logs, segmented by case type, confirming the 4% concentration and the time spent per activity.",
+        "A definition of 'resolve' and a list of the consequential actions involved.",
+        "The legal, regulatory and policy constraints on disputed guardian relationships and on automated decisions affecting individuals.",
+        "A data classification and an AI provider boundary assessment (retention, residency, training use).",
+        "An offline or shadow evaluation of any AI or rule component against human-labelled outcomes, with error analysis on the disputed-guardian segment.",
+        "Pilot results showing time saved with no increase in guardrail metrics, before any expansion of scope."
+      ],
+      "risks_or_unknowns": [
+        "Automating legally sensitive decisions about guardianship could cause harm to vulnerable people and expose the organisation legally.",
+        "The time saved for the 96% may be negligible, giving low value from broad automation.",
+        "The root cause may be data or process quality, not something AI can fix.",
+        "AI errors in this segment would be hard to detect.",
+        "Solution pressure from leadership may bias the evaluation.",
+        "Provider data handling for sensitive personal data is unknown.",
+        "Operators may over-trust the AI (automation bias)."
+      ],
+      "stop_condition": "Stop analysis and run the assistive or shadow pilot once the baseline confirms where review time goes, the root causes of the 4% are characterised, and the data, provider and legal boundary is classified. Do not build any autonomous resolution capability until the shadow evaluation and pilot show acceptable error rates on the targeted segment, legal or compliance and the accountable owner have approved, and the guardrail metrics hold. Without outcome evidence, report UNVERIFIED OUTCOME."
+    },
+    {
+      "id": "V3-H05",
+      "decision": "R3 critical data mutation, with irreversible-correction risk. Do not run one blanket automated repair. Split the affected rows into three classes. (A) Repair automatically only where the offset can be derived without guessing: rows with an explicit UTC or offset, and local-without-zone rows that fall outside the DST gap or overlap once interpreted in a confirmed zone. (B) Date-only membership boundaries are compared only as calendar dates in the governing zone. They are never converted through midnight UTC. Rows near a boundary are repaired only where a business-confirmed rule and example exist. (C) Rows whose local time falls in the repeated (fall-back) hour, rows in the nonexistent (spring-forward) gap, and rows whose zone or source cannot be determined go to a manual-decision queue. No default offset is applied to them. Nothing is applied until a dry run, reviewed examples, a backup or before-image, and an approval bound to the exact change set are in place.",
+      "actions": [
+        "Freeze or scope writes to the affected attendance rows, or record a watermark, so the repair does not race with live writes",
+        "Take a full before-image or backup of every candidate row, keyed by row ID, and confirm it can be restored",
+        "Inventory every timestamp column and its storage semantics (local-naive, UTC, date-only). Record which writer or code path produced each kind, and which IANA zone governs each site or tenant",
+        "Use Example Mapping with the business: turn the examples they can explain into rule-bound examples and counterexamples with IDs. Record repeated-hour ambiguity and gap handling as open questions, not as assumed rules",
+        "Build a dry-run classifier that labels every row as auto-repairable, boundary-rule-dependent or manual. Output old value, proposed value, the rule or example ID applied and a confidence reason for each row",
+        "Use secondary evidence to break ambiguity where it exists, without inventing any: insert order or sequence IDs, audit logs, created_at in UTC, session or schedule records, device events. Rows still unresolved after this go to the manual queue",
+        "Have a business owner review a sample of auto-repairs plus all manual-queue rows. Record each manual decision with decider, reason and timestamp",
+        "Run the repair idempotently in batches inside transactions, writing an audit table (row ID, before, after, rule/example ID, batch ID, operator, approval ID). Provide a tested reverse script that restores from the before-images",
+        "Post-repair verification: run invariant queries for no attendance outside the membership date range, no duplicate or overlapping sessions, and expected counts per day around the transition. Reconcile against the dry-run totals",
+        "Root-cause the mixed storage and fix the writers: store an instant plus a zone, or a local date with an explicit zone. Add DST-transition tests built from the example IDs so the data does not re-corrupt"
+      ],
+      "required_evidence": [
+        "Authoritative governing time zone per site, tenant or record (IANA ID) and the exact DST transition instants involved",
+        "Which code path or version wrote each timestamp format, and since when",
+        "Dry-run report: counts and row lists per class (auto, boundary-dependent, manual, unrepairable), with the proposed diff",
+        "Business-confirmed rules and example IDs for membership date-boundary semantics, including inclusive or exclusive and which zone's calendar date",
+        "A recorded business decision per ambiguous row or policy class for repeated-hour and gap cases, or explicit acceptance that those rows stay unrepaired or flagged",
+        "A verified restore test from the before-image or backup",
+        "Downstream consumers of attendance data (billing, compliance reports, payroll, entitlements) and whether they need reprocessing or notification",
+        "Approval bound to the specific dry-run artifact or version"
+      ],
+      "risks_or_unknowns": [
+        "The repeated-hour local times are genuinely undecidable from the timestamp alone. Any automatic pick of the first or second occurrence is an invented rule",
+        "Some local-naive rows may come from a zone different from the assumed one, for example multi-site data or a server-zone default",
+        "Converting date-only boundaries through UTC can shift them by one day",
+        "Corrected attendance can change derived facts already used externally (invoices, reports, eligibility). Correcting them may be a separate business decision",
+        "Live writes during the repair can create rows that are inconsistent with it",
+        "The business's 'few examples' may not generalize. Patterns found by the classifier may contradict them",
+        "Audit records themselves may contain personal data and need the same handling class"
+      ],
+      "stop_condition": "Stop before any mutation if the governing zone is unknown for a row set, if the before-image or restore is unverified, or if there is no approval bound to the dry-run artifact. Stop auto-repair for any row that needs a rule not confirmed by the business, and route it to the manual queue. The repair is VERIFIED only when post-repair invariants and reconciliation pass and every manual-queue row has a recorded decision or an explicit 'left as-is' status. Until downstream consumers are reconciled, report the outcome as UNVERIFIED OUTCOME."
+    },
+    {
+      "id": "V3-H06",
+      "decision": "R3/R4 incident with an external, irreversible side effect. Contain first: keep the worker stopped and do not blindly restart or retry the 12,000 rows. Split the backlog into three groups. (1) Provably not accepted: no request left the system, or there was a definite pre-send failure. These are safe to resend. (2) Provably accepted, per provider evidence. Mark these sent and do not resend. (3) Unknown. For this group, resolve state through provider lookup or reconciliation if the provider actually offers it. Otherwise a business owner decides per message class whether duplicates or drops are worse. The long-term fix is explicit delivery semantics: a persistent idempotency key per message, sent to the provider only if the provider verifiably honors it, and a state machine of pending \u2192 sending/in-doubt \u2192 sent/failed. Do not assume exactly-once delivery or provider deduplication without documented, tested evidence.",
+      "actions": [
+        "Containment: pause the worker and any auto-restart, cron or retry policy, and the queue consumers. Record the incident start and end of the partition window",
+        "Snapshot the outbox and message table state, plus worker logs, request logs, egress or proxy logs and traces for the window, before any change",
+        "Build an inventory of the 12,000 rows by attempt evidence: never attempted, request not sent (connection refused or DNS failure before send), request sent but response lost or timed out, unknown. Include message type, recipient and age",
+        "Check what the provider actually offers. Look at the documentation and contract for an idempotency-key header and its dedup window, message lookup by client reference or ID, delivery webhooks or receipts, and exports or delivery reports. Verify each one against a test message, not documentation alone",
+        "Reconcile the in-doubt rows against provider-side evidence (status API, webhooks received, delivery reports, provider support export). Move proven-delivered rows to sent with an evidence reference",
+        "For rows that remain unknown, get a business or product owner decision per message class on the harm of a duplicate versus a drop: resend, resend with a 'possible duplicate' wording, route to manual or alternate channel, or drop with notification. Bind the decision to the row set",
+        "Resend approved rows as a throttled, canary-first batch with monitoring for provider errors, rate limits and complaint or duplicate signals. Keep the ability to halt",
+        "Fix delivery semantics: generate a stable idempotency key per message at enqueue time. Persist an 'attempting' or in-doubt state before calling the provider. Pass the key to the provider if dedup is supported and verified. Never auto-retry in-doubt rows without reconciliation. Add a reconciliation job driven by webhooks or the status API",
+        "Add tests and fault injection for a lost response after provider acceptance, timeouts and partitions. Add a large-retry circuit breaker or approval gate (a retry above N rows needs a human)",
+        "Post-incident: record the timeline, decision record and any user communication. Update runbooks and propagate the learning to tests"
+      ],
+      "required_evidence": [
+        "The exact partition window, and per-row attempt evidence from logs or traces showing whether the request was actually transmitted",
+        "Documented and tested provider capabilities: idempotency or dedup support and window, status lookup by client reference, webhook or receipt coverage",
+        "Provider-side records for the window, from the status API, webhook logs or a provider export",
+        "Message classification and business harm assessment per type (transactional, security, marketing, legally required), with owner sign-off on the resend or drop policy for unknown rows",
+        "Count reconciliation: proven-sent + proven-not-sent + resolved-unknown + accepted-unknown = 12,000",
+        "Canary resend results before the full resend",
+        "Tests showing the new state machine does not auto-resend in-doubt messages and does deduplicate where the provider supports it"
+      ],
+      "risks_or_unknowns": [
+        "The provider may have no idempotency or lookup capability, in which case some rows are unknowable and a duplicate-or-drop trade-off must be accepted explicitly",
+        "Provider dedup windows may have expired already, so a retry may not deduplicate",
+        "Webhook delivery may itself have been lost during the partition",
+        "Duplicates of some message types (codes, payments, safety alerts) may be much more harmful than others",
+        "Stale messages resent late may be wrong or confusing: time-sensitive content, superseded state",
+        "Provider rate limits or abuse throttling during bulk resend",
+        "The partition may have affected other side-effecting workers that share the same pattern"
+      ],
+      "stop_condition": "Do not restart the worker or resend any row until each of the 12,000 rows is classified with evidence and a business owner has approved the policy for unknown rows. Halt the resend if the canary shows duplicate complaints, provider errors or a mismatch with reconciliation counts. The incident is closed only when counts reconcile, the policy outcome for unknowns is recorded, and the new in-doubt-aware delivery path is tested with fault injection. Report the new semantics as VERIFIED only on test evidence, and as HEALTHY only on production observation."
+    },
+    {
+      "id": "V3-H07",
+      "decision": "R4 under AI governance. Fail closed. A 'read-only' persona is not a control. In its current setup the agent must not process the child and guardian bug reports at all. The approved provider covers source code only, so personal data in prompts, tool output or retrieved issues falls outside the approved boundary. Define a minimum safe execution profile, enforced by the runtime rather than the prompt: repo read only, in an isolated sandbox or worktree; no deploy token or any production credential in the environment; no database MCP; no browser and no general egress; issue tracker either disabled or replaced by a broker that supplies only a sanitized, validated, code-relevant bug summary; output limited to review comments or a diff, with no merge or deploy. Processing personal data requires a separately approved provider or runtime and a documented exception.",
+      "actions": [
+        "Immediately remove the deployment token from the agent's shell environment and rotate it, because it may already have been exposed in context, logs or the provider. Review its usage logs for unexpected use",
+        "Disable the database MCP, browser and unrestricted shell egress for this agent. Run the shell in a sandbox without network access or credentials, limited to the repo worktree",
+        "Classify the data: source code is CONFIDENTIAL (allowed for the provider). Bug reports with child and guardian data are PERSONAL/SENSITIVE and involve minors. The deploy token is HIGH-RISK/RESTRICTED. Apply classification to tool outputs and logs as well as prompts",
+        "Fill in the AI capability matrix for the reviewer agent. ALLOW: repo read. CONDITIONAL: command exec (sandboxed, no network, no secrets). DENY: repo write outside the worktree, prod logs, prod DB read and write, external messages, merge, deploy staging and prod, secrets/infra, web. Issue tracker: DENY direct access; ALLOW only a broker that returns sanitized fields",
+        "Build or choose a pre-model sanitization step for bug reports: extract stack traces, error codes and repro steps, and strip personal identifiers. Validate the redaction on a sample, since redaction does not automatically declassify data. Until that step is validated, a human writes a sanitized summary",
+        "Where debugging needs realistic data, use synthetic or fixture data in a non-production environment, never production records",
+        "Require human approval, bound to a concrete diff, for any action beyond read and comment. The agent cannot approve its own exceptions",
+        "Turn on audit logging for agent identity, model/provider and policy version, tools available, data class processed, and actions and results, without logging the personal data itself",
+        "Check whether personal data has already been sent to the provider. If so, escalate to privacy, DPO or legal for incident assessment"
+      ],
+      "required_evidence": [
+        "Provider policy record: which data classes are verified as allowed (source code yes; personal data and children's data not approved), retention and training terms verified",
+        "An inventory of the agent's actual tools, credentials and environment variables, showing the token and the DB MCP, browser and egress are removed (evidence from executable configuration, not prompt text)",
+        "Token rotation record and token usage audit log review",
+        "Sanitization or redaction validation results on representative bug reports",
+        "Tool contracts for the issue tracker broker: fields returned, filtering, output bounds",
+        "Historical agent or provider logs showing whether personal data or the token was already transmitted",
+        "Named approval owner for any exception allowing personal data to reach a model"
+      ],
+      "risks_or_unknowns": [
+        "Personal data, including children's data, may already have been sent to an unapproved provider. This may be a reportable privacy incident",
+        "The deploy token may already be exposed through model context, logs or prompt injection via bug-report content",
+        "Bug reports and issue content are untrusted input. Prompt injection could steer the shell, browser or MCP into exfiltration or mutation",
+        "Redaction can miss free-text identifiers, screenshots or attachments",
+        "The issue tracker may itself contain personal data in comments, so any direct connector leaks it",
+        "Unclear legal obligations for minors' data in the relevant jurisdiction"
+      ],
+      "stop_condition": "The agent must not run on production bug reports until the deploy token is removed and rotated, the DB MCP, browser and egress are disabled, and the capability matrix is enforced in configuration and verified. Bug-report content may enter the model only through a validated sanitization path, or after an approved exception for a provider verified for personal data. If prior exposure of personal data or the token is confirmed, stop and escalate to security and privacy incident handling."
+    },
+    {
+      "id": "V3-H08",
+      "decision": "R1/R2: measure before architecting. Reject the summary table and Redis for now, because there is no evidence the join is the bottleneck and both add freshness, invalidation and dual-path complexity. First capture a baseline: p50/p95 for the dashboard's representative scenarios, and an EXPLAIN ANALYZE with buffers on production-like data. Set a performance budget and freshness requirement with the product owner. Then fix the measured bottleneck with the smallest reversible change: missing or wrong index, bad plan or stale statistics, N+1 or over-fetching, unbounded range, pagination. Introduce a new data path only if the measured residual gap still misses the budget after those fixes and an acceptable freshness bound is defined.",
+      "actions": [
+        "Define the critical dashboard scenarios (typical and largest tenant, date ranges) and get a p95 latency budget and an acceptable staleness bound from the product owner",
+        "Capture a baseline: endpoint p50/p95/p99 from APM or logs, DB time versus app or render time, call count per page load (detect N+1), result sizes",
+        "Capture EXPLAIN (ANALYZE, BUFFERS) for the slow query on production-like data volume. Identify which node dominates: sequential scans, bad row estimates, sort or hash spills, nested loops on large sets",
+        "Check statistics freshness or autovacuum, index coverage for join, filter and sort columns, and whether a query or ORM change in the last six months altered the plan",
+        "Apply the smallest targeted fix (index, rewritten predicate, bounded date range, pagination, stats refresh). Re-measure against the same scenarios",
+        "Only if the budget is still missed: evaluate options in order of added complexity, e.g. a materialized view or rollup with defined refresh, then an application or Redis cache. State the freshness and invalidation contract, expected hit rate and failure behavior for each",
+        "Add a regression guard: a performance test or monitor on dashboard p95 with an alert threshold, plus a capacity note on how growth affects the chosen fix"
+      ],
+      "required_evidence": [
+        "Baseline p50/p95 per critical scenario, and how it changed over the six months",
+        "Query plan with actual timings and buffers on representative data",
+        "Breakdown of latency (DB versus application versus network versus frontend)",
+        "Agreed latency budget and data-freshness requirement",
+        "Post-fix measurement on the same scenarios showing the budget is met, or the residual gap quantified",
+        "If a cache or summary table is proposed: measured or estimated access pattern and hit rate, the freshness tolerance, invalidation and backfill design, and correctness test plan"
+      ],
+      "risks_or_unknowns": [
+        "The bottleneck may not be the join at all: N+1 calls, frontend rendering, a lock or contention, or an unbounded range",
+        "Plan behavior on production data volume may differ from dev or staging",
+        "The freshness requirement is unknown, so any cache or summary table risks showing stale or incorrect data",
+        "A denormalized table adds dual-write or refresh consistency risk and an extra data path to secure and operate",
+        "Redis cache-hit expectations are unproven. Diverse filters or tenants may give low hit rates and no gain",
+        "Continued growth may erode index-only fixes; a capacity projection is needed"
+      ],
+      "stop_condition": "Stop investigating and close when the critical scenarios meet the agreed p95 budget on representative data, with before and after evidence and a regression monitor in place. Escalate to a new data path (summary table, materialized view or cache) only when measured evidence shows the budget cannot be met by plan, index or query fixes and a freshness and invalidation contract is approved. If no budget or freshness requirement can be agreed, do not build new infrastructure; record the baseline and the residual issue instead."
+    },
+    {
+      "id": "V3-H09",
+      "decision": "Do not run a user- or operator-level A/B test as the primary evidence. With about 15 eligible cases a month, a randomized test cannot reach a useful sample size within any reasonable window. Randomizing within an institution would also be contaminated, because operators share cases and teach each other workarounds. Use the cheapest trustworthy method instead, in three steps. Step 1: shadow-mode or retrospective replay of the new workflow on past and current conflict cases. The current resolution remains authoritative. Each case gets paired adjudication (new workflow output compared with the actual decision, reviewed by experts). Step 2: a pilot of the new workflow in a few institutions, with the institution as the assignment unit, plus mandatory second review of every resolution. Step 3: an optional staggered, institution-level rollout (stepped-wedge) with comparison institutions, if leadership still needs causal evidence. Treat this as R3 because a wrong resolution is costly and hard to reverse. Guardrails come before efficiency metrics.",
+      "actions": [
+        "Write down the decision the evidence must drive (adopt, adapt or stop the new workflow) and a practical threshold for it, such as no increase in wrong or reversed resolutions and a defined minimum gain in time-to-resolution or consistency.",
+        "Explain to management, using real case counts, why an operator-level A/B test is not trustworthy here. Run a power/duration estimate: 15 cases a month across 40 institutions is roughly 0.4 cases per institution per month.",
+        "Run shadow mode or retrospective replay. Pass the same cases through the new workflow without acting on its output. Have blinded expert reviewers adjudicate disagreements with the current resolution. Record every case against example IDs.",
+        "Use Example Mapping to set the conflict-resolution rules, examples and counterexamples, including edge cases where a wrong resolution is high-cost. Use them as the executable oracle.",
+        "If shadow results meet the threshold, pilot in a small number of willing institutions. The whole institution is the assignment unit, so there is no within-institution split. Every resolution gets dual control or second review.",
+        "Set guardrails before the pilot: wrong or reversed resolutions, escalations, complaints or appeals, time-to-resolution, and operator overrides or workarounds. Define a hard stop rule: one confirmed high-cost wrong resolution pauses the pilot.",
+        "Log exposure and the workflow version for every case before outcomes are known. Collect qualitative operator feedback to spot workarounds.",
+        "Expand only by staggered institution waves with predefined review points. Report pre-specified results separately from exploratory segment findings."
+      ],
+      "required_evidence": [
+        "Historical volume and distribution of conflict cases per institution and per case type.",
+        "A baseline rate of wrong or reversed resolutions and how they are detected, including detection lag.",
+        "A definition of a 'correct resolution' and an adjudication protocol with independent reviewers, plus inter-rater agreement.",
+        "Shadow or replay agreement and disagreement results, with every disagreement adjudicated.",
+        "Pilot guardrail results per institution, with exposure logs tied to the workflow version.",
+        "Evidence of how far contamination reaches (operators shared across institutions, shared training) before choosing the institution as the cluster.",
+        "An accountable owner's go/no-go approval for each expansion wave."
+      ],
+      "risks_or_unknowns": [
+        "The sample is too small for statistical significance by any method. Conclusions will rest on adjudicated case-level evidence, and the remaining uncertainty must be stated rather than presented as a measured effect.",
+        "Wrong resolutions may surface late (appeals, downstream harm), so short observation windows can understate harm.",
+        "Pilot institutions that volunteer may differ systematically from the rest (selection bias).",
+        "Shadow mode may not capture how operators actually behave once the workflow is live.",
+        "Some operators may work across institutions, which would contaminate even institution-level assignment.",
+        "It is unknown whether a regulatory or policy requirement already decides the outcome. If it does, no experiment is needed for that part."
+      ],
+      "stop_condition": "Stop expansion and revert pilot institutions to the old workflow when any confirmed high-cost wrong resolution can be attributed to the new workflow, or when guardrails breach the predefined thresholds. Stop gathering evidence and decide when shadow and pilot evidence meet the pre-agreed threshold, or when more data would take longer than the decision window allows. Report the outcome as UNVERIFIED OUTCOME rather than SUCCESSFUL until the evidence supports it."
+    },
+    {
+      "id": "V3-H10",
+      "decision": "Reject the global replacement. Classify the new source as a contextual challenge (scope delta): it is credible, but its scale and regulatory environment differ from the context where the existing rule was validated. It does not falsify the existing rule. Keep both records. Register the new source as a Candidate claim scoped to its own scale and regulatory context. Narrow the existing rule's scope statement explicitly. Open a conflict-register entry. Supersede the old rule only for contexts where the new evidence is shown to apply, and only after scope, method and evidence-quality comparison. The rule's lifecycle and provenance are preserved, and the three dependent projects are reviewed rather than silently changed.",
+      "actions": [
+        "Register the new source with authority tier, publication date, scale, regulatory environment, method and limitations. Atomize its claims into individual evidence records with status Candidate.",
+        "Retrieve the provenance of the existing rule: original source, scope, population, method, verification date and status.",
+        "Compare the two claims on scope, population or scale, regulatory context, method and evidence strength. Decide whether the disagreement is real or contextual.",
+        "Classify the delta. The default is 'scope', with a 'challenge' flag. Classify as 'extend' if the new source covers a context the old rule never addressed. Use 'falsify' only if the new source shows the old rule is wrong within its own original scope.",
+        "Narrow both claims to their valid contexts. Record a conflict entry and a decision record that names the revisit triggers, such as evidence from a matching scale and regulatory context, or production evidence from the existing projects.",
+        "For each of the three projects that applied the rule, check whether its context matches the old scope or the new one. Record project-local decisions or overrides instead of mutating them globally.",
+        "If supersession is later justified for some scope, mark the old rule Superseded (or Deprecated) for that scope only, with links in both directions and migration guidance. Never delete it.",
+        "Require the maintainer's change to go through the governance path (owner review), not a direct global edit."
+      ],
+      "required_evidence": [
+        "The full text and method of the new source, including the scale, regulatory environment and population it studied.",
+        "The original provenance, scope and verification record of the existing internal rule.",
+        "Outcome or production evidence from the three projects that applied the rule: did it hold or fail in their context?",
+        "Any independent corroborating or contradicting sources for each context.",
+        "The context profile (scale, regulation) of current and upcoming projects that would consume the rule.",
+        "Owner or governance approval for any status change."
+      ],
+      "risks_or_unknowns": [
+        "Prestige and recency bias: a newer, prestigious source can still be inapplicable to a different scale and regulatory regime.",
+        "The old rule may itself be weakly sourced. The comparison could reveal it needs narrowing regardless of the new source.",
+        "The three projects may contain hidden context mismatches where the old rule was already misapplied.",
+        "Regulatory differences may make one of the rules non-compliant in some jurisdictions. This needs specialist review if material.",
+        "Future projects may fall between the two contexts, where neither claim is validated."
+      ],
+      "stop_condition": "Stop the global replacement immediately. The governance cycle for this delta is complete when the following are all recorded with links: both claims with explicit scopes and statuses; the conflict entry and decision record with revisit triggers; and the impact review of the three projects. Change the global rule's status only when evidence shows the new claim applies within the old rule's scope, or the old rule fails within its own scope."
+    },
+    {
+      "id": "V3-H11",
+      "decision": "Do not ship the urgent release with a production rebuild or with a migration that runs automatically on container start. Treat this as R3: a data migration combined with artifact provenance that does not match what was tested. Build once and promote that same image digest. Move the frontend environment configuration out of the build: inject it at runtime, for example through a served config file or endpoint read at startup. If that cannot be done in time, build per-environment images in CI from the same commit, test each one, attribute each by digest, and make the production artifact the one tested in staging. Run the migration as a separate, explicitly gated, single-run job before the application rollout. The migration must use an expand/contract approach so it stays compatible with both the old and new app versions. Staging green is evidence only for the staging artifact and staging data, not for the rebuilt production image.",
+      "actions": [
+        "Record artifact identity: source SHA, build ID, dependency lock state and image digest for each image. Prove that the digest deployed to production equals the digest tested, or that the production variant was itself tested.",
+        "Remove the production-time rebuild. Convert the build-time ARG configuration to runtime configuration, or, as an interim step, build the production variant in CI with recorded provenance and run the smoke/contract suite against that exact digest.",
+        "Validate required configuration at startup without exposing secrets. Confirm the frontend bundle contains no secrets baked in through the ARG.",
+        "Take the migration out of container start. Run it as a one-off, version-controlled job with locking and idempotency. Several replicas, restarts or crash loops must not run it concurrently or repeatedly.",
+        "Classify the migration. Additive/expand changes can run before the new code. Destructive or contract changes are deferred until the new version is stable. Verify compatibility of the old app with the new schema.",
+        "Before migrating, confirm a backup or restore point and test the restore or compensation path. Document whether rollback is still safe after the migration.",
+        "Roll out the new image in stages (canary or partial) with smoke tests on the critical business path. Set predefined thresholds for error rate, latency, migration errors and domain failures.",
+        "Assemble a release evidence bundle and get an explicit go/no-go from an owner who has seen it. Record the release state as DEPLOYED/UNVERIFIED HEALTH until production health is observed."
+      ],
+      "required_evidence": [
+        "The image digest and provenance of the artifact tested in staging, and the digest planned for production.",
+        "Test or smoke results run against the exact production artifact or digest.",
+        "Migration details: whether it is additive or destructive, its runtime on production-sized data, locking behavior, and idempotency.",
+        "Evidence that the old application version works with the new schema (backward compatibility), so rolling back the app is safe.",
+        "A verified backup or restore point and a rehearsed rollback or forward-fix procedure.",
+        "A production configuration validation result for the runtime config values.",
+        "Post-deploy smoke results and telemetry within thresholds over the observation window."
+      ],
+      "risks_or_unknowns": [
+        "A rebuild with a different ARG can produce different bytes, and different dependencies if they are not pinned, so the staging evidence does not transfer.",
+        "Migrate-on-start with several replicas can cause concurrent migrations, partial failures, crash loops and lock contention.",
+        "Rolling back the app may be unsafe after an irreversible or contract migration.",
+        "Staging data volume and shape may not represent production, so migration duration and behavior could differ.",
+        "Urgency pressure may lead the team to skip gates. The cost of delay versus the cost of a failed migration has not been quantified.",
+        "It is not known whether frontend configuration values are environment-specific secrets or just public endpoints."
+      ],
+      "stop_condition": "No-go if the production artifact cannot be traced to a tested digest, if the migration is not shown to be backward-compatible and recoverable, or if no restore point exists. During rollout, pause and roll back, or forward-fix, when the migration job fails, when smoke tests fail, or when health thresholds are breached. Declare HEALTHY only after production telemetry stays within thresholds for the agreed observation window."
+    },
+    {
+      "id": "V3-H12",
+      "decision": "Classify the policy as SCOPED and CHALLENGED. It is not SUCCESSFUL overall, and it is not falsified. The aggregate evidence supports the policy for the general population: overrides fell from 14% to 3% and support volume dropped. But the remaining overrides are concentrated in the guardianship segment. That concentration is a guardrail signal, because wrong automated decisions there can block payment communication, a high-consequence harm. Report the outcome segmented. For the general population: supported, subject to checks for confounders and instrumentation. For the guardianship segment: unverified at best, harm suspected. Contain the segment first: route guardianship cases to manual review or the previous behavior, or add a safeguard. Then investigate whether the cause is a domain or requirement gap, a data issue, or a defect.",
+      "actions": [
+        "Break down the outcome by segment: override rate, wrong-decision rate and blocked-communication incidents for the guardianship segment versus the rest, compared with that segment's own baseline before the release.",
+        "Apply immediate, reversible containment for the guardianship segment: a feature flag or rule that excludes it from automated decisions, or mandatory human review, until the root cause is understood.",
+        "Check for harm already caused: identify guardianship accounts where payment communication was blocked or misrouted, and remediate them.",
+        "Check whether the overall drop reflects real improvement and not suppressed overrides, changed operator behavior, instrumentation changes or seasonal shifts in support volume.",
+        "Classify the delta per the production learning loop: domain or requirement gap (guardianship rules not modeled, such as a guardian being the communication recipient), data or ownership issue, implementation defect, or falsified outcome hypothesis for this segment.",
+        "Use Example Mapping to add guardianship examples and counterexamples. Turn them into executable tests or evals. Fix the policy or scope it out explicitly.",
+        "Add a permanent guardrail metric and alert: segment-level override rate and blocked-communication events, so aggregate metrics cannot hide segment harm in future.",
+        "Update the decision record, the requirements and the knowledge corpus: the policy is valid for its scoped population, with the guardianship limitation recorded. Re-verify after the fix before re-including the segment."
+      ],
+      "required_evidence": [
+        "Segment-level override, error and outcome data, before and after the release, with sample sizes.",
+        "Case-level review of the guardianship overrides: what the automated decision was, why operators overrode it, and the actual or potential impact on payment communication.",
+        "A count of guardianship cases where payment communication was actually blocked, plus support or complaint records.",
+        "Verification that override and support instrumentation did not change at the release, and that operator override behavior and access were unchanged.",
+        "Domain rules for guardianship (who receives communication, legal requirements), confirmed with domain owners.",
+        "After the fix: test or eval results on guardianship examples, then post-release segment metrics within guardrail thresholds."
+      ],
+      "risks_or_unknowns": [
+        "Aggregate success masks harm to a small, possibly vulnerable segment. This may carry legal or regulatory consequences for blocked payment communication.",
+        "Some harmful automated decisions may not be overridden at all. Overrides may undercount harm if operators are not catching every error.",
+        "The overall drop may be partly an artifact: operators may have been discouraged from overriding, or support may have shifted to other channels.",
+        "The guardianship finding emerged after the fact. Its magnitude and cause need confirmation, but its severity justifies containment before confirmation.",
+        "Other small segments may hide similar harm below the aggregate signal."
+      ],
+      "stop_condition": "Keep guardianship cases out of the automated policy until the fix is shown to work. That requires passing guardianship tests and evals, and post-release segment metrics showing no blocked communications and an override rate within the agreed threshold. Do not declare the policy SUCCESSFUL overall until segment guardrails hold. If containment cannot be applied, or harm is confirmed and widespread, roll the policy back for the affected segment and escalate to the policy owner."
+    }
+  ]
+}

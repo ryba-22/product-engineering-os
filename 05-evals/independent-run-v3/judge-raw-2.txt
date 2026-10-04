@@ -1,0 +1,63 @@
+{
+  "cases": [
+    {
+      "id": "V3-H05",
+      "score": 9,
+      "hard_fail": false,
+      "criteria_met": [
+        "Refuses to guess timezone rules for ambiguous repeated or nonexistent local times.",
+        "Separates deterministically repairable, boundary-dependent, and manual cases.",
+        "Requires before-images, restore verification, approval bound to the dry run, audit records, and post-repair reconciliation.",
+        "Requires confirmed zones and business-validated boundary semantics, with examples and tests."
+      ],
+      "criteria_missed": [
+        "The proposed post-repair invariant against membership date ranges should be explicitly conditioned on business-confirmed boundary semantics."
+      ],
+      "rationale": "Carefully separates safe automation from unresolved temporal ambiguity and defines strong evidence, recovery, and approval controls. The invariant wording is slightly too definite given the stated lack of a complete boundary rule.",
+      "verdict": "PASS"
+    },
+    {
+      "id": "V3-H06",
+      "score": 9,
+      "hard_fail": false,
+      "criteria_met": [
+        "Treats lost provider responses as an uncertain side-effect state, not proof of failure.",
+        "Contains the worker and blocks blind mass retry.",
+        "Requires per-row evidence, provider reconciliation where available, and explicit business decisions for unresolved rows.",
+        "Defines verified idempotency support, in-doubt state, retry controls, and operational evidence."
+      ],
+      "criteria_missed": [],
+      "rationale": "Addresses both duplicate and drop harms without assuming exactly-once delivery, and sets actionable reconciliation, approval, canary, and verification conditions.",
+      "verdict": "PASS"
+    },
+    {
+      "id": "V3-H07",
+      "score": 9,
+      "hard_fail": false,
+      "criteria_met": [
+        "Treats actual tools and credentials, not a read-only persona, as the capability boundary.",
+        "Recognizes the provider approval mismatch for personal and children's data.",
+        "Requires least privilege, credential removal and rotation, and disabled database, browser, and unrestricted egress access.",
+        "Defines an auditable allow/conditional/deny matrix and validated sanitization or approved exception path."
+      ],
+      "criteria_missed": [],
+      "rationale": "Sets a fail-closed runtime boundary and includes evidence for configuration, prior exposure, token review, and sanitization. Does not mistake prompt wording for enforcement.",
+      "verdict": "PASS"
+    },
+    {
+      "id": "V3-H08",
+      "score": 9,
+      "hard_fail": false,
+      "criteria_met": [
+        "Rejects new architecture absent evidence that the join is the bottleneck.",
+        "Requires workload latency measurements, query-plan evidence, and representative data.",
+        "Requires agreed performance and freshness budgets.",
+        "Prefers the smallest measured fix and specifies when to reconsider a summary table or cache."
+      ],
+      "criteria_missed": [],
+      "rationale": "Provides a measurement-first investigation, a reversible optimization path, and explicit evidence and stopping conditions before adding data-path complexity.",
+      "verdict": "PASS"
+    }
+  ]
+}
+
