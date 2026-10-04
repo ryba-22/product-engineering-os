@@ -22,6 +22,16 @@ Keep these states distinct:
 
 Passing a structural check does not prove production health or product success. Record missing evidence and blockers explicitly.
 
+## Closed learning-loop contract
+
+For material business behavior, Product Engineering OS makes three cross-lifecycle mechanisms explicit:
+
+- **ATDD / Example Mapping before implementation** — bind business rules to concrete examples/counterexamples and an executable oracle; preserve example IDs into tests/evals and production observations.
+- **Production Learning Loop** — compare expected vs observed behavior, classify material deltas, then propagate supported learning to domain/requirements/decisions/tests/evals/knowledge before closure.
+- **AI Security/Governance** — classify data/provider boundaries and constrain agent/tool capabilities with least privilege and enforceable approval rather than relying on personas or prompt instructions.
+
+The terminal product claim is **Definition of Value**: `HEALTHY ≠ SUCCESSFUL`. If outcome evidence is absent, use `UNVERIFIED OUTCOME`.
+
 ## Quick start
 
 1. Read [BRAIN.md](BRAIN.md) for the runtime instructions.
@@ -73,7 +83,7 @@ Short-file policy is executable: `scripts/audit_content_depth.py` fails when a s
 
 ## Current behavioral evidence
 
-The package has completed `INDEP-RUN-2026-10-03-01`: the same frozen 25-stage adversarial suite was executed by Google Gemini 3.1 Pro (High) with judge criteria hidden, then independently scored by Anthropic Claude Opus 4.6 (Thinking). Result: **25/25 pass, 0 hard failures, 9.12/10 average**. The maturity claim is deliberately scoped to that frozen suite; judge-noted omissions remain tracked in `05-evals/independent-run-v1/weakness-backlog.json`.
+The package completed `INDEP-RUN-2026-10-03-01`: the frozen v1 25-stage adversarial suite was executed by Google Gemini 3.1 Pro (High) with judge criteria hidden, then independently scored by Anthropic Claude Opus 4.6 (Thinking). Result: **25/25 pass, 0 hard failures, 9.12/10 average**. **v1.2 materially changes the runtime contract**, so this evidence remains valid only for the frozen v1 suite; ATDD/Example Mapping, production learning propagation and AI capability governance require a fresh blinded run before an equivalent behavioral claim is made.
 
 ## Package layout
 
