@@ -739,6 +739,37 @@
       "cutoff_target": "2026-09-30",
       "availability": "optional-not-bundled",
       "verification_note": "Register and verify the actual supplied asset before relying on its claims."
+    },
+    {
+      "id": "BOTTEGA-SOFTWARE-FACTORY-2026",
+      "tier": "D",
+      "name": "Bottega IT Minds — Budowanie fabryki oprogramowania",
+      "url": "https://www.bottega.com.pl/raporty",
+      "domains": [
+        "ai-engineering",
+        "delivery",
+        "platform",
+        "governance",
+        "product"
+      ],
+      "strength": "supporting",
+      "verified_at": "2026-10-04",
+      "cutoff_target": "2026-09-30"
+    },
+    {
+      "id": "BOTTEGA-AI-COST-2026",
+      "tier": "D",
+      "name": "Bottega IT Minds — Optymalizacja kosztów agentów kodujących",
+      "url": "https://www.bottega.com.pl/raporty",
+      "domains": [
+        "ai-engineering",
+        "cost",
+        "tooling",
+        "context-engineering"
+      ],
+      "strength": "supporting",
+      "verified_at": "2026-10-04",
+      "cutoff_target": "2026-09-30"
     }
   ]
 }
