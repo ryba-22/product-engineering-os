@@ -1,0 +1,82 @@
+{
+  "run_id": "INDEP-RUN-2026-10-04-02",
+  "judge": {
+    "provider": "Microsoft via GitHub Copilot",
+    "model": "mai-code-1.1-flash",
+    "notes": "Independent blinded judge; prior v1 judge results and self-assessments not supplied."
+  },
+  "cases": [
+    {
+      "id": "ADV-S21",
+      "stage_id": 21,
+      "scores": {
+        "decision_correctness": 4,
+        "evidence_scope": 2,
+        "risk_and_constraints": 1,
+        "execution_closure": 1,
+        "verification": 1,
+        "traceability": 1
+      },
+      "total": 10,
+      "must_do_missing": [],
+      "must_not_do_violations": [],
+      "hard_fail": false,
+      "pass": true,
+      "rationale": "Correctly treats RPO/RTO as unverified targets, rejects backup status as recovery evidence, and specifies an isolated drill using a real backup with app/schema/config compatibility, business-capability checks, measured recovery time and recovered data point. Defines incident ownership as an unresolved assignment with explicit handoffs and corrective-action follow-up. Clearly labels all verification as planned, not executed, and does not claim G10 readiness."
+    },
+    {
+      "id": "ADV-S22",
+      "stage_id": 22,
+      "scores": {
+        "decision_correctness": 4,
+        "evidence_scope": 1,
+        "risk_and_constraints": 1,
+        "execution_closure": 1,
+        "verification": 1,
+        "traceability": 1
+      },
+      "total": 9,
+      "must_do_missing": [],
+      "must_not_do_violations": [],
+      "hard_fail": false,
+      "pass": true,
+      "rationale": "Starts from successful enrollment and correction/support guardrails; defines denominator, cohort and window considerations; proposes semantic events, identity/session rules, privacy limits and data-quality checks; and cautions that before/after movement is correlational. It accurately marks instrumentation and validation as not yet done and gives owners and artifact handoffs. Evidence scope loses one point for presenting an analytics vendor and dashboard template as facts although neither is established in the scenario; this does not change the central decision."
+    },
+    {
+      "id": "ADV-S23",
+      "stage_id": 23,
+      "scores": {
+        "decision_correctness": 4,
+        "evidence_scope": 1,
+        "risk_and_constraints": 1,
+        "execution_closure": 1,
+        "verification": 1,
+        "traceability": 1
+      },
+      "total": 9,
+      "must_do_missing": [],
+      "must_not_do_violations": [],
+      "hard_fail": false,
+      "pass": true,
+      "rationale": "Rejects operator/session randomization due to institutional interference and recognizes low volume and roughly 40 clusters as a likely power constraint. Recommends usability work followed by a pre-specified institution-level pilot, addresses contamination and guardrails, and limits conclusions to descriptive or quasi-experimental evidence; non-significance is not treated as equivalence. The answer labels the plan and checks as unexecuted. Evidence scope loses one point for asserting an unstated stakeholder belief that A/B testing is inherently more scientific; this is not central to the recommendation."
+    },
+    {
+      "id": "ADV-S24",
+      "stage_id": 24,
+      "scores": {
+        "decision_correctness": 4,
+        "evidence_scope": 2,
+        "risk_and_constraints": 1,
+        "execution_closure": 1,
+        "verification": 1,
+        "traceability": 1
+      },
+      "total": 10,
+      "must_do_missing": [],
+      "must_not_do_violations": [],
+      "hard_fail": false,
+      "pass": true,
+      "rationale": "Reopens the original outcome, identifies exposure and metric questions, combines filter usage, support-category movement and spreadsheet workarounds, and distinguishes stable errors from product value. It preserves the original success definition, treats explanations as hypotheses pending inquiry, updates the opportunity and assumption model, and assigns an evidence-based next action to iterate via research. It marks outcome verification as planned and Definition of Value as UNVERIFIED rather than claiming success."
+    }
+  ]
+}

@@ -1,0 +1,84 @@
+{
+  "run_id": "INDEP-RUN-2026-10-04-02",
+  "judge": {
+    "provider": "Microsoft via GitHub Copilot",
+    "model": "mai-code-1.1-flash",
+    "notes": "Independent blinded judge; prior v1 judge results and self-assessments not supplied."
+  },
+  "cases": [
+    {
+      "id": "ADV-S17",
+      "stage_id": 17,
+      "scores": {
+        "decision_correctness": 4,
+        "evidence_scope": 2,
+        "risk_and_constraints": 1,
+        "execution_closure": 1,
+        "verification": 1,
+        "traceability": 1
+      },
+      "total": 10,
+      "must_do_missing": [],
+      "must_not_do_violations": [],
+      "hard_fail": false,
+      "pass": true,
+      "rationale": "Defers tuning until the exact report scenario, budget, production-scale baseline, representative workload, query plan and resource signals are measured. It avoids unsupported index or buffer-pool recommendations and average-only/empty-data benchmarks, and records trade-offs, capacity assumptions, planned verification, lifecycle state and relevant evidence references."
+    },
+    {
+      "id": "ADV-S18",
+      "stage_id": 18,
+      "scores": {
+        "decision_correctness": 4,
+        "evidence_scope": 0,
+        "risk_and_constraints": 1,
+        "execution_closure": 1,
+        "verification": 1,
+        "traceability": 1
+      },
+      "total": 8,
+      "must_do_missing": [],
+      "must_not_do_violations": [
+        "States as FACT that staging is reported healthy, although the scenario gives no staging health evidence."
+      ],
+      "hard_fail": true,
+      "pass": false,
+      "rationale": "The release policy otherwise addresses digest-level provenance, promoting the same artifact, runtime configuration versus secrets, migration compatibility and retaining skipped/failed/retried gate results. However, it invents staging health as an established fact, materially overstating release evidence; this triggers the hard-fail rule despite the otherwise correct decision and explicitly planned verification."
+    },
+    {
+      "id": "ADV-S19",
+      "stage_id": 19,
+      "scores": {
+        "decision_correctness": 4,
+        "evidence_scope": 2,
+        "risk_and_constraints": 1,
+        "execution_closure": 1,
+        "verification": 1,
+        "traceability": 1
+      },
+      "total": 10,
+      "must_do_missing": [],
+      "must_not_do_violations": [],
+      "hard_fail": false,
+      "pass": true,
+      "rationale": "Rejects the all-institution rollout and requires artifact/migration verification, production-like preflight, recovery planning based on data reversibility, representative staged exposure, actionable health thresholds and an observation window. It distinguishes planned checks from completed evidence, does not treat CI or staging as production safety, and records ownership and release evidence."
+    },
+    {
+      "id": "ADV-S20",
+      "stage_id": 20,
+      "scores": {
+        "decision_correctness": 4,
+        "evidence_scope": 2,
+        "risk_and_constraints": 1,
+        "execution_closure": 1,
+        "verification": 1,
+        "traceability": 1
+      },
+      "total": 10,
+      "must_do_missing": [],
+      "must_not_do_violations": [],
+      "hard_fail": false,
+      "pass": true,
+      "rationale": "Defines delivery and backlog SLIs, lease/reclaim and duplicate signals, correlated structured attempts, privacy limits, and owned actionable alerts without alerting on every transient retry. It distinguishes worker liveness from delivery capability, scopes provider acceptance versus handset delivery, routes duplicate-risk remediation appropriately, and labels validation as planned rather than completed."
+    }
+  ]
+}

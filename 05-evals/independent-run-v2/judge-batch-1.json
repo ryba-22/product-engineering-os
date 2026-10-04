@@ -1,0 +1,87 @@
+{
+  "batch": 1,
+  "case_ids": [
+    "ADV-S01",
+    "ADV-S02",
+    "ADV-S03",
+    "ADV-S04"
+  ],
+  "criteria": [
+    {
+      "id": "ADV-S01",
+      "stage_id": 1,
+      "stage_name": "Problem / idea / business goal",
+      "scenario": "A director asks for an 'AI management dashboard' in two weeks because staff are missing enrollment and billing exceptions. Existing evidence consists of support messages about missed exceptions and manual spreadsheet checks; there is no evidence that a dashboard itself is the needed solution.",
+      "decision_to_make": "Frame the actual problem/outcome and decide what must be discovered before committing to the requested solution.",
+      "must_do": [
+        "separate requested dashboard from the underlying problem",
+        "define observable outcome and affected actors",
+        "surface hard versus assumed constraints",
+        "identify decision-changing product risks",
+        "apply a stop-analysis threshold and route unresolved user questions to Discovery"
+      ],
+      "must_not_do": [
+        "treat dashboard delivery as the success outcome",
+        "invent baseline metrics or user evidence",
+        "jump to architecture or UI design"
+      ]
+    },
+    {
+      "id": "ADV-S02",
+      "stage_id": 2,
+      "stage_name": "User / Product Discovery",
+      "scenario": "A product owner wants to validate a new enrollment workflow by interviewing only five highly engaged administrators who already like the current system. Support logs show most failures come from occasional operators and same-day enrollment changes.",
+      "decision_to_make": "Choose the smallest valid discovery plan that can change the workflow decision.",
+      "must_do": [
+        "identify sampling/confirmation bias",
+        "include relevant occasional operators or evidence from their behavior",
+        "use recent concrete behavior rather than hypothetical preference",
+        "triangulate support/operational evidence where useful",
+        "state when discovery can stop"
+      ],
+      "must_not_do": [
+        "generalize five favorable interviews to all operators",
+        "ask users to design the solution",
+        "continue research without a decision-changing question"
+      ]
+    },
+    {
+      "id": "ADV-S03",
+      "stage_id": 3,
+      "stage_name": "Domain Discovery",
+      "scenario": "An enrollment system stores membership start/end as dates while lessons have timestamps. A child can leave a group at 16:00 after attending at 10:00 on the same date, and can later re-enroll in the same group, producing multiple membership rows and contradictory presence reports.",
+      "decision_to_make": "Discover the domain concepts, temporal rules, invariants and hotspots that must be clarified before implementation changes.",
+      "must_do": [
+        "model concrete event timelines",
+        "distinguish business time from storage representation",
+        "identify invariants and ambiguity around re-enrollment",
+        "record hotspots instead of guessing policy",
+        "avoid treating table structure as the domain"
+      ],
+      "must_not_do": [
+        "declare date-only semantics correct because the schema uses DATE",
+        "collapse repeated memberships into one record without evidence",
+        "invent the intended business rule"
+      ]
+    },
+    {
+      "id": "ADV-S04",
+      "stage_id": 4,
+      "stage_name": "Requirements / specification",
+      "scenario": "A monthly billing SMS must be sent once per child/per period to each unique eligible guardian number, including when the amount is zero. Contact relationships come from a legacy system, while billing eligibility is decided by Finance. The business also wants an operator approval step before mass sending.",
+      "decision_to_make": "Produce traceable, testable requirements and acceptance scenarios without prematurely choosing transport architecture.",
+      "must_do": [
+        "separate legacy contact source from Finance eligibility rules",
+        "define deduplication and zero-amount behavior",
+        "include approval and exceptional/failure scenarios",
+        "state quality/security/data constraints when material",
+        "link acceptance criteria to evidence/decisions"
+      ],
+      "must_not_do": [
+        "encode a specific queue/provider as a requirement unless it is a hard constraint",
+        "omit retry/duplicate scenarios",
+        "turn unknown policy into a confirmed rule"
+      ]
+    }
+  ]
+}

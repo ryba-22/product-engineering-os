@@ -1,0 +1,141 @@
+{
+  "run_id": "INDEP-RUN-2026-10-04-02",
+  "executor": {
+    "provider": "Anthropic",
+    "model": "claude-opus-5-5",
+    "notes": "Blinded independent remediation rerun; same frozen cases, updated runtime; no judge criteria or prior results supplied."
+  },
+  "cases": [
+    {
+      "id": "ADV-S04",
+      "stage_id": 4,
+      "risk_class": "R3: an irreversible, outward-facing mass communication to guardians. It carries personal data (phone numbers, child-guardian relationships) and billing content, and it depends on two data owners (legacy contact system, Finance). A wrong or duplicated send can't be recalled.",
+      "current_outcome": "Outcome: every eligible guardian number gets exactly one billing SMS per child per billing period, including zero-amount bills, and only after operator approval. Data comes from two sources: the legacy system supplies child-guardian contact relationships and Finance decides billing eligibility. Current state: a draft specification and Example Map exist. Only the rules that the scenario states directly are decision-ready. Rules that depend on unresolved policy are marked OPEN or HYPOTHESIS. Nothing is decided at the architecture level, and nothing is implemented, tested or verified.",
+      "decision": "G3 PARTIAL. Baseline only the decision-ready rules R-01 to R-05 with examples EX-01, EX-02, EX-04, EX-05, EX-06, EX-07, EX-08 and EX-09. Do not baseline the examples that depend on unresolved policy: number normalization (EX-03), send-status ambiguity and failure/retry/resend (EX-10, EX-11), missing or unavailable source data (EX-12, EX-13), approval details (EX-14), and timing/period semantics (EX-15). These stay non-blocking hypotheses until their owners resolve them. Because this is R3, the send capability as a whole must not go to implementation for live sending until the open questions marked BLOCKING are resolved. Do not choose a transport, provider, queue or retry mechanism here. Idempotency mechanism and retry classification go to architecture (Stage 05/06). Restate the vague requirement 'send billing SMS on the first day of the month' as an open temporal and trigger question, not as a baselined rule.",
+      "evidence_and_unknowns": [
+        "FACT (scenario): one billing SMS must be sent per child per period to each unique eligible guardian number.",
+        "FACT (scenario): the SMS is sent even when the billed amount is zero.",
+        "FACT (scenario): the legacy system is the source of child-guardian contact relationships.",
+        "FACT (scenario): Finance decides billing eligibility.",
+        "FACT (scenario): the business wants an operator approval step before mass sending. This is a stated stakeholder need; its mechanics aren't specified.",
+        "FACT (scenario): the original requirement says 'send billing SMS on the first day of the month'. It leaves ownership, deduplication, zero-value handling, approval and failure semantics unstated.",
+        "INTERPRETATION (taken from the text; owner to confirm): the uniqueness key is (child, billing period, guardian number). A guardian number linked to two children therefore gets one SMS per child (EX-08). No aggregation across children was requested, so none is assumed.",
+        "OPEN (BLOCKING): what makes two numbers 'unique' or equivalent? Examples: +48600100200 vs 600 100 200 vs 0048600100200. Is there a normalization standard, and who owns it (legacy system owner or domain)? The deduplication requirement doesn't establish a normalization rule.",
+        "OPEN (BLOCKING): what does 'eligible guardian' mean? Finance owns billing eligibility, but it isn't established who decides which guardian relationships qualify (e.g., role types, custody flags, opt-out/consent status), or whether that is a legacy-data attribute or a Finance rule.",
+        "OPEN (BLOCKING): what counts as 'sent' for the once-only invariant: submitted, accepted by the provider, or delivered? If the status is unknown or ambiguous, is a resend allowed or forbidden?",
+        "OPEN (BLOCKING): is any business guarantee required for failed sends: resend, manual follow-up, an alternative channel, or none? No retry policy is given. Transient/permanent retry classification is a technical default and is NOT promoted to a requirement.",
+        "OPEN (BLOCKING): what are the approval mechanics? Who may approve (role, four-eyes?), what counts as 'mass' (threshold or always), whole-batch vs partial approval or exclusion, approval expiry, and what happens if approval doesn't arrive on the intended send day.",
+        "OPEN: what is the timing? The 'first day of the month' trigger needs a timezone, and it's unclear how a billing period maps to the send date. When is the data snapshot or cutoff for eligibility and contacts taken? What happens if Finance data isn't ready on day 1?",
+        "OPEN: what happens if Finance eligibility or legacy contacts change after approval but before or during sending? Which snapshot governs?",
+        "OPEN: an eligible child has no guardian number, or an invalid one. Skip, report to the operator, or block the batch?",
+        "OPEN: are negative amounts or credits in scope? They aren't mentioned; only the zero-amount case is confirmed.",
+        "OPEN: SMS content and privacy. Which billing data may appear in the message body? What retention and audit rules apply to the send records?",
+        "OPEN: quality thresholds. Is there a required completion window for the batch, and is there a volume estimate? No thresholds have been supplied, so the NFRs remain aspirations until they exist.",
+        "UNKNOWN: are there existing decision records, data contracts for the legacy system or Finance, or prior incidents? None were supplied."
+      ],
+      "actions": [
+        "Publish the Example Map draft (07-templates/EXAMPLE-MAP.md) with stable IDs:",
+        "R-01 Once per (child, period, guardian number). EX-01: child C1, period 2026-11, eligible guardians G1 (+48600100200) and G2 (+48600300400). When the approved batch runs, Then exactly 2 SMS go out, one per number. Counterexample: G1 receives 2 SMS for C1/2026-11. Oracle: domain-level executable example. Status: DECISION-READY.",
+        "R-01 EX-02: G1 and G2 are both linked to C1 with the identical stored string +48600100200. Then exactly 1 SMS goes to that number for C1/2026-11. Status: DECISION-READY.",
+        "R-01 EX-03: G1 has +48600100200 and G2 has '600 100 200'. Then: OPEN, depending on the normalization rule; no expected result is chosen. Status: OPEN/HYPOTHESIS, BLOCKING.",
+        "R-01 EX-04: an SMS for (C1, 2026-11, +48600100200) is already confirmed as sent (definition of 'sent' pending), and the batch is triggered again. Then no second SMS goes out for that key. Status: DECISION-READY for the confirmed-sent case only.",
+        "R-01 EX-08: number +48600100200 is the guardian number for both C1 and C2, and both children are eligible for 2026-11. Then 2 SMS go out, one per child, per the 'once per child' wording. Status: DECISION-READY by interpretation; owner to confirm.",
+        "R-02 Zero amount is still sent. EX-05: C1 is eligible and the 2026-11 amount is 0.00. Then the SMS is sent. Counterexample: zero-amount records are filtered out. Status: DECISION-READY.",
+        "R-03 Billing eligibility comes from Finance. EX-06: Finance marks C3 not eligible for 2026-11, but the legacy system lists guardian numbers for C3. Then no SMS goes out for C3. Counterexample: the system infers eligibility from contact presence. Status: DECISION-READY.",
+        "R-04 Contacts come from the legacy system. EX-09: Finance marks C1 eligible and the legacy system holds G1's number. Then G1's number comes from the legacy relationship and isn't entered or derived elsewhere. Status: DECISION-READY. Conflicting or stale contact handling is in EX-12.",
+        "R-05 Operator approval gates mass sending. EX-07: the batch for 2026-11 is prepared but not approved. When the send trigger time arrives, Then no SMS is sent. Counterexample: an automatic send on day 1 with no approval. Status: DECISION-READY. Approver role, threshold and timeout are covered by EX-14 (OPEN).",
+        "Unresolved examples, kept visible with no Then chosen: EX-10 the provider returns failure or the status is unknown (no resend policy); EX-11 a partial batch failure; EX-12 an eligible child with a missing or invalid number; EX-13 Finance data unavailable at trigger time; EX-14 approval not given, given partially, or expired; EX-15 timezone/period boundary and data changes after approval.",
+        "Write acceptance criteria only from the decision-ready examples and reference the example IDs (AC-01 maps to EX-01, and so on). Keep the criteria implementation-free: no tables, queues or providers.",
+        "Record proposed quality scenarios as DRAFT pending owner thresholds. For example: per-recipient send outcomes are observable to the operator after the batch; access to approval is restricted to authorized roles; personal data in messages and logs is limited per privacy policy (policy TBD).",
+        "Open-question register with owners: Finance owns eligibility semantics, negative amounts, data readiness and late changes. The legacy system owner, with Domain, owns relationship semantics, guardian eligibility attributes and number normalization. The Product owner and Operations own approval mechanics, the timing trigger and the business guarantee for failed sends. Privacy/Security owns message content and retention.",
+        "Route the disagreement or uncertainty about the 'guardian'/'eligible guardian' vocabulary back to Domain Discovery (G2) instead of polishing the acceptance wording.",
+        "Trace record: EVIDENCE (scenario statement) → R-01..R-05 → EX-xx → AC-xx → planned TEST-xx → PRODUCTION OBSERVATION (per-key send counts vs expected eligible set). Production observation is not yet applicable."
+      ],
+      "verification": [
+        "PLANNED, NOT EXECUTED: an executable domain-level test for each decision-ready example (EX-01, 02, 04, 05, 06, 07, 08, 09), with positive and negative assertions, written before implementation.",
+        "PLANNED, NOT EXECUTED: contract/integration tests at the legacy-contacts and Finance-eligibility boundaries once their data contracts exist.",
+        "PLANNED, NOT EXECUTED: a test that no send occurs without a recorded approval (EX-07), at the workflow/service layer.",
+        "PLANNED, NOT EXECUTED: a pre-send reconciliation oracle. The expected recipient set (Finance-eligible children × legacy-guardian numbers, deduplicated per R-01) is compared with the prepared batch and shown to the approver.",
+        "PLANNED: owner review of the Example Map to confirm the EX-08 interpretation and to resolve the BLOCKING questions before G3 is fully baselined.",
+        "Nothing has been tested or verified. The highest supportable state is DRAFT SPEC / partially baselined G3."
+      ],
+      "handoff": "Owners receive the open questions as listed: Finance; the legacy system owner with Domain; the Product owner with Operations; Privacy/Security. Domain Discovery (G2) receives the 'eligible guardian' and number-equivalence vocabulary questions. Stage 05/06 architecture receives these quality drivers without a pre-chosen design: the once-only invariant per (child, period, number), the approval gate, auditability, and the dependency on two external data owners. Architecture decides the idempotency mechanism, transport and any technical retry classification, but may not create a business resend guarantee. Stages 12–15 consume the R-xx, EX-xx and AC-xx IDs. Next action: run an Example Mapping session with Finance, the legacy owner and Operations to resolve EX-03, EX-10 to EX-15 and the approval mechanics.",
+      "completion_state": "G3 PARTIAL: DRAFT SPEC. Decision-ready rules and examples are baselined; BLOCKING open questions stay unresolved and owned. Not implemented, tested or verified. Live sending is not authorized for implementation.",
+      "residual_risks": [
+        "Duplicate or missed SMS if number normalization is decided late or inconsistently between the legacy data and the deduplication logic.",
+        "Wrong-recipient risk from stale or incorrect legacy relationships, with no confirmed data-quality or correction process.",
+        "If 'sent' and resend semantics stay undefined, a technical retry could break the once-only rule, or a silent failure could leave guardians uninformed.",
+        "If approval mechanics stay undefined, the approval step could become a rubber stamp without decision-relevant evidence, or the send could miss its day.",
+        "Privacy exposure of billing and relationship data in messages and logs until a content and retention policy is set.",
+        "The EX-08 per-child interpretation may not match stakeholder intent. It needs explicit confirmation."
+      ],
+      "references": [
+        "BRAIN.md: Default runtime steps 2, 5, 6, 10, 13; Stop-analysis gate (R3 stronger threshold); Routing principle (route back to domain).",
+        "04-gates/quality-gates.json: G3 (and G2 for vocabulary routing).",
+        "06-modules/requirements/STAGE-04-REQUIREMENTS.md: Decision rules on not inventing normalization/retry defaults; Evidence standard.",
+        "06-modules/requirements/ATDD-EXAMPLE-MAPPING.md: Workflow step 5, Decision rules, Example shape.",
+        "07-templates/EXAMPLE-MAP.md",
+        "Evidence anchors: EVD-REQ-001, EVD-ARCH-001."
+      ]
+    },
+    {
+      "id": "ADV-S18",
+      "stage_id": 18,
+      "risk_class": "R3: a production release with database migrations, which may be irreversible. Artifact identity is currently mutable, because build-time ARG/ENV flags and branch rebuilds can produce different bytes under the same commit-derived tag.",
+      "current_outcome": "Outcome: the production release is the same immutable artifact that passed the staging gates, with traceable provenance, explicit config handling and coordinated migrations. Current state: staging is DEPLOYED from a commit-tagged Docker image. Staging health is a team claim with no smoke, SLO or telemetry evidence supplied, so the state is DEPLOYED/UNVERIFIED HEALTH. G9 is not satisfied: no artifact digest, recorded build args, persisted gate results or migration sequencing evidence has been supplied.",
+      "decision": "REJECT rebuilding on production from current main and calling it the same release. A rebuild from current main may come from a different commit, and even the same commit can produce different bytes through build ARG/ENV flags and unpinned inputs. Either way, it invalidates the staging evidence. Decision: (1) Build once and promote the exact image by immutable digest (sha256), not by tag or branch. (2) Make environment-specific frontend values runtime configuration injected at deploy or start time. Any flags that must stay build-time are fixed, recorded in provenance, and part of artifact identity, and the artifact variant that ships to production is the one tested. (3) Treat migrations as versioned artifacts tied to the same source SHA, with explicit compatibility ordering and preflight. (4) If main has moved past the staging commit and that change is wanted, it is a NEW release candidate that must pass the full gate chain, including staging, again.",
+      "evidence_and_unknowns": [
+        "FACT (scenario): staging was deployed from a Docker image tagged with the commit.",
+        "FACT (scenario): some frontend build flags are injected through Docker ARG/ENV, so build-time values can change the image contents without any source change.",
+        "FACT (scenario): a developer can rebuild a different image from the same branch before production. The tag or branch therefore does not uniquely identify the bytes.",
+        "FACT (scenario): database migration files are in the repo.",
+        "FACT (scenario): the team proposes rebuilding on production from current main and calling it the same release.",
+        "UNVERIFIED (team claim): 'staging is healthy'. No smoke, SLO, telemetry or alert evidence was supplied, so the supportable state is DEPLOYED/UNVERIFIED HEALTH.",
+        "UNKNOWN: the image digest actually deployed to staging. Was it recorded, and is the registry tag immutable or overwritable?",
+        "UNKNOWN: has main advanced beyond the commit deployed to staging?",
+        "UNKNOWN: which frontend flags differ between staging and production, which are truly build-time, and does any ARG/ENV carry secrets? Secrets in build args can persist in image history or layers.",
+        "UNKNOWN: are the base image and build tooling pinned by digest, and are dependency lockfiles enforced?",
+        "UNKNOWN: which CI gates ran for the staging image, whether results are persisted, and whether any were skipped, retried or allowed to fail.",
+        "UNKNOWN: the migration tool. Have the migrations been applied to staging? Are they backward-compatible with the currently running production version (expand/contract)? Are any destructive or irreversible? What is the rollback or forward-fix strategy?",
+        "UNKNOWN: the production DB state and the migration version currently applied there.",
+        "UNKNOWN: the scope of CI and registry credentials, and who can push or overwrite tags."
+      ],
+      "actions": [
+        "Freeze the staging candidate. Resolve the commit tag to its sha256 digest, record source SHA, build ID, build args and flag values (non-secret), base image digest and dependency lock hashes. If the digest can't be established, treat the staging deployment as unattributable and rebuild a fresh candidate through the pipeline.",
+        "Configure the registry so release tags are immutable. Restrict push rights to the CI identity using least-privilege, short-lived credentials. Remove developers' ability to publish release images manually.",
+        "Define the gate chain: lint/static → unit/contract → integration → security/dependency scan → build ONCE (pinned base and tooling, lockfiles, recorded args, no secrets in ARG) → artifact verification (digest, SBOM, provenance attestation, signature) → deploy to staging by digest → apply migrations to staging → staging smoke and telemetry → release candidate with a persisted evidence bundle → evidence-informed manual approval → promote the SAME digest to production.",
+        "Classify the frontend flags. Move environment-specific values (API endpoints, feature toggles) to runtime configuration, e.g. a config file or endpoint injected at container start. Keep build-time flags constant across environments and record them in provenance. Validate required config at startup without logging secret values.",
+        "Migration handling: version and package the migrations with the same source SHA (inside the image or as a linked artifact). Require expand/contract backward compatibility so the old app runs on the new schema. Run a preflight: dry run or apply on a production-like staging copy, confirm a backup or restore point, and check the migration version. Define failure behavior (halt rollout, forward-fix, restore). Any destructive or irreversible migration needs explicit R3 approval.",
+        "Production deployment manifests must reference image@sha256 digests, never branch names or mutable tags. Block any deploy step that builds on production.",
+        "Persist gate results so skipped, failed, retried and passed are distinguishable. Quarantine flaky tests only with an owner and an expiry. Any 'allow failure' needs a recorded rationale.",
+        "Close the staging health gap: run and record a staging smoke test and telemetry checks against the frozen digest before approval."
+      ],
+      "verification": [
+        "PLANNED, NOT EXECUTED: confirm that the production deploy digest equals the staging-tested digest (the promotion check).",
+        "PLANNED, NOT EXECUTED: a reproducibility probe. Rebuild from the same SHA, lockfiles and args in clean CI and compare digests or contents. Treat any mismatch as a provenance gap to fix, not a reason to rebuild for production.",
+        "PLANNED, NOT EXECUTED: inspect image history and config for secrets passed via ARG/ENV.",
+        "PLANNED, NOT EXECUTED: verify the provenance attestation and signature against the source SHA and build ID.",
+        "PLANNED, NOT EXECUTED: a migration preflight on staging or a production-like copy, plus a backward-compatibility test (previous app version against the migrated schema).",
+        "PLANNED, NOT EXECUTED: a staging smoke test and telemetry review for the frozen digest. Until this runs, staging stays DEPLOYED/UNVERIFIED HEALTH.",
+        "Production health (G10) is out of scope here. It needs its own post-deploy smoke, SLO and telemetry evidence after promotion."
+      ],
+      "handoff": "The delivery/platform owner implements the immutable-registry, digest-promotion and pipeline gate changes. The frontend owner classifies the flags and moves environment-specific values to runtime config. The DB/migration owner supplies migration compatibility, preflight and recovery evidence. The release approver receives the Release Evidence Bundle (digest, SHA, build args, gate results, SBOM/attestation, migration plan, staging smoke evidence) before approving. Stage 19 receives the release candidate only after G9 evidence exists. Stage 20 receives the digest, SHA and build ID for telemetry correlation. Next action: resolve the staging image digest and determine whether main has diverged from the staging commit.",
+      "completion_state": "G9 NOT PASSED. Staging is DEPLOYED/UNVERIFIED HEALTH. The production rebuild is BLOCKED. The pipeline, config and migration changes are DECIDED but not implemented or verified.",
+      "residual_risks": [
+        "The staging image may not be attributable if its digest and build args were never recorded. In that case it may need a fresh, fully gated candidate.",
+        "Migrations of unknown compatibility may be irreversible or break the running production version during rollout.",
+        "Build-time secrets may already be embedded in existing image layers or registry history.",
+        "Moving flags to runtime config changes the artifact contract. The new candidate must be re-gated, so release timing may slip.",
+        "Developers keep the ability to push or overwrite images until the registry and credential restrictions are in place.",
+        "The 'staging healthy' claim stays unverified until smoke and telemetry evidence exists."
+      ],
+      "references": [
+        "BRAIN.md: Default runtime steps 2, 12, 13; Evidence before claims (lifecycle states); Closure principle.",
+        "04-gates/quality-gates.json: G9 (and G10 for the separate production-health evidence).",
+        "06-modules/delivery-production/STAGE-18-CI-CD.md: Workflow 1–9; Decision rules (branch name is not provenance; rebuilding on production invalidates evidence; deployed ≠ healthy; least-privilege CI credentials); Evidence standard; Failure modes.",
+        "Evidence anchors: EVD-DEL-001, EVD-DEL-003.",
+        "CI-CD.md (primary decision system, referenced; content not supplied)."
+      ]
+    }
+  ]
+}

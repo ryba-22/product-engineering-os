@@ -1,0 +1,48 @@
+{
+  "round": 2,
+  "case_ids": [
+    "ADV-S04",
+    "ADV-S18"
+  ],
+  "runtime_commit": "bb22c203248040ee0b4c5c799f87846dd8d4762b",
+  "criteria": [
+    {
+      "id": "ADV-S04",
+      "stage_id": 4,
+      "stage_name": "Requirements / specification",
+      "scenario": "A monthly billing SMS must be sent once per child/per period to each unique eligible guardian number, including when the amount is zero. Contact relationships come from a legacy system, while billing eligibility is decided by Finance. The business also wants an operator approval step before mass sending.",
+      "decision_to_make": "Produce traceable, testable requirements and acceptance scenarios without prematurely choosing transport architecture.",
+      "must_do": [
+        "separate legacy contact source from Finance eligibility rules",
+        "define deduplication and zero-amount behavior",
+        "include approval and exceptional/failure scenarios",
+        "state quality/security/data constraints when material",
+        "link acceptance criteria to evidence/decisions"
+      ],
+      "must_not_do": [
+        "encode a specific queue/provider as a requirement unless it is a hard constraint",
+        "omit retry/duplicate scenarios",
+        "turn unknown policy into a confirmed rule"
+      ]
+    },
+    {
+      "id": "ADV-S18",
+      "stage_id": 18,
+      "stage_name": "CI/CD",
+      "scenario": "Staging is deployed from a Docker image tagged with the commit, but some frontend build flags are injected through Docker ARG/ENV and a developer can rebuild a different image from the same branch before production. Database migration files are in the repo.",
+      "decision_to_make": "Define artifact provenance, gate chain and migration/config handling.",
+      "must_do": [
+        "build once and promote the same immutable artifact where possible",
+        "record commit/build/artifact digest",
+        "distinguish build-time config from secrets/runtime config",
+        "include migration compatibility/gates",
+        "retain evidence of skipped/failed/retried checks"
+      ],
+      "must_not_do": [
+        "infer provenance from branch name",
+        "rebuild different bytes for production and call them verified",
+        "expose secrets in build args/logs"
+      ]
+    }
+  ]
+}

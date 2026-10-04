@@ -1,0 +1,222 @@
+{
+  "run_id": "INDEP-RUN-2026-10-04-02",
+  "executor": {
+    "provider": "Anthropic",
+    "model": "claude-opus-5-5",
+    "notes": "Blinded independent executor; no judge criteria or prior results supplied."
+  },
+  "cases": [
+    {
+      "id": "ADV-S01",
+      "stage_id": 1,
+      "risk_class": "R2 (provisional). Missed enrollment and billing exceptions can cause financial and service harm. Raise to R3 if the 'AI' part would send non-public child, guardian or billing data to an external provider, or would trigger consequential actions. The BRAIN AI capability matrix and data-boundary classification would then apply before execution.",
+      "current_outcome": "G0 not passed. We have a requested solution (an 'AI management dashboard' due in two weeks) but no problem/outcome definition that leaves the solution open. Draft problem framing: staff do not reliably detect and resolve enrollment and billing exceptions in time, and today they rely on manual spreadsheet checks. Draft desired outcome: exceptions are detected, owned and resolved before they cause downstream harm (wrong bills, wrong enrollment state), with less reliance on manual spreadsheet checks. There is no baseline or target value yet.",
+      "decision": "Do not accept 'AI dashboard' as the problem statement and do not commit to it yet. Record it as one candidate option (OPT-1) next to: OPT-2 a rule-based exception list or queue with clear ownership; OPT-3 proactive alerts or notifications to the responsible person; OPT-4 fixing upstream data or process causes so fewer exceptions occur; OPT-5 a structured version of the current spreadsheet check; OPT-0 do nothing and keep the current workaround. Treat 'AI', 'dashboard' and 'two weeks' as stakeholder preferences until each is verified as a hard constraint. A deadline is not evidence of user value. Define success signals as named metrics with baselines marked UNKNOWN. Do not invent target numbers. Hand the main uncertainty ('why are exceptions missed, which ones, and how costly is it?') to Stage 02 rather than extending desk analysis. Switching condition: if the director confirms the two-week date is a hard external commitment, the 2-week slice should be the smallest reversible option that targets the most frequent or costly exception types found in the support-message inventory. That is not necessarily a dashboard and not necessarily AI.",
+      "evidence_and_unknowns": [
+        "FACT: The director requested an 'AI management dashboard' with a two-week deadline.",
+        "FACT: Support messages report missed enrollment and billing exceptions. Their count, recency and types are not yet inventoried.",
+        "FACT: Staff currently run manual spreadsheet checks to catch exceptions.",
+        "FACT: No evidence was supplied that a dashboard, or AI, addresses the cause of missed exceptions.",
+        "ASSUMPTION (hypothesis, not fact): exceptions can be detected with rules from existing data. This is unverified.",
+        "ASSUMPTION (hypothesis): exceptions are missed because they are not visible. Alternatives not ruled out: too many to handle, unclear ownership, data-quality problems upstream, or staff time.",
+        "OPEN QUESTION: Which exception types occur, how often, and what does each missed one cost (money, rework, customer impact)? Owner: Stage 02 / product-discovery.",
+        "OPEN QUESTION: Who detects exceptions and who resolves them? Are they the same people? (Actor map is incomplete.)",
+        "OPEN QUESTION: Is the two-week deadline hard (tied to a contract, audit or event) or a preference? Owner: director.",
+        "OPEN QUESTION: What does 'AI' mean to the director (prioritization, anomaly detection, summarization)? Is it a real requirement?",
+        "OPEN QUESTION: What baseline exists for missed exceptions, time to detection, and time spent on manual checks? It is unknown, so no target can be set yet.",
+        "OPEN QUESTION: Which data classes would any solution touch (child/guardian personal data, billing)? Are any external AI providers involved?"
+      ],
+      "actions": [
+        "1. Rewrite the request as a need in a draft Product Brief. Problem: exceptions are missed. Outcome: timely detection and resolution. Record the dashboard and AI as candidate options, not as part of the problem statement.",
+        "2. Inventory existing evidence before any new research. Categorize the support messages by exception type (enrollment vs billing sub-types), frequency, recency and consequence. Collect the spreadsheet check rules as evidence of which exceptions staff already know how to detect. Give each claim a confidence level.",
+        "3. Map actors: director (sponsor/approver), staff who run the spreadsheet checks, staff who resolve exceptions, Finance (billing exceptions), and people affected indirectly (families or guardians receiving wrong bills or enrollment outcomes).",
+        "4. Hold a short alignment conversation with the director to confirm the desired outcome, the nature of the deadline, what 'AI' means, and non-goals. If the director and staff disagree about the outcome, record the conflict and do not route to implementation.",
+        "5. Define candidate success signals with baselines marked UNKNOWN: number of missed exceptions per period, time from exception occurrence to detection and resolution, financial impact of missed billing exceptions, and staff time spent on manual checks. Explicitly exclude output metrics such as 'dashboard shipped'.",
+        "6. Record constraints and non-goals. Mark preferences (dashboard, AI, two weeks) as unverified until confirmed. Data-protection constraints apply to child and guardian data.",
+        "7. Record a PDR: 'Defer solution commitment; route to Stage 02 with named questions.' Include the switching condition for a hard deadline.",
+        "8. Apply stop-analysis. After the evidence inventory and director alignment, stop strategy work and hand off to Discovery."
+      ],
+      "verification": [
+        "PLANNED (not executed): G0 checklist review of the Product Brief. Checks: the problem statement contains no mandatory UI, vendor or AI; a desired outcome is stated; stakeholders are mapped; constraints and non-goals are listed with hard vs preference labels.",
+        "PLANNED: the director confirms or corrects the outcome statement and the deadline status, and this is recorded in the PDR.",
+        "PLANNED: each success signal is checked to represent the outcome rather than output, and its baseline source is identified or marked UNKNOWN.",
+        "No verification has been executed. No lifecycle state beyond a pending framing decision is claimed."
+      ],
+      "handoff": "To Stage 02 (product-discovery). Inputs: the draft Product Brief, the support-message/spreadsheet evidence inventory, and these open questions: why exceptions are missed; which types dominate by frequency and cost; who detects vs resolves; whether visibility is the bottleneck. Next owner: product-discovery lead, with the director as decision owner for the outcome and deadline. If the director confirms the deadline is hard, also hand the switching condition to Stage 02 so discovery is time-boxed to fit a reversible two-week slice.",
+      "completion_state": "G0 NOT PASSED (IN PROGRESS). Solution-neutral framing is drafted. The PDR (defer solution commitment, route to Discovery) is proposed and pending director confirmation. Nothing is implemented, tested or verified. Definition of Value: not applicable yet.",
+      "residual_risks": [
+        "The director may insist on the dashboard regardless of evidence. The conflict must then be recorded explicitly rather than silently accepted.",
+        "Deadline pressure may push the team into building before Discovery identifies the cause.",
+        "The root cause may be upstream data quality or ownership rather than visibility. A dashboard would then show the problem without reducing it.",
+        "An 'AI' component could expose child, guardian or billing data to external providers without governance. This fails closed until classified.",
+        "Support messages may under-represent exceptions that nobody noticed, which would bias prevalence estimates."
+      ],
+      "references": [
+        "BRAIN.md (default runtime, stop-analysis gate, evidence before claims, AI governance principle)",
+        "04-gates/quality-gates.json (G0)",
+        "06-modules/product-strategy/STAGE-01-PROBLEM-OUTCOME.md",
+        "07-templates/PRODUCT-BRIEF.md (named in the Stage 01 playbook; template content not supplied in this run)"
+      ]
+    },
+    {
+      "id": "ADV-S02",
+      "stage_id": 2,
+      "risk_class": "R2. The enrollment workflow change affects operational correctness and downstream records, and the change is reversible. Raise to R3 if enrollment state drives billing or legal attendance obligations without a recovery path.",
+      "current_outcome": "G1 not passed. The proposed discovery plan (interview five highly engaged administrators who already like the system) cannot test the assumptions that matter. Existing support evidence points at a different segment (occasional operators) and a specific situation (same-day enrollment changes).",
+      "decision": "Reject the sponsor's plan as the sole evidence base. It recruits a biased, confirmation-prone segment and uses interviews about preferences for a workflow question. Adopt the smallest valid plan, driven by the decision 'Does the new enrollment workflow reduce failures for the operators and situations where failures actually occur?' Steps: (1) Reuse first: re-analyze the support logs to confirm and scope the claim that failures concentrate among occasional operators and same-day changes. (2) Observe the risky segment: run contextual observation or task walk-throughs with a small set of occasional operators doing realistic enrollment changes, including same-day changes, on the current workflow and then on a prototype of the new one. (3) Keep engaged administrators as a contrast segment, not the only segment, so that changes do not break expert workflows. (4) Record contradictory findings by segment rather than averaging them. Hand off operational risk that is cheaper to test with a reversible prototype or pilot instead of extending research. Participant counts are a planning choice to be confirmed against recruitment feasibility. They are not evidence of prevalence. Prevalence comes from the support logs and analytics.",
+      "evidence_and_unknowns": [
+        "FACT: The sponsor proposes interviewing only five highly engaged administrators who already like the current system.",
+        "FACT (as reported): Support logs show most failures come from occasional operators and same-day enrollment changes.",
+        "UNKNOWN: The time window, volume, and the classification method behind 'most' in the support-log claim. Re-analysis is needed before relying on it.",
+        "OPEN QUESTION: How is 'occasional operator' defined (frequency of use, role, training)? How large is this segment?",
+        "OPEN QUESTION: Which specific failures occur during same-day changes (wrong effective time, duplicates, lost attendance, wrong billing)? This may be a domain or temporal-rule problem rather than a UI problem.",
+        "OPEN QUESTION: Does the new workflow already exist as a prototype, or only as a concept? This determines whether observation of a prototype is possible now.",
+        "OPEN QUESTION: Who owns the workflow decision, and by when must it be made?",
+        "ASSUMPTION: Support logs under-represent failures that operators silently work around. Observation is needed to see the workarounds.",
+        "ASSUMPTION: Satisfaction among engaged administrators does not predict failure rates among occasional operators. This assumption itself is what the contrast segment tests."
+      ],
+      "actions": [
+        "1. Write a Research Plan in which each research question is linked to the workflow decision it can change. RQ1: Where and why do occasional operators fail today? RQ2: Do same-day changes fail because of the workflow (interaction) or because of unclear rules (domain)? RQ3: Does the new workflow reduce those failures without harming expert use?",
+        "2. Re-analyze the existing support logs. Segment by operator type, change type (same-day vs advance) and failure mode. Record the dataset, time window, recency and limitations.",
+        "3. Recruit occasional operators as the primary segment, with explicit inclusion and exclusion criteria. Include a small contrast group of engaged administrators. Document recruitment bias, including the bias toward people the sponsor can easily reach.",
+        "4. Method: contextual observation or task walk-throughs on realistic tasks (same-day leave, same-day change, re-enrollment) on the current workflow, then usability sessions on a prototype of the new workflow. Ask about past behavior, not hypothetical preference.",
+        "5. Synthesize as observation → interpretation → confidence → scope (segment) → decision implication. Keep contradictory evidence scoped by segment.",
+        "6. Route same-day-change semantics to Stage 03 if observations show rule ambiguity (for example, what 'leaving today' means) rather than an interaction problem.",
+        "7. Define the stop condition up front. Stop when RQ1–RQ3 can support a go / reshape / no-go decision on the workflow, or when the remaining risk is cheaper to test with a reversible pilot.",
+        "8. Explain to the sponsor why the plan changed: the risk sits with occasional operators. Record the sponsor's acceptance or the conflict in the PDR."
+      ],
+      "verification": [
+        "PLANNED (not executed): Research Plan review. Every research question maps to a decision; the primary segment matches where support logs place the failures; inclusion criteria and bias are stated; method matches the unknown (observation and usability for workflow, logs for prevalence).",
+        "PLANNED: the support-log re-analysis is reproducible (query or filter documented, time window stated).",
+        "PLANNED: synthesis artifacts preserve the evidence chain and segment scope before G1 review.",
+        "No research has been executed yet. Neither G1 nor any claim about the new workflow's effect is evidenced."
+      ],
+      "handoff": "Next owner: product-discovery lead, with the product owner as decision owner. Executes the Research Plan and reports to the PDR. Stage 03 (domain) receives same-day-change scenarios and any rule ambiguity observed. Stage 04 receives validated needs and failure scenarios for occasional operators. If residual operational risk remains, recommend a reversible pilot with occasional operators rather than more interviews.",
+      "completion_state": "G1 NOT PASSED. A Research Plan is proposed. The sponsor's biased plan is rejected as sole evidence, pending the product owner's acknowledgement. No research is executed and nothing is verified.",
+      "residual_risks": [
+        "The sponsor may override the plan and proceed with confirmation interviews only. The conflict must be recorded, and the workflow decision must be marked as resting on low-confidence evidence.",
+        "Occasional operators may be hard to recruit, which risks a fallback to the convenient segment.",
+        "The support-log classification may be inaccurate, which would mis-target the research.",
+        "Same-day failures may be domain-rule problems that no workflow redesign fixes.",
+        "The small qualitative sample shows failure modes, not prevalence. Prevalence claims must come from logs or analytics."
+      ],
+      "references": [
+        "BRAIN.md (default runtime, stop-analysis gate, routing backwards)",
+        "04-gates/quality-gates.json (G1)",
+        "06-modules/product-discovery/STAGE-02-DISCOVERY.md",
+        "07-templates/RESEARCH-PLAN.md (named in the Stage 02 playbook; template content not supplied in this run)"
+      ]
+    },
+    {
+      "id": "ADV-S03",
+      "stage_id": 3,
+      "risk_class": "R3 (provisional). Contradictory presence reports for children affect operational records and possibly billing or attendance obligations. Any fix touches historical temporal data (a date-to-timestamp change and handling of multiple membership rows), which is hard to reverse. Downgrade to R2 only if domain owners confirm presence reports are informational and do not drive billing or legal reporting.",
+      "current_outcome": "G2 not passed. The current model stores membership start and end as dates while lessons have timestamps. As a result, same-day leave after attendance and re-enrollment produce multiple membership rows and contradictory presence reports. The business meaning of membership time, presence and re-enrollment is not yet established. The current columns and report behavior are evidence of the implementation, not domain rules.",
+      "decision": "Do not change the schema or report logic yet. Run focused Domain Discovery (an event-storming-style session driven by concrete real cases) to establish: (a) the business time at which membership begins and ends (instant vs calendar date, effective time vs recording time); (b) whether 'presence' means recorded attendance, expected attendance from membership, or both; (c) whether re-enrollment creates a new membership period or reactivates an existing one; (d) the invariants on membership periods. Keep the candidate invariants below as HYPOTHESES until domain experts confirm them. Turn each into a concrete example plus edge case for Stage 04. Do not resolve ambiguity by choosing whatever the current tables or reports already do.",
+      "evidence_and_unknowns": [
+        "FACT: Membership start and end are stored as dates. Lessons are stored with timestamps.",
+        "FACT: A child can attend a lesson at 10:00 and leave the group at 16:00 on the same date.",
+        "FACT: A child can re-enroll in the same group later, producing multiple membership rows.",
+        "FACT: Presence reports become contradictory in these situations. The specific contradictions (which report says what) have not yet been collected.",
+        "HYPOTHESIS (candidate invariant INV-1): for a given child and group, membership periods never overlap.",
+        "HYPOTHESIS (INV-2): a lesson belongs to a child's membership if the lesson's start time falls within [membership start instant, membership end instant). Whether the boundary is inclusive or exclusive at the leave instant is OPEN.",
+        "HYPOTHESIS (INV-3): recorded attendance at a lesson the child attended while a member remains valid after the child leaves. The 10:00 attendance stands after the 16:00 leave.",
+        "HYPOTHESIS (INV-4): re-enrollment creates a new membership period and preserves history. It does not overwrite the earlier period.",
+        "OPEN QUESTION: Is 'left at 16:00' the business effective time, or only when the action was recorded? Can leave or enrollment be backdated or future-dated, and who has authority to do so?",
+        "OPEN QUESTION: Can a child attend a lesson as a non-member (trial or guest)? Is that attendance or something else?",
+        "OPEN QUESTION: If the child leaves at 16:00 and re-enrolls at 18:00 on the same date, what is their status for a lesson at 17:00? Is there a gap?",
+        "OPEN QUESTION: Does billing depend on membership period, attendance, or both? Who owns that decision (Finance)?",
+        "OPEN QUESTION: Which timezone or business clock governs lesson and membership times?",
+        "OPEN QUESTION: Does 'group' membership mean the same thing to administrators, teachers and Finance? There may be a shared noun with different lifecycles."
+      ],
+      "actions": [
+        "1. Collect the concrete contradictory cases: real child, group and date traces (pseudonymized) where reports disagree, including same-day leave, same-day re-enrollment and backdated changes.",
+        "2. Hold an event-storming session with domain experts (enrollment administrators, teachers/attendance recorders, Finance if billing is affected). Build a timeline in business language: ChildEnrolledInGroup, LessonHeld, AttendanceRecorded, ChildLeftGroup, ChildReEnrolledInGroup, with commands, actors and the authority required.",
+        "3. Mark hotspots: date vs instant semantics; effective vs recorded time; boundary at the leave instant; non-member attendance; same-day re-enrollment gap; report definitions; timezone.",
+        "4. Draft a glossary with examples and counterexamples for Membership (period), Enrollment, Leave/Withdrawal, Re-enrollment, Lesson, Attendance/Presence. Separate 'presence' (an observed fact) from 'expected participant' (derived from membership) if experts confirm they differ.",
+        "5. Build a rule and invariant catalog. Each rule gets at least one example and one edge case. Examples: EX-D1: attends 10:00, leaves 16:00 the same date. Expected (hypothesis): counted as member and present for the 10:00 lesson, not a member for a 17:00 lesson. EX-D2: lesson starting exactly at 16:00, the leave instant (boundary). EX-D3: leaves 16:00, re-enrolls 18:00 the same date, lesson at 17:00. EX-D4: leave recorded on a later date with an earlier effective time. EX-D5: re-enrollment request that would overlap an open membership (counterexample).",
+        "6. Where experts disagree, record the competing models with the scenario that discriminates between them. Do not pick one by authority alone.",
+        "7. Note candidate boundary signals for Stage 05: membership-period non-overlap (INV-1) may need atomic enforcement. Attendance may be a separate concept and possibly a separate context. Keep these as hypotheses.",
+        "8. Record domain decision records for confirmed rules. Keep the rest in the open-question register with owners."
+      ],
+      "verification": [
+        "PLANNED (not executed): each confirmed rule points to a scenario, authoritative policy or verified expert decision. Temporal and ownership rules each have at least one concrete example and one edge case.",
+        "PLANNED: replay the collected contradictory real cases against the draft model. The model must explain each case without contradiction, or the case is logged as a hotspot.",
+        "PLANNED: domain experts review the glossary and timeline, and their sign-off or disagreements are recorded.",
+        "No discovery session has been executed. No rule is confirmed and nothing is verified."
+      ],
+      "handoff": "Next owner: domain lead, who facilitates discovery with enrollment administrators, attendance recorders and Finance. Stage 04 (requirements) receives confirmed rules and examples EX-D1..EX-D5 for Example Mapping and executable oracles. Stage 05 (architecture) receives candidate boundaries, invariant ownership (non-overlapping membership periods) and the date-to-instant hotspot. Data migration of historical date-only rows is flagged as a later G6 concern, not decided now.",
+      "completion_state": "G2 NOT PASSED. A discovery plan, draft concept list, hypothesis invariants and hotspot list are prepared. No domain rule is confirmed. No implementation change is decided, implemented or verified.",
+      "residual_risks": [
+        "Historical date-only records may not hold enough information to reconstruct instants. A future migration may need assumptions, which must be recorded as such.",
+        "Domain experts may disagree on presence and billing semantics, which would block G2 until resolved.",
+        "Existing reports may already be used for billing or legal attendance. Any semantic change could alter past figures.",
+        "There is a risk of encoding current report quirks or bugs as business rules if real cases are not collected first.",
+        "Timezone or clock ambiguity may surface late if not captured explicitly."
+      ],
+      "references": [
+        "BRAIN.md (default runtime, routing principle, routing backwards, evidence before claims)",
+        "04-gates/quality-gates.json (G2)",
+        "06-modules/domain/STAGE-03-DOMAIN-DISCOVERY.md",
+        "06-modules/requirements/ATDD-EXAMPLE-MAPPING.md (example and edge-case shape prepared for handoff)"
+      ]
+    },
+    {
+      "id": "ADV-S04",
+      "stage_id": 4,
+      "risk_class": "R3. Mass outbound SMS to guardians is irreversible once sent and involves personal data (guardian phone numbers) and billing information. Duplicates, wrong recipients or missed sends are customer-visible and financially material. The work spans three owners: Finance (eligibility), the legacy contact system (relationships) and Operations (approval). This needs a stronger evidence threshold and explicit approval before G3.",
+      "current_outcome": "G3 not passed. The vague requirement 'send billing SMS on the first day of the month' has been decomposed into explicit business rules, examples and counterexamples, quality scenarios and open questions. Several rules are decision-ready. Rules on eligibility timing, recipient eligibility, post-approval changes, ambiguous delivery outcomes and send timing remain unresolved and must be resolved, given R3.",
+      "decision": "Baseline only the decision-ready rules and keep the rest visible as owned open questions. Do not choose SMS transport, queueing or scheduling technology. Those belong to Stage 05/06. Specification (Example Map, IDs stable for downstream use):\n\nBR-01 Eligibility source: a child is in scope for period P only if Finance has determined the child eligible for P. The SMS process never derives eligibility itself. [Rule decision-ready; interface and timing OPEN]\n\nBR-02 Recipients: for each eligible child and period, the recipients are the set of unique eligible guardian phone numbers from the legacy contact relationships, deduplicated after normalization. [Uniqueness decision-ready; 'eligible guardian' definition and normalization OPEN]\n\nBR-03 Zero amount: the SMS is sent even when the billed amount for the period is zero. [Decision-ready]\n\nBR-04 Once-only: at most one SMS is sent per (child, period, normalized number), including across retries, re-runs and restarts. [Decision-ready as an invariant; handling of an unknown provider outcome is OPEN]\n\nBR-05 Approval: no mass send occurs without an explicit operator approval of a specific batch for period P. [Gate decision-ready; approver role, review content and invalidation when data changes are OPEN]\n\nBR-06 Failure handling: numbers that fail permanently are not retried indefinitely and are reported to an operator. Transient failures are retried without breaking BR-04. Eligible children with no valid guardian number are reported, not silently skipped. [Reporting decision-ready; retry policy thresholds OPEN]\n\nBR-07 Timing: the batch is prepared for the 'first day of the month'. Which period is billed, which timezone applies, and the behavior when approval or Finance data is late are OPEN.\n\nExamples (illustrative values, placeholder numbers):\n- EX-01 (BR-01, BR-02): child C1, period 2026-11, Finance-eligible, amount > 0, guardians G1 = +48 600 000 001 and G2 = +48 600 000 002. Expected: 2 SMS, one per number.\n- EX-02 (BR-02, counterexample to duplicates): G1 and G2 both list the number, formatted as '600000001' and '+48 600 000 001'. Expected: 1 SMS. Must not: 2 SMS to the same handset.\n- EX-03 (BR-03): child C2 eligible, amount 0.00. Expected: SMS sent. Must not: skipped because the amount is zero.\n- EX-04 (BR-01, counterexample): child C3 not Finance-eligible for P. Expected: no SMS, even with valid guardian numbers.\n- EX-05 (BR-04): batch interrupted after 60% sent, then re-run. Expected: only the unsent (child, period, number) keys are sent. Must not: any duplicate.\n- EX-06 (BR-05, counterexample): the batch is prepared but not approved. Expected: 0 SMS sent.\n- EX-07 (BR-06): eligible child C4 with no valid number. Expected: no SMS, and C4 appears in the operator exception report.\n- EX-08 (BR-04, BR-06): the provider returns a permanent invalid-number error for one number. Expected: no retry for that number, reported. Other recipients are unaffected.\n- EX-09 (BR-02, OPEN): siblings C5 and C6 share guardian number N. A literal reading of the rule ('per child') gives 2 SMS to N. Pending business confirmation that this is intended rather than consolidation.\n- EX-10 (BR-04, OPEN): the provider times out with an unknown outcome. The policy choice is between a possible duplicate and a possible miss. Business must choose.\n- EX-11 (BR-05, OPEN): Finance eligibility or contact data changes after approval and before sending. Does approval become invalid?\n\nQuality scenarios (thresholds OPEN where not given; none invented):\n- QS-01 Idempotency: under a re-run or crash at any point, the duplicate count is 0.\n- QS-02 Auditability: for every period, the records show who approved what batch (count of children and recipients), when, and per-key send outcome. Retention period OPEN.\n- QS-03 Privacy: the SMS contains only the minimum necessary data. Whether the amount or child name may appear in the SMS is OPEN. Guardian numbers are personal data and are handled under data-protection obligations. The external SMS provider data boundary is reviewed at G8.\n- QS-04 Operability: the operator can see batch progress, failures and the exception report. A completion-time threshold for the batch is OPEN.\n\nAcceptance criteria are derived 1:1 from EX-01..EX-08 now. EX-09..EX-11 become acceptance criteria after their open questions are resolved.",
+      "evidence_and_unknowns": [
+        "FACT: The SMS is monthly, once per child per period, to each unique eligible guardian number, including when the amount is zero (stated business rule).",
+        "FACT: Contact relationships come from a legacy system.",
+        "FACT: Finance decides billing eligibility.",
+        "FACT: The business wants an operator approval step before mass sending.",
+        "FACT: The original requirement text 'send billing SMS on the first day of the month' does not specify ownership, deduplication, zero-value, approval or failure/retry semantics.",
+        "OPEN QUESTION (Finance): How and when is eligibility for period P exposed? When is it final? Can it change after the first of the month?",
+        "OPEN QUESTION (legacy contact owner / domain): What makes a guardian number 'eligible' (legal guardian, billing contact, consent or opt-out, verified number)? How fresh is the legacy data?",
+        "OPEN QUESTION: Number normalization rules (country code, formatting) used for uniqueness.",
+        "OPEN QUESTION (business): Do siblings sharing a number get one SMS per child (literal rule) or a consolidated SMS? (EX-09)",
+        "OPEN QUESTION (business/ops): For an unknown provider outcome, is a possible duplicate or a possible miss preferred? (EX-10)",
+        "OPEN QUESTION (ops): Who may approve? What must the approval screen show? Does a change in data after approval invalidate it? (EX-11) Is separation of duties required?",
+        "OPEN QUESTION: Which period does the 'first day of the month' SMS bill (previous or current month)? Which timezone? What happens if approval has not happened by then?",
+        "OPEN QUESTION: What content is permitted in the SMS (amount, child name, payment details)? Are there regulatory or consent constraints on billing SMS?",
+        "ASSUMPTION: Volume and throughput requirements are unknown. No performance threshold is set."
+      ],
+      "actions": [
+        "1. Write the PRD section and Example Map with rules BR-01..BR-07, examples EX-01..EX-11, quality scenarios QS-01..QS-04 and stable IDs. Mark EX-09..EX-11 and BR-07 as unresolved.",
+        "2. Run an Example Mapping session with Finance (eligibility), the legacy contact data owner, Operations (approval) and QA to resolve the open questions. For each, record the resolution evidence and owner.",
+        "3. Route back to Stage 03 if 'eligible guardian' or 'period' turns out to mean different things to Finance, Operations and the legacy system.",
+        "4. Choose oracles at the lowest trustworthy layer. Recipient-set computation (BR-01..BR-03) is checked by domain-level executable fixtures below any UI. Once-only and retry behavior (BR-04, BR-06) is checked by integration tests at the send boundary against a provider stub that simulates success, permanent failure, transient failure and timeout. The approval gate (BR-05) is checked with a workflow-level test. A pre-release controlled run to internal test numbers covers end-to-end confirmation.",
+        "5. Fill in the traceability record: EVIDENCE (business statement, Finance ownership, legacy source) → BR → EX → acceptance criterion → planned test → planned production observation (sent count vs expected eligible recipients per period; duplicates; exception report size).",
+        "6. Hand quality drivers (idempotency key semantics, auditability, approval gating, personal-data boundary with an external SMS provider) to Stage 05 without prescribing transport.",
+        "7. Baseline the decision-ready rules now. Keep G3 open until the R3-critical open questions (EX-10, EX-11, BR-07, eligible-guardian definition, Finance interface timing) are resolved or explicitly accepted by a named owner."
+      ],
+      "verification": [
+        "PLANNED (not executed): G3 review. Every material rule BR-01..BR-07 has at least one example and one counterexample, an assigned oracle layer and an evidence link. No acceptance criterion prescribes transport or technology.",
+        "PLANNED: Finance, the legacy contact owner and Operations sign off the Example Map. Sign-off is recorded as the resolution evidence for the open questions.",
+        "PLANNED post-implementation: execute the fixtures and integration tests against the original EX IDs without rewriting expected outcomes. Pre-release evidence counts as VERIFIED-IN-TEST, not PROVEN-IN-REALITY.",
+        "PLANNED production observation: for each period, compare the expected recipient set (eligible children × unique eligible numbers) with sent, failed and reported counts, plus a duplicate check, linked back to the EX IDs.",
+        "Nothing has been executed. No test, approval or sign-off evidence exists yet."
+      ],
+      "handoff": "Owners: the requirements lead keeps the Example Map. Finance owns BR-01 and its interface timing. The legacy contact data owner owns the 'eligible guardian' definition and normalization. Operations owns the BR-05 approval semantics and EX-11. A business owner decides EX-09 and EX-10. After resolution, Stage 05/06 receive quality drivers QS-01..QS-04 and the invariant BR-04 for architecture, with transport still undecided. Stage 13+ (quality engineering) consume EX and acceptance IDs directly. G8 later reviews the personal-data boundary with the external SMS provider.",
+      "completion_state": "G3 NOT PASSED. Draft specification and Example Map exist. BR-01 (as an ownership rule), BR-02 (uniqueness), BR-03, BR-04 (as an invariant), BR-05 (gate existence) and BR-06 (reporting) are decision-ready. EX-09..EX-11, BR-07 and several definitions are unresolved and blocking for R3. Nothing is implemented, tested or verified.",
+      "residual_risks": [
+        "The literal 'per child' rule may produce several SMS to one guardian with siblings. This is customer-visible and needs a business decision.",
+        "Unknown provider outcomes force a trade-off between duplicates and misses. Without an explicit policy, implementation will choose by accident.",
+        "Legacy contact data may be stale or wrong, sending billing information to the wrong person. This is a privacy and trust risk outside the SMS process's control.",
+        "Finance eligibility may not be final on the first day of the month, risking sends to ineligible children or missed eligible ones.",
+        "Approval of a batch whose underlying data later changes could authorize a send that no longer matches reality.",
+        "SMS content and consent constraints are not yet confirmed, a possible regulatory exposure."
+      ],
+      "references": [
+        "BRAIN.md (default runtime steps 6, 10–13; evidence before claims; routing backwards)",
+        "04-gates/quality-gates.json (G3; G8 noted for downstream)",
+        "06-modules/requirements/STAGE-04-REQUIREMENTS.md",
+        "06-modules/requirements/ATDD-EXAMPLE-MAPPING.md",
+        "07-templates/EXAMPLE-MAP.md",
+        "07-templates/PRD.md and 07-templates/TRACEABILITY.json (named in the Stage 04 playbook; template content not supplied in this run)"
+      ]
+    }
+  ]
+}

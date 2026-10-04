@@ -1,0 +1,231 @@
+{
+  "run_id": "INDEP-RUN-2026-10-04-02",
+  "executor": {
+    "provider": "Anthropic",
+    "model": "claude-opus-5-5",
+    "notes": "Blinded independent executor; no judge criteria or prior results supplied."
+  },
+  "cases": [
+    {
+      "id": "ADV-S25",
+      "stage_id": 25,
+      "risk_class": "R2 (raised to R3 if the conflicting guidance affects accessibility, safety or regulated UI behavior). A change to global guidance reaches every project, and silently rewriting provenance would damage the integrity of the knowledge base. The underlying decision can still be reversed through supersession.",
+      "current_outcome": "An accepted internal UDR, based on evidence from the frozen 2026-09-30 corpus, conflicts with a newer UI guidance source. A maintainer proposes editing the old evidence statement in place so the new recommendation applies to all projects immediately.",
+      "decision": "REJECT the in-place edit. Treat the situation as an explicit conflict: register the new source, record its claim as a Candidate, and open a conflict-register entry. Compare scope, population, method and freshness. A later publication date does not automatically supersede older evidence. The existing evidence record and UDR stay Active, with a CONFLICT flag, until the UDR owner records a decision. If the new claim is verified and its scope matches, create a new evidence record and a revised or new UDR with supersession links, and mark the old record SUPERSEDED rather than deleting or rewriting it. Decide separately whether the change belongs in the global default or in project-local overrides. Do not push it to all projects until that is decided.",
+      "evidence_and_unknowns": [
+        "FACT: An accepted internal UDR exists and rests on a frozen corpus dated 2026-09-30.",
+        "FACT: A newer UI guidance source recommends conflicting behavior.",
+        "FACT: The proposal would overwrite the old evidence statement and change behavior for all projects at once.",
+        "ASSUMPTION (not established): that the newer source is more authoritative or correct. Being newer is not evidence of superiority.",
+        "OPEN QUESTION: What is the newer source's authority tier, exact version or URL, and verification date? Has anyone reviewed the asset itself?",
+        "OPEN QUESTION: Does the new recommendation cover the same population, platform, interaction context and technology version as the UDR, or a different scope?",
+        "OPEN QUESTION: Is the conflict about method (e.g., research-based vs opinion), time (the guidance changed), or scope (both claims valid in different contexts)?",
+        "OPEN QUESTION: Which projects currently use the UDR, and would any shipped behavior or tests change?",
+        "OPEN QUESTION: Who owns the UDR (Experience module), and who can approve changes to global guidance?"
+      ],
+      "actions": [
+        "Block the in-place edit. Keep the original evidence record and the UDR text unchanged.",
+        "Register the new source in the source registry with authority tier, domain, location, version, verification date and cutoff policy. Note that it falls after the 2026-09-30 corpus freeze.",
+        "Atomize the new recommendation into one Candidate evidence record with scope, strength, limitations and source ID.",
+        "Open a conflict-register entry that links the existing evidence and UDR to the new Candidate, and state the conflict dimension (scope, time or method).",
+        "Flag the existing UDR as CONFLICT-UNDER-REVIEW with a revisit trigger. Do not mark it superseded yet.",
+        "Route the decision to the UDR owner (Experience, Stages 07–11). Options: (a) keep the UDR (record NO_CHANGE with rationale); (b) narrow its scope; (c) supersede it with a new UDR that cites the new evidence.",
+        "If superseding: create the new evidence record and UDR, link old→new with reason and date, and set the old record to SUPERSEDED with history preserved.",
+        "Decide global vs project-local. If the evidence covers only some contexts, use project overrides rather than rewriting the global default.",
+        "Run an impact and freshness review on the projects that consume the UDR: list affected UDRs, acceptance examples and tests, and mark each NO_CHANGE, UPDATE_REQUIRED or UNKNOWN."
+      ],
+      "verification": [
+        "Source registry entry exists for the new source, with verification date and authority tier.",
+        "Conflict-register entry links both claims and names the conflict dimension and owner.",
+        "Audit or diff check: the original evidence record content is unchanged (no silent provenance rewrite).",
+        "If superseded: both records exist, the supersession link is bidirectional, and the new record has provenance, scope, status and limitations.",
+        "Freshness report shows the 2026-09-30 corpus cutoff and lists claims affected by post-cutoff sources.",
+        "Not yet executed: no eval has been run on whether projects correctly pick up the new or old guidance. Any claim of behavioral effectiveness stays UNVERIFIED."
+      ],
+      "handoff": "Owner of the UDR decision: Experience module UDR owner (Stages 07–11). Owner of registry, conflict and supersession records: Knowledge governance (Stage 25). Next action: the UDR owner reviews the scope/method comparison and records keep, narrow or supersede. Projects that consume the UDR receive any change only through a supersession or override record.",
+      "completion_state": "OPEN — CONFLICT RECORDED, DECISION PENDING. The governance cycle is not complete until the UDR owner records a decision and the supersession or override (if any) is linked with provenance. Nothing is SUPERSEDED or VERIFIED yet.",
+      "residual_risks": [
+        "Until the decision is made, projects keep following the existing UDR, which may be outdated in some contexts.",
+        "The new source may be authoritative but scoped differently. Universalizing it could cause regressions in contexts the UDR was built for.",
+        "Pressure to treat newer sources as superior may come back. The governance rule needs to be enforced, not only documented.",
+        "Downstream acceptance examples and tests tied to the UDR may silently drift if the impact review is not done."
+      ],
+      "references": [
+        "BRAIN.md (Closure principle, Evidence before claims, Routing principle)",
+        "06-modules/knowledge-governance/STAGE-25-KNOWLEDGE-GOVERNANCE.md",
+        "04-gates/quality-gates.json (G5 relevant UDRs)"
+      ]
+    },
+    {
+      "id": "V2-LC-ATDD",
+      "stage_id": 4,
+      "risk_class": "R3. Irreversible mass external communication to personal phone numbers, tied to billing. Errors cause duplicate or missed messages to families, privacy exposure, and messages with wrong amounts. Three ownership boundaries apply: Legacy contacts, Finance eligibility, and operator approval.",
+      "current_outcome": "There is a prose rule: one monthly SMS per child per period to every unique eligible guardian number, including when the amount is zero. Legacy supplies contact relationships, Finance decides billing eligibility, and an operator must approve a mass send. No examples, boundaries or counterexamples have been agreed. A developer proposes to implement from the prose and write tests afterward.",
+      "decision": "NOT IMPLEMENTATION-READY. G3 is not met. Implementing from the prose and writing tests afterward is rejected: tests written after the code would verify the code, not prior agreement on expected behavior. The smallest sufficient pre-implementation contract is a short Example Map session (product/billing owner, a Finance representative, the developer, the tester). It produces stable rule and example IDs covering a representative case, boundaries and counterexamples for each material rule, an explicit open-question register, and a chosen oracle layer. Rules whose examples are agreed get frozen. Rules with unresolved questions stay non-blocking hypotheses only if they don't affect who receives a message. Otherwise they block.",
+      "evidence_and_unknowns": [
+        "FACT: The prose rule covers one SMS per child per period, unique eligible guardian numbers, and sending when the amount is zero.",
+        "FACT: Legacy is the source of contact relationships, Finance owns billing eligibility, and a mass send needs operator approval.",
+        "FACT: No concrete examples, boundaries or counterexamples have been agreed.",
+        "Proposed rule IDs (from the prose only, not new business facts): R1 one SMS per child per billing period per recipient number; R2 recipients are all unique eligible guardian numbers for the child (dedupe by number); R3 a zero-amount bill still triggers the SMS; R4 eligibility comes from Finance; R5 guardian–child relationships come from Legacy; R6 no mass send executes without operator approval.",
+        "Proposed candidate examples (all expected outcomes need owner confirmation): EX-R2-01 a child with two guardians on different numbers → 2 SMS; EX-R2-02 two guardians sharing one number → 1 SMS (counterexample: 2 SMS to the same number); EX-R3-01 amount = 0 → SMS sent (counterexample: suppressed); EX-R1-01 the same period is triggered twice → no second SMS to any number (idempotency); EX-R4-01 a guardian or child marked not eligible by Finance → no SMS; EX-R6-01 no approval recorded → zero messages sent; EX-R6-02 approval for batch A cannot release batch B.",
+        "OPEN QUESTION: Does 'eligible' apply to the child's bill, the guardian, or both? Who in Finance owns that definition?",
+        "OPEN QUESTION: Does a guardian with two eligible children get one SMS per child or one combined SMS? 'Per child' suggests per child, but this changes recipient counts and must be confirmed.",
+        "OPEN QUESTION: What counts as the same number (normalization, country codes, landlines or invalid numbers)? What happens when a number is missing or invalid?",
+        "OPEN QUESTION: Period boundaries and timezone. What happens with mid-period changes to relationships or eligibility (stale Legacy or Finance data)?",
+        "OPEN QUESTION: How are negative amounts or credits handled? Is zero the only edge amount?",
+        "OPEN QUESTION: What is the approval granularity (per batch, per period), and what evidence does the operator see (recipient count, sample, totals)?",
+        "OPEN QUESTION: What happens on partial send failure? Retry semantics without duplicates?",
+        "ASSUMPTION: an SMS provider is involved. Its contract is not specified here and is out of scope for this decision."
+      ],
+      "actions": [
+        "Stop implementation of recipient selection and send logic until the Example Map exists. Low-regret scaffolding with no behavior commitment may continue.",
+        "Run a time-boxed Example Mapping session (≈1 hour) using the EXAMPLE-MAP template, with Finance and the billing/product owner present.",
+        "For R1–R6, record at least one representative example plus boundary cases or counterexamples with stable IDs (as proposed above), concrete actors, numbers, periods and amounts.",
+        "Record each open question with an owner (Finance for eligibility; Legacy/data owner for relationships; product owner for the per-child vs per-guardian count; operations for approval evidence).",
+        "Mark each example decision-ready or unresolved. Questions that change who receives a message (eligibility semantics, the per-child count, number identity) block implementation of R1/R2/R4.",
+        "Choose oracles: domain-level executable tests (below the UI) for recipient selection (R1–R4) with fixtures for Legacy and Finance inputs; contract tests at the Legacy/Finance adapter boundary (R4, R5); an integration test proving the send path cannot execute without a bound approval (R6); stubbed SMS provider. No real sends in test.",
+        "Write acceptance criteria that reference the example IDs. Encode the agreed examples as failing executable tests before implementation (ATDD).",
+        "Route the personal-data and mass-messaging control aspects (approval binding, logging of phone numbers) to Stage 16 for proportional review."
+      ],
+      "verification": [
+        "Planned, not executed: an Example Map artifact with rule and example IDs, signed off by the billing owner and Finance.",
+        "Planned: the agreed examples are encoded as executable tests that fail before implementation and pass after, with expected values unchanged.",
+        "Planned: negative tests for duplicate numbers, a repeated trigger in the same period, ineligible cases, and missing approval.",
+        "Planned: a traceability record EVIDENCE → R-ID → EX-ID → acceptance → test.",
+        "Pre-release status of examples, once tests pass: VERIFIED-IN-TEST, not PROVEN-IN-REALITY.",
+        "No verification has been executed yet."
+      ],
+      "handoff": "Next owners: the product/billing owner convenes the Example Mapping session; Finance resolves the eligibility questions; the Legacy data owner confirms relationship semantics. After G3 evidence exists, the developer implements against the example IDs (Stage 12+), QA uses the same IDs for G7, and Stage 16 reviews the approval and personal-data controls. If the session exposes vocabulary or ownership disagreement (e.g., 'eligible guardian'), route back to Domain Discovery.",
+      "completion_state": "DECIDED: not implementation-ready; G3 NOT MET. Nothing is implemented, tested or verified. The Example Map is planned but not yet produced.",
+      "residual_risks": [
+        "Unclear eligibility semantics could cause messages to the wrong recipients or missed messages. This blocks the release.",
+        "Ambiguity between per-child and per-guardian counts could cause message floods to families with several children.",
+        "Stale or inconsistent Legacy relationships at send time (data source-of-truth risk).",
+        "Mass send is irreversible. If approval is weakly bound, a wrong batch could be released.",
+        "Some edge cases will only show up in production. Examples will need production-learning links later."
+      ],
+      "references": [
+        "BRAIN.md (step 6 Example Mapping, Evidence before claims, lifecycle states)",
+        "04-gates/quality-gates.json (G3)",
+        "06-modules/requirements/STAGE-04-REQUIREMENTS.md",
+        "06-modules/requirements/ATDD-EXAMPLE-MAPPING.md",
+        "07-templates/EXAMPLE-MAP.md",
+        "06-modules/security-reliability/STAGE-16-SECURITY.md (handoff for approval/personal data)"
+      ]
+    },
+    {
+      "id": "V2-LC-AIGOV",
+      "stage_id": 16,
+      "risk_class": "R4. Personal data in production, an exposed production database write credential, arbitrary command execution, and an external provider whose data-handling policy is unverified. The real capabilities contradict the intended read-only role.",
+      "current_outcome": "The agent 'Reviewer' is told in its prompt to be read-only. In practice it can read repositories, run arbitrary shell commands, and query production records that contain personal data, and its environment holds a production database write credential. The external model/provider data-handling policy is unverified. The intended use is a production-support workflow.",
+      "decision": "BLOCK use on the production-support workflow (fail closed). The persona and prompt instruction are not an authorization boundary. Before use: (1) remove the production database write credential from the agent environment, and rotate it because its prior exposure is unscoped; (2) replace arbitrary shell with a sandboxed, egress-restricted execution environment, or deny it; (3) give production data access only through a scoped read-only identity and a bounded, redacted query tool; (4) send no PERSONAL/SENSITIVE data to the external provider until its policy is verified and recorded for that data class, or an owner explicitly accepts it under policy; (5) record a capability matrix, tool contracts, approval rules and audit. Investigation and mutation stay separate: any production fix goes through a different, approval-bound path.",
+      "evidence_and_unknowns": [
+        "FACT: The read-only constraint exists only as prompt text.",
+        "FACT: The agent can read repositories, run arbitrary shell commands, and query production records containing personal data.",
+        "FACT: Its environment exposes a production database write credential.",
+        "FACT: The external model/provider data-handling policy (retention, training, location) is unverified.",
+        "OPEN QUESTION: Has the agent already been run against production with this configuration? If so, did personal data or the credential enter prompts or tool output sent to the provider? This is not established and must not be assumed either way.",
+        "OPEN QUESTION: What data classes does the production-support workflow actually need? Can it work on aggregated or redacted fields?",
+        "OPEN QUESTION: Who is the policy and exception owner for AI provider use with personal data? What legal or regulatory obligations apply?",
+        "OPEN QUESTION: Does shell egress allow network calls that bypass the provider boundary?",
+        "ASSUMPTION: the production-support workflow needs read access to logs/records and does not need mutation."
+      ],
+      "actions": [
+        "Immediately: suspend the agent's access to production for this workflow until the controls below are in place.",
+        "Remove the production DB write credential from the agent runtime. Rotate the credential and review its access logs, because exposure scope is unknown.",
+        "Classify data: production records = PERSONAL/SENSITIVE; credentials = HIGH-RISK/RESTRICTED; repository = CONFIDENTIAL (confirm with owner).",
+        "Verify the provider policy (retention, training use, region, logging) and record the allowed data classes with a verification date. Until verified: status UNVERIFIED, personal data DENY.",
+        "Define the capability matrix for 'Reviewer (prod-support)'. Proposed: Repo read ALLOW; Repo write DENY; Command exec CONDITIONAL(sandbox, no egress, no prod credentials); Web DENY; Prod logs CONDITIONAL(read-only, redacted, bounded); Prod DB read CONDITIONAL(scoped read-only identity, allow-listed queries, redaction, row limits); Prod DB write DENY; External message DENY; Merge DENY; Deploy staging DENY; Deploy prod DENY; Secrets/infra DENY; self-approval DENY.",
+        "Write tool contracts for the production query tool: identity, read scope, field-level redaction, output size limits, egress, and audit logging that does not log secrets.",
+        "Define approval rules: any production mutation or data export happens outside this agent, via a human-approved action bound to a specific diff/query/version.",
+        "Enable an audit trail: agent identity, model/runtime and policy version, available tools, data class processed, actions taken and results.",
+        "Route the question of possible prior exposure to the security/privacy incident owner for assessment. Do not claim a breach happened or that none did."
+      ],
+      "verification": [
+        "Planned, not executed: an environment scan in the agent runtime shows no production write credential or other secret.",
+        "Planned: a negative capability test where the agent's identity attempts a production DB write and is denied by the database, not by the prompt.",
+        "Planned: a sandbox egress test where shell network calls to non-allowed destinations fail.",
+        "Planned: a redaction test where the bounded query tool returns no unredacted personal fields on representative records, including adversarial queries.",
+        "Planned: credential rotation evidence (old credential revoked).",
+        "Planned: a provider policy record with verification evidence and date. Until it exists, personal data stays denied to the provider.",
+        "Planned: an audit log sample reconstructs an agent session without exposing extra sensitive data.",
+        "G8 AI-governance evidence: none executed yet."
+      ],
+      "handoff": "Owner: security/reliability (Stage 16) together with the AI governance policy owner. Platform/infra owner: credential removal, rotation, sandbox. Privacy/data owner: provider verification and personal-data acceptance. Security incident owner: assess possible prior exposure (Stage 21). After the controls are verified, the production-support workflow owner may re-request use under the recorded matrix. Stage 18 enforces checks in CI/runtime where applicable.",
+      "completion_state": "BLOCKED. G8 NOT MET. The controls are decided but not implemented or verified. The agent is not authorized for production-support use.",
+      "residual_risks": [
+        "Possible prior leakage of personal data or the credential to the external provider is unknown until assessed.",
+        "Redaction might be incomplete. Redacted output is not automatically declassified and needs validation.",
+        "Even read-only production access exposes personal data. Use requires provider verification or accepted policy.",
+        "Sandbox escape or hidden capabilities in tools added later. The model must be reopened whenever capabilities change.",
+        "Approval fatigue or approvals not bound to concrete actions on the separate mutation path."
+      ],
+      "references": [
+        "BRAIN.md (step 7, AI governance principle)",
+        "04-gates/quality-gates.json (G8)",
+        "06-modules/security-reliability/STAGE-16-SECURITY.md",
+        "06-modules/security-reliability/AI-GOVERNANCE.md",
+        "07-templates/AI-CAPABILITY-MATRIX.md"
+      ]
+    },
+    {
+      "id": "V2-LC-PROD",
+      "stage_id": 24,
+      "risk_class": "R3. Billing eligibility affects families' charges. Repeated manual overrides signal a possible gap in the domain or data model for guardianship changes, which can cause financial and trust harm.",
+      "current_outcome": "The new billing-eligibility calculation passed all pre-release tests (VERIFIED-IN-TEST). The deployment is reported as operationally healthy. In production, operators repeatedly override the result for a small set of families, and support notes mention special guardianship changes. The team proposes a hard-coded exception patch. The product outcome has not been measured.",
+      "decision": "Do not ship the hard-coded exception as the fix. Treat the repeated overrides as domain evidence. Open a Production Learning Record that links the expectation (eligibility rule/example IDs) to the observed overrides, and describe the delta before explaining it. Leading hypothesis (unconfirmed): a domain-model gap or unknown rule around special guardianship changes. Competing hypotheses: stale or incorrect Legacy relationship data (data/source-of-truth issue), or an operator workflow issue. Next evidence action: collect the override traces with version and time window, and interview operators and Finance about what they knew or decided that the system did not. When the rule is confirmed by its owner, update the Example Map with new examples and counterexamples, then tests and evals, then the implementation, and re-verify. Keep operators overriding manually as interim containment, logged and reviewed. If consequence requires interim automation, use explicit manual-review routing rather than hard-coded family IDs. The loop is not closed until learning has been propagated and re-verified.",
+      "evidence_and_unknowns": [
+        "FACT: All pre-release tests passed. This shows the code matches the pre-release examples (VERIFIED-IN-TEST), not that the domain model is complete.",
+        "FACT: The deployment is reported operationally healthy. The underlying G10 evidence artifacts are not cited here.",
+        "FACT: Operators repeatedly override the automated result for a small set of families.",
+        "FACT: Support notes mention special guardianship changes.",
+        "FACT: The original product outcome has not been measured.",
+        "ASSUMPTION (hypothesis only): the overrides are caused by guardianship-change situations the eligibility rule does not represent. The correlation is not established for every override.",
+        "OPEN QUESTION: How many overrides, which families, which time window and which deployed version? Is the instrumentation of overrides complete?",
+        "OPEN QUESTION: What did the operator know or decide in each override (court order, custody transfer, effective date, split responsibility)? Who owns that policy (Finance or a domain owner)?",
+        "OPEN QUESTION: Is the Legacy relationship data correct and current for these families, or is the delta a data-lineage issue?",
+        "OPEN QUESTION: Are the overrides consistent with each other (one implicit rule) or ad hoc (several rules, or operator error)?",
+        "OPEN QUESTION: Are there families with the same pattern whom operators did not catch (silent harm)?",
+        "OPEN QUESTION: Which original outcome metric and target were set in the PDR, and when can they be measured?"
+      ],
+      "actions": [
+        "Open a Production Learning Record: link the release/version, the eligibility rule and example IDs, and the PDR outcome; record the population and time window.",
+        "Capture the observation: a bounded, redacted extract of override events (family IDs pseudonymized, reason codes, timestamps, version) plus the relevant support notes.",
+        "Write the delta without explanation: 'the automated eligibility result was overridden by operators for N families in window W; expected per R-x/EX-y was Z'.",
+        "Run the next evidence actions: operator and Finance interviews (what did the human know or decide?); a Legacy data lineage check for the affected families; a query for unflagged families with similar guardianship-change patterns.",
+        "Classify each delta with confidence. Candidates: domain-model gap or unknown rule; data/source-of-truth issue; operator workflow friction; implementation defect (to rule out).",
+        "If a new rule is confirmed by its owner: add rule and example IDs to the Example Map (e.g., guardianship change mid-period, effective dates, counterexamples), write failing tests and evals from them, then change the implementation. Do not add a hard-coded family list.",
+        "Mark propagation status for each artifact: Domain model/rules UNKNOWN→UPDATE_REQUIRED pending confirmation; Example Map/acceptance UPDATE_REQUIRED; Decision records UNKNOWN; Automated tests NEW_EVAL (regression cases from the real traces, anonymized); Golden/adversarial evals NEW_EVAL; Knowledge records UPDATE_REQUIRED (Stage 25); Observability/runbook UPDATE_REQUIRED (override-rate metric with reason codes, interim manual review runbook).",
+        "Interim containment: keep the logged manual override process. Optionally add a manual-review flag for guardianship-change cases, owned by operations, with an expiry and review date.",
+        "Plan the outcome measurement against the original PDR target; do not redefine success after seeing results."
+      ],
+      "verification": [
+        "Planned, not executed: the updated Example Map examples are encoded as tests that fail on the current implementation (reproducing the delta) and pass after the change.",
+        "Planned: re-run the full existing eligibility suite to confirm no regression of the original examples.",
+        "Planned: production observation after the change, with the override rate for the affected pattern measured over a defined window, linked to the new example IDs.",
+        "Planned: a data lineage check result recorded for the affected families.",
+        "Planned: an outcome review against the original PDR metric.",
+        "Current lifecycle evidence: DEPLOYED; HEALTHY as reported (operational). The critical-behavior expected-vs-observed clause of G10 shows an unresolved delta. Definition of Value: UNVERIFIED OUTCOME (NOT-YET-MEASURABLE)."
+      ],
+      "handoff": "Owner of the learning record: product-intelligence (Stage 24) / billing product owner. Rule confirmation: Finance/domain owner for guardianship-change eligibility; route to Domain Discovery (Stage 03) or Requirements (Stage 04) if a new rule is confirmed. Data lineage: the Legacy data owner. Implementation and tests: engineering, after the Example Map update. Durable knowledge and supersession: Stage 25. Operations: interim review runbook.",
+      "completion_state": "LOOP OPEN. DEPLOYED and reported HEALTHY (operational). The production delta is unclassified, propagation has not started, re-verification has not been executed, and the outcome is UNVERIFIED. Not SUCCESSFUL.",
+      "residual_risks": [
+        "Families with guardianship changes whom operators did not catch may be billed incorrectly in the meantime.",
+        "The manual override process depends on operator knowledge and is not yet documented as policy. There is a key-person risk.",
+        "A hard-coded patch, if pushed through anyway, would hide the rule, fail for future families, and bypass Example Map and test propagation.",
+        "Override instrumentation may be incomplete, which would bias how much of the problem the team believes it has seen.",
+        "Outcome is unmeasured. A healthy deployment may still not deliver the intended value."
+      ],
+      "references": [
+        "BRAIN.md (steps 13–16, Closure principle, lifecycle states)",
+        "04-gates/quality-gates.json (G10, G11)",
+        "06-modules/product-intelligence/STAGE-24-FEEDBACK-NEXT-ITERATION.md",
+        "06-modules/product-intelligence/PRODUCTION-LEARNING-LOOP.md",
+        "07-templates/PRODUCTION-LEARNING-RECORD.md",
+        "06-modules/requirements/ATDD-EXAMPLE-MAPPING.md",
+        "07-templates/EXAMPLE-MAP.md",
+        "06-modules/knowledge-governance/STAGE-25-KNOWLEDGE-GOVERNANCE.md"
+      ]
+    }
+  ]
+}

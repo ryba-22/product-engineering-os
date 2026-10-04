@@ -16,7 +16,7 @@ def test_all_stages_have_deep_playbooks():
         assert len(s['evidence_ids'])>=2, s
         assert len(s['eval_ids'])>=1, s
         assert s.get('stage_playbook'), s
-        assert s.get('behavioral_validation') in {'pending-independent-eval','executed','executed-self-assessed','independently-behaviorally-validated-v1'}, s
+        assert s.get('behavioral_validation') in {'pending-independent-eval','executed','executed-self-assessed','independently-behaviorally-validated-v1','independently-behaviorally-validated-v2'}, s
         assert all(s['criteria'].values()), s
 
 def test_global_depth_inputs_exist():

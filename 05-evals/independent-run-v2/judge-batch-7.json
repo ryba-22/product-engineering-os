@@ -1,0 +1,87 @@
+{
+  "batch": 7,
+  "case_ids": [
+    "ADV-S25",
+    "V2-LC-ATDD",
+    "V2-LC-AIGOV",
+    "V2-LC-PROD"
+  ],
+  "criteria": [
+    {
+      "id": "ADV-S25",
+      "stage_id": 25,
+      "stage_name": "Knowledge governance",
+      "scenario": "A newer UI guidance source recommends behavior that conflicts with an accepted internal UDR based on a frozen 2026-09-30 corpus. A maintainer wants to edit the old evidence statement in place so all projects immediately use the new recommendation.",
+      "decision_to_make": "Govern the conflict, freshness and supersession without silently rewriting provenance.",
+      "must_do": [
+        "register the new source with date/scope",
+        "preserve the old claim/decision",
+        "compare scope/method/authority before supersession",
+        "use explicit supersedes/deprecated links when warranted",
+        "inspect affected downstream decisions/evals and keep project-local overrides separate"
+      ],
+      "must_not_do": [
+        "overwrite the old evidence in place",
+        "assume newer publication date automatically wins",
+        "claim external specialist depth if the asset was not actually reviewed"
+      ]
+    },
+    {
+      "id": "V2-LC-ATDD",
+      "stage_id": 4,
+      "stage_name": "Requirements / specification — ATDD / Example Mapping",
+      "scenario": "A billing team has a prose rule: one monthly SMS per child/per period should go to every unique eligible guardian number, including when the amount is zero. Legacy supplies contact relationships; Finance decides billing eligibility; an operator must approve a mass send. A developer wants to implement directly from the prose and write tests afterward. No concrete examples, boundary cases or counterexamples have been agreed.",
+      "decision_to_make": "Decide whether the behavior is implementation-ready and define the smallest pre-implementation executable contract needed before coding.",
+      "must_do": [
+        "distinguish business rule, concrete example, implementation and executed test evidence",
+        "create at least one concrete representative example with actors/data/trigger/expected result before implementation",
+        "include material boundary or counterexamples such as duplicate guardian numbers, zero amount, missing eligible recipient or approval refusal",
+        "keep unresolved business questions explicit instead of inventing policy",
+        "choose an executable oracle/layer and preserve stable rule/example traceability into acceptance, tests/evals and later production observation"
+      ],
+      "must_not_do": [
+        "declare G3 ready from prose alone",
+        "implement first and rewrite examples afterward to match the code",
+        "encode a queue/provider/transport architecture into business acceptance without evidence that it is a constraint"
+      ]
+    },
+    {
+      "id": "V2-LC-AIGOV",
+      "stage_id": 16,
+      "stage_name": "Security — AI governance",
+      "scenario": "An AI agent named Reviewer is instructed in its prompt to be read-only. In practice it can read repositories, execute arbitrary shell commands, query production records containing personal data, and its environment exposes a production database write credential. The external model/provider data-handling policy has not been verified.",
+      "decision_to_make": "Define the security/governance boundary and the controls required before this agent can be used on the intended production-support workflow.",
+      "must_do": [
+        "state that persona or prompt text is not an authorization boundary",
+        "classify the personal/production data and verify model/provider compatibility before sending it",
+        "define an explicit agent capability matrix and remove or deny unnecessary production-write capability",
+        "apply least privilege to credentials/tools and bound sensitive tool output or egress",
+        "require enforceable approval for consequential actions where risk warrants it and preserve audit evidence"
+      ],
+      "must_not_do": [
+        "treat the word Reviewer or a read-only prompt as an enforceable control",
+        "send restricted or sensitive data to an unverified provider by default",
+        "leave a production write credential available merely because the agent is instructed not to use it"
+      ]
+    },
+    {
+      "id": "V2-LC-PROD",
+      "stage_id": 24,
+      "stage_name": "Feedback → next iteration — Production Learning Loop",
+      "scenario": "A new billing-eligibility calculation passed all pre-release tests and the deployment is operationally healthy. In production, operators repeatedly override the automated result for a small set of families and support notes mention special guardianship changes. The team proposes a hard-coded exception patch. The original product outcome has not yet been measured.",
+      "decision_to_make": "Decide how to interpret the production mismatch, what must be learned or changed, and what evidence is required before claiming the loop is closed.",
+      "must_do": [
+        "reopen the expected rule/example/outcome and capture the production observation with version/population/time scope",
+        "describe and classify the expected-vs-observed delta before assuming it is a code defect",
+        "investigate what operators know or decide that the system does not, including domain/data/requirement possibilities",
+        "propagate supported learning to every affected model/example/decision/test/eval/knowledge or observability artifact and re-verify changed contracts",
+        "keep HEALTHY distinct from SUCCESSFUL and record Definition of Value as unverified until outcome evidence exists"
+      ],
+      "must_not_do": [
+        "equate green tests or healthy deployment with product success",
+        "hard-code the observed exception without investigating whether the explicit model or source-of-truth assumptions changed",
+        "rewrite expected behavior post hoc to match production without evidence and supersession"
+      ]
+    }
+  ]
+}

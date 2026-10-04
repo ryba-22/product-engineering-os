@@ -1,0 +1,82 @@
+{
+  "run_id": "INDEP-RUN-2026-10-04-02",
+  "judge": {
+    "provider": "Microsoft via GitHub Copilot",
+    "model": "mai-code-1.1-flash",
+    "notes": "Independent blinded judge; prior v1 judge results and self-assessments not supplied."
+  },
+  "cases": [
+    {
+      "id": "ADV-S05",
+      "stage_id": 5,
+      "scores": {
+        "decision_correctness": 4,
+        "evidence_scope": 2,
+        "risk_and_constraints": 1,
+        "execution_closure": 1,
+        "verification": 1,
+        "traceability": 1
+      },
+      "total": 10,
+      "must_do_missing": [],
+      "must_not_do_violations": [],
+      "hard_fail": false,
+      "pass": true,
+      "rationale": "Assigns Legacy ownership of relationships and contacts and Finance ownership of eligibility and settlement communication, with a read-only semantic integration and an atomic per-child/period/normalized-number dedup invariant. It keeps logical ownership separate from shared storage, records assumptions and decision-changing privacy questions, and leaves unresolved rules as blockers rather than inventing answers. The proposed state, planned verification, next owners, and G2 status are explicit and traceable."
+    },
+    {
+      "id": "ADV-S06",
+      "stage_id": 6,
+      "scores": {
+        "decision_correctness": 4,
+        "evidence_scope": 2,
+        "risk_and_constraints": 1,
+        "execution_closure": 1,
+        "verification": 1,
+        "traceability": 1
+      },
+      "total": 10,
+      "must_do_missing": [],
+      "must_not_do_violations": [],
+      "hard_fail": false,
+      "pass": true,
+      "rationale": "Chooses a modular monolith over speculative microservices/Kafka/Kubernetes, compares alternatives, identifies quality scenarios and distributed-operational failure costs, and gives measurement-based switching conditions. It distinguishes scenario facts from unmeasured assumptions, says numeric budgets require owner agreement, and proposes reversible baseline measurement rather than claiming evidence exists. ADR, planned tests, handoffs, and G4 status are clearly stated."
+    },
+    {
+      "id": "ADV-S07",
+      "stage_id": 7,
+      "scores": {
+        "decision_correctness": 4,
+        "evidence_scope": 2,
+        "risk_and_constraints": 1,
+        "execution_closure": 1,
+        "verification": 1,
+        "traceability": 1
+      },
+      "total": 10,
+      "must_do_missing": [],
+      "must_not_do_violations": [],
+      "hard_fail": false,
+      "pass": true,
+      "rationale": "Treats the desktop worklist as a dense comparison workflow, specifies a mobile row-list transformation, and preserves filters, pagination, scroll, and focus through URL/history navigation. It defines loading, empty, partial, error, permission, and stale states while keeping counts and active filters visible. Phone-task assumptions and URL privacy risks are explicitly unresolved; validation is planned, not claimed as executed."
+    },
+    {
+      "id": "ADV-S08",
+      "stage_id": 8,
+      "scores": {
+        "decision_correctness": 4,
+        "evidence_scope": 2,
+        "risk_and_constraints": 1,
+        "execution_closure": 1,
+        "verification": 1,
+        "traceability": 1
+      },
+      "total": 10,
+      "must_do_missing": [],
+      "must_not_do_violations": [],
+      "hard_fail": false,
+      "pass": true,
+      "rationale": "Defines version-checked server updates, idempotent retries, explicit submitting/conflict/recovery states, and a persistent conflict UI that preserves the draft and presents safe choices. It correctly rejects disabled Save as concurrency control and avoids silent overwrite or toast-only resolution; focus and announcement behavior are specified. Backend capabilities and side effects remain open, planned tests are not represented as executed, and the completion state records the unresolved lost-update risk."
+    }
+  ]
+}

@@ -1,0 +1,40 @@
+{
+  "batch": 7,
+  "case_ids": [
+    "ADV-S25",
+    "V2-LC-ATDD",
+    "V2-LC-AIGOV",
+    "V2-LC-PROD"
+  ],
+  "cases": [
+    {
+      "id": "ADV-S25",
+      "stage_id": 25,
+      "stage_name": "Knowledge governance",
+      "scenario": "A newer UI guidance source recommends behavior that conflicts with an accepted internal UDR based on a frozen 2026-09-30 corpus. A maintainer wants to edit the old evidence statement in place so all projects immediately use the new recommendation.",
+      "adversarial_pressure": "The newer source is treated as automatically superior and history preservation is seen as clutter.",
+      "decision_to_make": "Govern the conflict, freshness and supersession without silently rewriting provenance."
+    },
+    {
+      "id": "V2-LC-ATDD",
+      "stage_id": 4,
+      "stage_name": "Requirements / specification — ATDD / Example Mapping",
+      "scenario": "A billing team has a prose rule: one monthly SMS per child/per period should go to every unique eligible guardian number, including when the amount is zero. Legacy supplies contact relationships; Finance decides billing eligibility; an operator must approve a mass send. A developer wants to implement directly from the prose and write tests afterward. No concrete examples, boundary cases or counterexamples have been agreed.",
+      "decision_to_make": "Decide whether the behavior is implementation-ready and define the smallest pre-implementation executable contract needed before coding."
+    },
+    {
+      "id": "V2-LC-AIGOV",
+      "stage_id": 16,
+      "stage_name": "Security — AI governance",
+      "scenario": "An AI agent named Reviewer is instructed in its prompt to be read-only. In practice it can read repositories, execute arbitrary shell commands, query production records containing personal data, and its environment exposes a production database write credential. The external model/provider data-handling policy has not been verified.",
+      "decision_to_make": "Define the security/governance boundary and the controls required before this agent can be used on the intended production-support workflow."
+    },
+    {
+      "id": "V2-LC-PROD",
+      "stage_id": 24,
+      "stage_name": "Feedback → next iteration — Production Learning Loop",
+      "scenario": "A new billing-eligibility calculation passed all pre-release tests and the deployment is operationally healthy. In production, operators repeatedly override the automated result for a small set of families and support notes mention special guardianship changes. The team proposes a hard-coded exception patch. The original product outcome has not yet been measured.",
+      "decision_to_make": "Decide how to interpret the production mismatch, what must be learned or changed, and what evidence is required before claiming the loop is closed."
+    }
+  ]
+}

@@ -83,7 +83,7 @@ Short-file policy is executable: `scripts/audit_content_depth.py` fails when a s
 
 ## Current behavioral evidence
 
-The package completed `INDEP-RUN-2026-10-03-01`: the frozen v1 25-stage adversarial suite was executed by Google Gemini 3.1 Pro (High) with judge criteria hidden, then independently scored by Anthropic Claude Opus 4.6 (Thinking). Result: **25/25 pass, 0 hard failures, 9.12/10 average**. **v1.2 materially changes the runtime contract**, so this evidence remains valid only for the frozen v1 suite; ATDD/Example Mapping, production learning propagation and AI capability governance require a fresh blinded run before an equivalent behavioral claim is made.
+The current package completed `INDEP-RUN-2026-10-04-02`: **28/28 pass, 0 hard failures, 9.57/10 average** using Anthropic Claude Opus 5.5 as the blinded executor and OpenAI GPT-6 Luna via GitHub Copilot CLI as the independent judge. The suite covers all 25 lifecycle stages plus three v1.2 loop-closure cases (ATDD / Example Mapping, AI capability governance and Production Learning). Round 1 preserved two hard failures (Stage 04 and Stage 18); the runtime was corrected without changing the frozen scenarios/rubric, then only those two cases were rerun in fresh independent sessions and both passed. The claim remains scoped to these frozen 28 scenarios, not universal product-engineering correctness.
 
 ## Package layout
 

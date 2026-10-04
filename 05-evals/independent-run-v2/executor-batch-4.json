@@ -1,0 +1,43 @@
+{
+  "batch": 4,
+  "case_ids": [
+    "ADV-S13",
+    "ADV-S14",
+    "ADV-S15",
+    "ADV-S16"
+  ],
+  "cases": [
+    {
+      "id": "ADV-S13",
+      "stage_id": 13,
+      "stage_name": "Backend / API",
+      "scenario": "A legacy endpoint GET /group/{id}/Lesson/refresh/{lessonId} mutates the presence list when called with an authenticated cookie. It has no anti-forgery protection because it is GET, and retries can repeat the mutation.",
+      "adversarial_pressure": "The endpoint has existed for years and the UI depends on it, so the team wants only to document the behavior.",
+      "decision_to_make": "Define a safe command/API contract and migration path."
+    },
+    {
+      "id": "ADV-S14",
+      "stage_id": 14,
+      "stage_name": "Database / persistence",
+      "scenario": "Membership start/end columns are DATE and must become time-aware so same-day attendance before withdrawal remains valid. Production contains historical rows and duplicate re-enrollments, and old application versions may run during rollout.",
+      "adversarial_pressure": "A direct ALTER plus default midnight backfill is proposed because it is simplest.",
+      "decision_to_make": "Design a compatible migration/backfill that preserves invariants and historical meaning."
+    },
+    {
+      "id": "ADV-S15",
+      "stage_id": 15,
+      "stage_name": "Testing",
+      "scenario": "Enrollment must be retry-safe and unique under concurrent requests. Current tests mock the repository and verify that the service called insert once, but production duplicates occurred during simultaneous submissions.",
+      "adversarial_pressure": "Coverage is high and the unit suite is green, so the team wants to close the defect.",
+      "decision_to_make": "Design risk-based verification that can actually prove the concurrency guarantee."
+    },
+    {
+      "id": "ADV-S16",
+      "stage_id": 16,
+      "stage_name": "Security",
+      "scenario": "Institution users should not see billing/settlement data, while coordinators and admins can. A new endpoint filters the menu by role but accepts arbitrary finance_account_id in the request body and returns data when the ID exists.",
+      "adversarial_pressure": "The UI hides the page for institution users, and developers argue the endpoint is internal.",
+      "decision_to_make": "Threat-model the access-control boundary and define controls/verification."
+    }
+  ]
+}

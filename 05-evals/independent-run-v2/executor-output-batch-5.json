@@ -1,0 +1,229 @@
+{
+  "run_id": "INDEP-RUN-2026-10-04-02",
+  "executor": {
+    "provider": "Anthropic",
+    "model": "claude-opus-5-5",
+    "notes": "Blinded independent executor; no judge criteria or prior results supplied."
+  },
+  "cases": [
+    {
+      "id": "ADV-S17",
+      "stage_id": 17,
+      "risk_class": "R2. The issue is a production performance complaint, and both proposed changes touch production. Raising the buffer pool can cause memory pressure, swapping or OOM if host RAM is unknown. Building an index on a large table adds I/O, DDL and lock load. Raise to R3 if the report feeds a regulated or time-critical business process, or if host memory headroom turns out to be insufficient.",
+      "current_outcome": "There is an unquantified complaint that a report query is 'slow'. No scenario budget, baseline, query plan, workload model or dataset slice has been captured. Nothing about the cause has been measured, so no optimization claim is possible.",
+      "decision": "Do not add indexes or double the buffer pool yet. First run a bounded investigation. (1) Identify the exact report and query, then define its scenario budget and workload. (2) Capture a baseline on production-scale data. (3) Profile the bottleneck with the query plan and InnoDB internals. (4) Choose the tuning from that evidence and retest against the same budget. Indexes and buffer pool sizing stay as candidate options with clear switching conditions. They are not the frozen decision. The stop-analysis gate is not met because the cause is unknown, and the answer changes which fix is correct. That evidence is cheap to collect.",
+      "evidence_and_unknowns": [
+        "FACT: The notifications table is about 1 GB, the InnoDB buffer pool is 512 MB, and operational tables are growing.",
+        "FACT: A report query is described as 'slow'. No p95/p99, query plan, workload, concurrency or dataset slice was captured for the complaint.",
+        "ASSUMPTION (unverified): the slow report reads the notifications table. Nothing in the evidence confirms which tables the query touches.",
+        "ASSUMPTION (unverified): the working set exceeds the buffer pool and causes disk reads. This needs buffer pool hit/read metrics. Table size alone does not prove it.",
+        "OPEN QUESTION: Which report and SQL statement is it? Who runs it, how often, and for what business decision? This defines what 'acceptable' means.",
+        "OPEN QUESTION: What latency is acceptable, at which percentile and over what window (e.g. p95 per report run)? The budget owner must state it. Do not invent a number.",
+        "OPEN QUESTION: What filter, date range or tenant slice makes it slow? Is it slow for every parameter set or only large ones?",
+        "OPEN QUESTION: Does it run during peak OLTP load, and does it contend with writes (locks, row-lock waits)?",
+        "OPEN QUESTION: How much RAM and what other workloads are on the DB host? What headroom is safe for innodb_buffer_pool_size?",
+        "OPEN QUESTION: Which MySQL/MariaDB version is it, are online DDL capabilities available, and is there a replica that can serve reporting?",
+        "OPEN QUESTION: Is there a retention/archival policy for notifications? Unbounded growth may matter more than tuning."
+      ],
+      "actions": [
+        "Bind the complaint to a scenario. Record the report ID, exact SQL, parameter sets, who runs it, how often and when. Fill in the Performance Budget: metric (end-to-end report latency and DB query time), percentile/window, and warn/block thresholds, all confirmed by the report owner.",
+        "State the workload model: concurrent OLTP load at the time of the report, report concurrency, dataset size per table involved, growth rate, and cache state (cold vs warm).",
+        "Capture a baseline on production data or a production-scale snapshot. Collect slow query log / performance_schema digest stats for the statement, its latency distribution (p50/p95/p99, not the average), and rows examined vs rows returned.",
+        "Profile the query with EXPLAIN / EXPLAIN ANALYZE for representative parameters: access type, full scans, filesort/temporary tables, chosen and possible indexes.",
+        "Observe internals during runs: buffer pool hit ratio and Innodb_buffer_pool_reads vs read_requests, disk I/O wait, lock waits, CPU, temp table spills. Record host memory headroom.",
+        "Choose the fix from the evidence. Add a targeted index if the plan shows scans on selective predicates, checking write amplification and DDL cost on growing tables. Resize the buffer pool only if the working set is shown to exceed it and host RAM has verified headroom. Otherwise consider a query rewrite, a reporting replica, pre-aggregation, or archival/partitioning of notifications. Record the choice in an optimization ADR with switching conditions.",
+        "Before a production change, test the chosen change in a production-like environment. Plan index builds as online DDL or a replica-first rollout with a rollback path (drop index / revert config).",
+        "Retest under the same workload and dataset, and compare distributions against the baseline and the budget.",
+        "Define how regressions are caught. Add a scheduled report-latency check, or production telemetry on the statement digest, with warn/block thresholds. Document capacity limits and the growth point at which the budget will be breached again."
+      ],
+      "verification": [
+        "Planned, not executed: baseline latency distribution for the identified query on production-scale data, with version, environment, workload and dataset recorded.",
+        "Planned, not executed: query plan and InnoDB metrics that explain the bottleneck before any tuning.",
+        "Planned, not executed: after-change distribution compared with the baseline under the same workload, meeting the agreed p95/p99 budget.",
+        "Planned, not executed: check that the OLTP write path did not regress after any index change (insert/update latency on affected tables).",
+        "Planned, not executed: production telemetry on the statement digest after the change confirms behavior holds outside the test environment."
+      ],
+      "handoff": "Report/product owner: confirm the budget and the business criticality of the report. DB/platform owner: provide host memory headroom, version and replica availability, and run the baseline and profiling. Quality-engineering (Stage 17) owns the Performance Budget and results. Stage 18 enforces stable thresholds. Stage 19 rolls out any index/config change with telemetry. Stage 20 owns continuous query-latency signals.",
+      "completion_state": "DECIDED: the investigation method and budget structure are decided. Not IMPLEMENTED, TESTED or VERIFIED. No baseline exists, so G8 performance scope is not satisfied and no tuning outcome can be claimed.",
+      "residual_risks": [
+        "Indexes added without plan evidence may not help and will add write cost and storage on growing tables.",
+        "Doubling the buffer pool without known host RAM headroom risks swapping or OOM-kills of the DB process, which is a production availability risk.",
+        "Unbounded growth of notifications/operational tables may breach any budget again; retention is unresolved.",
+        "If the report runs on the primary during peak load, it may hurt OLTP latency even after tuning.",
+        "Until the query is identified, the complaint may be in the application/report layer rather than the DB."
+      ],
+      "references": [
+        "BRAIN.md (default runtime steps 1-3, 8-9, 12-13; stop-analysis gate; evidence before claims)",
+        "04-gates/quality-gates.json (G8 Security/performance passed)",
+        "06-modules/quality-engineering/STAGE-17-PERFORMANCE.md (workflow, decision rules, failure modes: production tuning without baseline, averages only)",
+        "07-templates/PERFORMANCE-BUDGET.md (named as the primary artifact; template content not embedded in this prompt)"
+      ]
+    },
+    {
+      "id": "ADV-S18",
+      "stage_id": 18,
+      "risk_class": "R3. This is a production release with database migrations, and the proposed path breaks the link between tested and deployed bytes. Production would receive an untested artifact, possibly from a different commit and different build flags, coupled with schema changes.",
+      "current_outcome": "Staging runs an image tagged with a commit. The tag is mutable and may be rebuilt, and frontend build flags are baked in at build time via Docker ARG/ENV. So the staging artifact cannot be proven identical to anything rebuilt later. Migrations exist in the repo, but their sequencing relative to app rollout is undefined. Staging health is evidence only for the exact staging image digest.",
+      "decision": "Reject rebuilding on production from current main. The release candidate is the exact image digest that passed staging gates, and production must pull that same digest. If main has moved since that build, the result is a different release that must re-enter the gate chain. Build-time frontend flags that differ per environment must become runtime configuration so a single artifact can be promoted. If a flag truly must be baked in, the build is per environment and must be explicitly attributed. In that case the production artifact needs its own gate evidence and cannot inherit staging's. Migrations are versioned with the artifact (same source SHA) and run as an explicit, ordered, recorded step with defined compatibility and failure behavior.",
+      "evidence_and_unknowns": [
+        "FACT: The staging image is tagged with a commit SHA.",
+        "FACT: Some frontend build flags are injected via Docker ARG/ENV at build time.",
+        "FACT: A developer can rebuild a different image from the same branch before production.",
+        "FACT: Migration files live in the repo.",
+        "FACT: Staging is reported healthy.",
+        "OPEN QUESTION: What image digest is deployed in staging, and is it recorded? The commit tag alone is not provenance.",
+        "OPEN QUESTION: Has main advanced past the staging SHA? If so, 'current main' is a different release.",
+        "OPEN QUESTION: Is the registry configured for immutable tags? Can the staging tag be overwritten?",
+        "OPEN QUESTION: Which frontend flags differ between staging and production? Are any secrets? Secrets must never be build args, because they persist in image layers and history.",
+        "OPEN QUESTION: Which migrations are new in this release? Are they backward-compatible with the currently running prod version (expand/contract)? Were they applied to staging from the same artifact?",
+        "OPEN QUESTION: Which gates ran for the staging digest (tests, security/dependency scan), and were any skipped, retried or allowed to fail? Are results persisted?",
+        "ASSUMPTION (unverified): 'staging healthy' reflects representative usage. It is not production health evidence in any case."
+      ],
+      "actions": [
+        "Freeze the release candidate. Record the staging image digest (sha256), source SHA, build ID, base image digest and dependency lock state in a release candidate record. Refer to it by digest, not by tag or branch.",
+        "Make tags immutable in the registry, or deploy by digest only, so a rebuild cannot replace the candidate.",
+        "Remove the production rebuild step. Production deployment pulls the recorded digest. Any rebuild from a newer main gets a new candidate ID and goes through the full gate chain again, including staging.",
+        "Inventory the frontend ARG/ENV flags. Move environment-specific values to runtime config (e.g. a config file or endpoint served at container start, validated on boot without logging values). If any must stay build-time, produce explicitly named per-environment artifacts from the same SHA, each with its own gate results. Move secrets out of build args entirely.",
+        "Define the gate chain as a matrix (blocking vs advisory, with rationale): lint/static → unit/contract → integration → dependency/security scan → build once → artifact verification (digest, SBOM/provenance attestation) → staging deploy + smoke → release candidate. Persist the results and mark skipped/retried/failed checks distinctly.",
+        "Handle migrations explicitly. Package migrations with the artifact or a migration image from the same SHA. Classify each as additive or destructive. Define order (expand migrations before app rollout, contract later). Define failure behavior and recovery. Dry-run against a production-like snapshot and record the outcome.",
+        "Give flaky or allow-failure checks an owner and an expiry, and keep the residual risk visible in the release record.",
+        "Hand the Release Evidence Bundle (digest, SHA, gate results, migration plan, config diff) to Stage 19 for rollout."
+      ],
+      "verification": [
+        "Planned, not executed: the production pull digest equals the recorded staging-tested digest. Check at deploy time and record it.",
+        "Planned, not executed: a reproducibility check. Rebuild from the same SHA and lock state and compare digests, or document the known nondeterminism. This is supporting evidence only and does not replace promoting the tested artifact.",
+        "Planned, not executed: runtime config validation passes in staging and production without exposing secret values. The image history shows no secrets.",
+        "Planned, not executed: migration dry-run on a production-like snapshot, plus a compatibility check of old app version against the new schema.",
+        "Planned, not executed: gate results persisted and linked to the candidate ID, with no critical gate skipped."
+      ],
+      "handoff": "Delivery-production (Stage 18) owns the pipeline change, registry immutability and the release candidate record. Frontend/config owner moves the flags to runtime config. Data/migration owner classifies and dry-runs the migrations. Stage 19 receives the exact digest and the Release Evidence Bundle for controlled rollout. Stage 20 receives build/version identifiers for telemetry correlation.",
+      "completion_state": "DECIDED: the provenance and promotion policy and the migration/config handling approach are decided. Not IMPLEMENTED. G9 CI/CD scope is not satisfied: there is no recorded digest-level provenance, and the build-time flags still prevent single-artifact promotion. Staging health is not production health.",
+      "residual_risks": [
+        "If flags cannot all move to runtime config, the production artifact differs from what staging tested. That gap needs its own gate evidence.",
+        "Mutable tags let a silent artifact swap happen until registry immutability or digest pinning is in place.",
+        "Migration compatibility is unknown. A non-additive migration could break the running version during rollout or make rollback unsafe.",
+        "Pressure to ship may reintroduce a manual production rebuild as an undocumented hotfix path.",
+        "Secrets previously passed as build args may already be in image history and registry layers. Needs audit and possible rotation."
+      ],
+      "references": [
+        "BRAIN.md (evidence before claims; lifecycle state separation; R3 stronger evidence threshold)",
+        "04-gates/quality-gates.json (G9 Release ready)",
+        "06-modules/delivery-production/STAGE-18-CI-CD.md (build once/promote same artifact; provenance; migrations; secrets/config separation; decision rules: branch name is not provenance, rebuilding on production invalidates evidence)",
+        "06-modules/delivery-production/STAGE-19-DEPLOYMENT-ROLLOUT.md (handoff target)",
+        "07-templates/RELEASE-EVIDENCE.md (named as the release evidence artifact; template content not embedded in this prompt)"
+      ]
+    },
+    {
+      "id": "ADV-S19",
+      "stage_id": 19,
+      "risk_class": "R3, possibly R4. This is a multi-tenant production release with a migration that may write derived state, plus a hierarchy synchronization job, exposed to all institutions at once, with unclear rollback. Escalate to R4 if migration 0027 is destructive or irreversible, or if hierarchy state controls access/permissions or regulated data for institutions.",
+      "current_outcome": "CI is green, which is TESTED evidence for some artifact. Staging is healthy. The proposed path is a single global deploy to every institution, and there is no defined preflight, health thresholds, observation window or recovery path for migration 0027's data side effects. Nothing is deployed to production yet.",
+      "decision": "Reject the one-step global deploy. Green CI and staging health do not satisfy G9 for a data-changing, all-tenant release. The release proceeds only through a gated state machine. Preflight checks: verified digest, migration 0027 classified and dry-run on a production-like snapshot, backup/PITR restore tested, documented recovery path for derived state. Then decouple the schema change from the behavior change: deploy app code compatible with both schemas and apply additive schema first. Run the hierarchy sync behind a kill switch and per-institution scoping. Start with a small canary cohort of representative institutions, run smoke and domain checks, and observe for a defined window against thresholds. Expand in cohorts with explicit go/no-go by a named owner. If 0027 cannot be made reversible or recomputable, the recovery plan is forward-fix or restore, and that is accepted explicitly by the release owner before production.",
+      "evidence_and_unknowns": [
+        "FACT: The release includes migration 0027 and a hierarchy synchronization job.",
+        "FACT: Staging is healthy and CI is green.",
+        "FACT: The proposed rollout affects all institutions simultaneously.",
+        "FACT: Rollback is unclear if the migration writes new derived state.",
+        "OPEN QUESTION: What does 0027 do? Schema-only additive change, data backfill, overwrite of existing hierarchy state, or destructive change? Is it idempotent and resumable?",
+        "OPEN QUESTION: Can the derived hierarchy state be fully recomputed from source data? If so, recovery could be 'recompute' rather than 'restore'.",
+        "OPEN QUESTION: Does the previous app version work against the post-0027 schema/data? This determines whether app rollback is safe.",
+        "OPEN QUESTION: Can the sync job run per institution, and does it have a kill switch/flag? What external systems or notifications does it touch (irreversible side effects)?",
+        "OPEN QUESTION: How do production data volume and hierarchy shapes compare with staging (deep or large hierarchies, edge cases)? Staging health may not represent production.",
+        "OPEN QUESTION: Are there backups/PITR, and has a restore been tested recently? What is the restore time, and what data loss would a restore imply for writes made after the migration?",
+        "OPEN QUESTION: Who owns go/no-go and incident escalation? Do institutions have contractual change windows or notification requirements?",
+        "ASSUMPTION (unverified): CI green refers to the same immutable artifact digest intended for production."
+      ],
+      "actions": [
+        "Verify release identity: artifact digest and source SHA match the CI-green and staging-healthy candidate (Stage 18 evidence).",
+        "Classify migration 0027 (additive / backfill / overwrite / destructive) and document its side effects on derived hierarchy state. Where feasible, refactor into expand (additive schema, no overwrite) → backfill via the sync job → contract later.",
+        "Preflight: run 0027 and the sync job against a recent production-like snapshot. Measure duration, lock behavior, row counts per institution, and before/after invariants such as orphan nodes, cycles, parent counts and hierarchy totals.",
+        "Recovery plan: take a verified backup/PITR point immediately before the migration and test the restore. Define a recompute/repair procedure for derived state. Record explicitly which failures are rollback, forward-fix or restore, and the data-loss implications of each.",
+        "Gate the sync job behind a flag/kill switch scoped by institution. Note that turning the flag off does not undo writes already made.",
+        "Rollout plan: (1) apply additive schema with the compatible app version; (2) enable sync for a canary cohort of a few institutions with representative hierarchy shapes, including a large/deep one; (3) run smoke and domain checks; (4) observe for a defined window; (5) expand in cohorts; (6) declare stable state after the full observation window.",
+        "Define health thresholds before deploy: error rate and latency of affected endpoints, sync job failures/retries/duration, DB lock waits/replication lag, hierarchy invariant check results, and institution support tickets. Each threshold maps to a pause/rollback/forward-fix action.",
+        "Name the go/no-go owner and incident escalation path. Notify institutions if a change window or contract requires it.",
+        "Record everything in the Release Evidence Bundle: digest, migration state, timestamps per cohort, smoke results, telemetry snapshots, operator decisions."
+      ],
+      "verification": [
+        "Planned, not executed: migration and sync dry-run on a production-like snapshot passes the invariant checks, and duration and locking stay within the maintenance tolerance.",
+        "Planned, not executed: backup restore test completed with measured restore time.",
+        "Planned, not executed: old app version smoke-tested against the post-0027 schema to establish whether app rollback is safe.",
+        "Planned, not executed: canary cohort smoke checks (critical hierarchy read/write paths) and invariant checks pass in production.",
+        "Planned, not executed: telemetry stays within thresholds for the full observation window at each cohort before expansion.",
+        "Not evidence of health: 'deploy succeeded' or CI green. G9 requires the intended exposure to be reached with health checks within thresholds for the observation window."
+      ],
+      "handoff": "Release manager / go-no-go owner: approve the staged plan and explicitly accept the recovery posture for derived state. Data/migration owner: classify 0027, dry-run it and test the restore. Engineering: add the per-institution scope and kill switch for the sync job. Stage 19 executes the rollout and records the Release Evidence Bundle. Stage 20 owns continuous health after stable state. Stage 22-24 assess whether the hierarchy change achieved its intended outcome.",
+      "completion_state": "DECIDED: the staged rollout, preflight, health and recovery criteria are decided. Not DEPLOYED, not HEALTHY. G9 rollout scope is not satisfied. Current evidence (CI green, staging healthy) supports at most TESTED for the candidate, pending digest confirmation.",
+      "residual_risks": [
+        "If 0027 overwrites derived state and is not recomputable, recovery may require a restore that loses post-migration writes. This must be explicitly accepted or blocked.",
+        "The staging data shape may not represent production hierarchies, so edge cases may surface only in larger cohorts.",
+        "A canary cohort that is not representative gives weak evidence. Cohort selection must include heavy and complex institutions.",
+        "The sync job may have external or long-lived side effects that the kill switch cannot undo.",
+        "Lock contention or migration duration at production scale may affect all tenants if the schema change is global even when the sync is staged.",
+        "Some hierarchy errors may appear only over time, so monitoring must continue after 100%."
+      ],
+      "references": [
+        "BRAIN.md (risk classification; R3/R4 stronger evidence and approval; lifecycle states: deployment is not health)",
+        "04-gates/quality-gates.json (G9 Release ready; G10 Production healthy)",
+        "06-modules/delivery-production/STAGE-19-DEPLOYMENT-ROLLOUT.md (workflow; decision rules: rollback not safe after irreversible data changes, flag off is not rollback, canary needs representative traffic)",
+        "06-modules/delivery-production/STAGE-18-CI-CD.md (release identity, migration sequencing inputs)",
+        "07-templates/RELEASE-EVIDENCE.md (named as the primary artifact; template content not embedded in this prompt)"
+      ]
+    },
+    {
+      "id": "ADV-S20",
+      "stage_id": 20,
+      "risk_class": "R2. Notification delivery is user-facing, with possible duplicate SMS (user annoyance, cost) and silent permanent failure. Telemetry must avoid leaking phone numbers or message content. Raise to R3 if the SMS messages are security-critical (OTP, alerts) or legally required notices.",
+      "current_outcome": "Operators see only an aggregate 'worker OK' liveness signal. They cannot detect stuck outbox rows, duplicate sends from lease expiry while a provider call is in flight, or permanently failed rows after 4 retries. There are no SLI, SLO or actionable alerts for notification delivery.",
+      "decision": "Do not add generic logs as the fix. Start from operational questions and define a notification-delivery telemetry contract. It has three parts: (1) SLIs computed from outbox state and provider responses: enqueue-to-provider-accepted latency, terminal success ratio, oldest pending age, lease-expiry reclaims, dead-lettered rows, and suspected duplicates. (2) Structured attempt events with correlation IDs and no sensitive payload. (3) A small set of owned alerts with runbooks, each tied to an action. SLO targets are set by the notification product owner and are not invented here. The telemetry should also expose the at-least-once duplicate risk created by the two-minute lease plus the provider call outside the transaction. Fixing that risk (idempotency key, lease vs provider timeout) is routed to architecture/engineering rather than solved by observability.",
+      "evidence_and_unknowns": [
+        "FACT: The worker claims outbox rows with a two-minute lease.",
+        "FACT: The SMS provider call happens outside the DB transaction.",
+        "FACT: Failures are retried up to four times.",
+        "FACT: The only current signal is aggregate 'worker OK' health. Operators cannot see stuck, duplicated or permanently failed rows.",
+        "INFERENCE: If a provider call plus commit takes longer than the lease, or the worker crashes after the provider accepts but before it marks the row sent, the row can be reclaimed and sent again. Delivery is therefore at-least-once, and duplicates are possible.",
+        "OPEN QUESTION: What notifications are these (OTP, reminders, alerts)? This drives the SLO window and the priority of duplicates vs delays.",
+        "OPEN QUESTION: What delivery latency and success targets does the business need (e.g. a percentage within N minutes)? This must come from the owner.",
+        "OPEN QUESTION: Does the provider support an idempotency/dedup key and delivery receipts (DLR)? Provider acceptance is not handset delivery.",
+        "OPEN QUESTION: What are the provider client timeout, the retry backoff, and the error classification (transient vs permanent, such as invalid number)?",
+        "OPEN QUESTION: What happens to a row after the 4th failure? Is there a terminal 'failed' state or dead-letter, or is it left pending?",
+        "OPEN QUESTION: What telemetry stack, on-call ownership and data/privacy constraints exist? Phone numbers and message bodies are personal data.",
+        "OPEN QUESTION: What are the outbox volume and worker concurrency? These affect backlog alert thresholds."
+      ],
+      "actions": [
+        "Write down the operational questions: Is delivery meeting its objective? Are rows stuck, and since when? Are rows being sent more than once? Which rows failed permanently, and why? Is the provider degraded? Did a release change behavior?",
+        "Define the SLIs precisely. (a) Delivery latency: distribution of provider_accepted_at − enqueued_at. (b) Terminal success ratio: rows reaching provider-accepted ÷ rows reaching a terminal state, per window. (c) Backlog: count and oldest age of pending/unclaimed rows. (d) Lease health: count of rows reclaimed after lease expiry, and provider call duration vs lease length. (e) Permanent failure: rows exhausted after 4 attempts or dead-lettered, by error class. (f) Duplicate indicator: more than one provider-accepted attempt per outbox row/idempotency key. (g) Provider error rate and latency by error class.",
+        "Agree SLO targets and windows with the notification product owner for SLIs (a) and (b). Record them in the SLO document as owner-confirmed values, not placeholders presented as facts.",
+        "Instrument structured attempt events: outbox_id, attempt number, worker_id, lease_expires_at, provider request id, outcome/error class, duration, service version. Never emit phone numbers or message bodies. Use hashed or opaque IDs and review cardinality, especially for per-row labels on metrics.",
+        "Add metrics from outbox state queries (backlog count, oldest pending age, dead-letter count) so stuck rows are visible even when the worker is down or silent.",
+        "Make terminal failure explicit: after the final attempt, set a 'failed/dead-letter' state with the last error class, and define a replay procedure.",
+        "Define a small set of alerts with owner and runbook: oldest pending age above the threshold (stuck/backlog); terminal failure ratio or dead-letter growth above the threshold (permanent failure); lease-expiry reclaims or duplicate indicator above zero (sustained); delivery latency SLO burn rate. Keep provider error spikes on the dashboard unless they burn the SLO.",
+        "Build dashboards around the questions: delivery health, backlog/lease, failures by class, provider health and release annotations.",
+        "Route the duplicate-send design risk to architecture/software-engineering: use a provider idempotency key if supported, make the lease longer than the provider timeout plus margin, or add lease heartbeat/renewal, and mark the attempt as in-flight before calling. This is separate from the observability work.",
+        "Test the observability: inject a provider timeout longer than the lease, provider 5xx, and permanent invalid-number errors, and kill the worker mid-call in staging. Confirm each failure is visible on dashboards and fires the right alert with a usable runbook."
+      ],
+      "verification": [
+        "Planned, not executed: fault-injection tests (stuck worker, provider outage, permanent errors, lease expiry during an in-flight call) produce the expected SLI changes and alerts in staging.",
+        "Planned, not executed: telemetry audit confirms no phone numbers or message content in logs, metrics or traces, and acceptable cardinality.",
+        "Planned, not executed: in production, SLIs are computed from outbox and provider data and reconcile with outbox row counts over a window.",
+        "Planned, not executed: release/version tags appear on worker telemetry, so changes after a deploy are attributable.",
+        "Planned, not executed: each alert has an owner, a runbook and a validated trigger (real or simulated incident)."
+      ],
+      "handoff": "Notification product owner: confirm the SLO targets and the priority of duplicates vs delays. Security-reliability (Stage 20): owns the SLO document, telemetry schema, alerts and runbooks. Software-engineering/architecture: owns the idempotency, lease and terminal-state design fix for duplicate and stuck rows. Privacy/security: reviews telemetry fields. Stage 21 uses the runbooks in incidents. Stage 24 consumes delivery evidence for learning.",
+      "completion_state": "DECIDED: the operational questions, SLI definitions and alert design are decided. Not IMPLEMENTED or VERIFIED. G10 observability scope is not satisfied: there are no measured SLIs, owner-confirmed SLOs or validated alerts yet.",
+      "residual_risks": [
+        "Duplicate SMS sends remain possible until the at-least-once design is mitigated. Telemetry only detects them.",
+        "Provider acceptance is not handset delivery. Without delivery receipts, the SLI measures only up to provider handoff.",
+        "SLO thresholds are unset until the owner confirms them, and alerts cannot be tuned before then.",
+        "Per-row or per-recipient identifiers in telemetry risk privacy leakage and cardinality cost if not reviewed.",
+        "Rows that failed silently in the past may already be stuck or lost. A one-time backlog audit may be needed."
+      ],
+      "references": [
+        "BRAIN.md (start from questions; executable boundaries; evidence before claims; route design issues to the owning module)",
+        "04-gates/quality-gates.json (G10 Production healthy)",
+        "06-modules/security-reliability/STAGE-20-OBSERVABILITY.md (workflow; decision rules: more logs is not observability, liveness is not availability, alerts need owner/action; failure modes: log dumping, sensitive payload logging)",
+        "07-templates/SLO.md (named as the primary artifact; template content not embedded in this prompt)"
+      ]
+    }
+  ]
+}

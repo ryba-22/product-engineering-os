@@ -1,0 +1,221 @@
+{
+  "run_id": "INDEP-RUN-2026-10-04-02",
+  "executor": {
+    "provider": "Anthropic",
+    "model": "claude-opus-5-5",
+    "notes": "Blinded independent executor; no judge criteria or prior results supplied."
+  },
+  "cases": [
+    {
+      "id": "ADV-S09",
+      "stage_id": 9,
+      "risk_class": "R2. This is a critical admin workflow with known keyboard blockers that are confirmed but not yet fixed. Raise it to R3 if a legal, contractual or procurement accessibility obligation (for example a WCAG 2.2 AA commitment) or known keyboard-only/AT operators are confirmed.",
+      "current_outcome": "Keyboard and assistive-technology (AT) users can complete the admin worklist's critical tasks (filter, sort, open/edit in modal, fix validation errors, save, return to the list) without losing focus or context. Today that is not the case.",
+      "decision": "Do NOT mark accessibility complete. A clean axe result is fast defect detection, not certification, and the playbook says automated success cannot close a critical-flow accessibility gate on its own. Two confirmed defects that axe cannot detect block G5: focus is lost after the modal closes, and the custom tabs are non-semantic divs. Required interaction changes: (1) Replace the div tabs with native semantics. If they only filter one list, use native <button>s with aria-pressed, or a native radio group/segmented control. Use the WAI-ARIA Tabs pattern only if they really switch tabpanels; it needs role=tablist/tab/tabpanel, aria-selected, aria-controls, roving tabindex, Arrow/Home/End keys, and the selected state kept in sync with app state. (2) Modal editor: use native <dialog> showModal() or an equivalent accessible modal primitive. Move focus into it on open (to the heading or first field, decided explicitly). Contain focus, close on Escape/Cancel, and return focus to the invoking row control on close. Define a fallback target if that row moves or disappears after save or re-sort (for example the row's new position or the table caption/heading, plus a status message). (3) Sortable columns: keep a real <table>. Put a <button> inside each sortable <th>, set aria-sort on the active header only, and give the sort a non-color visual indicator. Use at most one polite status announcement for the sort change. (4) Inline validation: every field gets a visible programmatic label (not a placeholder), required state, aria-invalid and an error linked with aria-describedby. On submit, show an error summary or move focus to the first invalid field; do not move focus while the user types. Errors must not rely on color alone. (5) Dense layout: keep a visible focus indicator that sticky headers or toolbars do not hide (WCAG 2.2 2.4.11), meet minimum target size (2.5.8), and meet contrast for text, focus and status cues.",
+      "evidence_and_unknowns": [
+        "FACT: Automated axe checks report zero violations on the worklist.",
+        "FACT: Keyboard users can lose focus after closing the modal editor (manual observation reported in the scenario).",
+        "FACT: Custom tab-like filters are plain divs with click handlers. They have no role, are not focusable by default, and have no keyboard model.",
+        "FACT: The workflow also includes sortable columns and inline validation. Neither has been verified manually.",
+        "ASSUMPTION: The conformance target is WCAG 2.2 AA. This needs confirmation.",
+        "ASSUMPTION: This workflow is critical, i.e. the primary daily task for admin operators.",
+        "OPEN QUESTION: Do the tab-like filters filter a single list, or switch distinct panels? This decides between a native toggle/radio pattern and the ARIA Tabs pattern.",
+        "OPEN QUESTION: What is the supported browser and screen-reader matrix (e.g., NVDA+Firefox/Chrome, JAWS+Chrome, VoiceOver+Safari)? This decides the scope of manual AT verification.",
+        "OPEN QUESTION: Are the tabs and modal shared design-system primitives, or local to this feature? This decides whether the fix belongs in Stage 11 or stays local.",
+        "OPEN QUESTION: Is there a legal, contractual or procurement accessibility obligation? This decides whether to escalate to R3 and who must approve exceptions.",
+        "OPEN QUESTION: Where should focus go after save when the edited row is re-sorted or filtered out of view?"
+      ],
+      "actions": [
+        "Record that the G5 accessibility gate is OPEN/BLOCKED, and reject the 'complete' claim based on axe alone.",
+        "Write an accessibility contract for the worklist. It should include a keyboard/focus matrix covering tab filters, table sort, row actions, modal open/close/save/cancel, validation errors, and focus targets after async updates.",
+        "Decide the filter semantics (native toggle/radio vs ARIA Tabs) after answering the panel-vs-filter question, then specify the keyboard model.",
+        "Specify the modal focus lifecycle: entry target, containment, Escape, return to invoker, and the fallback target when the invoker no longer exists.",
+        "Specify sortable-header semantics (button in th, aria-sort) and decide on announcements: one polite live-region message at most, no duplicates.",
+        "Specify the form error contract: labels, required state, aria-invalid, aria-describedby, error summary or focus to the first invalid field on submit.",
+        "Add WCAG 2.2 visual checks for the dense layout: focus visible and not obscured, target size, contrast, 400% zoom/reflow for the non-table UI, and prefers-reduced-motion for modal transitions.",
+        "Write accessibility acceptance criteria as examples: A11Y-EX-01 close modal with Escape → focus on the originating row's Edit button; A11Y-EX-02 save causes row to move → focus on the defined fallback and the status is announced once; A11Y-EX-03 Arrow keys move between filters (if Tabs) or Tab reaches every filter and Space/Enter toggles it; A11Y-EX-04 submit with 2 invalid fields → focus on the summary or first invalid field, each error is announced with its field name; A11Y-EX-05 sort a column → aria-sort updates and the visual indicator is not color-only.",
+        "Record each known defect with an owner and target, and log any accepted exception with an approver. Do not accept anything silently.",
+        "Hand off to Stage 12 for implementation and Stage 15 for verification. Hand off to Stage 11 if the tabs or modal are shared primitives."
+      ],
+      "verification": [
+        "PLANNED, NOT EXECUTED: Keep axe in CI as a regression check only.",
+        "PLANNED, NOT EXECUTED: Component tests for the filter keyboard model (focusability, Arrow/Home/End or Tab/Space/Enter, selected/pressed state in sync).",
+        "PLANNED, NOT EXECUTED: Browser tests (e.g., Playwright) for A11Y-EX-01..05, asserting document.activeElement after modal close, save, re-sort and validation submit.",
+        "PLANNED, NOT EXECUTED: Manual keyboard-only run through the full critical flow, recorded in a manual verification record.",
+        "PLANNED, NOT EXECUTED: Manual screen-reader verification of the critical flow on the supported AT/browser combinations, once the matrix is confirmed.",
+        "PLANNED, NOT EXECUTED: Visual checks for focus visibility and obscuring, target size, contrast and 400% zoom.",
+        "Current verified evidence: only the automated axe scan, which cannot close the gate."
+      ],
+      "handoff": "Owner is experience (accessibility). Next action: answer the filter-semantics and AT-matrix questions, then publish the accessibility contract and keyboard/focus matrix to Stage 12 (frontend implementation). Stage 10 must keep focus visibility, contrast and target size in the dense layout. Stage 11 takes the fix if the tabs or modal are shared primitives. Stage 15 runs the keyboard and AT verification. G5 stays open until manual keyboard and AT evidence for the critical flow exists and every remaining defect has an owner.",
+      "completion_state": "DECIDED (remediation and verification scope). Not implemented, not tested, not verified. G5 accessibility is OPEN/BLOCKED, and the claim that accessibility is complete is rejected.",
+      "residual_risks": [
+        "Other custom widgets in the worklist may have defects that axe cannot detect and that have not been inventoried yet.",
+        "The AT matrix is unknown, so verification scope may be too narrow until it is confirmed.",
+        "Fixing focus return after save in a re-sorting list is an edge case that is easy to regress without a browser test.",
+        "Live-region overuse could add noisy announcements if implementation goes beyond the contract.",
+        "A legal or compliance obligation could raise the risk to R3 and require formal exception approval."
+      ],
+      "references": [
+        "BRAIN.md (default runtime steps 1-6, 12-13; evidence before claims; closure principle)",
+        "04-gates/quality-gates.json (G5, G7)",
+        "06-modules/experience/STAGE-09-ACCESSIBILITY.md",
+        "06-modules/experience/STAGE-10-VISUAL-UI.md (handoff: focus/contrast preservation)",
+        "06-modules/experience/STAGE-11-DESIGN-SYSTEM.md (handoff if primitives are shared)",
+        "06-modules/software-engineering/STAGE-12-FRONTEND-IMPLEMENTATION.md (handoff)"
+      ]
+    },
+    {
+      "id": "ADV-S10",
+      "stage_id": 10,
+      "risk_class": "R1. The visual and layout change is reversible and touches no data or security boundary. Raise it to R2 if operator throughput or SLA-bound handling depends on worklist efficiency, or if the change becomes a shared design-system rule.",
+      "current_outcome": "On wide monitors, operators can scan and compare dense worklist rows and columns efficiently with less horizontal and vertical navigation, while hierarchy stays legible and accessibility constraints hold.",
+      "decision": "Reject the cards / larger padding / stronger shadows proposal for the worklist. It has no functional reason in a utilitarian comparison workflow. Cards break row/column comparison and lower information density, and aesthetic preference is not evidence for a consequential layout change. Get perceived quality from clear hierarchy, alignment, a constrained type/spacing scale and consistent tokens. Direction: (1) Wide-screen behavior: remove the fixed 1100 px centered column for the worklist region. Let the table use the available width, with breakpoints that show more columns before rows grow. A list + detail split pane at very wide widths is a candidate to validate, not a decision. Keep a line-length cap only for reading-text regions (descriptions, help, forms), not for the table. (2) Density: compact rows by default for the scanning/comparison task, using the existing spacing tokens. A density setting is an option only if operator evidence shows mixed needs. (3) Hierarchy: express primary, secondary and supporting information mainly through column order, weight, size and alignment (numbers right-aligned, identifiers first, status near the identifier). Use one primary action per decision context and group by proximity before borders. (4) Elevation is limited to surfaces that really overlay content (modal editor, menus, sticky header separation). (5) Semantic status color always comes with text or an icon. (6) Narrow widths: priority columns, horizontal scroll inside the table region with a sticky identifier column, no page-level horizontal scroll. (7) Accessibility from Stage 09 is preserved: visible focus in dense rows, minimum target size, contrast, zoom/reflow. Record this as a visual UDR, including the rejected 'premium cards' option and the condition that would switch the decision (e.g., if task research shows reading or decision work dominates over comparison).",
+      "evidence_and_unknowns": [
+        "FACT: On a 3200 px monitor the app keeps a narrow 1100 px centered column.",
+        "FACT: Operators have to navigate horizontally and vertically often inside a dense worklist (reported).",
+        "FACT: The redesign proposal (more cards, larger padding, stronger shadows) is motivated by looking 'premium', not by task evidence.",
+        "ASSUMPTION: The worklist's main task is scanning and comparing across rows and columns. The playbook's density rule depends on this, so it must be confirmed.",
+        "OPEN QUESTION: What tasks do operators actually do, and how often (scanning, comparing, bulk editing, reading detail)?",
+        "OPEN QUESTION: How are viewports and monitors distributed among operators? 3200 px is one observed case, and the share of wide vs laptop screens is unknown.",
+        "OPEN QUESTION: Which columns does each task need, and how long can realistic content get (long names, large counts, localization expansion)?",
+        "OPEN QUESTION: Are there brand constraints driving the 'premium' request, and who owns that requirement?",
+        "OPEN QUESTION: Are existing spacing/type/elevation tokens enough for a compact density, or is a token request needed?",
+        "UNKNOWN: There is no baseline measure of navigation effort (scroll/horizontal scroll per task, time to compare). The improvement cannot be claimed without it."
+      ],
+      "actions": [
+        "Build a hierarchy map for the worklist: rank columns and actions per task as primary, secondary or supporting.",
+        "Write a visual UDR: fluid worklist width, compact density, table kept as a table, elevation only for overlays, line-length cap only for reading text. Include the rejected card proposal and its switching condition.",
+        "Define responsive behavior at representative widths (laptop, 1920, 2560, 3200 px), covering column reveal order, sticky identifier column and header, and the split-pane candidate.",
+        "Define edge-content treatments: long names, empty state with next action, zero results with active filters, error rows, large counts, localization expansion.",
+        "Check the dense layout against Stage 09 constraints: focus visibility, target size, contrast, status not shown by color alone, zoom/reflow.",
+        "Raise token requests only where existing spacing/type/elevation tokens cannot express compact density. Do not hand-tune per screen.",
+        "Set up a small comparison with representative operators (current vs proposed layout on realistic data), and capture a baseline for navigation effort first.",
+        "Hand the hierarchy, tokens and responsive rules to Stage 11 (anything reusable) and Stage 12 (implementation)."
+      ],
+      "verification": [
+        "PLANNED, NOT EXECUTED: Review screenshots with realistic and extreme content at each target width, plus narrow and 400% zoom.",
+        "PLANNED, NOT EXECUTED: Task-based comparison with operators measuring scroll and horizontal-scroll counts and time to complete representative comparison tasks, baseline vs proposal.",
+        "PLANNED, NOT EXECUTED: Contrast and focus-visibility check of the compact density.",
+        "PLANNED, NOT EXECUTED: After release, compare expected vs observed navigation effort if instrumentation exists (requires a telemetry decision).",
+        "No verification evidence exists yet. The efficiency improvement is UNVERIFIED."
+      ],
+      "handoff": "Owner is experience (visual UI). Next action: confirm the task mix and viewport distribution with product and operator representatives, then finalize the hierarchy map and visual UDR. Stage 11 decides whether compact density or the wide-screen layout becomes a reusable pattern or token. Stage 12 implements from the tokens and layout rules. The brand stakeholder gets the UDR with the rejected option and its rationale for explicit sign-off rather than silent override.",
+      "completion_state": "DECIDED (direction and rejection of the card proposal, pending confirmation of the task-mix assumption). Not implemented, not validated. G5 visual exit is not met until hierarchy and realistic-content review and the operator comparison produce evidence.",
+      "residual_risks": [
+        "If the task-mix assumption is wrong (e.g., reading or decision work dominates), the density decision may need to change.",
+        "Stakeholder pressure for the 'premium' look may come back without a recorded trade-off and owner.",
+        "Compact density can collide with target size and focus visibility if tokens are not checked against Stage 09.",
+        "Very wide tables can make row tracking harder. Mitigation (zebra striping, row hover/focus highlight, sticky columns) needs validation.",
+        "Without a baseline measurement, no improvement claim can be made later."
+      ],
+      "references": [
+        "BRAIN.md (default runtime steps 1-5, 8-9; routing principle; evidence before claims)",
+        "04-gates/quality-gates.json (G5)",
+        "06-modules/experience/STAGE-10-VISUAL-UI.md",
+        "06-modules/experience/STAGE-09-ACCESSIBILITY.md (constraints preserved)",
+        "06-modules/experience/STAGE-11-DESIGN-SYSTEM.md (handoff for reusable rules)",
+        "06-modules/software-engineering/STAGE-12-FRONTEND-IMPLEMENTATION.md (handoff)"
+      ]
+    },
+    {
+      "id": "ADV-S11",
+      "stage_id": 11,
+      "risk_class": "R2. Adding a Core variant with a new focus/keyboard contract affects every DataTable consumer and is costly to undo once adopted. The local implementation is R1.",
+      "current_outcome": "The feature team ships its inline row action with a correct accessibility contract, and the Core DataTable keeps its stability and guarantees. A path for promotion when real reuse appears is defined.",
+      "decision": "Scope it as LOCAL. Reject adding a Core DataTable variant now. There is one consumer and no evidence of reuse. The behavior needs a new, unproven focus/keyboard contract. The playbook requires reuse and semantic stability for promotion, not an argument about future duplication, and Core must carry stronger accessibility and regression guarantees than this pattern has today. Implement it in the feature by composing the existing Core DataTable through its existing extension points. If no suitable extension point exists, the right Core request is a small, generic, behavior-neutral extension point (e.g., a cell/row slot that keeps table focus semantics), reviewed by the DataTable owner. It is not a product-specific variant. The local pattern still needs a full contract (purpose, states, keyboard/focus model, AT behavior) under Stage 09. Answer the duplication concern by registering the pattern in the pattern catalog as Local with an owner, a description and anti-examples, so a second team finds it and reuses or extends it instead of forking. Promotion path: Local → Extended once there is a second independent consumer with the same semantics (not just the same look) and the contract holds without overrides. Extended → Core once usage has been stable across contexts, accessibility evidence includes manual keyboard and AT verification, regression tests exist, a DataTable owner accepts it, and a migration/versioning note exists. Proposed thresholds are recommendations to be confirmed by the design-system owner, not existing policy.",
+      "evidence_and_unknowns": [
+        "FACT: Exactly one feature team needs the special inline row action. No other feature uses it.",
+        "FACT: The variant would need a new focus/keyboard contract inside DataTable.",
+        "FACT: The argument for Core is to prevent future duplication. No current reuse evidence is presented.",
+        "OPEN QUESTION: What does the inline action actually do (inline edit, quick action, expand)? Similar appearance does not prove shared semantics.",
+        "OPEN QUESTION: Does Core DataTable expose an extension point (slot/render prop/cell renderer) that can host the action without forking?",
+        "OPEN QUESTION: Does the new keyboard model conflict with Core DataTable's current interaction model (e.g., static table semantics vs grid-style cell navigation)?",
+        "OPEN QUESTION: Who owns Core DataTable, and what is the design-system review and versioning policy?",
+        "OPEN QUESTION: Are other teams planning similar behavior? Planned roadmap items are weaker evidence than shipped usage, but could justify watching for Extended scope."
+      ],
+      "actions": [
+        "Record a UDR: scope = Local, Core variant rejected for now, with rationale, owner and promotion triggers.",
+        "Define the local pattern contract: purpose, supported states (idle/active/pending/error/disabled), keyboard model (how the action is reached, activated and cancelled, focus after completion), AT names/roles/states, and content constraints.",
+        "Check the composition with Core DataTable: no conflicting focus, spacing or state assumptions, and no fork or copy-paste of DataTable internals.",
+        "If an extension point is missing, file a generic extension-point request with the DataTable owner. Do not file a variant request.",
+        "Register the Local pattern in the pattern catalog with an owner, usage guidance and anti-examples so it can be found.",
+        "Track uses of the escape hatch or extension. Repeated or overridden use triggers a contract review and promotion assessment.",
+        "Hand the local contract to Stage 12 for implementation and Stage 15 for keyboard/AT verification."
+      ],
+      "verification": [
+        "PLANNED, NOT EXECUTED: Component tests for the local pattern's keyboard and focus contract, and for composition with Core DataTable.",
+        "PLANNED, NOT EXECUTED: Manual keyboard and AT check of the row action in the feature's critical flow.",
+        "PLANNED, NOT EXECUTED: Core DataTable regression suite stays green with the local composition, showing no Core behavior changed.",
+        "PLANNED, NOT EXECUTED: Periodic catalog review of reuse count and overrides to drive the promotion decision.",
+        "No verification evidence exists yet."
+      ],
+      "handoff": "Owner of the local pattern is the requesting feature team. The design-system / DataTable owner reviews the composition and any generic extension-point request. Next action: the feature team writes the local contract and confirms an extension point exists. Stage 12 implements it, Stage 15 verifies it, and the design-system owner reassesses promotion when a second independent consumer appears.",
+      "completion_state": "DECIDED (Local scope; Core promotion deferred with explicit triggers). Not implemented, not tested, not verified.",
+      "residual_risks": [
+        "A second team may fork instead of reusing if the catalog entry is not discoverable or kept up to date.",
+        "If no extension point exists, the local implementation may be tempted to patch DataTable internals.",
+        "The local keyboard model could diverge from future Core conventions and need migration if promoted later.",
+        "If another team has unshipped plans for the same behavior, promotion timing may be conservative. That is acceptable at this risk level."
+      ],
+      "references": [
+        "BRAIN.md (default runtime steps 1-5, 9; routing principle; evidence before claims)",
+        "04-gates/quality-gates.json (G5)",
+        "06-modules/experience/STAGE-11-DESIGN-SYSTEM.md",
+        "06-modules/experience/STAGE-09-ACCESSIBILITY.md (local contract still requires keyboard/focus/AT)",
+        "06-modules/software-engineering/STAGE-12-FRONTEND-IMPLEMENTATION.md (handoff)"
+      ]
+    },
+    {
+      "id": "ADV-S12",
+      "stage_id": 12,
+      "risk_class": "R2. User-visible state correctness (stale filters after back navigation) and wasted or duplicate backend requests in a core worklist. It is reversible, with no data mutation or security boundary reported.",
+      "current_outcome": "Worklist filters, view and pagination are shareable and restorable through the URL. Back/forward always shows controls and data that match the URL, and each distinct query state triggers at most one effective fetch.",
+      "decision": "Reject the 'more effects and guards' patch. Effect chains that sync duplicated state are the root cause, and more guards add more of the same failure mode. Refactor so the URL is the single source of truth for q/school/subject/view/page/limit. (1) One parse/normalize function turns the URL into a typed, validated query object with defaults applied, derived during render and never copied into local state. Its counterpart serialize function writes a canonical URL. (2) User events (filter change, page change, view change) update the URL directly in their event handlers. Rules such as 'filter change resets page to 1' run in the handler, not in an effect. (3) Server data is fetched through a server-cache layer keyed by the normalized query object, so back navigation reuses cache and identical keys de-duplicate. Superseded requests are cancelled or ignored, and pending, stale, error and retry states are explicit. (4) The only allowed local state is uncommitted interaction state, such as the text draft of the q input while typing. It commits to the URL on debounce or submit and resets from the URL when the URL changes externally (e.g., Back), for example by keying the input on the committed value. (5) Define history policy explicitly. Proposed: committed filter, view and page changes push history entries, and debounced q keystrokes replace. This needs product confirmation. (6) Parameter validation and limits follow backend authority. The UI does not invent allowed values.",
+      "evidence_and_unknowns": [
+        "FACT: q, school, subject, view, page and limit are already in the URL.",
+        "FACT: The implementation copies them into local React state and syncs them through effects.",
+        "FACT: Back navigation sometimes shows stale filters, and duplicate fetches occur.",
+        "ASSUMPTION: The stale filters come from local state not re-deriving from the URL on popstate, and the duplicate fetches come from effect chains (URL→state→URL→fetch). This is likely but must be confirmed by reproduction before and after the refactor.",
+        "OPEN QUESTION: Are the duplicate fetches seen only in development (React StrictMode double invocation) or also in production builds? This decides whether a fix is needed beyond the refactor.",
+        "OPEN QUESTION: Which changes should create history entries (push) and which should replace? This is a product/UX decision.",
+        "OPEN QUESTION: What are the allowed values and defaults for view and limit, and how should invalid or unknown params be handled (clamp, default, error)? The backend contract is the authority.",
+        "OPEN QUESTION: Should paging past the last page after a filter change clamp, reset or show empty? Is there an existing UX contract?",
+        "OPEN QUESTION: Is a server-cache library already used in the codebase? The refactor should reuse the existing idiom rather than add a new dependency."
+      ],
+      "actions": [
+        "Reproduce both defects with a recorded network trace and URL history sequence to confirm the root-cause assumption.",
+        "Example-map the URL/query contract before coding. Rule R-URL-1: the URL is the single source of truth for worklist query state. EX-S12-01: open /worklist?school=A&subject=M&page=3 → controls show A/M/page 3, exactly one request with those params. EX-S12-02: on that view, change subject to P → URL becomes school=A&subject=P&page=1, exactly one request. EX-S12-03: press Back after EX-S12-02 → URL and controls show subject=M page=3, data matches (cache or one request), no stale P. EX-S12-04: type 'abc' quickly in q → one request for q=abc after debounce, history per the confirmed policy. EX-S12-05: change filters rapidly → only the latest query's data is displayed, earlier responses are cancelled or ignored. EX-S12-06 (counterexample): limit=9999 or unknown view → normalized per the backend contract, no crash, canonical URL. EX-S12-07: paste a shared URL into a new tab → identical view.",
+        "Implement parseWorklistQuery/serializeWorklistQuery as pure functions with canonical param ordering and defaults.",
+        "Remove the local copies of URL params and the syncing effects. Read the query from the router on render.",
+        "Move filter, page and view updates into event handlers that write the URL, including the page reset on filter change.",
+        "Move fetching to a server-cache query keyed by the normalized query object, with cancellation and explicit pending/error/stale UI states.",
+        "Keep the q input draft as local interaction state only, with explicit commit and reset-on-URL-change behavior.",
+        "Preserve the Stage 09 accessibility behavior during the refactor (focus stays on the changed control, result-count status announced politely once).",
+        "Write a brief implementation ADR: URL as source of truth, history policy, cache-key strategy, rejected 'more effects' option."
+      ],
+      "verification": [
+        "PLANNED, NOT EXECUTED: Unit tests for parse/serialize round-trip, defaults, invalid values and canonical ordering (EX-S12-06).",
+        "PLANNED, NOT EXECUTED: Component tests with a memory router for EX-S12-01..03 and EX-S12-07 (controls always match the URL, including after Back).",
+        "PLANNED, NOT EXECUTED: Browser tests (e.g., Playwright) with network interception asserting request counts for EX-S12-01..05, run against a production build so StrictMode dev behavior is excluded.",
+        "PLANNED, NOT EXECUTED: Before/after comparison of request counts per navigation sequence using the reproduction trace.",
+        "PLANNED, NOT EXECUTED: After release, observe request volume per worklist session and stale-filter reports (expected vs observed) if telemetry exists.",
+        "No verification evidence exists yet. The defects are not fixed until the tests above pass."
+      ],
+      "handoff": "Owner is the frontend feature team (software-engineering). Next action: reproduce and confirm the root cause, confirm the history policy and param contract with product and backend owners, then implement the refactor. Stage 15 receives the example-mapped tests EX-S12-01..07. Stage 17 receives the request-count budget. Telemetry for request volume and stale-filter observations goes to Stages 18–20.",
+      "completion_state": "DECIDED (refactor design and example map). Not implemented, not tested, not verified, not deployed. G6 frontend scope is not met.",
+      "residual_risks": [
+        "The root-cause assumption is unconfirmed until reproduced. A separate cause (e.g., backend or router behavior) may remain.",
+        "The history push/replace policy is unconfirmed. A wrong choice could hurt back-navigation expectations.",
+        "Other components may read the removed local state and need migration.",
+        "Cache staleness policy could show outdated rows on Back if invalidation after edits is not defined.",
+        "The q draft and URL could drift if reset-on-URL-change is not implemented and tested."
+      ],
+      "references": [
+        "BRAIN.md (default runtime steps 1-6, 11-13; evidence before claims; EVIDENCE→RULE→EXAMPLE trace)",
+        "04-gates/quality-gates.json (G3 example mapping, G6, G7)",
+        "06-modules/software-engineering/STAGE-12-FRONTEND-IMPLEMENTATION.md",
+        "06-modules/experience/STAGE-09-ACCESSIBILITY.md (accessibility preserved during refactor)"
+      ]
+    }
+  ]
+}

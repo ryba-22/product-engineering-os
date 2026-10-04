@@ -1,0 +1,104 @@
+{
+  "version": "2.0.0",
+  "run_id": "INDEP-RUN-2026-10-04-02",
+  "runtime_version": "1.2.0",
+  "runtime_commit": "bb22c203248040ee0b4c5c799f87846dd8d4762b",
+  "suite": {
+    "regression_cases": 25,
+    "loop_closure_cases": 3,
+    "total": 28,
+    "executor_input_file": "05-evals/independent-run-v2/executor-input.json",
+    "executor_input_sha256": "1fa3e68b07f862e101d40f4efa30576f0b9e61cf6b27e853a9abcfb84cf21b81",
+    "judge_rubric_file": "05-evals/independent-run-v2/judge-rubric.json",
+    "judge_rubric_sha256": "e19edb0cd74106ee935580a9d7d2218e8bec46eee931216e132e54fc02236392",
+    "source_files_manifest": "05-evals/independent-run-v2/source-files.json"
+  },
+  "protocol": {
+    "executor_reads": "blinded executor input + frozen v1.2 runtime/gates/stage playbooks/focused loop-closure playbooks/templates only",
+    "executor_must_not_read": [
+      "05-evals/independent-run-v2/judge-rubric.json",
+      "05-evals/independent-run-v2/judge-results.json",
+      "prior judge/result artifacts"
+    ],
+    "judge_reads": "frozen judge criteria + independent executor outputs + same frozen v1.2 runtime/gates/playbooks",
+    "judge_must_not_read": [
+      "prior v1 judge decisions while scoring",
+      "author/self-assessed results for the v2 cases"
+    ],
+    "pass_threshold": 8,
+    "promotion_rule": "28/28 pass, zero hard failures, executor and judge are distinct models and providers/systems, frozen hashes match, and local/CI package validation is green",
+    "maturity_claim_on_pass": "independently-behaviorally-validated-v2 (scoped to 25 lifecycle regression cases + 3 v1.2 loop-closure cases)"
+  },
+  "planned_executor": {
+    "provider": "Anthropic",
+    "model_requested": "claude-opus-5-5",
+    "interface": "Claude Code CLI",
+    "batches": 7
+  },
+  "planned_judge": {
+    "provider": "OpenAI via GitHub Copilot",
+    "model_requested": "auto/intelligence",
+    "model_resolved": "gpt-6-luna",
+    "interface": "GitHub Copilot CLI",
+    "batches": 7
+  },
+  "status": "completed",
+  "runtime_commit_initial": "3172bc20b77269f8bb429d0240e58b998fcf0bab",
+  "runtime_commit_final": "bb22c203248040ee0b4c5c799f87846dd8d4762b",
+  "actual_executor": {
+    "provider": "Anthropic",
+    "model": "claude-opus-5-5",
+    "interface": "Claude Code CLI",
+    "result_file": "05-evals/independent-run-v2/executor-results.json",
+    "result_sha256": "c201de8d709fea94cbc38b28257e9297d01761fd23ea34838d8790d9448b6057"
+  },
+  "actual_judge": {
+    "provider": "OpenAI via GitHub Copilot",
+    "model": "gpt-6-luna",
+    "vendor": "openai",
+    "interface": "GitHub Copilot CLI",
+    "result_file": "05-evals/independent-run-v2/judge-results.json",
+    "result_sha256": "661740eb3a8eae2fa05de822ba470d3d2ceb8e28096360b38b1a60a18033e930"
+  },
+  "rounds": [
+    {
+      "round": 1,
+      "runtime_commit": "3172bc20b77269f8bb429d0240e58b998fcf0bab",
+      "scope": "all 28 frozen cases",
+      "result": {
+        "passed": 26,
+        "failed": 2,
+        "average_score": 9.46,
+        "hard_failures": [
+          "ADV-S04",
+          "ADV-S18"
+        ]
+      },
+      "action": "Remediate Product Engineering OS runtime/playbooks; do not change frozen executor input or judge criteria."
+    },
+    {
+      "round": 2,
+      "runtime_commit": "bb22c203248040ee0b4c5c799f87846dd8d4762b",
+      "scope": "same frozen failed cases only: ADV-S04, ADV-S18",
+      "result": {
+        "passed": 2,
+        "failed": 0,
+        "hard_failures": [],
+        "scores": {
+          "ADV-S04": 9,
+          "ADV-S18": 9
+        }
+      },
+      "action": "Replace only the two failed round-1 case outputs/judgments in the canonical final result."
+    }
+  ],
+  "final_summary": {
+    "total": 28,
+    "passed": 28,
+    "failed": 0,
+    "average_score": 9.57,
+    "hard_failures": []
+  },
+  "maturity_claim": "independently-behaviorally-validated-v2 (scoped to 25 lifecycle regression cases + 3 v1.2 loop-closure cases)",
+  "completed_at": "2026-10-04"
+}

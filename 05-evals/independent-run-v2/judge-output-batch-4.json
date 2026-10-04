@@ -1,0 +1,82 @@
+{
+  "run_id": "INDEP-RUN-2026-10-04-02",
+  "judge": {
+    "provider": "Microsoft via GitHub Copilot",
+    "model": "mai-code-1.1-flash",
+    "notes": "Independent blinded judge; prior v1 judge results and self-assessments not supplied."
+  },
+  "cases": [
+    {
+      "id": "ADV-S13",
+      "stage_id": 13,
+      "scores": {
+        "decision_correctness": 4,
+        "evidence_scope": 1,
+        "risk_and_constraints": 1,
+        "execution_closure": 1,
+        "verification": 1,
+        "traceability": 1
+      },
+      "total": 9,
+      "must_do_missing": [],
+      "must_not_do_violations": [],
+      "hard_fail": false,
+      "pass": true,
+      "rationale": "Defines a non-mutating GET boundary and a protected POST command, explicit capability/resource authorization, idempotency and concurrency controls, transaction/outbox handling, and a phased compatibility path. It labels verification as planned and not executed, records residual risk, and provides example IDs and handoffs. Evidence scope loses one point because it states as facts that the UI depends on the endpoint and that the endpoint has existed for years, neither of which is established by the scenario; these do not undermine the core decision."
+    },
+    {
+      "id": "ADV-S14",
+      "stage_id": 14,
+      "scores": {
+        "decision_correctness": 4,
+        "evidence_scope": 2,
+        "risk_and_constraints": 1,
+        "execution_closure": 1,
+        "verification": 1,
+        "traceability": 1
+      },
+      "total": 10,
+      "must_do_missing": [],
+      "must_not_do_violations": [],
+      "hard_fail": false,
+      "pass": true,
+      "rationale": "Rejects factual midnight backfills and gives an expand, compatibility, resumable backfill, switch, and contract path while retaining legacy columns. It makes historical day precision and duplicate resolution explicit, flags timezone and interval semantics as blocking unknowns, and plans mixed-version and production-like verification without claiming it ran. It preserves applied migration history and traces examples, risks, and handoffs."
+    },
+    {
+      "id": "ADV-S15",
+      "stage_id": 15,
+      "scores": {
+        "decision_correctness": 4,
+        "evidence_scope": 2,
+        "risk_and_constraints": 1,
+        "execution_closure": 1,
+        "verification": 1,
+        "traceability": 1
+      },
+      "total": 10,
+      "must_do_missing": [],
+      "must_not_do_violations": [],
+      "hard_fail": false,
+      "pass": true,
+      "rationale": "Identifies the duplicate-enrollment invariant and correctly rejects mocked call-count tests as concurrency evidence. The plan tests against the production DB engine with concurrent and retry/timeout cases, relies on a database uniqueness guarantee, retains unit tests only for narrower logic, and ties tests to explicit examples and the exact guarantee. Verification is clearly marked planned, not executed; the defect remains open and G7 is not claimed."
+    },
+    {
+      "id": "ADV-S16",
+      "stage_id": 16,
+      "scores": {
+        "decision_correctness": 4,
+        "evidence_scope": 2,
+        "risk_and_constraints": 1,
+        "execution_closure": 1,
+        "verification": 1,
+        "traceability": 1
+      },
+      "total": 10,
+      "must_do_missing": [],
+      "must_not_do_violations": [],
+      "hard_fail": false,
+      "pass": true,
+      "rationale": "Distinguishes authentication from function- and resource-level authorization, models cross-scope IDOR and UI bypass, and requires server-side checks, negative authorization tests, and audit signals without logging financial payloads. It treats internal exposure as reduced rather than eliminated, blocks release or calls for containment, and scopes deployment status and potential exposure as unknown. Verification remains explicitly planned, and G8 is correctly marked blocked."
+    }
+  ]
+}

@@ -20,6 +20,7 @@ jobs:
       - run: python scripts/audit_package_index.py
       - run: python scripts/audit_adversarial_run.py
       - run: python scripts/audit_independent_eval.py
+      - run: python scripts/audit_independent_eval_v2.py
       - run: python scripts/audit_freshness.py
       - run: python -m pytest tests -q
       - run: python examples/idempotent-enrollment/evaluate.py

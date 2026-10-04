@@ -1,0 +1,46 @@
+{
+  "run_id": "INDEP-RUN-2026-10-04-02",
+  "judge": {
+    "provider": "OpenAI via GitHub Copilot",
+    "model": "gpt-6-luna",
+    "notes": "Independent remediation judge; frozen criteria and fresh round-2 executor answers only."
+  },
+  "cases": [
+    {
+      "id": "ADV-S04",
+      "stage_id": 4,
+      "scores": {
+        "decision_correctness": 4,
+        "evidence_scope": 2,
+        "risk_and_constraints": 1,
+        "execution_closure": 1,
+        "verification": 0,
+        "traceability": 1
+      },
+      "total": 9,
+      "must_do_missing": [],
+      "must_not_do_violations": [],
+      "hard_fail": false,
+      "pass": true,
+      "rationale": "Separates legacy contact sourcing from Finance eligibility, specifies per-child/per-period deduplication and zero-amount behavior, and covers approval, duplicate, retry/failure, privacy, security, and data uncertainties. Unknown policies remain open, architecture is not prematurely selected, and acceptance/example traceability and ownership are explicit. The answer clearly limits the baseline and live-sending authorization. Verification is only planned, not executed."
+    },
+    {
+      "id": "ADV-S18",
+      "stage_id": 18,
+      "scores": {
+        "decision_correctness": 4,
+        "evidence_scope": 2,
+        "risk_and_constraints": 1,
+        "execution_closure": 1,
+        "verification": 0,
+        "traceability": 1
+      },
+      "total": 9,
+      "must_do_missing": [],
+      "must_not_do_violations": [],
+      "hard_fail": false,
+      "pass": true,
+      "rationale": "Rejects rebuilding and presenting different bytes as the staging-tested release; specifies promotion by immutable digest, provenance, config/secrets handling, migration compatibility and gates, and retained gate outcomes. It distinguishes deployment from health, identifies missing evidence without inventing it, and clearly blocks release pending G9 evidence with owners and next action. Verification checks are planned only, not executed."
+    }
+  ]
+}

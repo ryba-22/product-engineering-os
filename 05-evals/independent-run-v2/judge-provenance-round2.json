@@ -1,0 +1,18 @@
+{
+  "round": 2,
+  "session_id": "f0827bf4-b544-47a5-9508-b2b5cdb015b9",
+  "reported_model": "gpt-6-luna",
+  "vendor": "openai",
+  "interface": "GitHub Copilot CLI",
+  "runtime_commit": "bb22c203248040ee0b4c5c799f87846dd8d4762b",
+  "usage": {
+    "premiumRequests": 1,
+    "totalApiDurationMs": 16889,
+    "sessionDurationMs": 20163,
+    "codeChanges": {
+      "linesAdded": 0,
+      "linesRemoved": 0,
+      "filesModified": []
+    }
+  }
+}

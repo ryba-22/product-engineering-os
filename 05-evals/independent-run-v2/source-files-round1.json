@@ -1,0 +1,137 @@
+{
+  "runtime_commit": "3172bc20b77269f8bb429d0240e58b998fcf0bab",
+  "files": [
+    {
+      "path": "04-gates/quality-gates.json",
+      "sha256": "55ffe10daf573f00e50c154c8efaac205aeaa4f69d99fdb7a2f510fcd8c28cb3"
+    },
+    {
+      "path": "06-modules/delivery-production/STAGE-18-CI-CD.md",
+      "sha256": "40d13dbe9ca5b88ee1970e2d0173d42b81f65bfb9f2bf8400bdd259bab2fe684"
+    },
+    {
+      "path": "06-modules/delivery-production/STAGE-19-DEPLOYMENT-ROLLOUT.md",
+      "sha256": "77bd23fa7d55c4c4ebbc8ea565e329ab27976db919a6b5c8077f91ff4d91fc64"
+    },
+    {
+      "path": "06-modules/domain/STAGE-03-DOMAIN-DISCOVERY.md",
+      "sha256": "3b9c5cc3cbf3d3e86415fa964d4884d4232f5b8480ea66233771c6e4f5e360df"
+    },
+    {
+      "path": "06-modules/domain/STAGE-05-DOMAIN-ARCHITECTURE.md",
+      "sha256": "c563906800a3e977c37d7be797a377694e274899151995c34188c928600d236e"
+    },
+    {
+      "path": "06-modules/experience/STAGE-07-UX-ARCHITECTURE.md",
+      "sha256": "391dc41db56beec0e18e06e5a35a660b92adda9f7ad05dc921ba5a409efc458c"
+    },
+    {
+      "path": "06-modules/experience/STAGE-08-INTERACTION-DESIGN.md",
+      "sha256": "02db4527d3c3fcf0d751ad06268c2a9a29b5558f6b603f90a81306be757b4154"
+    },
+    {
+      "path": "06-modules/experience/STAGE-09-ACCESSIBILITY.md",
+      "sha256": "d39de1a169170bff7c880df0e98a647d63775ac918c0bff86ca2f05bf00957ec"
+    },
+    {
+      "path": "06-modules/experience/STAGE-10-VISUAL-UI.md",
+      "sha256": "60c7f17ac7c1d83a09aae59b76a9c3e9d79059f175080c5e8f6ea7026af96573"
+    },
+    {
+      "path": "06-modules/experience/STAGE-11-DESIGN-SYSTEM.md",
+      "sha256": "5204d94c782a1ed083c3f93100680e95681864fda86c2d84fb3f23a980012fbf"
+    },
+    {
+      "path": "06-modules/knowledge-governance/STAGE-25-KNOWLEDGE-GOVERNANCE.md",
+      "sha256": "9a88772527bb78d792fc92a60a6700ba2221c2215037fe1c417b1452dbe5b047"
+    },
+    {
+      "path": "06-modules/product-discovery/STAGE-02-DISCOVERY.md",
+      "sha256": "1985047bda8aca25ffa4314385f527285d385e420ba80934fc6a853d93699a35"
+    },
+    {
+      "path": "06-modules/product-intelligence/PRODUCTION-LEARNING-LOOP.md",
+      "sha256": "fcf0509d7c13d231a4bc0c2dc11bc4c1170df2a614a06aa76cea888c9c7e3c40"
+    },
+    {
+      "path": "06-modules/product-intelligence/STAGE-22-PRODUCT-ANALYTICS.md",
+      "sha256": "1eb7726ad98e20a0dadb40099abc70166491bdde58f4c75326d14c8616db61a0"
+    },
+    {
+      "path": "06-modules/product-intelligence/STAGE-23-EXPERIMENTATION.md",
+      "sha256": "1b60b9d0a08021db0fcf34c59ebff61fe98f2bbdabaf9b03f973b165c0c4cf34"
+    },
+    {
+      "path": "06-modules/product-intelligence/STAGE-24-FEEDBACK-NEXT-ITERATION.md",
+      "sha256": "a30d46c19a1fdb0ed1ad87d49b0395d4a76134508109e5b08b059f414fc146d6"
+    },
+    {
+      "path": "06-modules/product-strategy/STAGE-01-PROBLEM-OUTCOME.md",
+      "sha256": "1eb0396642165dd20d2af014fdbe0c64d8c0bfe985292c2c801e0a605fac6d42"
+    },
+    {
+      "path": "06-modules/quality-engineering/STAGE-15-TESTING.md",
+      "sha256": "5360ca7065bf9e9ea2fd36a499f869bf93318a8f9920ad1df3b2c058b6ba2dfc"
+    },
+    {
+      "path": "06-modules/quality-engineering/STAGE-17-PERFORMANCE.md",
+      "sha256": "4b3a82443b034224437e9ac30ab126bb9afa87bd649c4db9be73f577ac901b78"
+    },
+    {
+      "path": "06-modules/requirements/ATDD-EXAMPLE-MAPPING.md",
+      "sha256": "f94d1a54167acdaedc420d89e4d0c8270030fefa5b02da1645f05f8c57e81135"
+    },
+    {
+      "path": "06-modules/requirements/STAGE-04-REQUIREMENTS.md",
+      "sha256": "10473213f22cf887f8d963d9cfa630a14a32056819daa226c20110ae3cec3dc9"
+    },
+    {
+      "path": "06-modules/security-reliability/AI-GOVERNANCE.md",
+      "sha256": "b16b423bf3d29c7fad36f9ff18aee90a9394777c3677ad644016a7752b106c84"
+    },
+    {
+      "path": "06-modules/security-reliability/STAGE-16-SECURITY.md",
+      "sha256": "c0bdca32a382a68584716170a66db77166e3b15c00dd897300b6451c69aefe2c"
+    },
+    {
+      "path": "06-modules/security-reliability/STAGE-20-OBSERVABILITY.md",
+      "sha256": "bbec4b5d4c28a1bc518891b41d421b516a53e021000578221450e4beb6bcf53b"
+    },
+    {
+      "path": "06-modules/security-reliability/STAGE-21-BACKUP-DR-INCIDENTS.md",
+      "sha256": "5557db028f256eac8b943d512ae5b638f68d151699ded247143594aafd07474d"
+    },
+    {
+      "path": "06-modules/software-engineering/STAGE-12-FRONTEND-IMPLEMENTATION.md",
+      "sha256": "3fa52df5555aed2c713f2274be0985c43e0d57a8ba1699c4902dbed512682ea6"
+    },
+    {
+      "path": "06-modules/software-engineering/STAGE-13-BACKEND-API.md",
+      "sha256": "a2ea1d7fadd2463126f2d0338898eba21d349361c498be9a6cad00b4663eaadd"
+    },
+    {
+      "path": "06-modules/software-engineering/STAGE-14-DATABASE-PERSISTENCE.md",
+      "sha256": "0d6abd62c85060142342aef5ddf5e6d773621985acbd4e124dd73ef39306d5df"
+    },
+    {
+      "path": "06-modules/system-architecture/STAGE-06-SYSTEM-ARCHITECTURE.md",
+      "sha256": "9d114e6528f7c5084e01779628c57c8e783511b9cdcc0ca6783449162a443e0e"
+    },
+    {
+      "path": "07-templates/AI-CAPABILITY-MATRIX.md",
+      "sha256": "da40a98ef028d81d81a6dd3ff3982d3828d816fc8d162f09d7e0f5ee1f13f972"
+    },
+    {
+      "path": "07-templates/EXAMPLE-MAP.md",
+      "sha256": "8532fb9e42ed60b0243bb5315a6bb609b664e75546566a4390a5466962d1e44a"
+    },
+    {
+      "path": "07-templates/PRODUCTION-LEARNING-RECORD.md",
+      "sha256": "fb62408c4d02c70d04202cc8bbcf4288edd867771628d00a537e6c4f8bb82075"
+    },
+    {
+      "path": "BRAIN.md",
+      "sha256": "7c0c1f8bbe5e226eef086371205fc9e1115ad1fad4d6404ef732b86762a1ee37"
+    }
+  ]
+}

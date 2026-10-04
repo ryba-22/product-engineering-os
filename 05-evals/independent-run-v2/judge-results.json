@@ -1,0 +1,538 @@
+{
+  "run_id": "INDEP-RUN-2026-10-04-02",
+  "judge": {
+    "provider": "OpenAI via GitHub Copilot",
+    "model_requested": "auto/intelligence",
+    "model_resolved": "gpt-6-luna",
+    "vendor": "openai",
+    "interface": "GitHub Copilot CLI",
+    "independent_from_executor": true,
+    "notes": "Round 1 independently judged 28 frozen cases in seven isolated batches. After runtime remediation and fresh executor outputs, the same two failed frozen cases were independently rescored; final results replace those two judgments."
+  },
+  "summary": {
+    "total": 28,
+    "passed": 28,
+    "failed": 0,
+    "average_score": 9.57,
+    "hard_failures": []
+  },
+  "cases": [
+    {
+      "id": "ADV-S01",
+      "stage_id": 1,
+      "scores": {
+        "decision_correctness": 4,
+        "evidence_scope": 1,
+        "risk_and_constraints": 1,
+        "execution_closure": 1,
+        "verification": 1,
+        "traceability": 1
+      },
+      "total": 9,
+      "must_do_missing": [],
+      "must_not_do_violations": [],
+      "hard_fail": false,
+      "pass": true,
+      "rationale": "Separates the requested dashboard from the missed-exception problem, defines an observable outcome and candidate success signals without inventing baselines, surfaces constraints and risks, and routes decision-changing questions to Discovery with a stop condition and owner. G0 remains explicitly unpassed; verification is marked planned, not executed. Evidence scope loses a point because child/guardian data and some affected actors are introduced beyond the supplied facts, though largely framed conditionally or as proposed actors."
+    },
+    {
+      "id": "ADV-S02",
+      "stage_id": 2,
+      "scores": {
+        "decision_correctness": 4,
+        "evidence_scope": 2,
+        "risk_and_constraints": 1,
+        "execution_closure": 1,
+        "verification": 1,
+        "traceability": 1
+      },
+      "total": 10,
+      "must_do_missing": [],
+      "must_not_do_violations": [],
+      "hard_fail": false,
+      "pass": true,
+      "rationale": "Rejects the five favorable administrators as a sole sample, centers occasional operators and same-day changes, scopes the support-log claim pending re-analysis, and proposes observation of concrete behavior plus a contrast segment. It avoids hypothetical solution-design questions, defines a decision-based stop condition, and explicitly states that research and verification have not occurred. Owners, evidence-chain synthesis, and handoffs are specified."
+    },
+    {
+      "id": "ADV-S03",
+      "stage_id": 3,
+      "scores": {
+        "decision_correctness": 4,
+        "evidence_scope": 2,
+        "risk_and_constraints": 1,
+        "execution_closure": 1,
+        "verification": 1,
+        "traceability": 1
+      },
+      "total": 10,
+      "must_do_missing": [],
+      "must_not_do_violations": [],
+      "hard_fail": false,
+      "pass": true,
+      "rationale": "Treats the schema and contradictory reports as implementation evidence rather than business policy, distinguishes business time from stored dates, and identifies re-enrollment and membership invariants as hypotheses. It proposes concrete timelines, edge cases, owners, and hotspots without deciding the unknown rules or collapsing membership rows. G2 is explicitly unpassed and all verification is planned rather than claimed."
+    },
+    {
+      "id": "ADV-S04",
+      "stage_id": 4,
+      "scores": {
+        "decision_correctness": 4,
+        "evidence_scope": 2,
+        "risk_and_constraints": 1,
+        "execution_closure": 1,
+        "verification": 0,
+        "traceability": 1
+      },
+      "total": 9,
+      "must_do_missing": [],
+      "must_not_do_violations": [],
+      "hard_fail": false,
+      "pass": true,
+      "rationale": "Separates legacy contact sourcing from Finance eligibility, specifies per-child/per-period deduplication and zero-amount behavior, and covers approval, duplicate, retry/failure, privacy, security, and data uncertainties. Unknown policies remain open, architecture is not prematurely selected, and acceptance/example traceability and ownership are explicit. The answer clearly limits the baseline and live-sending authorization. Verification is only planned, not executed."
+    },
+    {
+      "id": "ADV-S05",
+      "stage_id": 5,
+      "scores": {
+        "decision_correctness": 4,
+        "evidence_scope": 2,
+        "risk_and_constraints": 1,
+        "execution_closure": 1,
+        "verification": 1,
+        "traceability": 1
+      },
+      "total": 10,
+      "must_do_missing": [],
+      "must_not_do_violations": [],
+      "hard_fail": false,
+      "pass": true,
+      "rationale": "Assigns Legacy ownership of relationships and contacts and Finance ownership of eligibility and settlement communication, with a read-only semantic integration and an atomic per-child/period/normalized-number dedup invariant. It keeps logical ownership separate from shared storage, records assumptions and decision-changing privacy questions, and leaves unresolved rules as blockers rather than inventing answers. The proposed state, planned verification, next owners, and G2 status are explicit and traceable."
+    },
+    {
+      "id": "ADV-S06",
+      "stage_id": 6,
+      "scores": {
+        "decision_correctness": 4,
+        "evidence_scope": 2,
+        "risk_and_constraints": 1,
+        "execution_closure": 1,
+        "verification": 1,
+        "traceability": 1
+      },
+      "total": 10,
+      "must_do_missing": [],
+      "must_not_do_violations": [],
+      "hard_fail": false,
+      "pass": true,
+      "rationale": "Chooses a modular monolith over speculative microservices/Kafka/Kubernetes, compares alternatives, identifies quality scenarios and distributed-operational failure costs, and gives measurement-based switching conditions. It distinguishes scenario facts from unmeasured assumptions, says numeric budgets require owner agreement, and proposes reversible baseline measurement rather than claiming evidence exists. ADR, planned tests, handoffs, and G4 status are clearly stated."
+    },
+    {
+      "id": "ADV-S07",
+      "stage_id": 7,
+      "scores": {
+        "decision_correctness": 4,
+        "evidence_scope": 2,
+        "risk_and_constraints": 1,
+        "execution_closure": 1,
+        "verification": 1,
+        "traceability": 1
+      },
+      "total": 10,
+      "must_do_missing": [],
+      "must_not_do_violations": [],
+      "hard_fail": false,
+      "pass": true,
+      "rationale": "Treats the desktop worklist as a dense comparison workflow, specifies a mobile row-list transformation, and preserves filters, pagination, scroll, and focus through URL/history navigation. It defines loading, empty, partial, error, permission, and stale states while keeping counts and active filters visible. Phone-task assumptions and URL privacy risks are explicitly unresolved; validation is planned, not claimed as executed."
+    },
+    {
+      "id": "ADV-S08",
+      "stage_id": 8,
+      "scores": {
+        "decision_correctness": 4,
+        "evidence_scope": 2,
+        "risk_and_constraints": 1,
+        "execution_closure": 1,
+        "verification": 1,
+        "traceability": 1
+      },
+      "total": 10,
+      "must_do_missing": [],
+      "must_not_do_violations": [],
+      "hard_fail": false,
+      "pass": true,
+      "rationale": "Defines version-checked server updates, idempotent retries, explicit submitting/conflict/recovery states, and a persistent conflict UI that preserves the draft and presents safe choices. It correctly rejects disabled Save as concurrency control and avoids silent overwrite or toast-only resolution; focus and announcement behavior are specified. Backend capabilities and side effects remain open, planned tests are not represented as executed, and the completion state records the unresolved lost-update risk."
+    },
+    {
+      "id": "ADV-S09",
+      "stage_id": 9,
+      "scores": {
+        "decision_correctness": 4,
+        "evidence_scope": 2,
+        "risk_and_constraints": 1,
+        "execution_closure": 1,
+        "verification": 0,
+        "traceability": 1
+      },
+      "total": 9,
+      "must_do_missing": [
+        "Manual keyboard verification of the fixed critical flow was planned but not executed.",
+        "Validation/error associations were specified and included in planned tests, but were not tested."
+      ],
+      "must_not_do_violations": [],
+      "hard_fail": false,
+      "pass": true,
+      "rationale": "Correctly rejects axe-only completion, identifies the focus-return and non-semantic control defects, and specifies native or complete ARIA/keyboard behavior, modal focus lifecycle, and linked validation errors. It distinguishes the clean axe result from missing manual evidence and keeps G5 open. Manual keyboard and validation verification remain planned rather than executed, so verification receives no credit."
+    },
+    {
+      "id": "ADV-S10",
+      "stage_id": 10,
+      "scores": {
+        "decision_correctness": 4,
+        "evidence_scope": 2,
+        "risk_and_constraints": 1,
+        "execution_closure": 1,
+        "verification": 0,
+        "traceability": 1
+      },
+      "total": 9,
+      "must_do_missing": [
+        "Realistic long, empty, and error data review was planned but not executed."
+      ],
+      "must_not_do_violations": [],
+      "hard_fail": false,
+      "pass": true,
+      "rationale": "Rejects decorative card/padding/shadow changes without task evidence; recommends using wide-screen space, compact comparison-oriented density, hierarchy through alignment and type, semantic status cues, and preserving the table. It identifies task mix and viewport distribution as assumptions or unknowns and does not claim measured improvement. Realistic-content and operator comparisons remain planned, so verification receives no credit."
+    },
+    {
+      "id": "ADV-S11",
+      "stage_id": 11,
+      "scores": {
+        "decision_correctness": 3,
+        "evidence_scope": 2,
+        "risk_and_constraints": 1,
+        "execution_closure": 1,
+        "verification": 0,
+        "traceability": 1
+      },
+      "total": 8,
+      "must_do_missing": [
+        "A concrete migration/deprecation policy is not defined; a migration/versioning note is only listed as a future promotion prerequisite.",
+        "Keyboard/AT and composition verification were planned but not executed."
+      ],
+      "must_not_do_violations": [],
+      "hard_fail": false,
+      "pass": true,
+      "rationale": "Correctly keeps the one-off behavior Local, requires semantic reuse evidence and an accessibility contract, names feature and design-system owners, and treats promotion thresholds as proposed rather than existing policy. However, it does not define the requested migration/deprecation policy, and all verification remains planned. It explicitly states the pattern is not implemented or verified."
+    },
+    {
+      "id": "ADV-S12",
+      "stage_id": 12,
+      "scores": {
+        "decision_correctness": 4,
+        "evidence_scope": 2,
+        "risk_and_constraints": 1,
+        "execution_closure": 1,
+        "verification": 0,
+        "traceability": 1
+      },
+      "total": 9,
+      "must_do_missing": [
+        "Back/forward and shareable-URL behavior tests were planned but not executed."
+      ],
+      "must_not_do_violations": [],
+      "hard_fail": false,
+      "pass": true,
+      "rationale": "Makes the URL the navigational-state source of truth, derives normalized query state, puts updates in event handlers, and specifies explicit server-cache pending/stale/error behavior. It example-maps back navigation, sharing, request de-duplication, and invalid parameters while marking root cause and history policy as unresolved. Tests are planned only, and the answer explicitly says the defects are not fixed or verified."
+    },
+    {
+      "id": "ADV-S13",
+      "stage_id": 13,
+      "scores": {
+        "decision_correctness": 4,
+        "evidence_scope": 1,
+        "risk_and_constraints": 1,
+        "execution_closure": 1,
+        "verification": 1,
+        "traceability": 1
+      },
+      "total": 9,
+      "must_do_missing": [],
+      "must_not_do_violations": [],
+      "hard_fail": false,
+      "pass": true,
+      "rationale": "Defines a non-mutating GET boundary and a protected POST command, explicit capability/resource authorization, idempotency and concurrency controls, transaction/outbox handling, and a phased compatibility path. It labels verification as planned and not executed, records residual risk, and provides example IDs and handoffs. Evidence scope loses one point because it states as facts that the UI depends on the endpoint and that the endpoint has existed for years, neither of which is established by the scenario; these do not undermine the core decision."
+    },
+    {
+      "id": "ADV-S14",
+      "stage_id": 14,
+      "scores": {
+        "decision_correctness": 4,
+        "evidence_scope": 2,
+        "risk_and_constraints": 1,
+        "execution_closure": 1,
+        "verification": 1,
+        "traceability": 1
+      },
+      "total": 10,
+      "must_do_missing": [],
+      "must_not_do_violations": [],
+      "hard_fail": false,
+      "pass": true,
+      "rationale": "Rejects factual midnight backfills and gives an expand, compatibility, resumable backfill, switch, and contract path while retaining legacy columns. It makes historical day precision and duplicate resolution explicit, flags timezone and interval semantics as blocking unknowns, and plans mixed-version and production-like verification without claiming it ran. It preserves applied migration history and traces examples, risks, and handoffs."
+    },
+    {
+      "id": "ADV-S15",
+      "stage_id": 15,
+      "scores": {
+        "decision_correctness": 4,
+        "evidence_scope": 2,
+        "risk_and_constraints": 1,
+        "execution_closure": 1,
+        "verification": 1,
+        "traceability": 1
+      },
+      "total": 10,
+      "must_do_missing": [],
+      "must_not_do_violations": [],
+      "hard_fail": false,
+      "pass": true,
+      "rationale": "Identifies the duplicate-enrollment invariant and correctly rejects mocked call-count tests as concurrency evidence. The plan tests against the production DB engine with concurrent and retry/timeout cases, relies on a database uniqueness guarantee, retains unit tests only for narrower logic, and ties tests to explicit examples and the exact guarantee. Verification is clearly marked planned, not executed; the defect remains open and G7 is not claimed."
+    },
+    {
+      "id": "ADV-S16",
+      "stage_id": 16,
+      "scores": {
+        "decision_correctness": 4,
+        "evidence_scope": 2,
+        "risk_and_constraints": 1,
+        "execution_closure": 1,
+        "verification": 1,
+        "traceability": 1
+      },
+      "total": 10,
+      "must_do_missing": [],
+      "must_not_do_violations": [],
+      "hard_fail": false,
+      "pass": true,
+      "rationale": "Distinguishes authentication from function- and resource-level authorization, models cross-scope IDOR and UI bypass, and requires server-side checks, negative authorization tests, and audit signals without logging financial payloads. It treats internal exposure as reduced rather than eliminated, blocks release or calls for containment, and scopes deployment status and potential exposure as unknown. Verification remains explicitly planned, and G8 is correctly marked blocked."
+    },
+    {
+      "id": "ADV-S17",
+      "stage_id": 17,
+      "scores": {
+        "decision_correctness": 4,
+        "evidence_scope": 2,
+        "risk_and_constraints": 1,
+        "execution_closure": 1,
+        "verification": 1,
+        "traceability": 1
+      },
+      "total": 10,
+      "must_do_missing": [],
+      "must_not_do_violations": [],
+      "hard_fail": false,
+      "pass": true,
+      "rationale": "Defers tuning until the exact report scenario, budget, production-scale baseline, representative workload, query plan and resource signals are measured. It avoids unsupported index or buffer-pool recommendations and average-only/empty-data benchmarks, and records trade-offs, capacity assumptions, planned verification, lifecycle state and relevant evidence references."
+    },
+    {
+      "id": "ADV-S18",
+      "stage_id": 18,
+      "scores": {
+        "decision_correctness": 4,
+        "evidence_scope": 2,
+        "risk_and_constraints": 1,
+        "execution_closure": 1,
+        "verification": 0,
+        "traceability": 1
+      },
+      "total": 9,
+      "must_do_missing": [],
+      "must_not_do_violations": [],
+      "hard_fail": false,
+      "pass": true,
+      "rationale": "Rejects rebuilding and presenting different bytes as the staging-tested release; specifies promotion by immutable digest, provenance, config/secrets handling, migration compatibility and gates, and retained gate outcomes. It distinguishes deployment from health, identifies missing evidence without inventing it, and clearly blocks release pending G9 evidence with owners and next action. Verification checks are planned only, not executed."
+    },
+    {
+      "id": "ADV-S19",
+      "stage_id": 19,
+      "scores": {
+        "decision_correctness": 4,
+        "evidence_scope": 2,
+        "risk_and_constraints": 1,
+        "execution_closure": 1,
+        "verification": 1,
+        "traceability": 1
+      },
+      "total": 10,
+      "must_do_missing": [],
+      "must_not_do_violations": [],
+      "hard_fail": false,
+      "pass": true,
+      "rationale": "Rejects the all-institution rollout and requires artifact/migration verification, production-like preflight, recovery planning based on data reversibility, representative staged exposure, actionable health thresholds and an observation window. It distinguishes planned checks from completed evidence, does not treat CI or staging as production safety, and records ownership and release evidence."
+    },
+    {
+      "id": "ADV-S20",
+      "stage_id": 20,
+      "scores": {
+        "decision_correctness": 4,
+        "evidence_scope": 2,
+        "risk_and_constraints": 1,
+        "execution_closure": 1,
+        "verification": 1,
+        "traceability": 1
+      },
+      "total": 10,
+      "must_do_missing": [],
+      "must_not_do_violations": [],
+      "hard_fail": false,
+      "pass": true,
+      "rationale": "Defines delivery and backlog SLIs, lease/reclaim and duplicate signals, correlated structured attempts, privacy limits, and owned actionable alerts without alerting on every transient retry. It distinguishes worker liveness from delivery capability, scopes provider acceptance versus handset delivery, routes duplicate-risk remediation appropriately, and labels validation as planned rather than completed."
+    },
+    {
+      "id": "ADV-S21",
+      "stage_id": 21,
+      "scores": {
+        "decision_correctness": 4,
+        "evidence_scope": 2,
+        "risk_and_constraints": 1,
+        "execution_closure": 1,
+        "verification": 1,
+        "traceability": 1
+      },
+      "total": 10,
+      "must_do_missing": [],
+      "must_not_do_violations": [],
+      "hard_fail": false,
+      "pass": true,
+      "rationale": "Correctly treats RPO/RTO as unverified targets, rejects backup status as recovery evidence, and specifies an isolated drill using a real backup with app/schema/config compatibility, business-capability checks, measured recovery time and recovered data point. Defines incident ownership as an unresolved assignment with explicit handoffs and corrective-action follow-up. Clearly labels all verification as planned, not executed, and does not claim G10 readiness."
+    },
+    {
+      "id": "ADV-S22",
+      "stage_id": 22,
+      "scores": {
+        "decision_correctness": 4,
+        "evidence_scope": 1,
+        "risk_and_constraints": 1,
+        "execution_closure": 1,
+        "verification": 1,
+        "traceability": 1
+      },
+      "total": 9,
+      "must_do_missing": [],
+      "must_not_do_violations": [],
+      "hard_fail": false,
+      "pass": true,
+      "rationale": "Starts from successful enrollment and correction/support guardrails; defines denominator, cohort and window considerations; proposes semantic events, identity/session rules, privacy limits and data-quality checks; and cautions that before/after movement is correlational. It accurately marks instrumentation and validation as not yet done and gives owners and artifact handoffs. Evidence scope loses one point for presenting an analytics vendor and dashboard template as facts although neither is established in the scenario; this does not change the central decision."
+    },
+    {
+      "id": "ADV-S23",
+      "stage_id": 23,
+      "scores": {
+        "decision_correctness": 4,
+        "evidence_scope": 1,
+        "risk_and_constraints": 1,
+        "execution_closure": 1,
+        "verification": 1,
+        "traceability": 1
+      },
+      "total": 9,
+      "must_do_missing": [],
+      "must_not_do_violations": [],
+      "hard_fail": false,
+      "pass": true,
+      "rationale": "Rejects operator/session randomization due to institutional interference and recognizes low volume and roughly 40 clusters as a likely power constraint. Recommends usability work followed by a pre-specified institution-level pilot, addresses contamination and guardrails, and limits conclusions to descriptive or quasi-experimental evidence; non-significance is not treated as equivalence. The answer labels the plan and checks as unexecuted. Evidence scope loses one point for asserting an unstated stakeholder belief that A/B testing is inherently more scientific; this is not central to the recommendation."
+    },
+    {
+      "id": "ADV-S24",
+      "stage_id": 24,
+      "scores": {
+        "decision_correctness": 4,
+        "evidence_scope": 2,
+        "risk_and_constraints": 1,
+        "execution_closure": 1,
+        "verification": 1,
+        "traceability": 1
+      },
+      "total": 10,
+      "must_do_missing": [],
+      "must_not_do_violations": [],
+      "hard_fail": false,
+      "pass": true,
+      "rationale": "Reopens the original outcome, identifies exposure and metric questions, combines filter usage, support-category movement and spreadsheet workarounds, and distinguishes stable errors from product value. It preserves the original success definition, treats explanations as hypotheses pending inquiry, updates the opportunity and assumption model, and assigns an evidence-based next action to iterate via research. It marks outcome verification as planned and Definition of Value as UNVERIFIED rather than claiming success."
+    },
+    {
+      "id": "ADV-S25",
+      "stage_id": 25,
+      "scores": {
+        "decision_correctness": 4,
+        "evidence_scope": 2,
+        "risk_and_constraints": 1,
+        "execution_closure": 1,
+        "verification": 1,
+        "traceability": 1
+      },
+      "total": 10,
+      "must_do_missing": [],
+      "must_not_do_violations": [],
+      "hard_fail": false,
+      "pass": true,
+      "rationale": "Rejects rewriting provenance, registers and scopes the new source, preserves the old claim and UDR, and requires a scope/method comparison before any supersession. It separates global guidance from project-local overrides and calls for downstream impact review. The completion state remains open, identifies the owner and next decision, and explicitly says behavioral effectiveness is unverified because no eval was run."
+    },
+    {
+      "id": "V2-LC-ATDD",
+      "stage_id": 4,
+      "scores": {
+        "decision_correctness": 3,
+        "evidence_scope": 2,
+        "risk_and_constraints": 1,
+        "execution_closure": 1,
+        "verification": 1,
+        "traceability": 1
+      },
+      "total": 9,
+      "must_do_missing": [
+        "The candidate examples are not yet fully concrete with specific actors, numbers, periods, and triggers; the answer defers producing those details to the planned session.",
+        "It does not explicitly define examples for an empty eligible-recipient set or an operator refusing approval, although it covers ineligible cases and missing approval."
+      ],
+      "must_not_do_violations": [],
+      "hard_fail": false,
+      "pass": true,
+      "rationale": "Correctly rejects implementation readiness and post-hoc tests as a substitute for prior agreement. It distinguishes rules, examples, implementation, and test evidence; keeps policy questions open; proposes executable layers and stable traceability; and avoids assuming transport architecture. The example coverage is strong but leaves some requested concrete boundary cases for a future session, so decision correctness loses one point. It clearly marks the map and tests as planned, not executed."
+    },
+    {
+      "id": "V2-LC-AIGOV",
+      "stage_id": 16,
+      "scores": {
+        "decision_correctness": 4,
+        "evidence_scope": 2,
+        "risk_and_constraints": 1,
+        "execution_closure": 1,
+        "verification": 1,
+        "traceability": 1
+      },
+      "total": 10,
+      "must_do_missing": [],
+      "must_not_do_violations": [],
+      "hard_fail": false,
+      "pass": true,
+      "rationale": "Blocks production use, rejects the prompt as an authorization boundary, classifies personal data and credentials, requires provider verification before personal-data egress, and specifies least-privilege capabilities, credential removal/rotation, bounded redacted access, approval, and audit evidence. It does not assume whether prior exposure occurred and routes that uncertainty for assessment. Verification checks are explicitly planned, not claimed as executed; G8 remains unmet."
+    },
+    {
+      "id": "V2-LC-PROD",
+      "stage_id": 24,
+      "scores": {
+        "decision_correctness": 4,
+        "evidence_scope": 2,
+        "risk_and_constraints": 1,
+        "execution_closure": 1,
+        "verification": 1,
+        "traceability": 1
+      },
+      "total": 10,
+      "must_do_missing": [],
+      "must_not_do_violations": [],
+      "hard_fail": false,
+      "pass": true,
+      "rationale": "Rejects a hard-coded family exception, reopens the expected rule and examples, treats overrides as evidence rather than proof of a code defect, and proposes investigating operator decisions, Finance policy, and Legacy data. It specifies scoped observation capture, delta classification, propagation across models/tests/evals/knowledge/observability, and re-verification. It distinguishes reported HEALTHY from SUCCESSFUL and records the outcome as UNVERIFIED; the learning loop remains open and planned checks are not represented as executed."
+    }
+  ]
+}

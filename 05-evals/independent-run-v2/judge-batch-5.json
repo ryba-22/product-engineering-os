@@ -1,0 +1,87 @@
+{
+  "batch": 5,
+  "case_ids": [
+    "ADV-S17",
+    "ADV-S18",
+    "ADV-S19",
+    "ADV-S20"
+  ],
+  "criteria": [
+    {
+      "id": "ADV-S17",
+      "stage_id": 17,
+      "stage_name": "Performance",
+      "scenario": "A production database has a notifications table around 1 GB, a 512 MB InnoDB buffer pool and growing operational tables. A report query is reported as 'slow', but there is no captured p95, query plan, workload or dataset slice for the complaint.",
+      "decision_to_make": "Define the performance investigation and budget before tuning.",
+      "must_do": [
+        "define user/business scenario and measurable budget",
+        "capture baseline and representative workload/data",
+        "inspect query plans/waits/resource signals",
+        "optimize the measured bottleneck",
+        "record trade-offs/capacity assumptions"
+      ],
+      "must_not_do": [
+        "declare a specific index or memory increase correct without evidence",
+        "use average latency alone",
+        "benchmark only on empty/small data"
+      ]
+    },
+    {
+      "id": "ADV-S18",
+      "stage_id": 18,
+      "stage_name": "CI/CD",
+      "scenario": "Staging is deployed from a Docker image tagged with the commit, but some frontend build flags are injected through Docker ARG/ENV and a developer can rebuild a different image from the same branch before production. Database migration files are in the repo.",
+      "decision_to_make": "Define artifact provenance, gate chain and migration/config handling.",
+      "must_do": [
+        "build once and promote the same immutable artifact where possible",
+        "record commit/build/artifact digest",
+        "distinguish build-time config from secrets/runtime config",
+        "include migration compatibility/gates",
+        "retain evidence of skipped/failed/retried checks"
+      ],
+      "must_not_do": [
+        "infer provenance from branch name",
+        "rebuild different bytes for production and call them verified",
+        "expose secrets in build args/logs"
+      ]
+    },
+    {
+      "id": "ADV-S19",
+      "stage_id": 19,
+      "stage_name": "Deployment / rollout",
+      "scenario": "A release includes migration 0027 and a hierarchy synchronization job. Staging is healthy. Production rollout would affect all institutions at once, and rollback is unclear if the migration writes new derived state.",
+      "decision_to_make": "Choose rollout/preflight/health/recovery criteria proportional to data risk.",
+      "must_do": [
+        "verify exact artifact and migration state",
+        "assess rollback versus forward-fix after data change",
+        "use staged exposure or another blast-radius control where feasible",
+        "define smoke/telemetry pause thresholds",
+        "record stable-state evidence after observation"
+      ],
+      "must_not_do": [
+        "equate green CI with production safety",
+        "promise rollback without checking data reversibility",
+        "declare success immediately after container health turns green"
+      ]
+    },
+    {
+      "id": "ADV-S20",
+      "stage_id": 20,
+      "stage_name": "Observability",
+      "scenario": "A worker claims outbox rows with a two-minute lease, calls an SMS provider outside the transaction and retries failures up to four times. Operators currently see only aggregate 'worker OK' health and cannot tell whether rows are stuck, duplicated or permanently failing.",
+      "decision_to_make": "Define SLI/telemetry/alerts that make notification delivery failure diagnosable and actionable.",
+      "must_do": [
+        "instrument outbox/notification state transitions and lease age",
+        "correlate job/notification/provider attempts",
+        "define actionable stuck/failure alerts and owner",
+        "avoid logging sensitive message content unnecessarily",
+        "distinguish service liveness from user-visible delivery capability"
+      ],
+      "must_not_do": [
+        "treat more unstructured logs as observability",
+        "alert on every transient retry",
+        "declare delivery healthy from worker process uptime"
+      ]
+    }
+  ]
+}
