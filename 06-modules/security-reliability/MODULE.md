@@ -11,10 +11,10 @@ Integrate secure SDLC, threat modeling, reliability, observability, DR and incid
 Upstream evidence and decisions, explicit current outcome, risk class, project constraints, and existing artifacts. Do not re-research what is already current and sufficient.
 
 ## Canonical outputs
-Threat model; security requirements; SLO/SLI; telemetry contract; DR/incident runbooks; restore evidence.
+Threat model; security requirements; AI data/model/capability policy when applicable; SLO/SLI; telemetry contract; DR/incident runbooks; restore evidence.
 
 ## Decision behavior
-Security is lifecycle-wide. Reliability targets are user-facing decisions. Configuration without exercised recovery is not verified.
+Security is lifecycle-wide. Reliability targets are user-facing decisions. Configuration without exercised recovery is not verified. Agent persona/prompt text is not an authorization boundary: data/model/tool capability must be explicitly governed where AI is in scope.
 
 ## Exit rule
 The module may declare its gate satisfied only when the gate's required evidence is present, unresolved decision-changing uncertainty is recorded, and downstream consumers can identify the canonical artifact/decision IDs.
@@ -29,3 +29,4 @@ The module may declare its gate satisfied only when the gate's required evidence
 - Stage 16: [STAGE-16-SECURITY](./STAGE-16-SECURITY.md)
 - Stage 20: [STAGE-20-OBSERVABILITY](./STAGE-20-OBSERVABILITY.md)
 - Stage 21: [STAGE-21-BACKUP-DR-INCIDENTS](./STAGE-21-BACKUP-DR-INCIDENTS.md)
+- Focused method: [AI Security and Governance](./AI-GOVERNANCE.md)
