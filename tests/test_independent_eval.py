@@ -15,6 +15,8 @@ def test_independent_eval_v1_audit_preserves_historical_evidence():
     result = run("audit_independent_eval.py")
     assert result.returncode == 0, result.stdout + result.stderr
 
-def test_independent_eval_v2_audit_validates_current_maturity_claim():
+def test_independent_eval_v2_audit_preserves_history_and_current_evidence_boundary():
     result = run("audit_independent_eval_v2.py")
     assert result.returncode == 0, result.stdout + result.stderr
+    assert "historical-v2-preserved" in result.stdout
+    assert "current-runtime=revalidation-required" in result.stdout

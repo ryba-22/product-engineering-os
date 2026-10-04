@@ -770,6 +770,22 @@
       "strength": "supporting",
       "verified_at": "2026-10-04",
       "cutoff_target": "2026-09-30"
+    },
+    {
+      "id": "SKILLPANEL-MAISTER-2026",
+      "tier": "D",
+      "name": "SkillPanel/Maister — structured standards-aware agentic SDLC runtime",
+      "url": "https://github.com/SkillPanel/maister",
+      "domains": [
+        "ai-engineering",
+        "delivery",
+        "governance",
+        "tooling",
+        "quality"
+      ],
+      "strength": "supporting",
+      "verified_at": "2026-10-04",
+      "cutoff_target": "2026-09-30"
     }
   ]
 }

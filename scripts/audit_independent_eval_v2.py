@@ -2,6 +2,7 @@
 from pathlib import Path
 import hashlib
 import json
+import subprocess
 import sys
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -17,6 +18,18 @@ def load(name):
 
 def sha(path):
     return hashlib.sha256(Path(path).read_bytes()).hexdigest()
+
+
+def git_blob(commit, path):
+    proc = subprocess.run(
+        ["git", "-C", str(ROOT), "show", f"{commit}:{path}"],
+        stdout=subprocess.PIPE,
+        stderr=subprocess.PIPE,
+    )
+    if proc.returncode != 0:
+        errors.append(f"cannot read historical runtime blob {commit}:{path}: {proc.stderr.decode(errors='replace').strip()}")
+        return None
+    return proc.stdout
 
 manifest = load("run-manifest.json")
 executor_input = load("executor-input.json")
@@ -47,17 +60,22 @@ if manifest.get("actual_executor", {}).get("result_sha256") != sha(BASE / "execu
 if manifest.get("actual_judge", {}).get("result_sha256") != sha(BASE / "judge-results.json"):
     errors.append("judge result hash mismatch")
 
-# The final runtime is frozen by content hashes rather than current HEAD, because
-# evidence/metadata commits are allowed after the evaluated runtime commit.
+# Historical evidence is validated against the exact Git commit recorded by the run.
+# This preserves the evidence even after a later runtime version intentionally changes
+# BRAIN/gates. Current files are compared separately to decide whether the old claim
+# can still describe the current runtime.
+historical_commit = manifest.get("runtime_commit_final")
+current_runtime_matches_v2 = True
 for item in source_files.get("files", []):
-    path = ROOT / item.get("path", "")
-    if not path.exists():
-        errors.append(f"missing frozen runtime file: {item.get('path')}")
-        continue
-    actual = sha(path)
-    if actual != item.get("sha256"):
-        errors.append(f"frozen runtime hash mismatch: {item.get('path')}")
-if source_files.get("runtime_commit") != manifest.get("runtime_commit_final"):
+    rel = item.get("path", "")
+    expected = item.get("sha256")
+    blob = git_blob(historical_commit, rel)
+    if blob is not None and hashlib.sha256(blob).hexdigest() != expected:
+        errors.append(f"historical frozen runtime hash mismatch: {rel}")
+    path = ROOT / rel
+    if not path.exists() or sha(path) != expected:
+        current_runtime_matches_v2 = False
+if source_files.get("runtime_commit") != historical_commit:
     errors.append("source-files runtime commit differs from final runtime commit")
 
 # Blinding: executor input must not contain judge-only fields.
@@ -163,26 +181,59 @@ for case_id in expected_ids:
         if final_judge.get(case_id) != r1_judge.get(case_id):
             errors.append(f"{case_id} final judge result differs from round 1")
 
-# Current stage maturity must point at the v2 evidence for all 25 lifecycle stages.
+# Evidence boundary: if current runtime still matches v2, current stage maturity may
+# claim v2. If it materially differs, every current stage must explicitly require
+# revalidation while preserving the last validated v2 evidence as history.
 by_stage = {
     case["stage_id"]: case
     for case in judge.get("cases", [])
     if case.get("id", "").startswith("ADV-S")
 }
+current_validation_path = ROOT / "11-maturity" / "current-runtime-validation.json"
+current_validation = json.loads(current_validation_path.read_text()) if current_validation_path.exists() else {}
 for stage in coverage.get("stages", []):
-    if stage.get("behavioral_validation") != "independently-behaviorally-validated-v2":
-        errors.append(f"stage {stage['id']} not independently validated v2")
-    if stage.get("behavioral_run_id") != manifest.get("run_id"):
-        errors.append(f"stage {stage['id']} run id mismatch")
-    if stage.get("behavioral_evidence") != "05-evals/independent-run-v2/judge-results.json":
-        errors.append(f"stage {stage['id']} evidence path mismatch")
-    if stage.get("behavioral_independent") is not True:
-        errors.append(f"stage {stage['id']} independence flag false")
     judged = by_stage.get(stage["id"])
-    if not judged or stage.get("behavioral_score") != judged.get("total"):
-        errors.append(f"stage {stage['id']} score mismatch")
-    if stage.get("behavioral_hard_fail") is not False:
-        errors.append(f"stage {stage['id']} hard fail flag")
+    if current_runtime_matches_v2:
+        if stage.get("behavioral_validation") != "independently-behaviorally-validated-v2":
+            errors.append(f"stage {stage['id']} not independently validated v2")
+        if stage.get("behavioral_run_id") != manifest.get("run_id"):
+            errors.append(f"stage {stage['id']} run id mismatch")
+        if stage.get("behavioral_evidence") != "05-evals/independent-run-v2/judge-results.json":
+            errors.append(f"stage {stage['id']} evidence path mismatch")
+        if stage.get("behavioral_independent") is not True:
+            errors.append(f"stage {stage['id']} independence flag false")
+        if not judged or stage.get("behavioral_score") != judged.get("total"):
+            errors.append(f"stage {stage['id']} score mismatch")
+        if stage.get("behavioral_hard_fail") is not False:
+            errors.append(f"stage {stage['id']} hard fail flag")
+    else:
+        if stage.get("behavioral_validation") != "revalidation-required":
+            errors.append(f"stage {stage['id']} must be revalidation-required after runtime change")
+        if any(stage.get(key) is not None for key in (
+            "behavioral_run_id", "behavioral_evidence", "behavioral_independent",
+            "behavioral_score", "behavioral_hard_fail"
+        )):
+            errors.append(f"stage {stage['id']} exposes current behavioral evidence despite revalidation-required")
+        if stage.get("last_behavioral_validation") != "independently-behaviorally-validated-v2":
+            errors.append(f"stage {stage['id']} missing last v2 validation record")
+        if stage.get("last_behavioral_run_id") != manifest.get("run_id"):
+            errors.append(f"stage {stage['id']} last run id mismatch")
+        if stage.get("last_behavioral_evidence") != "05-evals/independent-run-v2/judge-results.json":
+            errors.append(f"stage {stage['id']} last evidence mismatch")
+        if stage.get("last_behavioral_independent") is not True:
+            errors.append(f"stage {stage['id']} last independence flag false")
+        if not judged or stage.get("last_behavioral_score") != judged.get("total"):
+            errors.append(f"stage {stage['id']} last score mismatch")
+        if stage.get("last_behavioral_hard_fail") is not False:
+            errors.append(f"stage {stage['id']} last hard fail flag")
+
+if not current_runtime_matches_v2:
+    if current_validation.get("status") != "revalidation-required":
+        errors.append("changed current runtime is not marked revalidation-required")
+    if current_validation.get("last_independent_run") != manifest.get("run_id"):
+        errors.append("current runtime validation does not reference last v2 run")
+    if current_validation.get("last_validated_runtime_commit") != historical_commit:
+        errors.append("current runtime validation historical commit mismatch")
 
 focus = {
     "V2-LC-ATDD": 9,
@@ -200,9 +251,15 @@ if errors:
         print("-", error)
     sys.exit(1)
 
+boundary = (
+    "current-runtime-matches-v2"
+    if current_runtime_matches_v2
+    else "historical-v2-preserved; current-runtime=revalidation-required"
+)
 print(
     "OK: independent eval v2 28/28, "
     f"avg={summary.get('average_score')}, "
     f"executor={ex.get('model_requested')}, "
-    f"judge={jg.get('model_resolved')}"
+    f"judge={jg.get('model_resolved')}, "
+    f"boundary={boundary}"
 )

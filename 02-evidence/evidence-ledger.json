@@ -1209,6 +1209,42 @@
       "status": "active",
       "verified_at": "2026-10-04",
       "supersedes": []
+    },
+    {
+      "id": "EVD-GOV-003",
+      "statement": "Project conventions can be discovered from multiple repository-local and review sources, deduplicated, conflict-checked and confidence-scored before a human promotes them to intended standards.",
+      "source_ids": [
+        "SKILLPANEL-MAISTER-2026"
+      ],
+      "domains": [
+        "governance",
+        "ai-engineering",
+        "tooling"
+      ],
+      "strength": "supporting",
+      "scope": "project-specific standards discovery in AI-assisted development",
+      "limitations": "Practitioner implementation evidence. Confidence in an observation does not grant authority; repository frequency may encode accidental legacy behavior.",
+      "status": "active",
+      "verified_at": "2026-10-04",
+      "supersedes": []
+    },
+    {
+      "id": "EVD-AI-002",
+      "statement": "Task-local orchestration state and durable phase artifacts can support pause/resume and operator visibility across long AI-assisted workflows.",
+      "source_ids": [
+        "SKILLPANEL-MAISTER-2026"
+      ],
+      "domains": [
+        "ai-engineering",
+        "delivery",
+        "governance"
+      ],
+      "strength": "supporting",
+      "scope": "long-running agentic SDLC workflows",
+      "limitations": "Task state is an orchestration aid, not stronger evidence than actual repository behavior, Git state or executable verification.",
+      "status": "active",
+      "verified_at": "2026-10-04",
+      "supersedes": []
     }
   ]
 }

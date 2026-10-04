@@ -32,6 +32,17 @@ For material business behavior, Product Engineering OS makes three cross-lifecyc
 
 The terminal product claim is **Definition of Value**: `HEALTHY ≠ SUCCESSFUL`. If outcome evidence is absent, use `UNVERIFIED OUTCOME`.
 
+## Operator runtime layer
+
+The OS now includes a risk-derived operator runtime contract without turning process state into product truth:
+
+- 00-core/operator-front-door.md routes a plain problem statement into risk, missing evidence, modules, execution profile and lane/workflow shape.
+- 00-core/execution-profiles.md maps R0–R4 to FAST / STANDARD / EVIDENCE_HEAVY.
+- 01-governance/project-constitution.md and scripts/discover_project_constitution.py discover repository-local candidate conventions while preserving observed != approved != enforced.
+- 07-templates/VERIFICATION-MATRIX.md separates completeness, tests, code review, pragmatic review, reality check and production readiness.
+
+These mechanisms are evidence/risk driven. They intentionally do not introduce mandatory approval at every lifecycle phase.
+
 ## Quick start
 
 1. Read [BRAIN.md](BRAIN.md) for the runtime instructions.
@@ -83,7 +94,9 @@ Short-file policy is executable: `scripts/audit_content_depth.py` fails when a s
 
 ## Current behavioral evidence
 
-The current package completed `INDEP-RUN-2026-10-04-02`: **28/28 pass, 0 hard failures, 9.57/10 average** using Anthropic Claude Opus 5.5 as the blinded executor and OpenAI GPT-6 Luna via GitHub Copilot CLI as the independent judge. The suite covers all 25 lifecycle stages plus three v1.2 loop-closure cases (ATDD / Example Mapping, AI capability governance and Production Learning). Round 1 preserved two hard failures (Stage 04 and Stage 18); the runtime was corrected without changing the frozen scenarios/rubric, then only those two cases were rerun in fresh independent sessions and both passed. The claim remains scoped to these frozen 28 scenarios, not universal product-engineering correctness.
+The v1.2 runtime completed INDEP-RUN-2026-10-04-02: **28/28 pass, 0 hard failures, 9.57/10 average** using Anthropic Claude Opus 5.5 as the blinded executor and OpenAI GPT-6 Luna via GitHub Copilot CLI as the independent judge. That frozen run remains historical evidence for v1.2.
+
+The current v1.3 operator-runtime change materially modifies BRAIN.md and lifecycle gates, so its behavioral status is **revalidation-required**. The repository deliberately does not project the v1.2 score onto the changed runtime. Structural/local tests can validate implementation mechanics; a fresh independent behavioral run is required before restoring an independent-validation claim.
 
 ## Package layout
 

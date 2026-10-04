@@ -71,7 +71,8 @@
       "exit_evidence": [
         "implementation plan",
         "interfaces/contracts",
-        "migration/data plan when applicable"
+        "migration/data plan when applicable",
+        "applicable approved/enforced Project Constitution rules identified; unresolved convention conflicts remain explicit"
       ]
     },
     {
@@ -81,7 +82,10 @@
       "exit_evidence": [
         "tests mapped to risks",
         "green required suites",
-        "manual/runtime evidence where automation is insufficient"
+        "manual/runtime evidence where automation is insufficient",
+        "verification matrix resolves the dimensions required by the current risk/execution profile",
+        "reality check evidence when user/business/operational behavior materially changed",
+        "pragmatic/over-engineering review when implementation materially increased abstraction or architecture"
       ]
     },
     {
@@ -102,7 +106,8 @@
       "exit_evidence": [
         "reproducible build artifact",
         "migration/preflight evidence",
-        "rollout/recovery plan"
+        "rollout/recovery plan",
+        "production-readiness evidence for EVIDENCE_HEAVY or other production-affecting work"
       ]
     },
     {

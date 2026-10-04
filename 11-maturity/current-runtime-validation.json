@@ -1,0 +1,20 @@
+{
+  "version": "1.0.0",
+  "runtime_version": "1.3.0",
+  "status": "revalidation-required",
+  "reason": "Material operator-runtime change modifies BRAIN.md and lifecycle gates and adds Project Constitution Discovery, risk-derived execution profiles and Verification Matrix.",
+  "last_independent_run": "INDEP-RUN-2026-10-04-02",
+  "last_validated_runtime_version": "1.2.0",
+  "last_validated_runtime_commit": "bb22c203248040ee0b4c5c799f87846dd8d4762b",
+  "historical_evidence": "05-evals/independent-run-v2/judge-results.json",
+  "changed_runtime_surfaces": [
+    "BRAIN.md",
+    "04-gates/quality-gates.json",
+    "00-core/execution-profiles.md",
+    "00-core/operator-front-door.md",
+    "01-governance/project-constitution.md",
+    "07-templates/PROJECT-CONSTITUTION.md",
+    "07-templates/VERIFICATION-MATRIX.md"
+  ],
+  "closure_rule": "Do not claim independently-behaviorally-validated-v2 for the current runtime until a fresh independent run evaluates the v1.3 surfaces."
+}

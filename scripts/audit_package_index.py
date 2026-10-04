@@ -15,7 +15,7 @@ listed=sorted(idx.get('files',[]))
 missing=sorted(set(actual)-set(listed))
 stale=sorted(set(listed)-set(actual))
 errors=[]
-if idx.get('version')!='1.2.0': errors.append(f"index version {idx.get('version')} != 1.2.0")
+if idx.get('version')!='1.3.0': errors.append(f"index version {idx.get('version')} != 1.3.0")
 if missing: errors.append('missing from index: '+', '.join(missing))
 if stale: errors.append('stale index entries: '+', '.join(stale))
 if len(listed)!=len(set(listed)): errors.append('duplicate index entries')

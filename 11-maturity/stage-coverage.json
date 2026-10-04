@@ -1,5 +1,5 @@
 {
-  "version": "1.2.0",
+  "version": "1.3.0",
   "rubric": "deep-structural requires scoped corpus, >=2 evidence anchors, stage-specific decision workflow, canonical artifacts, gate, adversarial eval link, integration path and a substantive stage playbook; behavioral effectiveness requires separate executed evaluation.",
   "stages": [
     {
@@ -31,12 +31,18 @@
         "deep_playbook": true
       },
       "stage_playbook": "06-modules/product-strategy/STAGE-01-PROBLEM-OUTCOME.md",
-      "behavioral_validation": "independently-behaviorally-validated-v2",
-      "behavioral_run_id": "INDEP-RUN-2026-10-04-02",
-      "behavioral_evidence": "05-evals/independent-run-v2/judge-results.json",
-      "behavioral_independent": true,
-      "behavioral_score": 9,
-      "behavioral_hard_fail": false
+      "behavioral_validation": "revalidation-required",
+      "behavioral_run_id": null,
+      "behavioral_evidence": null,
+      "behavioral_independent": null,
+      "behavioral_score": null,
+      "behavioral_hard_fail": null,
+      "last_behavioral_validation": "independently-behaviorally-validated-v2",
+      "last_behavioral_run_id": "INDEP-RUN-2026-10-04-02",
+      "last_behavioral_evidence": "05-evals/independent-run-v2/judge-results.json",
+      "last_behavioral_independent": true,
+      "last_behavioral_score": 9,
+      "last_behavioral_hard_fail": false
     },
     {
       "id": 2,
@@ -67,12 +73,18 @@
         "deep_playbook": true
       },
       "stage_playbook": "06-modules/product-discovery/STAGE-02-DISCOVERY.md",
-      "behavioral_validation": "independently-behaviorally-validated-v2",
-      "behavioral_run_id": "INDEP-RUN-2026-10-04-02",
-      "behavioral_evidence": "05-evals/independent-run-v2/judge-results.json",
-      "behavioral_independent": true,
-      "behavioral_score": 10,
-      "behavioral_hard_fail": false
+      "behavioral_validation": "revalidation-required",
+      "behavioral_run_id": null,
+      "behavioral_evidence": null,
+      "behavioral_independent": null,
+      "behavioral_score": null,
+      "behavioral_hard_fail": null,
+      "last_behavioral_validation": "independently-behaviorally-validated-v2",
+      "last_behavioral_run_id": "INDEP-RUN-2026-10-04-02",
+      "last_behavioral_evidence": "05-evals/independent-run-v2/judge-results.json",
+      "last_behavioral_independent": true,
+      "last_behavioral_score": 10,
+      "last_behavioral_hard_fail": false
     },
     {
       "id": 3,
@@ -103,12 +115,18 @@
         "deep_playbook": true
       },
       "stage_playbook": "06-modules/domain/STAGE-03-DOMAIN-DISCOVERY.md",
-      "behavioral_validation": "independently-behaviorally-validated-v2",
-      "behavioral_run_id": "INDEP-RUN-2026-10-04-02",
-      "behavioral_evidence": "05-evals/independent-run-v2/judge-results.json",
-      "behavioral_independent": true,
-      "behavioral_score": 10,
-      "behavioral_hard_fail": false
+      "behavioral_validation": "revalidation-required",
+      "behavioral_run_id": null,
+      "behavioral_evidence": null,
+      "behavioral_independent": null,
+      "behavioral_score": null,
+      "behavioral_hard_fail": null,
+      "last_behavioral_validation": "independently-behaviorally-validated-v2",
+      "last_behavioral_run_id": "INDEP-RUN-2026-10-04-02",
+      "last_behavioral_evidence": "05-evals/independent-run-v2/judge-results.json",
+      "last_behavioral_independent": true,
+      "last_behavioral_score": 10,
+      "last_behavioral_hard_fail": false
     },
     {
       "id": 4,
@@ -140,18 +158,24 @@
         "deep_playbook": true
       },
       "stage_playbook": "06-modules/requirements/STAGE-04-REQUIREMENTS.md",
-      "behavioral_validation": "independently-behaviorally-validated-v2",
-      "behavioral_run_id": "INDEP-RUN-2026-10-04-02",
-      "behavioral_evidence": "05-evals/independent-run-v2/judge-results.json",
-      "behavioral_independent": true,
-      "behavioral_score": 9,
-      "behavioral_hard_fail": false,
+      "behavioral_validation": "revalidation-required",
+      "behavioral_run_id": null,
+      "behavioral_evidence": null,
+      "behavioral_independent": null,
+      "behavioral_score": null,
+      "behavioral_hard_fail": null,
       "behavioral_focus_evidence": {
         "case_id": "V2-LC-ATDD",
         "score": 9,
         "hard_fail": false,
         "evidence": "05-evals/independent-run-v2/judge-results.json"
-      }
+      },
+      "last_behavioral_validation": "independently-behaviorally-validated-v2",
+      "last_behavioral_run_id": "INDEP-RUN-2026-10-04-02",
+      "last_behavioral_evidence": "05-evals/independent-run-v2/judge-results.json",
+      "last_behavioral_independent": true,
+      "last_behavioral_score": 9,
+      "last_behavioral_hard_fail": false
     },
     {
       "id": 5,
@@ -182,12 +206,18 @@
         "deep_playbook": true
       },
       "stage_playbook": "06-modules/domain/STAGE-05-DOMAIN-ARCHITECTURE.md",
-      "behavioral_validation": "independently-behaviorally-validated-v2",
-      "behavioral_run_id": "INDEP-RUN-2026-10-04-02",
-      "behavioral_evidence": "05-evals/independent-run-v2/judge-results.json",
-      "behavioral_independent": true,
-      "behavioral_score": 10,
-      "behavioral_hard_fail": false
+      "behavioral_validation": "revalidation-required",
+      "behavioral_run_id": null,
+      "behavioral_evidence": null,
+      "behavioral_independent": null,
+      "behavioral_score": null,
+      "behavioral_hard_fail": null,
+      "last_behavioral_validation": "independently-behaviorally-validated-v2",
+      "last_behavioral_run_id": "INDEP-RUN-2026-10-04-02",
+      "last_behavioral_evidence": "05-evals/independent-run-v2/judge-results.json",
+      "last_behavioral_independent": true,
+      "last_behavioral_score": 10,
+      "last_behavioral_hard_fail": false
     },
     {
       "id": 6,
@@ -218,12 +248,18 @@
         "deep_playbook": true
       },
       "stage_playbook": "06-modules/system-architecture/STAGE-06-SYSTEM-ARCHITECTURE.md",
-      "behavioral_validation": "independently-behaviorally-validated-v2",
-      "behavioral_run_id": "INDEP-RUN-2026-10-04-02",
-      "behavioral_evidence": "05-evals/independent-run-v2/judge-results.json",
-      "behavioral_independent": true,
-      "behavioral_score": 10,
-      "behavioral_hard_fail": false
+      "behavioral_validation": "revalidation-required",
+      "behavioral_run_id": null,
+      "behavioral_evidence": null,
+      "behavioral_independent": null,
+      "behavioral_score": null,
+      "behavioral_hard_fail": null,
+      "last_behavioral_validation": "independently-behaviorally-validated-v2",
+      "last_behavioral_run_id": "INDEP-RUN-2026-10-04-02",
+      "last_behavioral_evidence": "05-evals/independent-run-v2/judge-results.json",
+      "last_behavioral_independent": true,
+      "last_behavioral_score": 10,
+      "last_behavioral_hard_fail": false
     },
     {
       "id": 7,
@@ -254,12 +290,18 @@
         "deep_playbook": true
       },
       "stage_playbook": "06-modules/experience/STAGE-07-UX-ARCHITECTURE.md",
-      "behavioral_validation": "independently-behaviorally-validated-v2",
-      "behavioral_run_id": "INDEP-RUN-2026-10-04-02",
-      "behavioral_evidence": "05-evals/independent-run-v2/judge-results.json",
-      "behavioral_independent": true,
-      "behavioral_score": 10,
-      "behavioral_hard_fail": false
+      "behavioral_validation": "revalidation-required",
+      "behavioral_run_id": null,
+      "behavioral_evidence": null,
+      "behavioral_independent": null,
+      "behavioral_score": null,
+      "behavioral_hard_fail": null,
+      "last_behavioral_validation": "independently-behaviorally-validated-v2",
+      "last_behavioral_run_id": "INDEP-RUN-2026-10-04-02",
+      "last_behavioral_evidence": "05-evals/independent-run-v2/judge-results.json",
+      "last_behavioral_independent": true,
+      "last_behavioral_score": 10,
+      "last_behavioral_hard_fail": false
     },
     {
       "id": 8,
@@ -290,12 +332,18 @@
         "deep_playbook": true
       },
       "stage_playbook": "06-modules/experience/STAGE-08-INTERACTION-DESIGN.md",
-      "behavioral_validation": "independently-behaviorally-validated-v2",
-      "behavioral_run_id": "INDEP-RUN-2026-10-04-02",
-      "behavioral_evidence": "05-evals/independent-run-v2/judge-results.json",
-      "behavioral_independent": true,
-      "behavioral_score": 10,
-      "behavioral_hard_fail": false
+      "behavioral_validation": "revalidation-required",
+      "behavioral_run_id": null,
+      "behavioral_evidence": null,
+      "behavioral_independent": null,
+      "behavioral_score": null,
+      "behavioral_hard_fail": null,
+      "last_behavioral_validation": "independently-behaviorally-validated-v2",
+      "last_behavioral_run_id": "INDEP-RUN-2026-10-04-02",
+      "last_behavioral_evidence": "05-evals/independent-run-v2/judge-results.json",
+      "last_behavioral_independent": true,
+      "last_behavioral_score": 10,
+      "last_behavioral_hard_fail": false
     },
     {
       "id": 9,
@@ -327,12 +375,18 @@
         "deep_playbook": true
       },
       "stage_playbook": "06-modules/experience/STAGE-09-ACCESSIBILITY.md",
-      "behavioral_validation": "independently-behaviorally-validated-v2",
-      "behavioral_run_id": "INDEP-RUN-2026-10-04-02",
-      "behavioral_evidence": "05-evals/independent-run-v2/judge-results.json",
-      "behavioral_independent": true,
-      "behavioral_score": 9,
-      "behavioral_hard_fail": false
+      "behavioral_validation": "revalidation-required",
+      "behavioral_run_id": null,
+      "behavioral_evidence": null,
+      "behavioral_independent": null,
+      "behavioral_score": null,
+      "behavioral_hard_fail": null,
+      "last_behavioral_validation": "independently-behaviorally-validated-v2",
+      "last_behavioral_run_id": "INDEP-RUN-2026-10-04-02",
+      "last_behavioral_evidence": "05-evals/independent-run-v2/judge-results.json",
+      "last_behavioral_independent": true,
+      "last_behavioral_score": 9,
+      "last_behavioral_hard_fail": false
     },
     {
       "id": 10,
@@ -363,12 +417,18 @@
         "deep_playbook": true
       },
       "stage_playbook": "06-modules/experience/STAGE-10-VISUAL-UI.md",
-      "behavioral_validation": "independently-behaviorally-validated-v2",
-      "behavioral_run_id": "INDEP-RUN-2026-10-04-02",
-      "behavioral_evidence": "05-evals/independent-run-v2/judge-results.json",
-      "behavioral_independent": true,
-      "behavioral_score": 9,
-      "behavioral_hard_fail": false
+      "behavioral_validation": "revalidation-required",
+      "behavioral_run_id": null,
+      "behavioral_evidence": null,
+      "behavioral_independent": null,
+      "behavioral_score": null,
+      "behavioral_hard_fail": null,
+      "last_behavioral_validation": "independently-behaviorally-validated-v2",
+      "last_behavioral_run_id": "INDEP-RUN-2026-10-04-02",
+      "last_behavioral_evidence": "05-evals/independent-run-v2/judge-results.json",
+      "last_behavioral_independent": true,
+      "last_behavioral_score": 9,
+      "last_behavioral_hard_fail": false
     },
     {
       "id": 11,
@@ -399,12 +459,18 @@
         "deep_playbook": true
       },
       "stage_playbook": "06-modules/experience/STAGE-11-DESIGN-SYSTEM.md",
-      "behavioral_validation": "independently-behaviorally-validated-v2",
-      "behavioral_run_id": "INDEP-RUN-2026-10-04-02",
-      "behavioral_evidence": "05-evals/independent-run-v2/judge-results.json",
-      "behavioral_independent": true,
-      "behavioral_score": 8,
-      "behavioral_hard_fail": false
+      "behavioral_validation": "revalidation-required",
+      "behavioral_run_id": null,
+      "behavioral_evidence": null,
+      "behavioral_independent": null,
+      "behavioral_score": null,
+      "behavioral_hard_fail": null,
+      "last_behavioral_validation": "independently-behaviorally-validated-v2",
+      "last_behavioral_run_id": "INDEP-RUN-2026-10-04-02",
+      "last_behavioral_evidence": "05-evals/independent-run-v2/judge-results.json",
+      "last_behavioral_independent": true,
+      "last_behavioral_score": 8,
+      "last_behavioral_hard_fail": false
     },
     {
       "id": 12,
@@ -435,12 +501,18 @@
         "deep_playbook": true
       },
       "stage_playbook": "06-modules/software-engineering/STAGE-12-FRONTEND-IMPLEMENTATION.md",
-      "behavioral_validation": "independently-behaviorally-validated-v2",
-      "behavioral_run_id": "INDEP-RUN-2026-10-04-02",
-      "behavioral_evidence": "05-evals/independent-run-v2/judge-results.json",
-      "behavioral_independent": true,
-      "behavioral_score": 9,
-      "behavioral_hard_fail": false
+      "behavioral_validation": "revalidation-required",
+      "behavioral_run_id": null,
+      "behavioral_evidence": null,
+      "behavioral_independent": null,
+      "behavioral_score": null,
+      "behavioral_hard_fail": null,
+      "last_behavioral_validation": "independently-behaviorally-validated-v2",
+      "last_behavioral_run_id": "INDEP-RUN-2026-10-04-02",
+      "last_behavioral_evidence": "05-evals/independent-run-v2/judge-results.json",
+      "last_behavioral_independent": true,
+      "last_behavioral_score": 9,
+      "last_behavioral_hard_fail": false
     },
     {
       "id": 13,
@@ -471,12 +543,18 @@
         "deep_playbook": true
       },
       "stage_playbook": "06-modules/software-engineering/STAGE-13-BACKEND-API.md",
-      "behavioral_validation": "independently-behaviorally-validated-v2",
-      "behavioral_run_id": "INDEP-RUN-2026-10-04-02",
-      "behavioral_evidence": "05-evals/independent-run-v2/judge-results.json",
-      "behavioral_independent": true,
-      "behavioral_score": 9,
-      "behavioral_hard_fail": false
+      "behavioral_validation": "revalidation-required",
+      "behavioral_run_id": null,
+      "behavioral_evidence": null,
+      "behavioral_independent": null,
+      "behavioral_score": null,
+      "behavioral_hard_fail": null,
+      "last_behavioral_validation": "independently-behaviorally-validated-v2",
+      "last_behavioral_run_id": "INDEP-RUN-2026-10-04-02",
+      "last_behavioral_evidence": "05-evals/independent-run-v2/judge-results.json",
+      "last_behavioral_independent": true,
+      "last_behavioral_score": 9,
+      "last_behavioral_hard_fail": false
     },
     {
       "id": 14,
@@ -507,12 +585,18 @@
         "deep_playbook": true
       },
       "stage_playbook": "06-modules/software-engineering/STAGE-14-DATABASE-PERSISTENCE.md",
-      "behavioral_validation": "independently-behaviorally-validated-v2",
-      "behavioral_run_id": "INDEP-RUN-2026-10-04-02",
-      "behavioral_evidence": "05-evals/independent-run-v2/judge-results.json",
-      "behavioral_independent": true,
-      "behavioral_score": 10,
-      "behavioral_hard_fail": false
+      "behavioral_validation": "revalidation-required",
+      "behavioral_run_id": null,
+      "behavioral_evidence": null,
+      "behavioral_independent": null,
+      "behavioral_score": null,
+      "behavioral_hard_fail": null,
+      "last_behavioral_validation": "independently-behaviorally-validated-v2",
+      "last_behavioral_run_id": "INDEP-RUN-2026-10-04-02",
+      "last_behavioral_evidence": "05-evals/independent-run-v2/judge-results.json",
+      "last_behavioral_independent": true,
+      "last_behavioral_score": 10,
+      "last_behavioral_hard_fail": false
     },
     {
       "id": 15,
@@ -543,12 +627,18 @@
         "deep_playbook": true
       },
       "stage_playbook": "06-modules/quality-engineering/STAGE-15-TESTING.md",
-      "behavioral_validation": "independently-behaviorally-validated-v2",
-      "behavioral_run_id": "INDEP-RUN-2026-10-04-02",
-      "behavioral_evidence": "05-evals/independent-run-v2/judge-results.json",
-      "behavioral_independent": true,
-      "behavioral_score": 10,
-      "behavioral_hard_fail": false
+      "behavioral_validation": "revalidation-required",
+      "behavioral_run_id": null,
+      "behavioral_evidence": null,
+      "behavioral_independent": null,
+      "behavioral_score": null,
+      "behavioral_hard_fail": null,
+      "last_behavioral_validation": "independently-behaviorally-validated-v2",
+      "last_behavioral_run_id": "INDEP-RUN-2026-10-04-02",
+      "last_behavioral_evidence": "05-evals/independent-run-v2/judge-results.json",
+      "last_behavioral_independent": true,
+      "last_behavioral_score": 10,
+      "last_behavioral_hard_fail": false
     },
     {
       "id": 16,
@@ -579,18 +669,24 @@
         "deep_playbook": true
       },
       "stage_playbook": "06-modules/security-reliability/STAGE-16-SECURITY.md",
-      "behavioral_validation": "independently-behaviorally-validated-v2",
-      "behavioral_run_id": "INDEP-RUN-2026-10-04-02",
-      "behavioral_evidence": "05-evals/independent-run-v2/judge-results.json",
-      "behavioral_independent": true,
-      "behavioral_score": 10,
-      "behavioral_hard_fail": false,
+      "behavioral_validation": "revalidation-required",
+      "behavioral_run_id": null,
+      "behavioral_evidence": null,
+      "behavioral_independent": null,
+      "behavioral_score": null,
+      "behavioral_hard_fail": null,
       "behavioral_focus_evidence": {
         "case_id": "V2-LC-AIGOV",
         "score": 10,
         "hard_fail": false,
         "evidence": "05-evals/independent-run-v2/judge-results.json"
-      }
+      },
+      "last_behavioral_validation": "independently-behaviorally-validated-v2",
+      "last_behavioral_run_id": "INDEP-RUN-2026-10-04-02",
+      "last_behavioral_evidence": "05-evals/independent-run-v2/judge-results.json",
+      "last_behavioral_independent": true,
+      "last_behavioral_score": 10,
+      "last_behavioral_hard_fail": false
     },
     {
       "id": 17,
@@ -621,12 +717,18 @@
         "deep_playbook": true
       },
       "stage_playbook": "06-modules/quality-engineering/STAGE-17-PERFORMANCE.md",
-      "behavioral_validation": "independently-behaviorally-validated-v2",
-      "behavioral_run_id": "INDEP-RUN-2026-10-04-02",
-      "behavioral_evidence": "05-evals/independent-run-v2/judge-results.json",
-      "behavioral_independent": true,
-      "behavioral_score": 10,
-      "behavioral_hard_fail": false
+      "behavioral_validation": "revalidation-required",
+      "behavioral_run_id": null,
+      "behavioral_evidence": null,
+      "behavioral_independent": null,
+      "behavioral_score": null,
+      "behavioral_hard_fail": null,
+      "last_behavioral_validation": "independently-behaviorally-validated-v2",
+      "last_behavioral_run_id": "INDEP-RUN-2026-10-04-02",
+      "last_behavioral_evidence": "05-evals/independent-run-v2/judge-results.json",
+      "last_behavioral_independent": true,
+      "last_behavioral_score": 10,
+      "last_behavioral_hard_fail": false
     },
     {
       "id": 18,
@@ -657,12 +759,18 @@
         "deep_playbook": true
       },
       "stage_playbook": "06-modules/delivery-production/STAGE-18-CI-CD.md",
-      "behavioral_validation": "independently-behaviorally-validated-v2",
-      "behavioral_run_id": "INDEP-RUN-2026-10-04-02",
-      "behavioral_evidence": "05-evals/independent-run-v2/judge-results.json",
-      "behavioral_independent": true,
-      "behavioral_score": 9,
-      "behavioral_hard_fail": false
+      "behavioral_validation": "revalidation-required",
+      "behavioral_run_id": null,
+      "behavioral_evidence": null,
+      "behavioral_independent": null,
+      "behavioral_score": null,
+      "behavioral_hard_fail": null,
+      "last_behavioral_validation": "independently-behaviorally-validated-v2",
+      "last_behavioral_run_id": "INDEP-RUN-2026-10-04-02",
+      "last_behavioral_evidence": "05-evals/independent-run-v2/judge-results.json",
+      "last_behavioral_independent": true,
+      "last_behavioral_score": 9,
+      "last_behavioral_hard_fail": false
     },
     {
       "id": 19,
@@ -693,12 +801,18 @@
         "deep_playbook": true
       },
       "stage_playbook": "06-modules/delivery-production/STAGE-19-DEPLOYMENT-ROLLOUT.md",
-      "behavioral_validation": "independently-behaviorally-validated-v2",
-      "behavioral_run_id": "INDEP-RUN-2026-10-04-02",
-      "behavioral_evidence": "05-evals/independent-run-v2/judge-results.json",
-      "behavioral_independent": true,
-      "behavioral_score": 10,
-      "behavioral_hard_fail": false
+      "behavioral_validation": "revalidation-required",
+      "behavioral_run_id": null,
+      "behavioral_evidence": null,
+      "behavioral_independent": null,
+      "behavioral_score": null,
+      "behavioral_hard_fail": null,
+      "last_behavioral_validation": "independently-behaviorally-validated-v2",
+      "last_behavioral_run_id": "INDEP-RUN-2026-10-04-02",
+      "last_behavioral_evidence": "05-evals/independent-run-v2/judge-results.json",
+      "last_behavioral_independent": true,
+      "last_behavioral_score": 10,
+      "last_behavioral_hard_fail": false
     },
     {
       "id": 20,
@@ -730,12 +844,18 @@
         "deep_playbook": true
       },
       "stage_playbook": "06-modules/security-reliability/STAGE-20-OBSERVABILITY.md",
-      "behavioral_validation": "independently-behaviorally-validated-v2",
-      "behavioral_run_id": "INDEP-RUN-2026-10-04-02",
-      "behavioral_evidence": "05-evals/independent-run-v2/judge-results.json",
-      "behavioral_independent": true,
-      "behavioral_score": 10,
-      "behavioral_hard_fail": false
+      "behavioral_validation": "revalidation-required",
+      "behavioral_run_id": null,
+      "behavioral_evidence": null,
+      "behavioral_independent": null,
+      "behavioral_score": null,
+      "behavioral_hard_fail": null,
+      "last_behavioral_validation": "independently-behaviorally-validated-v2",
+      "last_behavioral_run_id": "INDEP-RUN-2026-10-04-02",
+      "last_behavioral_evidence": "05-evals/independent-run-v2/judge-results.json",
+      "last_behavioral_independent": true,
+      "last_behavioral_score": 10,
+      "last_behavioral_hard_fail": false
     },
     {
       "id": 21,
@@ -767,12 +887,18 @@
         "deep_playbook": true
       },
       "stage_playbook": "06-modules/security-reliability/STAGE-21-BACKUP-DR-INCIDENTS.md",
-      "behavioral_validation": "independently-behaviorally-validated-v2",
-      "behavioral_run_id": "INDEP-RUN-2026-10-04-02",
-      "behavioral_evidence": "05-evals/independent-run-v2/judge-results.json",
-      "behavioral_independent": true,
-      "behavioral_score": 10,
-      "behavioral_hard_fail": false
+      "behavioral_validation": "revalidation-required",
+      "behavioral_run_id": null,
+      "behavioral_evidence": null,
+      "behavioral_independent": null,
+      "behavioral_score": null,
+      "behavioral_hard_fail": null,
+      "last_behavioral_validation": "independently-behaviorally-validated-v2",
+      "last_behavioral_run_id": "INDEP-RUN-2026-10-04-02",
+      "last_behavioral_evidence": "05-evals/independent-run-v2/judge-results.json",
+      "last_behavioral_independent": true,
+      "last_behavioral_score": 10,
+      "last_behavioral_hard_fail": false
     },
     {
       "id": 22,
@@ -804,12 +930,18 @@
         "deep_playbook": true
       },
       "stage_playbook": "06-modules/product-intelligence/STAGE-22-PRODUCT-ANALYTICS.md",
-      "behavioral_validation": "independently-behaviorally-validated-v2",
-      "behavioral_run_id": "INDEP-RUN-2026-10-04-02",
-      "behavioral_evidence": "05-evals/independent-run-v2/judge-results.json",
-      "behavioral_independent": true,
-      "behavioral_score": 9,
-      "behavioral_hard_fail": false
+      "behavioral_validation": "revalidation-required",
+      "behavioral_run_id": null,
+      "behavioral_evidence": null,
+      "behavioral_independent": null,
+      "behavioral_score": null,
+      "behavioral_hard_fail": null,
+      "last_behavioral_validation": "independently-behaviorally-validated-v2",
+      "last_behavioral_run_id": "INDEP-RUN-2026-10-04-02",
+      "last_behavioral_evidence": "05-evals/independent-run-v2/judge-results.json",
+      "last_behavioral_independent": true,
+      "last_behavioral_score": 9,
+      "last_behavioral_hard_fail": false
     },
     {
       "id": 23,
@@ -840,12 +972,18 @@
         "deep_playbook": true
       },
       "stage_playbook": "06-modules/product-intelligence/STAGE-23-EXPERIMENTATION.md",
-      "behavioral_validation": "independently-behaviorally-validated-v2",
-      "behavioral_run_id": "INDEP-RUN-2026-10-04-02",
-      "behavioral_evidence": "05-evals/independent-run-v2/judge-results.json",
-      "behavioral_independent": true,
-      "behavioral_score": 9,
-      "behavioral_hard_fail": false
+      "behavioral_validation": "revalidation-required",
+      "behavioral_run_id": null,
+      "behavioral_evidence": null,
+      "behavioral_independent": null,
+      "behavioral_score": null,
+      "behavioral_hard_fail": null,
+      "last_behavioral_validation": "independently-behaviorally-validated-v2",
+      "last_behavioral_run_id": "INDEP-RUN-2026-10-04-02",
+      "last_behavioral_evidence": "05-evals/independent-run-v2/judge-results.json",
+      "last_behavioral_independent": true,
+      "last_behavioral_score": 9,
+      "last_behavioral_hard_fail": false
     },
     {
       "id": 24,
@@ -876,18 +1014,24 @@
         "deep_playbook": true
       },
       "stage_playbook": "06-modules/product-intelligence/STAGE-24-FEEDBACK-NEXT-ITERATION.md",
-      "behavioral_validation": "independently-behaviorally-validated-v2",
-      "behavioral_run_id": "INDEP-RUN-2026-10-04-02",
-      "behavioral_evidence": "05-evals/independent-run-v2/judge-results.json",
-      "behavioral_independent": true,
-      "behavioral_score": 10,
-      "behavioral_hard_fail": false,
+      "behavioral_validation": "revalidation-required",
+      "behavioral_run_id": null,
+      "behavioral_evidence": null,
+      "behavioral_independent": null,
+      "behavioral_score": null,
+      "behavioral_hard_fail": null,
       "behavioral_focus_evidence": {
         "case_id": "V2-LC-PROD",
         "score": 10,
         "hard_fail": false,
         "evidence": "05-evals/independent-run-v2/judge-results.json"
-      }
+      },
+      "last_behavioral_validation": "independently-behaviorally-validated-v2",
+      "last_behavioral_run_id": "INDEP-RUN-2026-10-04-02",
+      "last_behavioral_evidence": "05-evals/independent-run-v2/judge-results.json",
+      "last_behavioral_independent": true,
+      "last_behavioral_score": 10,
+      "last_behavioral_hard_fail": false
     },
     {
       "id": 25,
@@ -918,12 +1062,18 @@
         "deep_playbook": true
       },
       "stage_playbook": "06-modules/knowledge-governance/STAGE-25-KNOWLEDGE-GOVERNANCE.md",
-      "behavioral_validation": "independently-behaviorally-validated-v2",
-      "behavioral_run_id": "INDEP-RUN-2026-10-04-02",
-      "behavioral_evidence": "05-evals/independent-run-v2/judge-results.json",
-      "behavioral_independent": true,
-      "behavioral_score": 10,
-      "behavioral_hard_fail": false
+      "behavioral_validation": "revalidation-required",
+      "behavioral_run_id": null,
+      "behavioral_evidence": null,
+      "behavioral_independent": null,
+      "behavioral_score": null,
+      "behavioral_hard_fail": null,
+      "last_behavioral_validation": "independently-behaviorally-validated-v2",
+      "last_behavioral_run_id": "INDEP-RUN-2026-10-04-02",
+      "last_behavioral_evidence": "05-evals/independent-run-v2/judge-results.json",
+      "last_behavioral_independent": true,
+      "last_behavioral_score": 10,
+      "last_behavioral_hard_fail": false
     }
   ]
 }

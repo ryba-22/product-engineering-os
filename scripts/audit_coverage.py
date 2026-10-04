@@ -30,12 +30,17 @@ for s in cov['stages']:
         if section not in text: errors.append(f"stage {s['id']} missing section {section}")
     for eid in s.get('evidence_ids',[]):
         if eid not in text: errors.append(f"stage {s['id']} playbook does not declare {eid}")
-    if s.get('behavioral_validation') not in {'pending-independent-eval','executed','executed-self-assessed','independently-behaviorally-validated-v1','independently-behaviorally-validated-v2'}:
+    if s.get('behavioral_validation') not in {'pending-independent-eval','executed','executed-self-assessed','independently-behaviorally-validated-v1','independently-behaviorally-validated-v2','revalidation-required'}:
         errors.append(f"stage {s['id']} invalid behavioral_validation")
     if s.get('behavioral_validation') == 'executed-self-assessed':
         ev=ROOT/s.get('behavioral_evidence','')
         if not ev.exists(): errors.append(f"stage {s['id']} missing behavioral evidence file {ev}")
         if s.get('behavioral_independent') is not False: errors.append(f"stage {s['id']} self-assessed run must set behavioral_independent=false")
+    if s.get('behavioral_validation') == 'revalidation-required':
+        if s.get('behavioral_run_id') is not None or s.get('behavioral_evidence') is not None:
+            errors.append(f"stage {s['id']} revalidation-required must not expose current run/evidence")
+        if not s.get('last_behavioral_run_id') or not s.get('last_behavioral_evidence'):
+            errors.append(f"stage {s['id']} revalidation-required missing historical evidence pointer")
     if s.get('behavioral_validation','').startswith('independently-behaviorally-validated-v'):
         ev=ROOT/s.get('behavioral_evidence','')
         if not ev.exists(): errors.append(f"stage {s['id']} missing independent behavioral evidence file {ev}")

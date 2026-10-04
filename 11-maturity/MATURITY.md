@@ -53,3 +53,10 @@ The runtime/playbooks were hardened while the frozen scenarios and judge rubric 
 Final result: **28/28 PASS, 0 hard failures, average 9.57/10**. Focused v1.2 cases scored ATDD 9/10, AI governance 10/10 and Production Learning 10/10. The first-round failures, remediation, round-2 outputs, provenance and weakness backlog remain stored under `05-evals/independent-run-v2/`.
 
 This supports the scoped maturity status **`independently-behaviorally-validated-v2`** for the frozen 28-case suite. It does not prove universal product-engineering competence, correctness on unseen distributions, or production correctness of downstream systems. Material future runtime changes reopen the need for revalidation.
+
+
+## v1.3 operator runtime - current evidence boundary
+
+v1.3 adds Project Constitution Discovery, risk-derived FAST / STANDARD / EVIDENCE_HEAVY execution profiles, an operator front door and a risk-proportional Verification Matrix. These changes materially alter BRAIN.md and lifecycle gates.
+
+Therefore the current runtime status is **revalidation-required**. INDEP-RUN-2026-10-04-02 remains valid historical evidence for the exact frozen v1.2 runtime and is audited against its recorded Git commit; it is not evidence that the changed v1.3 runtime behaves correctly. A fresh independent executor/judge run is the exit condition for restoring an independent behavioral-validation claim.

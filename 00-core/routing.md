@@ -53,3 +53,10 @@ Re-route when evidence exposes a different owner question. Examples:
 A routed stage closes only when its exit criteria are satisfied or an explicit blocker is recorded. Do not keep the module “active” because more reading is possible. Do not silently carry unresolved questions into implementation; attach an owner and next route.
 
 The canonical route is therefore dynamic: `OUTCOME → RISK → MISSING EVIDENCE → OWNER MODULE → STAGE PLAYBOOK → GATE → NEXT DECISION`.
+
+
+## Operator entrypoint and execution profile
+
+For new work, use operator-front-door.md before selecting a lane or stage when the operator has supplied only a problem/outcome. After R0-R4 classification, derive FAST / STANDARD / EVIDENCE_HEAVY from execution-profiles.md.
+
+The profile changes evidence and verification burden; it does not bypass module ownership, hard constraints or executable guarantees.
