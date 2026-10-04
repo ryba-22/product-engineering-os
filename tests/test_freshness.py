@@ -6,7 +6,7 @@ import sys
 ROOT = Path(__file__).resolve().parents[1]
 
 def test_optional_integrations_are_reported_without_failing_default_audit():
-    result = subprocess.run([sys.executable, str(ROOT / "scripts/audit_freshness.py"), "--as-of", "2026-10-02"], capture_output=True, text=True)
+    result = subprocess.run([sys.executable, str(ROOT / "scripts/audit_freshness.py"), "--as-of", "2026-10-04"], capture_output=True, text=True)
     assert result.returncode == 0, result.stdout + result.stderr
     assert "OPTIONAL/NOT CONNECTED:" in result.stdout
 
