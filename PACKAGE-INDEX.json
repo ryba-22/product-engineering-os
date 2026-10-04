@@ -190,6 +190,7 @@
     "LICENSE",
     "PACKAGE-INDEX.json",
     "README.md",
+    "RUNBOOK.md",
     "examples/idempotent-enrollment/EVALUATION.md",
     "examples/idempotent-enrollment/README.md",
     "examples/idempotent-enrollment/enrollment.py",
