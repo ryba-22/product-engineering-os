@@ -30,7 +30,9 @@
       "exit_evidence": [
         "domain evidence bank",
         "language/events/rules",
-        "hotspots and unresolved hypotheses"
+        "hotspots and unresolved hypotheses",
+        "invariant ownership / consistency / enforcement evidence for material rules",
+        "falsification or unresolved counter-models for material domain hypotheses"
       ]
     },
     {
@@ -50,7 +52,9 @@
       "exit_evidence": [
         "architecture decision records",
         "context/runtime/deployment view as needed",
-        "quality/failure analysis"
+        "quality/failure analysis",
+        "concurrency/failure model for consequential mutations",
+        "complexity investment rationale for added architectural mechanisms"
       ]
     },
     {
@@ -80,7 +84,8 @@
       "exit_evidence": [
         "tests mapped to risks",
         "green required suites",
-        "manual/runtime evidence where automation is insufficient"
+        "manual/runtime evidence where automation is insufficient",
+        "verification budget proportional to semantic risk and human-ownership boundaries"
       ]
     },
     {

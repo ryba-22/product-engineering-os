@@ -15,6 +15,10 @@ For each feature/change identify:
 
 Prioritize cases where consequence is high and failure may be silent.
 
+## Verification budget
+
+Allocate human review by semantic risk, not diff size. Mechanical/cosmetic work can rely heavily on agents and automated checks. Business invariants, ownership boundaries, concurrency/idempotency semantics, authorization/privacy boundaries and consequential residual-risk acceptance require explicit human review. For each material risk record what can be delegated, what remains human-owned, the required evidence layer and known blind spots.
+
 ## Evidence layer selection
 
 Choose the lowest layer that can honestly exercise the failure mechanism.

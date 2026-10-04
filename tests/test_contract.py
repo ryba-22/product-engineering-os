@@ -6,6 +6,7 @@ ROOT = Path(__file__).resolve().parents[1]
 REQUIRED = [
     'README.md','BRAIN.md','manifest.json',
     '00-core/lifecycle.md','00-core/operating-profile.md','00-core/risk-model.md','00-core/routing.md',
+    '00-core/engineering-control-loop.md','07-templates/ENGINEERING-CONTROL-LOOP.md',
     '01-governance/source-registry.json','01-governance/knowledge-lifecycle.md',
     '02-evidence/evidence.schema.json','02-evidence/evidence-ledger.json',
     '03-decisions/decision-record.schema.json','03-decisions/DECISION-RECORD-TEMPLATE.md',
@@ -73,3 +74,20 @@ def test_source_registry_has_multi_domain_authority():
     for required in ['product','research','architecture','security','reliability','delivery','api','ux']:
         assert required in domains
     assert len(data['sources']) >= 20
+
+
+def test_engineering_control_loop_covers_cross_cutting_risk_contract():
+    text = (ROOT/'00-core'/'engineering-control-loop.md').read_text().lower()
+    for phrase in [
+        'falsification / unknown-unknown',
+        'invariant + consistency + enforcement',
+        'concurrency and failure model',
+        'verification budget',
+        'architecture economics',
+        'consumer-oriented contract',
+        'production learning closure',
+    ]:
+        assert phrase in text
+    brain = (ROOT/'BRAIN.md').read_text().lower()
+    assert 'engineering-control-loop.md' in brain
+    assert 'human ownership rule' in brain

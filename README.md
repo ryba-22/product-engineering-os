@@ -28,9 +28,10 @@ Passing a structural check does not prove production health or product success. 
 2. State the desired outcome, scope, constraints and acceptance criteria.
 3. Classify risk using [00-core/risk-model.md](00-core/risk-model.md).
 4. Select only the modules you need using [00-core/routing.md](00-core/routing.md).
-5. Copy the relevant templates into your project and record evidence and decisions.
-6. Execute the smallest useful step, verify it and collect the evidence required by the next quality gate.
-7. For production work, review release health and outcome measures before claiming success.
+5. For R2–R4 or consequential changes, apply [00-core/engineering-control-loop.md](00-core/engineering-control-loop.md): falsify the model; map invariants, consistency and enforcement; model concurrency/failure; allocate verification effort; justify complexity.
+6. Copy the relevant templates into your project and record evidence and decisions. Use [07-templates/ENGINEERING-CONTROL-LOOP.md](07-templates/ENGINEERING-CONTROL-LOOP.md) when the control loop is triggered.
+7. Execute the smallest useful step, verify it and collect the evidence required by the next quality gate.
+8. For production work, compare expected vs observed behavior before claiming success and feed learning back into the model.
 
 Stop researching once additional research is unlikely to change the decision. Use reversible experiments to resolve remaining uncertainty when appropriate.
 

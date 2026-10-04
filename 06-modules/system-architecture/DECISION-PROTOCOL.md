@@ -29,6 +29,8 @@ For a material decision generate at least:
 2. the leading alternative;
 3. optionally a structurally different option when the trade-off space is unclear.
 
+Before option selection, apply the Engineering Control Loop when triggered. In particular, do not compare architecture options until critical invariant enforcement, concurrency/failure windows and human-owned semantic decisions are visible.
+
 Compare options on:
 - correctness/invariant fit;
 - coupling and change autonomy;
@@ -42,6 +44,10 @@ Compare options on:
 - cognitive complexity.
 
 Avoid weighted score theater when the weights are arbitrary. Use narrative trade-offs plus hard constraints and disqualifiers.
+
+## Complexity investment check
+
+Before adding a service, queue, cache, datastore, orchestration layer, AI model or agent capability, classify the need as commodity/reuse, differentiator, deterministic core, probabilistic assistance or irreversible complexity. Every added mechanism must improve a named driver enough to justify its operational, cognitive and verification cost. Escalate to a more expensive/capable model only when the expected reduction in decision/execution error is worth the cost.
 
 ## Runtime and failure analysis
 

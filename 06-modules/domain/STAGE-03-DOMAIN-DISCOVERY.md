@@ -31,7 +31,8 @@ Validated product outcomes and scenarios, domain experts or authoritative operat
 7. **Build the ubiquitous language.** Define terms with examples and counterexamples.
 8. **Compare candidate boundaries.** Challenge them using language cohesion, invariant ownership, temporal rules, data ownership, change coupling and operational autonomy.
 9. **Separate evidence from hypothesis.** Proposed context boundaries remain hypotheses until challenged by scenarios.
-10. **Record open domain questions.** Do not “resolve” uncertainty through implementation convenience.
+10. **Run a falsification pass.** Name a credible counter-model and at least one scenario, exception or observation that could disprove the leading model or reveal an unknown unknown.
+11. **Record open domain questions.** Do not “resolve” uncertainty through implementation convenience.
 
 ## Decision rules
 - Database tables, menu sections and organizational charts are evidence inputs, not automatic bounded contexts.

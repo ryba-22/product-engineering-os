@@ -24,8 +24,9 @@ Domain Discovery event map, glossary, invariants, candidate contexts, temporal r
 ## Workflow
 1. **Re-test candidate contexts.** Use real scenarios and exceptions, not abstract nouns.
 2. **Assign mutation ownership.** Every critical state transition must have one authoritative owner.
-3. **Map invariants to consistency needs.** Decide what must be atomically true and what can converge asynchronously.
-4. **Define context relationships.** Record published language, translation, dependency direction and tolerated coupling.
+3. **Map invariants to consistency and enforcement.** For every material invariant name its semantic owner, authoritative source of truth, atomic/eventual/reconciled consistency need, enforcement layers, violation detection, evidence and recovery path. Use `00-core/engineering-control-loop.md` for the cross-cutting contract.
+4. **Model concurrency windows.** For critical mutations identify competing writers, stale-read/lost-update risk, retries/duplicates, partial failure and the mechanism that protects the named guarantee.
+5. **Define context relationships.** Record published language, translation, dependency direction and tolerated coupling.
 5. **Design aggregates from invariants.** Keep them as small as possible while protecting required consistency.
 6. **Model identity and lifecycle.** Separate stable identity from mutable attributes and define valid transitions.
 7. **Model temporal semantics.** Specify effective time, event time, scheduling and historical correction where business rules depend on time.

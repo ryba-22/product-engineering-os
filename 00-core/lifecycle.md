@@ -48,6 +48,10 @@ These are evidence states, not project-phase labels.
 
 The OS must not collapse these states. Implementation does not imply verification; deployment does not imply health; health does not imply product success.
 
+## Cross-cutting Engineering Control Loop
+
+For R2–R4 work and consequential state changes, lifecycle routing is supplemented by `00-core/engineering-control-loop.md`. Before implementation, the relevant stages must make explicit: falsification/unknown-unknown probes; invariant ownership and enforcement; consistency/concurrency choices; verification budget; complexity investment; and consumer-side guarantees at important system boundaries. This is not a new lifecycle stage: it is a control contract spanning Domain, Requirements, Architecture, Implementation, Quality and Product Intelligence.
+
 ## How stages are selected
 
 Start from the current outcome and risk. Route only stages that own unresolved decision-changing questions. A bug may begin at Stage 15 or 20 rather than Stage 1. A small visual correction may use Stage 10 and 12 only. A new product initiative may traverse many stages.

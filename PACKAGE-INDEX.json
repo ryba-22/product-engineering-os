@@ -4,6 +4,7 @@
   "files": [
     ".github/workflows/validate.yml",
     ".gitignore",
+    "00-core/engineering-control-loop.md",
     "00-core/lifecycle.md",
     "00-core/operating-profile.md",
     "00-core/risk-model.md",
@@ -125,6 +126,7 @@
     "07-templates/API-CONTRACT.md",
     "07-templates/ARCHITECTURE-DRIVERS.md",
     "07-templates/DATA-CHANGE-PLAN.md",
+    "07-templates/ENGINEERING-CONTROL-LOOP.md",
     "07-templates/EXPERIMENT-PLAN.md",
     "07-templates/INCIDENT-RUNBOOK.md",
     "07-templates/METRIC-TREE.md",
@@ -171,6 +173,7 @@
     "scripts/import_pma_registry.py",
     "scripts/validate.py",
     "skills/product-engineering-os/SKILL.md",
+    "skills/product-engineering-os/references/engineering-control-loop.md",
     "skills/product-engineering-os/references/module-map.md",
     "skills/product-engineering-os/references/runtime.md",
     "skills/product-engineering-os/references/stages/STAGE-01-PROBLEM-OUTCOME.md",
