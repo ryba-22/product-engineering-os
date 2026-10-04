@@ -1,0 +1,43 @@
+{
+  "round": 2,
+  "session_id": "6263452b-eb45-4482-9281-6f1977be1a38",
+  "reported_models": [
+    "claude-opus-5-5"
+  ],
+  "cost_usd": 0.332652,
+  "usage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 12788,
+    "cache_read_input_tokens": 0,
+    "output_tokens": 11517,
+    "output_tokens_details": {
+      "thinking_tokens": 3527
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 12788,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 11517,
+        "cache_read_input_tokens": 0,
+        "cache_creation_input_tokens": 12788,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 12788
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard",
+    "fallback_credit": null
+  },
+  "runtime_commit": "bb22c203248040ee0b4c5c799f87846dd8d4762b"
+}

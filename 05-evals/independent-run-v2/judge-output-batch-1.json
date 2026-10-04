@@ -1,0 +1,85 @@
+{
+  "run_id": "INDEP-RUN-2026-10-04-02",
+  "judge": {
+    "provider": "Microsoft via GitHub Copilot",
+    "model": "mai-code-1.1-flash",
+    "notes": "Independent blinded judge; prior v1 judge results and self-assessments not supplied."
+  },
+  "cases": [
+    {
+      "id": "ADV-S01",
+      "stage_id": 1,
+      "scores": {
+        "decision_correctness": 4,
+        "evidence_scope": 1,
+        "risk_and_constraints": 1,
+        "execution_closure": 1,
+        "verification": 1,
+        "traceability": 1
+      },
+      "total": 9,
+      "must_do_missing": [],
+      "must_not_do_violations": [],
+      "hard_fail": false,
+      "pass": true,
+      "rationale": "Separates the requested dashboard from the missed-exception problem, defines an observable outcome and candidate success signals without inventing baselines, surfaces constraints and risks, and routes decision-changing questions to Discovery with a stop condition and owner. G0 remains explicitly unpassed; verification is marked planned, not executed. Evidence scope loses a point because child/guardian data and some affected actors are introduced beyond the supplied facts, though largely framed conditionally or as proposed actors."
+    },
+    {
+      "id": "ADV-S02",
+      "stage_id": 2,
+      "scores": {
+        "decision_correctness": 4,
+        "evidence_scope": 2,
+        "risk_and_constraints": 1,
+        "execution_closure": 1,
+        "verification": 1,
+        "traceability": 1
+      },
+      "total": 10,
+      "must_do_missing": [],
+      "must_not_do_violations": [],
+      "hard_fail": false,
+      "pass": true,
+      "rationale": "Rejects the five favorable administrators as a sole sample, centers occasional operators and same-day changes, scopes the support-log claim pending re-analysis, and proposes observation of concrete behavior plus a contrast segment. It avoids hypothetical solution-design questions, defines a decision-based stop condition, and explicitly states that research and verification have not occurred. Owners, evidence-chain synthesis, and handoffs are specified."
+    },
+    {
+      "id": "ADV-S03",
+      "stage_id": 3,
+      "scores": {
+        "decision_correctness": 4,
+        "evidence_scope": 2,
+        "risk_and_constraints": 1,
+        "execution_closure": 1,
+        "verification": 1,
+        "traceability": 1
+      },
+      "total": 10,
+      "must_do_missing": [],
+      "must_not_do_violations": [],
+      "hard_fail": false,
+      "pass": true,
+      "rationale": "Treats the schema and contradictory reports as implementation evidence rather than business policy, distinguishes business time from stored dates, and identifies re-enrollment and membership invariants as hypotheses. It proposes concrete timelines, edge cases, owners, and hotspots without deciding the unknown rules or collapsing membership rows. G2 is explicitly unpassed and all verification is planned rather than claimed."
+    },
+    {
+      "id": "ADV-S04",
+      "stage_id": 4,
+      "scores": {
+        "decision_correctness": 2,
+        "evidence_scope": 1,
+        "risk_and_constraints": 1,
+        "execution_closure": 1,
+        "verification": 1,
+        "traceability": 1
+      },
+      "total": 7,
+      "must_do_missing": [],
+      "must_not_do_violations": [
+        "BR-06 presents retry behavior (retry transient failures; do not retry permanent failures indefinitely) as decision-ready despite no supplied policy establishing it; marking only retry thresholds open does not keep the behavior itself unresolved.",
+        "EX-02 asserts that two differently formatted numbers represent the same number and expects one send while the normalization rule is explicitly open."
+      ],
+      "hard_fail": true,
+      "pass": false,
+      "rationale": "The answer separates Finance eligibility from legacy contact relationships, covers zero amounts, deduplication, approval, failure cases, material privacy/quality constraints, traceability, and avoids prescribing transport. However, it converts unresolved retry and phone-normalization policies into expected behavior, directly violating the instruction not to turn unknown policy into a confirmed rule. This is a material evidence and decision defect; G3 and execution/verification states are otherwise accurately left open."
+    }
+  ]
+}

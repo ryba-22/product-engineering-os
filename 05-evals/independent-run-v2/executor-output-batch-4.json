@@ -1,0 +1,221 @@
+{
+  "run_id": "INDEP-RUN-2026-10-04-02",
+  "executor": {
+    "provider": "Anthropic",
+    "model": "claude-opus-5-5",
+    "notes": "Blinded independent executor; no judge criteria or prior results supplied."
+  },
+  "cases": [
+    {
+      "id": "ADV-S13",
+      "stage_id": 13,
+      "risk_class": "R3: an authenticated, state-mutating GET with no anti-forgery protection. It changes authoritative attendance (presence) records, cross-site requests can trigger it, and retries repeat it. This is an integrity and authorization risk on business records, so it needs a stronger evidence threshold and explicit verification. It is not a documentation task.",
+      "current_outcome": "Presence-list mutation should be a safe, authorized, retry-safe command that cannot be triggered cross-site. Existing UI behavior must keep working during the migration.",
+      "decision": "Reject the 'document only' option. Documenting a mutating GET does not fix its CSRF exposure or retry safety. Stage 13 rules apply: GET must not mutate state, and disabling duplicate clicks on the frontend does not make a command retry-safe. DECIDED contract: (1) Add a command POST /groups/{groupId}/lessons/{lessonId}/presence-refresh. It requires an anti-forgery token (synchronizer or double-submit) plus an Origin/Sec-Fetch-Site same-origin check. (2) Authorization is checked on the server for the capability (for example presence:manage for this group) and for the resource: the lesson must belong to the group and the actor must be scoped to that group. Holding the IDs proves nothing. (3) Retry safety comes from an Idempotency-Key header that is stored with the result, so a replay returns the original result and does not run the mutation again. Semantic idempotency is accepted only if Example Mapping proves the refresh is a pure recompute. (4) Concurrency uses an optimistic version on the presence list (If-Match/expectedVersion), so a refresh cannot silently overwrite concurrent manual edits. (5) The mutation runs in one atomic transaction. Any notifications or other external side effects run after commit through an outbox. (6) Stable error contract: 401 unauthenticated; 403 PRESENCE_FORBIDDEN or CSRF_REJECTED; 404 for a lesson that is not in the group or not visible to the actor; 409 VERSION_CONFLICT; 422 for a business-rule violation such as a locked or closed lesson; 428 for a missing precondition. Each error states whether it is retryable. (7) Audit record: actor, group, lesson, before/after version, change summary, correlation ID. MIGRATION PATH (expand → migrate → contract): Phase 0: add telemetry on the legacy GET (callers, frequency, referrer/Sec-Fetch-Site, error rate) and interim compensating controls on it: a server-side authorization check plus rejection of cross-site requests by Origin/Sec-Fetch-Site. SameSite=Lax alone is not sufficient because it still sends cookies on top-level cross-site GET navigations. Phase 1: ship the POST command with contract tests. Phase 2: move UI callers to the POST behind a flag. Phase 3: once telemetry shows zero legitimate GET usage for an agreed window, make the GET read-only (return the current list) or return 405/410. No date is set because the window and the consumer list are unknown.",
+      "evidence_and_unknowns": [
+        "FACT: GET /group/{id}/Lesson/refresh/{lessonId} mutates the presence list when called with an authenticated cookie.",
+        "FACT: It has no anti-forgery protection, and retries repeat the mutation.",
+        "FACT: The UI depends on the endpoint, and the endpoint has existed for years.",
+        "ASSUMPTION: Session cookies are sent cross-site on top-level navigation, so a link or image or redirect can trigger the mutation. This must be confirmed from the actual cookie SameSite configuration.",
+        "OPEN QUESTION (decision-changing): What exactly does 'refresh' mutate? Does it recompute presence from enrollment and membership, reset manual marks, or append rows? This decides whether semantic idempotency is enough or an idempotency key is required.",
+        "OPEN QUESTION: Are there callers other than the first-party UI, such as integrations, mobile apps, bookmarks or scripts? Phase 0 telemetry answers this; it decides the deprecation window.",
+        "OPEN QUESTION: Which roles may refresh presence, and is that scoped per group or institution? The actor/capability model is not supplied.",
+        "OPEN QUESTION: Does the current GET check that lessonId belongs to group id and that the actor is authorized for that group (possible IDOR)?",
+        "OPEN QUESTION: Are there audit or regulatory requirements on presence changes?",
+        "EXAMPLE MAP (draft, IDs reused in Stage 15): EX-S13-01 authorized coordinator POSTs a refresh with a valid token → list updated, version incremented, audit written. EX-S13-02 same Idempotency-Key replayed after a timeout → same response, no second mutation. EX-S13-03 cross-site request without a valid token → 403 CSRF_REJECTED, no mutation. EX-S13-04 actor without the capability for the group → 403, no mutation. EX-S13-05 lessonId not in groupId → 404, no mutation. EX-S13-06 stale expectedVersion → 409, no mutation. EX-S13-07 legacy GET after cutover → no state change.",
+        "NOTE: The 07-templates/API-CONTRACT.md template is named by the playbook but its content was not supplied. The contract is structured from the Stage 13 workflow instead."
+      ],
+      "actions": [
+        "Run the smallest discovery step: read the current handler and record the actual mutation semantics, any existing authorization checks, and the cookie SameSite settings. This resolves the decision-changing open questions.",
+        "Add Phase 0 telemetry and interim controls to the legacy GET: server-side capability and resource authorization, plus rejection of cross-site requests by Origin/Sec-Fetch-Site.",
+        "Write the API/command contract (an OpenAPI entry where useful) covering semantics, the authorization matrix, validation layers, transaction scope, idempotency, concurrency/version, error model and audit fields.",
+        "Implement POST /groups/{groupId}/lessons/{lessonId}/presence-refresh with the anti-forgery token, idempotency-key store, optimistic version and outbox for any side effects.",
+        "Migrate UI callers to the POST behind a feature flag. Track remaining GET usage.",
+        "Retire the mutating GET (read-only or 405/410) only after telemetry shows zero legitimate usage for the agreed window and consumers have been told."
+      ],
+      "verification": [
+        "PLANNED, NOT EXECUTED. Contract/integration tests for EX-S13-01 to EX-S13-07 against the real persistence layer.",
+        "PLANNED: an adversarial CSRF test. A cross-origin request with a valid session cookie but no token or a foreign Origin must be rejected and must leave state unchanged.",
+        "PLANNED: retry tests. The same Idempotency-Key sent sequentially and concurrently must produce exactly one mutation. A simulated timeout after commit followed by a retry must return the stored result.",
+        "PLANNED: concurrency test. Concurrent refresh and manual edit with stale versions must produce 409, not lost updates.",
+        "PLANNED: authorization matrix tests for each role, plus a cross-group lessonId (IDOR).",
+        "PLANNED: check that the OpenAPI schema matches runtime behavior.",
+        "PLANNED: production observation after cutover. Legacy GET call count trends to zero, and no unexplained 403/409 spikes appear on the new endpoint."
+      ],
+      "handoff": "Stage 14 (persistence) gets: the idempotency-key store, the presence-list version column, and the outbox table if side effects exist. Stage 15 (testing) gets: example IDs EX-S13-01 to EX-S13-07 as test oracles, including the adversarial CSRF, retry and concurrency cases. Stage 16 (security) gets: the CSRF/IDOR threat entries, and any temporary residual risk on the legacy GET for explicit acceptance with an owner. Stage 20 (observability) gets: legacy GET usage telemetry and correlation IDs. Next action owner: a backend engineer on the endpoint, who first runs the handler-semantics discovery step.",
+      "completion_state": "DECIDED: the contract and migration path are decided. The final idempotency mechanism depends on the open question about refresh semantics. Nothing is IMPLEMENTED, TESTED or VERIFIED. G6 is not yet passed because the contract has not been verified for consumers.",
+      "residual_risks": [
+        "The legacy GET is still exploitable via CSRF until the Phase 0 interim controls are deployed. This needs explicit acceptance by an owner or immediate hardening.",
+        "Unknown external consumers of the GET could break at retirement. Telemetry reduces this risk but does not prove there are none.",
+        "If refresh is not semantically idempotent, repeated legacy calls may already have corrupted historical presence data. Whether a data reconciliation is needed is UNVERIFIED.",
+        "Origin/Sec-Fetch-Site checks depend on browser behavior. Old clients that do not send these headers need a defined fallback (deny, or require a token)."
+      ],
+      "references": [
+        "BRAIN.md",
+        "04-gates/quality-gates.json (G3, G6, G7, G8)",
+        "06-modules/software-engineering/STAGE-13-BACKEND-API.md",
+        "06-modules/software-engineering/STAGE-14-DATABASE-PERSISTENCE.md (handoff)",
+        "06-modules/quality-engineering/STAGE-15-TESTING.md (handoff/completion-state guard)",
+        "06-modules/security-reliability/STAGE-16-SECURITY.md (handoff)"
+      ]
+    },
+    {
+      "id": "ADV-S14",
+      "stage_id": 14,
+      "risk_class": "R3: a production schema and data migration on authoritative membership records. Historical meaning and attendance validity are at stake. Mixed application versions will run during rollout, and the data transformation is not cleanly reversible once the DATE columns are contracted.",
+      "current_outcome": "Membership periods become time-aware, so that attendance earlier on the same day as a withdrawal is still valid. Historical rows must keep their original whole-day meaning. Duplicate re-enrollments must not be silently corrupted. Old and new application versions must work during rollout.",
+      "decision": "Reject the direct ALTER with a default-midnight backfill. Converting DATE to a timestamp at 00:00 would make a withdrawal end at the start of its day. That invalidates the same-day attendance this change exists to preserve, and it changes the meaning of every historical row. It also breaks old application versions that read or write DATE, and an in-place ALTER on a large table risks long locks. DECIDED strategy (expand → migrate/backfill → switch → contract): (1) EXPAND: add new nullable columns starts_at and ends_at (timezone-aware timestamp) and period_precision ('DAY' for legacy-derived rows, 'INSTANT' for rows with a real time). Leave the DATE columns in place. This step is additive and safe to roll back. (2) COMPATIBILITY: the new app version dual-writes DATE and the timestamps. A DB trigger, or an equivalent, derives the timestamps for rows written by old versions (DATE only), using the agreed day-boundary rule and precision 'DAY'. (3) BACKFILL: the mapping rule must be confirmed by the domain owner. Proposed: starts_at = start of start_date in the institution's timezone; ends_at = start of the day after end_date (exclusive upper bound), so the whole withdrawal day stays covered; precision = 'DAY'. Run it in resumable, checkpointed, rate-limited batches with progress telemetry. Do not change or delete the DATE columns. (4) DUPLICATES: before any overlap or uniqueness constraint, classify existing duplicate or overlapping re-enrollment rows as exact duplicates, legitimate withdraw-and-re-enroll pairs (including same-day pairs, which overlap under day precision), or ambiguous. Resolution needs a domain decision. Nothing is auto-merged, and a report is produced for review. (5) SWITCH: reads move to the timestamp columns only after a reconciliation query shows zero rows where the derived and stored values disagree, and only after the attendance-validity examples pass. (6) CONTRACT: enforce NOT NULL on starts_at, CHECK (ends_at IS NULL OR ends_at > starts_at), and the overlap rule (for example an exclusion constraint on member+group+period, if confirmed as an invariant). Drop the DATE columns only after all old application versions are retired and a backup/restore point is confirmed. The contract step is forward-fix only. Applied migrations are never edited; corrections go in new migrations.",
+      "evidence_and_unknowns": [
+        "FACT: Membership start/end are DATE columns and must become time-aware.",
+        "FACT: Business rule: same-day attendance before withdrawal must remain valid.",
+        "FACT: Production has historical rows and duplicate re-enrollments.",
+        "FACT: Old application versions may run during rollout.",
+        "FACT (derived from the rule): a midnight default for end dates would end membership before same-day attendance and break the stated rule.",
+        "ASSUMPTION: Historical rows recorded only a day, so their correct meaning is 'whole day', not 'midnight'. The domain owner must confirm this.",
+        "OPEN QUESTION (decision-changing): Which timezone defines a day boundary (institution, group, or UTC)? How is DST handled?",
+        "OPEN QUESTION (decision-changing): Is the legacy end_date inclusive (member through the end of that day)? Is the new ends_at bound inclusive or exclusive?",
+        "OPEN QUESTION (decision-changing): Are duplicate re-enrollments data errors or legitimate re-enrollments? Is 'no overlapping active memberships per member+group' a real invariant? Same-day withdraw/re-enroll pairs at DAY precision would violate it.",
+        "OPEN QUESTION: Table size and write rate. These are needed to size backfill batches and to choose online DDL vs. a lock window.",
+        "OPEN QUESTION: Which app versions read or write the DATE columns, and when will the last old version be retired?",
+        "OPEN QUESTION: Retention and privacy rules for membership history.",
+        "EXAMPLE MAP (draft): EX-S14-01 withdrawal at 14:00 on day D, attendance at 09:00 on D → valid. EX-S14-02 same withdrawal, attendance at 16:00 on D → invalid. EX-S14-03 legacy row end_date=D (DAY precision), attendance at any time on D → valid (historical meaning preserved). EX-S14-04 legacy row end_date=D, attendance on D+1 → invalid. EX-S14-05 old app version inserts a DATE-only membership mid-rollout → timestamps derived with DAY precision. EX-S14-06 a pair of re-enrollments overlapping after derivation → reported, not auto-merged. EX-S14-07 day boundary on a DST transition date → correct local-day coverage.",
+        "NOTE: The 07-templates/DATA-CHANGE-PLAN.md template is named but its content was not supplied. The plan follows the Stage 14 workflow."
+      ],
+      "actions": [
+        "Get domain-owner answers on timezone, inclusive/exclusive semantics and the re-enrollment overlap invariant. These block the final backfill rule.",
+        "Run read-only profiling queries: row counts, the range of start/end dates, the number of duplicate or overlapping pairs by category, and the distribution of null end dates.",
+        "Write the data change plan: expand migration, compatibility trigger, backfill job (batch size, checkpoints, rate limit, progress metrics), reconciliation queries, switch criteria, contract migration, rollback/forward-fix statement for each phase.",
+        "Implement the expand migration and dual-write/trigger. Implement the backfill as a separate, resumable operational job, not inside the schema migration.",
+        "Produce a duplicate-classification report for domain review before any constraint is added.",
+        "Schedule the contract phase only after the old-version retirement evidence and a confirmed restorable backup."
+      ],
+      "verification": [
+        "PLANNED, NOT EXECUTED: migration tests on a production-like anonymized copy with representative volume. Measure lock duration and backfill throughput.",
+        "PLANNED: run EX-S14-01 to EX-S14-07 as executable tests against the real DB engine, before and after the switch.",
+        "PLANNED: mixed-version compatibility test. Old app writes DATE only while the new app reads the timestamps; derived values must be correct.",
+        "PLANNED: reconciliation query showing zero mismatches between DATE columns and derived timestamps for DAY-precision rows; must pass before switching reads.",
+        "PLANNED: a pre-contract check that no rows violate NOT NULL, the CHECK constraint or the overlap rule. Constraints are added only after this passes.",
+        "PLANNED: restore drill confirming the schema and application versions are restorable together around the contract step.",
+        "PLANNED: production observation after the switch. Attendance-validity rejection rate compared with baseline. Unexpected shifts are classified before being treated as code defects."
+      ],
+      "handoff": "Domain owner: the timezone, inclusive/end-bound and overlap-invariant decisions (blocking). Stage 15: migration, compatibility and example tests EX-S14-01 to EX-S14-07, including DST and duplicate cases. Stage 17: lock/runtime and backfill performance at production scale. Stage 19: phased execution of expand, backfill, switch and contract, with go/no-go evidence at each step. Stage 21: restore compatibility before the contract phase. Next action owner: a backend/data engineer for profiling queries and the data change plan.",
+      "completion_state": "DECIDED: the migration strategy (expand/backfill/switch/contract) is decided. The final backfill mapping rule and overlap constraint are BLOCKED on domain-owner answers. Nothing is IMPLEMENTED, TESTED or VERIFIED, and G6 is not passed.",
+      "residual_risks": [
+        "Legacy rows carry only day precision. True intra-day timing for historical withdrawals cannot be recovered, so DAY-precision rows will treat the whole withdrawal day as valid. This is a deliberate trade-off and needs explicit acceptance.",
+        "Same-day re-enrollments may overlap under day precision. The overlap invariant cannot be enforced until these rows are resolved.",
+        "An incorrect timezone choice would shift day boundaries for historical rows. Pre-contract checks catch this only if the examples include affected timezones and DST dates.",
+        "Dropping the DATE columns is irreversible. After the contract phase, recovery depends on backups and forward-fix.",
+        "Duplicate rows may already have distorted downstream reports or billing. Any impact outside this table is UNVERIFIED."
+      ],
+      "references": [
+        "BRAIN.md",
+        "04-gates/quality-gates.json (G2, G3, G6, G9)",
+        "06-modules/software-engineering/STAGE-14-DATABASE-PERSISTENCE.md",
+        "06-modules/quality-engineering/STAGE-15-TESTING.md (handoff)"
+      ]
+    },
+    {
+      "id": "ADV-S15",
+      "stage_id": 15,
+      "risk_class": "R3: a confirmed production defect (duplicate enrollments) that breaks a uniqueness invariant on authoritative business data. The current evidence cannot detect the failure mechanism.",
+      "current_outcome": "Concurrent and retried enrollment submissions should produce exactly one enrollment per uniqueness key. Closing the defect needs evidence that exercises real concurrency.",
+      "decision": "Do not close the defect. A green unit suite and high coverage are not evidence for this risk. Stage 15 rules: coverage is diagnostic, mock-heavy tests cannot prove the integration behavior they bypass, and a test that cannot fail for the intended defect is not meaningful evidence. The current mocked 'insert called once' test passes while production duplicates occur, so it cannot fail for this defect. DECIDED verification strategy: (1) Reproduce first: write an integration test against the same DB engine as production (for example containerized), firing N concurrent enrollment commands for the same key, released together by a barrier. It must FAIL (duplicates) on the current code before any fix counts as verified. (2) The fix must be enforced by persistence: a unique constraint or partial unique index that matches the domain uniqueness key, plus application handling of the constraint violation, which maps to idempotent success with the existing enrollment ID or to a defined 409. Stage 14 rule: check-then-insert cannot replace a database uniqueness constraint. (3) Retry safety: the same request or idempotency key replayed sequentially, concurrently, and after a simulated timeout that happened after commit must leave exactly one row and return a consistent response. (4) An API-level contract test for the duplicate/conflict response. (5) Repeat the concurrency test many times (for example 50 or more iterations) to control flakiness, and make it a deterministic required CI suite. (6) Delete or demote the 'insert called once' mock test as evidence. A unit test may remain for the mapping logic only. (7) Production: a reconciliation query for existing duplicates, plus post-release monitoring that the duplicate count stays at 0 and the conflict rate stays explainable.",
+      "evidence_and_unknowns": [
+        "FACT: Enrollment must be retry-safe and unique under concurrent requests.",
+        "FACT: Production duplicates occurred during simultaneous submissions.",
+        "FACT: Current tests mock the repository and only assert that insert was called once. Coverage is high and the unit suite is green.",
+        "FACT (derived): the green suite did not detect a defect that happened in production, so it is not a valid oracle for this risk.",
+        "ASSUMPTION: The root cause is a check-then-insert race without a DB uniqueness constraint. This is unconfirmed until the code and schema are inspected and the defect is reproduced.",
+        "OPEN QUESTION (decision-changing): What is the domain uniqueness key? Is it member+group, or member+group among active memberships only, given that re-enrollment after withdrawal may be legitimate? This decides between a full and a partial unique index.",
+        "OPEN QUESTION: Does a unique constraint already exist? What are the DB engine and isolation level?",
+        "OPEN QUESTION: Do clients send an idempotency key? What should a duplicate return: the existing enrollment (200/201 idempotent) or 409?",
+        "OPEN QUESTION: How many duplicate rows exist in production, and what downstream effects did they have (attendance, billing)? Existing duplicates will block adding the constraint.",
+        "EXAMPLE MAP (draft): EX-S15-01 two simultaneous submissions for the same key → one row; both callers get a defined result. EX-S15-02 a retry with the same idempotency key after a timeout following commit → one row, original result returned. EX-S15-03 legitimate re-enrollment after withdrawal (if allowed by the domain) → a new row is accepted. EX-S15-04 different members submitting at the same time → both succeed (no over-locking).",
+        "NOTE: The 07-templates/TEST-STRATEGY.md template is named but its content was not supplied."
+      ],
+      "actions": [
+        "Reopen or keep the defect open. Record that the existing unit suite is not valid evidence for the uniqueness risk.",
+        "Write the reproducing concurrent integration test against the production DB engine and confirm it fails on the current code.",
+        "Confirm the uniqueness key with the domain owner (coordinate with ADV-S14 re-enrollment semantics).",
+        "Profile and classify existing production duplicates. Plan cleanup through domain review before adding the constraint.",
+        "Implement the DB uniqueness constraint or partial index, constraint-violation handling, and idempotency-key handling (Stage 13/14).",
+        "Write the risk→test matrix for EX-S15-01 to EX-S15-04, make the concurrency suite required in CI, and add production duplicate monitoring.",
+        "Record the learning: update the test strategy and team knowledge to say that concurrency or uniqueness guarantees need real-DB adversarial tests, not mocked repository assertions."
+      ],
+      "verification": [
+        "PLANNED, NOT EXECUTED: the reproduction test fails (duplicates observed) on the current build. This is the evidence that the test can catch the defect.",
+        "PLANNED: the same test passes on the fixed build across repeated iterations, with the environment and artifact version recorded.",
+        "PLANNED: retry/timeout-ambiguity tests (EX-S15-02) and the non-over-locking test (EX-S15-04) pass.",
+        "PLANNED: the migration adding the constraint succeeds on a production-like copy after duplicate cleanup.",
+        "PLANNED: production observation after release. The duplicate-count query returns 0 for new enrollments over an agreed window, and constraint-violation/conflict rates are monitored and explained."
+      ],
+      "handoff": "Stage 13/14: implement idempotency handling and the DB uniqueness constraint (needs the uniqueness-key decision from the domain owner). Stage 18 (CI): add the concurrency suite as a required, deterministic gate. Stage 19: release with duplicate-cleanup preflight evidence. Stage 20: duplicate-count and conflict-rate telemetry. Next action owner: a QA/backend engineer writes and runs the failing reproduction test.",
+      "completion_state": "UNVERIFIED: the verification strategy is DECIDED, but no reproduction or fix test has run, and the defect fix is not IMPLEMENTED. The defect stays open, and G7 is not passed.",
+      "residual_risks": [
+        "Existing production duplicates remain until cleanup. Their downstream impact (attendance, billing) is UNVERIFIED.",
+        "If the uniqueness key is chosen wrongly, legitimate re-enrollments may be rejected or real duplicates may still get through.",
+        "Concurrency tests in CI may not reproduce every production timing or topology, for example multiple app instances or replicas. Production observation is still required.",
+        "Other mocked-repository tests may give similar false confidence for other invariants. A broader audit is advisable but is outside this scope."
+      ],
+      "references": [
+        "BRAIN.md",
+        "04-gates/quality-gates.json (G6, G7, G10, G11)",
+        "06-modules/quality-engineering/STAGE-15-TESTING.md",
+        "06-modules/software-engineering/STAGE-13-BACKEND-API.md",
+        "06-modules/software-engineering/STAGE-14-DATABASE-PERSISTENCE.md"
+      ]
+    },
+    {
+      "id": "ADV-S16",
+      "stage_id": 16,
+      "risk_class": "R3: broken object-level and function-level authorization on billing/settlement data. Any authenticated institution user can read confidential financial data by supplying an existing finance_account_id. Escalate to R4 if the data includes personal or regulated financial records, or if exploitation has already happened.",
+      "current_outcome": "Only authorized coordinators and admins, within their permitted scope, can read billing/settlement data. The server enforces this independently of the UI and of network location.",
+      "decision": "G8 FAIL: block release of this endpoint, or disable it with a kill-switch/feature flag if it is already deployed, until server-side authorization is implemented and verified. Rejected arguments: 'the UI hides the page' (Stage 16 rule: hiding an action in the UI is not access control) and 'the endpoint is internal' (internal lowers some exposure but does not remove misuse or compromised credentials, and institution users' authenticated sessions can evidently reach it). DECIDED controls: (1) Function-level authorization: deny by default. Require a billing:read capability granted only to coordinator and admin roles, checked on the server for every request. (2) Object-level authorization: check that the requested finance_account_id is inside the actor's permitted scope (tenant/organization/assignment). Where possible, derive the account from the authorized context instead of trusting the client body. (3) A uniform response for 'not found' and 'not authorized' (for example 404 or a generic 403), so account IDs cannot be enumerated. (4) Input validation is applied but does not replace authorization. (5) Audit every access and denial (actor, role, account ID, decision, correlation ID) without logging the financial payload. Alert on spikes of denials or cross-scope attempts. (6) Rate-limit the endpoint to contain enumeration. (7) If the endpoint is or was deployed, treat it as a possible incident: review access logs for requests from non-coordinator/non-admin identities and for cross-scope account access. AI governance and the capability matrix do not apply, because no AI agent or tool is in scope here.",
+      "evidence_and_unknowns": [
+        "FACT: Institution users must not see billing/settlement data. Coordinators and admins may.",
+        "FACT: The new endpoint only filters the menu by role. It accepts an arbitrary finance_account_id in the request body and returns data whenever the ID exists.",
+        "FACT (derived): the endpoint has no server-side function-level or object-level authorization. This is a BOLA/IDOR-plus-BFLA pattern.",
+        "ASSUMPTION: Institution users hold authenticated sessions that can reach the endpoint (same API gateway/app). This must be confirmed from the network and deployment topology. 'Internal' has not been shown to mean unreachable.",
+        "OPEN QUESTION (decision-changing): Is the endpoint already deployed to any environment with real data? If yes, incident handling and log review are needed, and the risk may escalate to R4.",
+        "OPEN QUESTION (decision-changing): Are coordinators and admins scoped to particular institutions or organizations, or is their access global? This decides the object-level rule.",
+        "OPEN QUESTION: Data classification of settlement data: CONFIDENTIAL, or PERSONAL/SENSITIVE (individual payer data)? Are there regulatory obligations?",
+        "OPEN QUESTION: Are finance_account_ids sequential or guessable? This affects enumeration likelihood but not whether the control is required.",
+        "OPEN QUESTION: Do other endpoints follow the same pattern of menu-only role filtering? Possibly a systemic gap.",
+        "EXAMPLE MAP / ABUSE CASES: EX-S16-01 institution user requests an existing finance_account_id → denied, no data, denial audited. EX-S16-02 coordinator requests an account in their scope → allowed. EX-S16-03 coordinator requests an account outside their scope (if scoped) → denied with the same response as not-found. EX-S16-04 admin requests any permitted account → allowed per the admin scope rule. EX-S16-05 an unauthenticated request → 401. EX-S16-06 a nonexistent ID versus an unauthorized existing ID → indistinguishable responses. EX-S16-07 an institution user calls the API directly, bypassing the UI → denied.",
+        "NOTE: The 07-templates/THREAT-MODEL.md template is named but its content was not supplied. The threat model follows the Stage 16 workflow."
+      ],
+      "actions": [
+        "Stop release of the endpoint now. If it is deployed, disable it with a flag or kill-switch pending the fix. This is a reversible containment step; confirm with the release owner before changing production.",
+        "Confirm the deployment status. If deployed, do a bounded access-log review for calls by institution-role identities and for cross-scope account access, and escalate to incident handling if any are found.",
+        "Write the threat-model entry: assets (settlement data), actors (institution user, coordinator, admin, compromised account), trust boundary (client to API), abuse cases EX-S16-01 to EX-S16-07, mapped controls and owners.",
+        "Get decisions on coordinator/admin scoping and the data classification.",
+        "Implement the capability check, object-scope check, uniform deny response, audit logging and rate limiting in the API/application layer. Refactor to derive the account from authorized context where possible.",
+        "Add an authorization matrix (role × resource scope × operation) to the API contract.",
+        "Search for other endpoints that depend only on UI role filtering, and record the findings."
+      ],
+      "verification": [
+        "PLANNED, NOT EXECUTED: automated authorization-matrix integration tests for EX-S16-01 to EX-S16-07 against the real API, with real authentication/session handling (not mocked authorization).",
+        "PLANNED: confirm the negative tests fail against the current endpoint, which proves they can detect the defect.",
+        "PLANNED: a manual direct-API abuse check (crafted request with an institution-user session) in staging.",
+        "PLANNED: check that audit logs record denials without financial payloads.",
+        "PLANNED: post-deploy production observation. The denial audit stream shows no successful institution-role access, and the denial-spike alert is wired."
+      ],
+      "handoff": "Stage 13: implement the authorization at the capability and resource boundary, plus the error contract. Stage 15: authorization-matrix and abuse-case tests. Stage 18: add the authorization tests as a required CI gate. Stage 20: denial/enumeration monitoring and alerts. Stage 21: incident response if the log review finds exposure. Next action owner: the release owner (blocking/containment) and the security owner (threat model, residual-risk register). Any temporary residual risk needs explicit acceptance by a named owner.",
+      "completion_state": "BLOCKED: G8 fails. The threat model and controls are DECIDED. No control is IMPLEMENTED or VERIFIED. Whether exposure has already happened is UNVERIFIED until the deployment status and log review are complete.",
+      "residual_risks": [
+        "Possible past data exposure if the endpoint was deployed. UNVERIFIED pending log review; may need incident and notification handling depending on the data classification.",
+        "Coordinator/admin scope rules are unconfirmed. An overly broad admin or coordinator scope could still allow excessive access.",
+        "Similar menu-only authorization may exist on other endpoints (systemic risk).",
+        "Audit logs could themselves leak sensitive data if the payload exclusion is not verified."
+      ],
+      "references": [
+        "BRAIN.md",
+        "04-gates/quality-gates.json (G3, G7, G8)",
+        "06-modules/security-reliability/STAGE-16-SECURITY.md",
+        "06-modules/software-engineering/STAGE-13-BACKEND-API.md",
+        "06-modules/quality-engineering/STAGE-15-TESTING.md",
+        "06-modules/security-reliability/AI-GOVERNANCE.md (checked; not applicable, no AI tools/agents in scope)"
+      ]
+    }
+  ]
+}

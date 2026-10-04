@@ -1,0 +1,43 @@
+{
+  "batch": 2,
+  "case_ids": [
+    "ADV-S05",
+    "ADV-S06",
+    "ADV-S07",
+    "ADV-S08"
+  ],
+  "cases": [
+    {
+      "id": "ADV-S05",
+      "stage_id": 5,
+      "stage_name": "Domain Architecture",
+      "scenario": "Legacy owns guardian-child relationships and contact data. Finance must decide which guardians are eligible for settlement communication and issue one settlement SMS per child/per period/per unique eligible number. Some contacts are shared between guardians.",
+      "adversarial_pressure": "The easiest implementation is to let both Legacy and Finance write communication eligibility flags into the same tables.",
+      "decision_to_make": "Define ownership, bounded responsibilities and consistency boundaries without duplicating mutation authority."
+    },
+    {
+      "id": "ADV-S06",
+      "stage_id": 6,
+      "stage_name": "System Architecture",
+      "scenario": "An internal operations application serves a few thousand participants and dozens of institutions. A proposal suggests microservices, Kafka and Kubernetes to 'future-proof' billing, scheduling and notifications, even though the current deployment is a small web application with a relational database and a worker.",
+      "adversarial_pressure": "Architecture prestige and hypothetical scale are used to justify irreversible complexity.",
+      "decision_to_make": "Choose a system structure from quality drivers and failure modes, with explicit switching conditions."
+    },
+    {
+      "id": "ADV-S07",
+      "stage_id": 7,
+      "stage_name": "UX Architecture",
+      "scenario": "A pupil-unit worklist must support search, school/subject/status filters, server-side counts, pagination and dense comparison on 1440–3200 px desktops, while remaining usable on a 390 px phone. Operators frequently return to filtered states after inspecting a record.",
+      "adversarial_pressure": "A design proposal uses a centered card grid on every breakpoint and keeps all filters only in local component state.",
+      "decision_to_make": "Define task, navigation, state visibility and adaptive behavior before visual polish."
+    },
+    {
+      "id": "ADV-S08",
+      "stage_id": 8,
+      "stage_name": "Interaction design",
+      "scenario": "Two operators can edit the scheduled date of the same visit. Operator A opens the editor, operator B saves a change, then A submits stale data while the network is slow.",
+      "adversarial_pressure": "The UI currently disables the Save button during submit and assumes that prevents conflicts.",
+      "decision_to_make": "Define interaction state, conflict behavior and recovery for concurrent editing."
+    }
+  ]
+}

@@ -1,0 +1,213 @@
+{
+  "run_id": "INDEP-RUN-2026-10-04-02",
+  "executor": {
+    "provider": "Anthropic",
+    "model": "claude-opus-5-5",
+    "notes": "Blinded independent executor; no judge criteria or prior results supplied."
+  },
+  "cases": [
+    {
+      "id": "ADV-S05",
+      "stage_id": 5,
+      "risk_class": "R3. The work involves children's and guardians' personal contact data, outbound SMS to real people and financial settlement content. Sending to the wrong recipient or sending duplicates is a privacy and financial-trust incident that is hard to reverse once the SMS is sent.",
+      "current_outcome": "We need a domain ownership model where Legacy stays authoritative for guardian-child relationships and contact data, and Finance owns settlement-communication eligibility and the rule of one SMS per child per period per unique eligible number. No business fact may have two independent writers.",
+      "decision": "PROPOSED (domain ADR DADR-S05-01, provisional until the open questions are answered). (1) Legacy is the only writer of guardian-child relationships, guardian identity and contact numbers. (2) Finance is the only writer of 'settlement communication eligibility' and of 'settlement SMS issued' records. Finance stores these in its own model or schema. They are never stored as flags in Legacy tables. (3) Finance reads Legacy data only through a read-only anti-corruption layer. The layer translates Legacy rows into a Finance view, e.g. a GuardianContactSnapshot{childId, guardianId, relationshipType, normalizedNumber, sourceVersion, observedAt}. (4) A SettlementCommunication aggregate keyed by (childId, settlementPeriod) protects the dedup invariant atomically. Its uniqueness key is (childId, settlementPeriod, normalizedNumber), so shared numbers collapse to one send. A dispatch idempotency key equal to that triple makes re-runs and retries safe. (5) Eventual consistency between Legacy and Finance is accepted. Eligibility is decided against a recorded snapshot version or time, and there is a defined reconciliation for contact changes after the decision. REJECTED: both Legacy and Finance writing eligibility flags into the same Legacy tables. Reasons: it duplicates mutation authority, eligibility no longer has a single owner, Legacy schema becomes the target model, and it cannot express the per-child/per-period/per-number dedup invariant. SWITCHING TRIGGERS: (a) if the business confirms eligibility inputs such as legal-guardian status, custody restrictions or contact opt-out are Legacy-owned facts, Legacy owns those input facts and publishes them, while Finance still owns the derived settlement-communication decision; (b) if consent/opt-out turns out to be a cross-channel concern, it moves to a dedicated consent owner instead of Finance; (c) if Legacy cannot provide a stable version or change signal, Finance must snapshot at decision time and reconcile by full comparison.",
+      "evidence_and_unknowns": [
+        "FACT: Legacy owns guardian-child relationships and contact data (scenario).",
+        "FACT: Finance must decide which guardians are eligible for settlement communication and must issue one SMS per child per period per unique eligible number (scenario).",
+        "FACT: Some contact numbers are shared between guardians (scenario).",
+        "FACT: The proposed shortcut has both systems writing eligibility flags into the same tables. Per the Stage 05 decision rules, shared database access does not imply shared ownership, and cross-context writes need explicit authority.",
+        "ASSUMPTION: 'Unique number' means numbers compared after normalization (e.g. E.164), so formatting differences do not cause duplicate SMS. This needs business confirmation.",
+        "ASSUMPTION: The dedup scope is per child, so one number shared by guardians of two siblings gets one SMS per child in the same period. This follows the literal rule and must be confirmed.",
+        "OPEN QUESTION: What exactly are the eligibility rules (legal guardian vs. other relationship, custody or court restrictions, payer role, consent/opt-out)? Who is the authoritative owner of each input fact?",
+        "OPEN QUESTION: If an eligible guardian shares a number with an INELIGIBLE guardian (e.g. one under a contact restriction), should the SMS be sent? This decides privacy and must be answered by the business/legal owner. It must not be assumed.",
+        "OPEN QUESTION: How is a settlement period defined (calendar month vs. billing cycle), and what is its effective time zone?",
+        "OPEN QUESTION: Temporal and correction semantics. If a contact number changes or a relationship ends after the eligibility decision but before or after the send, what happens? Is a re-send or a correction SMS allowed within the same period?",
+        "OPEN QUESTION: Does Legacy expose a version, timestamp or change feed for contacts and relationships? This determines how reconciliation works.",
+        "EXAMPLE MAP (candidate, IDs reused downstream). EX-S05-01: child C1, guardians G1 and G2 share one number, both eligible → 1 SMS. EX-S05-02: G1 and G2 have different numbers, both eligible → 2 SMS. EX-S05-03: the same number belongs to eligible guardians of C1 and C2, same period → 2 SMS, one per child (confirm). EX-S05-04: the batch is re-run or retried for the same period → 0 additional SMS. EX-S05-05: '+48 600 100 200' and '600100200' for the same child → 1 SMS after normalization. EX-S05-06 (counterexample, open): an ineligible guardian shares a number with an eligible guardian → outcome undecided pending the open question above.",
+        "STOP-ANALYSIS: The ownership split and the rejection of shared writes are already supported by the playbook rules and the stated facts, so no more desk research is needed for those. Eligibility semantics and the shared-number privacy rule do change decisions. They are resolved by an Example Mapping session with the domain owners, not by more research.",
+        "NOTE: No artifact templates were embedded in this run, so the outputs follow the Stage 05 canonical-outputs list."
+      ],
+      "actions": [
+        "Draft the context map: Legacy (upstream, system of record for guardians, children and contacts) → read-only anti-corruption layer → Finance Settlement Communication (downstream). Record the published semantic contract (GuardianContactSnapshot) and the direction of dependency.",
+        "Draft the ownership map. Each critical business fact gets exactly one writer: relationship, contact number, eligibility decision, SMS-issued record, and consent/opt-out (marked TBD owner).",
+        "Draft the aggregate/invariant model. SettlementCommunication(childId, period) enforces the unique (childId, period, normalizedNumber) rule and the idempotent dispatch key. Eligibility decisions record the source snapshot version and the decision time.",
+        "Define the temporal model: settlement period, decision time, Legacy observation time, send time, and correction/re-send policy (pending the open questions).",
+        "Run a time-boxed Example Mapping session with the Finance domain owner, the Legacy system owner and a privacy/legal representative to resolve the eligibility rules, the shared-number-with-ineligible-guardian rule, the dedup scope and corrections. Bind the answers to EX-S05-01..06.",
+        "Record domain ADR DADR-S05-01 with the rejected shared-table dual-write alternative and the switching triggers. Record the Legacy integration debt explicitly.",
+        "Hand the integration mechanism (API, read replica, CDC, or a Finance-owned table in a shared database with a single writer) to Stage 06. Transport and storage are not decided at this stage."
+      ],
+      "verification": [
+        "PLANNED, not executed: domain owners review the ownership map and DADR-S05-01, with sign-off recorded. R3 requires explicit approval.",
+        "PLANNED, not executed: EX-S05-01..06 become executable acceptance tests at G3/G7, at the lowest trustworthy layer: a unit test of the dedup/eligibility policy plus an integration test that a re-run sends no duplicate SMS.",
+        "PLANNED, not executed: a fitness function or access check that the Finance runtime credentials have no write permission on Legacy relationship or contact tables.",
+        "PLANNED, not executed: post-release, compare expected vs. observed SMS counts per child/period/number and alert on any duplicate (child, period, normalizedNumber)."
+      ],
+      "handoff": "Next owners and steps: (1) The Finance domain owner and Legacy system owner, with privacy/legal, answer the open questions in the Example Mapping session. (2) Stage 03/04 Requirements turns the confirmed rules and examples into traceable acceptance criteria (G3). (3) Stage 06 System Architecture receives the ownership map, consistency choices and semantic contract, and chooses the integration mechanism and reconciliation design. (4) Security/reliability (G8) receives the data-minimisation and wrong-recipient risk for children's and guardians' data.",
+      "completion_state": "DECISION PROPOSED; G2 NOT PASSED. The ownership and consistency boundaries are drafted, but the eligibility semantics, the shared-number privacy rule and the correction semantics are unresolved and owner sign-off is missing. Nothing is IMPLEMENTED, TESTED or VERIFIED.",
+      "residual_risks": [
+        "Privacy: a shared number may deliver a settlement SMS to an ineligible or restricted guardian. This is undecided and blocks release until answered.",
+        "Stale Legacy data: a contact change after the snapshot could send to an outdated number. Reconciliation is defined only conceptually.",
+        "Pressure to take the shared-table shortcut may come back during implementation. Mitigated by the write-permission fitness function (planned).",
+        "Legacy may not expose versions or changes, which would force costlier snapshot-diff reconciliation.",
+        "The dedup scope (per child vs. per number per period) is assumed from the literal rule and not yet confirmed."
+      ],
+      "references": [
+        "BRAIN.md (default runtime steps 1–6, 8–10, 13; stop-analysis gate; evidence before claims; routing principle)",
+        "04-gates/quality-gates.json (G2, G3, G8)",
+        "06-modules/domain/STAGE-05-DOMAIN-ARCHITECTURE.md (workflow, decision rules, canonical outputs, exit conditions, handoff)"
+      ]
+    },
+    {
+      "id": "ADV-S06",
+      "stage_id": 6,
+      "risk_class": "R2. This is an internal operations app at modest scale, but the architecture choice is long-lived and expensive to reverse. Billing correctness and notification reliability paths carry R3-level consequences and need stronger verification inside whichever structure is chosen.",
+      "current_outcome": "Choose a system structure for billing, scheduling and notifications that is driven by real quality attributes and failure modes, is the least irreversible option, and has explicit, measurable conditions for when to switch to a more distributed design.",
+      "decision": "PROPOSED (ADR-S06-01). Keep a single deployable modular monolith: the existing web app plus relational database plus worker. Make the module boundaries explicit (Billing, Scheduling, Notifications, plus shared Identity/Institutions), with interfaces between modules and no writes into another module's tables. Use a transactional outbox in the relational database for asynchronous work such as notifications and billing runs. Worker jobs must be idempotent with explicit retry and backoff policies. Keep backups and point-in-time recovery for the database, and deploy schema migrations in a backward-compatible way. REJECTED NOW: microservices + Kafka + Kubernetes. No stated quality driver, workload measurement or team-autonomy need requires them. They add network partial failure, duplicate delivery, distributed consistency for billing, deploy-version mismatch and a large operational burden for a small system. 'Future-proofing' and 'industry standard' are not architecture drivers. ALSO CONSIDERED: the status-quo monolith without explicit modules (rejected because it gives no protected boundaries and makes later extraction harder), and extracting only a separate notification worker process from the same codebase (allowed later as a reversible step). SWITCHING CONDITIONS: the thresholds below must be set with the owners and backed by measurement. They are not invented here. (a) Measured worker queue lag or job throughput keeps breaching an agreed SLO after vertical scaling and more worker processes. (b) Measured database contention or latency on one module keeps breaching its budget and the module's data can be separated safely. (c) Several independent teams have documented, recurring deploy coupling or blocked releases. (d) One module needs a demonstrably different availability, scaling, security-isolation or regulatory profile. (e) External consumers need a durable event stream with replay. When a trigger fires, the first step is to extract that one module behind its existing interface. A platform-wide migration is not the default.",
+      "evidence_and_unknowns": [
+        "FACT: The system is an internal operations application with a few thousand participants and dozens of institutions (scenario).",
+        "FACT: The current deployment is a small web application with a relational database and one worker (scenario).",
+        "FACT: The proposal justifies microservices, Kafka and Kubernetes by 'future-proofing' and hypothetical scale. No measured workload, SLO breach or team-autonomy evidence is given.",
+        "ASSUMPTION: The current scale fits a single relational database with margin. This is plausible at the stated sizes, but no load or latency metrics were supplied, so a cheap baseline measurement is planned.",
+        "ASSUMPTION: The team is small, with limited operational capacity for running a distributed platform. This is not stated and must be confirmed.",
+        "OPEN QUESTION: What are the actual availability, latency, RPO and RTO targets for billing, scheduling and notifications?",
+        "OPEN QUESTION: What are the current measured request rates, p95 latency, worker queue depth/lag and job failure rates?",
+        "OPEN QUESTION: Are there growth forecasts with dates? For example, new institutions being onboarded, or a contractual or regulatory isolation requirement?",
+        "OPEN QUESTION: How many teams are there, and do they have independent release-cadence needs?",
+        "OPEN QUESTION: Does the hosting environment impose any constraint, such as an existing Kubernetes platform mandated by the organisation?",
+        "ARCHITECTURE DRIVERS (candidate quality scenarios, response measures TBD with owners). QS-01 billing correctness: a billing run that is re-executed after a worker crash produces no duplicate charges or settlements. QS-02 notification reliability: a provider timeout leads to a retry with no duplicate sends. QS-03 scheduling consistency: concurrent edits do not silently overwrite each other (see ADV-S08). QS-04 recoverability: the database can be restored within the agreed RPO/RTO. QS-05 operability: a small team can deploy and roll back safely.",
+        "FAILURE MODES to handle in the chosen structure: worker crash mid-job, duplicate job delivery, SMS/email provider timeout, schema-migration/deploy mismatch, the database as a single point of failure (mitigated by backups/PITR and a restore drill), operator re-running a batch.",
+        "STOP-ANALYSIS: The rejection does not depend on more desk research. The modular monolith is the more reversible choice and keeps an extraction path open. Remaining uncertainty about scale is cheaper to resolve by baseline telemetry than by more analysis.",
+        "NOTE: No artifact templates were embedded in this run, so the outputs follow the Stage 06 canonical-outputs list."
+      ],
+      "actions": [
+        "Write ADR-S06-01 covering context, the drivers QS-01..05, the decision, the alternatives (status-quo monolith, modular monolith, microservices+Kafka+K8s, notification-worker extraction), the consequences and the switching triggers listed above.",
+        "Define the building-block view: the module boundaries, each module's owned tables, the allowed dependencies, and the outbox/worker runtime view. Keep logical ownership separate from the deployment view (one deployable unit plus worker processes).",
+        "Draft a dependency/failure map for the database, the worker, and the SMS/email and payment providers, with timeout, retry and idempotency handling for each.",
+        "Agree the response measures (SLO, RPO, RTO, queue-lag budget) with the product and operations owners, so the switching triggers become numeric thresholds.",
+        "Take a cheap baseline: instrument and record the current request rate, p95 latency, queue lag and job failures for 1–2 weeks. This is a reversible observation that replaces speculation.",
+        "Define fitness functions: automated module-dependency/architecture tests that block cross-module table writes, plus alerts on queue lag, job failure rate and p95 latency budget, plus a periodic restore drill.",
+        "Share the ADR with the proposer, including the conditions under which their proposal would become justified."
+      ],
+      "verification": [
+        "PLANNED, not executed: architecture review of ADR-S06-01 with the engineering lead and the operations owner, with sign-off recorded.",
+        "PLANNED, not executed: module-boundary fitness-function tests added to CI, plus an idempotency test for billing-run and notification jobs under simulated worker crash and redelivery (QS-01, QS-02).",
+        "PLANNED, not executed: a restore drill against the agreed RPO/RTO (QS-04).",
+        "PLANNED, not executed: the baseline telemetry report comparing measured load against the switching thresholds."
+      ],
+      "handoff": "Next owners and steps: (1) The product and operations owners supply the response measures and confirm team/hosting constraints. (2) The engineering lead reviews and accepts ADR-S06-01. (3) Stages 12–14 receive the module boundaries, the outbox/worker contract and the idempotency requirements. (4) Stages 15–21 receive QS-01..05, the failure map and the fitness functions to verify and observe. (5) The ADR is revisited when any switching trigger fires, as shown by telemetry.",
+      "completion_state": "DECISION PROPOSED (ADR drafted); G4 NOT PASSED. The quality scenarios lack agreed measurable response measures, no baseline workload evidence has been collected, and the ADR is not accepted. Nothing is IMPLEMENTED, TESTED or VERIFIED.",
+      "residual_risks": [
+        "Scale assumptions are unmeasured until baseline telemetry exists.",
+        "The modular boundaries may erode without enforced fitness functions, which would make later extraction costly.",
+        "The single relational database remains a single point of failure. The mitigation depends on backups/PITR and a restore drill that has not been executed yet.",
+        "Organisational pressure may force a platform choice regardless of the drivers. If so, record it as an explicit constraint in the ADR, not as a quality driver.",
+        "Billing and notification idempotency is required by the design but not yet implemented or tested."
+      ],
+      "references": [
+        "BRAIN.md (default runtime steps 1–5, 9, 11–13; stop-analysis gate; evidence before claims)",
+        "04-gates/quality-gates.json (G4, G8, G10)",
+        "06-modules/system-architecture/STAGE-06-SYSTEM-ARCHITECTURE.md (workflow, decision rules, evidence standard, canonical outputs, exit conditions, handoff)"
+      ]
+    },
+    {
+      "id": "ADV-S07",
+      "stage_id": 7,
+      "risk_class": "R2. This is an internal operator workflow that shows pupils' (minors') personal data on desktop and phone. Poor structure mainly costs operator efficiency and causes errors. Putting pupil data on mobile screens and in URLs adds privacy exposure.",
+      "current_outcome": "Operators can search, filter, compare and inspect pupil units efficiently on 1440–3200 px desktops. They can still do their phone tasks on a 390 px screen. They always see which filters are active and what the server-side counts are, and they return to the exact filtered state after inspecting a record.",
+      "decision": "PROPOSED UX architecture. UDR-S07-01 (desktop worklist): on desktop, use a dense, full-width worklist table with sortable columns, a persistent search field, a filter bar or panel for school, subject and status, a visible applied-filter summary with clear-all, a server-side total count (plus per-filter counts if required), and server-side pagination. The centered card grid is REJECTED for desktop because dense comparison is the primary task and cards waste width on 1440–3200 px screens. On very wide screens, use the extra width for more columns or an optional list-plus-detail split view, not empty margins. UDR-S07-02 (state lives in the URL/history): filter, search, sort and page state lives in the URL or browser history. Component-local state alone is REJECTED. Opening a record and going back (browser Back or an explicit 'Back to results' link) restores filters, sort, page, scroll position and focus on the inspected row. Filter values use stable IDs, not names. Whether free-text search is stored in the query string or only in history state is a privacy decision pending review (G8), because a pupil name in a URL can leak into logs and history. UDR-S07-03 (adaptive transformation at 390 px): the table becomes a compact row list showing name, school, subject and status. Search stays at the top. Filters move into a full-screen filter sheet, with applied-filter chips and the result count always visible. Pagination stays server-driven. Dense multi-column comparison is not a primary phone task, pending validation of which tasks operators actually do on a phone. The record detail opens as its own route, and Back restores the list state. STATE VISIBILITY CONTRACT: total and filtered count, active filters, loading state (counts and list both pending), empty-because-of-filters state with clear-filters, a truly empty state, partial state (list loaded but counts failed, labelled so), error with retry that keeps the filters, permission denied, and a stale indicator. The stale indicator covers records that changed or no longer match the filter after the operator returns. Such records are flagged, not silently removed.",
+      "evidence_and_unknowns": [
+        "FACT: Required capabilities are search, school/subject/status filters, server-side counts, pagination and dense comparison on 1440–3200 px desktops (scenario).",
+        "FACT: The worklist must remain usable on a 390 px phone (scenario).",
+        "FACT: Operators frequently return to filtered states after inspecting a record (scenario).",
+        "FACT: The current proposal uses a centered card grid at every breakpoint and keeps filters only in local component state. That state is lost on navigation or reload, and the grid does not support dense comparison.",
+        "ASSUMPTION: Phone use is mainly lookup and inspection, not dense comparison or batch work. This needs validation with operators.",
+        "OPEN QUESTION: Which columns or fields are needed for comparison, and in what priority? This drives desktop column order and the mobile field selection.",
+        "OPEN QUESTION: Are per-filter-value counts required (e.g. count per status), or only the total for the current filter set?",
+        "OPEN QUESTION: Are batch actions needed on the worklist? None are stated, so none are designed.",
+        "OPEN QUESTION: Which pupil data fields may be shown on mobile, and may search terms appear in URLs? This needs privacy/security review.",
+        "OPEN QUESTION: What are the status vocabulary and its user-facing labels (domain language vs. internal codes)?",
+        "OPEN QUESTION: Do counts and the list need to come from one consistent query snapshot? Is a short count delay acceptable if it is labelled?",
+        "EXAMPLES for validation and tests. EX-S07-01: set school=X, status=Y, page 3 → open a record → Back → same filters, page 3, scroll position and focus on that row. EX-S07-02: share or reload a filtered URL → the same filtered result and counts appear. EX-S07-03: the record's status changed while it was being inspected → on return, the row is flagged as no longer matching the filter, not silently gone. EX-S07-04: at 390 px, apply 3 filters → chips plus count stay visible without opening the sheet. EX-S07-05: the counts request fails → the list still renders and the counts area shows an error with retry.",
+        "NOTE: No artifact templates were embedded in this run, so the outputs follow the Stage 07 canonical-outputs list."
+      ],
+      "actions": [
+        "Write the context-of-use summary (operator tasks and frequency, devices 1440–3200 px and 390 px) and the task-flow map: find → filter → compare → inspect → return.",
+        "Define the information architecture: the worklist as a first-class navigation area, record detail as an object-context route, and filters as local context of the worklist.",
+        "Specify the URL/history state contract (parameter names, ID-based filter values, defaults, behaviour when a filter value is invalid or not permitted) and the return-path behaviour, including scroll and focus restoration.",
+        "Build the state/recovery matrix: loading, empty-by-filter, empty, partial counts, error, stale, permission denied, timeout.",
+        "Define the adaptive rules for 390 px, 1440 px and ≥2560 px: column priority, the table→row-list transformation, the filter sheet, and the wide-screen split view (optional).",
+        "Record UDR-S07-01..03 with the rejected alternatives (card grid everywhere, local-only filter state).",
+        "Raise the URL privacy question (search term or pupil identifiers in URLs) to security/privacy review.",
+        "Prepare a validation plan: representative operator tasks with realistic data density, run at 1440, 3200 and 390 px, covering EX-S07-01..05."
+      ],
+      "verification": [
+        "PLANNED, not executed: task-based validation with representative operators and realistic data volumes on desktop and phone.",
+        "PLANNED, not executed: EX-S07-01..05 become end-to-end or component tests at Stage 15. The URL round-trip and return-path restoration are tested at the lowest reliable layer (router/state tests) plus one browser-level test.",
+        "PLANNED, not executed: Stage 09 accessibility check of table semantics, filter sheet focus management, focus return on Back, and screen-reader announcement of count updates."
+      ],
+      "handoff": "Next steps: (1) Stage 08 Interaction Design defines how filters apply (immediate vs. an Apply button in the mobile sheet), the debounce for search, and the pending states for counts and list. (2) Stage 09 validates the accessibility mechanics. (3) Stages 10–11 handle visual hierarchy only after this structure is accepted. (4) Stage 12 implements the URL/history state contract and the state matrix. (5) Security/privacy reviews URL contents and mobile data exposure. (6) The product owner and operator representatives answer the open questions on fields, counts and phone tasks.",
+      "completion_state": "UX ARCHITECTURE DRAFTED (UDRs proposed); G5 NOT PASSED. Task validation has not been executed, interaction and accessibility contracts are pending, and the field, count and privacy questions are open. Nothing is IMPLEMENTED or VERIFIED.",
+      "residual_risks": [
+        "The mobile task scope is assumed. If operators need comparison on phones, the mobile transformation must be redesigned.",
+        "Search terms or identifiers in URLs could expose pupil data through history, logs or shared links. This is pending privacy review.",
+        "Inconsistency between counts and list results under concurrent changes could mislead operators.",
+        "Scroll and focus restoration with server-side pagination is fragile if record ordering changes between visits.",
+        "Visual polish may be prioritised over the structural contract if the UDRs are not accepted before Stage 10."
+      ],
+      "references": [
+        "BRAIN.md (default runtime steps 1–6, 10, 13; routing principle; evidence before claims)",
+        "04-gates/quality-gates.json (G5, G8)",
+        "06-modules/experience/STAGE-07-UX-ARCHITECTURE.md (workflow, decision rules, canonical outputs, exit conditions, handoff)"
+      ]
+    },
+    {
+      "id": "ADV-S08",
+      "stage_id": 8,
+      "risk_class": "R2. A silently lost update to a visit's scheduled date can cause a missed or wrongly timed visit. Escalate to R3 if a date change triggers billing or external notifications such as SMS to guardians, because those side effects cannot be undone.",
+      "current_outcome": "Concurrent edits of a visit's scheduled date never silently overwrite each other. The operator holding stale data is told what changed and gets a safe recovery path. Slow-network retries never cause a duplicate write or an unknown result.",
+      "decision": "PROPOSED interaction contract (UDR-S08-01). The current assumption is FALSIFIED: disabling Save during submit only prevents double-clicks in one tab. It gives no concurrency control and no idempotency guarantee. The design: (1) Optimistic concurrency. The editor loads the visit with a version token (version number or ETag). Submit sends the expected version (If-Match). The server applies a conditional update and is the authoritative source of the result. On a version mismatch it returns a conflict (e.g. 409) carrying the current server state and, where permitted, who changed it and when. Silent last-write-wins is not allowed. (2) Idempotency. Each submit intent carries an idempotency key, so retries after a timeout return the original result instead of writing again or showing a false conflict. (3) State machine: VIEWING → EDITING (dirty) → CLIENT_VALIDATING → SUBMITTING. In SUBMITTING the control is labelled 'Saving new date…', the field is read-only and Save is disabled as UX only. From SUBMITTING the outcomes are: SAVED (shows the server-returned value and version); CONFLICT; SERVER_REJECTED (business-rule validation, e.g. date not allowed); PERMISSION_DENIED; NOT_FOUND/CANCELLED_VISIT; OUTCOME_UNKNOWN (timeout or network failure: the operator can retry with the same key or refresh the status, and the UI must not claim failure). CANCELLED leads back to VIEWING with the draft discarded only after a deliberate choice. (4) Conflict recovery UI. Show 'This visit was changed by someone else' inline and persistently, never as a toast. Show A's intended date next to the current saved date. Offer three choices: 'Keep current' (discard mine), 'Apply my date to the latest version' (an explicit overwrite that resubmits with the new version and must not happen automatically), and 'Keep editing'. A's draft is preserved until A chooses. (5) Validation layers: client-side checks such as date format and obvious range give quick feedback, while authoritative business and permission validation happens on the server. (6) Focus and accessibility: on CONFLICT or an error, focus moves to the inline message heading, which is announced via a live region. On SAVED, focus returns to the date field or the confirmation, with an announcement. (7) Undo: no fake undo if the date change has already triggered external side effects. This is pending the side-effects question.",
+      "evidence_and_unknowns": [
+        "FACT: Two operators can edit the scheduled date of the same visit (scenario).",
+        "FACT: In the scenario, A opens the editor, B saves, then A submits stale data over a slow network.",
+        "FACT: The current UI disables Save during submit and assumes this prevents conflicts. Per the Stage 08 decision rules, disabling a submit button is not an idempotency guarantee, and it does nothing against another user's concurrent change.",
+        "OPEN QUESTION: Does the API/persistence layer currently support versioned conditional updates? If not, this is an API-contract change routed to Stages 12–14. It cannot be fixed in the UI alone.",
+        "OPEN QUESTION: Does changing the scheduled date trigger downstream side effects (guardian notifications, billing, staff scheduling)? This determines the R3 escalation, the undo policy and whether an explicit overwrite needs extra confirmation.",
+        "OPEN QUESTION: If A's submitted date equals the date B saved, should that be a no-op success or still a conflict? Business choice.",
+        "OPEN QUESTION: Is showing who made the conflicting change permitted, and is it useful to operators?",
+        "OPEN QUESTION: Is real-time stale detection while editing (push or poll) wanted, or is detection at submit time enough? Detection at submit is the minimum required.",
+        "ASSUMPTION: The visit has one authoritative owner of its scheduled date (the Scheduling module, per ADV-S06). Not confirmed.",
+        "EXAMPLE MAP. EX-S08-01: A loads v3, B saves v4, A submits expecting v3 → conflict, no write, A's draft preserved, both dates shown. EX-S08-02: A submits, the network stalls, A retries with the same idempotency key → exactly one write and one success. EX-S08-03: A's submit commits but the response times out → OUTCOME_UNKNOWN; a retry or status check reports success, not a conflict. EX-S08-04: B cancelled the visit before A submits → NOT_FOUND/CANCELLED state with a path back to the worklist. EX-S08-05: A's permission is revoked mid-edit → PERMISSION_DENIED, draft shown read-only. EX-S08-06: A chooses 'Apply my date to latest' → resubmits with v4 and succeeds, unless v5 now exists, in which case the conflict repeats.",
+        "NOTE: No artifact templates were embedded in this run, so the outputs follow the Stage 08 canonical-outputs list."
+      ],
+      "actions": [
+        "Confirm whether the backend currently supports version tokens and conditional updates. If not, open an API-contract change: version in the read model, If-Match or expectedVersion on update, a conflict response carrying the current state, and idempotency-key support.",
+        "Write the interaction/state contract with all states and transitions above, the per-state copy for what failed, what remains saved and whether retry is safe, and the focus/announcement behaviour.",
+        "Record UDR-S08-01: optimistic concurrency with explicit conflict resolution, chosen over silent last-write-wins and over pessimistic locking. Locking was rejected for now because there is no evidence of high contention and it needs lock expiry and recovery. Switching trigger: measured frequent conflicts on the same visits.",
+        "Resolve the side-effects open question with the product/domain owner. If notifications or billing are triggered, escalate to R3 and add an explicit consequence statement to the overwrite path.",
+        "Choose components only after the semantics are fixed, checking that the date picker and inline message components support read-only pending state, persistent inline errors and focus management.",
+        "Hand EX-S08-01..06 to Stage 15 as test cases."
+      ],
+      "verification": [
+        "PLANNED, not executed: API-level tests at the lowest reliable layer for the conditional update (stale version → conflict, no write) and for idempotent replay (same key → single write, original result).",
+        "PLANNED, not executed: a two-session integration test reproducing EX-S08-01 with network throttling, and EX-S08-03 with an injected response timeout after commit.",
+        "PLANNED, not executed: UI state tests for every transition, including a double-submit attempt, plus a Stage 09 accessibility check of focus movement and live-region announcements on conflict and error.",
+        "PLANNED, not executed: post-release, observe conflict rate and OUTCOME_UNKNOWN rate per visit-edit to validate the switching trigger for pessimistic locking."
+      ],
+      "handoff": "Next steps: (1) The backend/API owner (Stages 12–14) confirms or implements versioned conditional updates and idempotency keys. (2) The product/domain owner answers the questions on side effects, same-value submits and showing who changed the visit. (3) Stage 09 validates the accessibility mechanics. (4) Stage 12 implements the state contract. (5) Stage 15 turns EX-S08-01..06 into tests. (6) If the date drives external notifications or billing, security/reliability (G8) reviews it as R3.",
+      "completion_state": "INTERACTION CONTRACT DRAFTED (UDR proposed); G5 NOT PASSED. Backend capability for conditional updates is unconfirmed and the side-effect and business-rule questions are open. Nothing is IMPLEMENTED or TESTED. Until fixed, the current UI should be treated as having a known lost-update risk.",
+      "residual_risks": [
+        "Lost updates continue in production until the backend enforces the version check. A UI-only change cannot close this.",
+        "If date changes trigger notifications or billing, the explicit-overwrite path can cause irreversible external effects. This is pending R3 classification.",
+        "Operators may habitually pick 'Apply my date', which turns conflicts back into overwrites. Monitor overwrite-after-conflict rate after release.",
+        "OUTCOME_UNKNOWN handling depends on the server retaining idempotency keys. The retention window is not yet defined.",
+        "The same conflict pattern probably exists on other editable visit fields beyond the scheduled date. Scope not yet assessed."
+      ],
+      "references": [
+        "BRAIN.md (default runtime steps 2, 3, 6, 12, 13; routing principle on routing backwards; evidence before claims)",
+        "04-gates/quality-gates.json (G5, G6, G7)",
+        "06-modules/experience/STAGE-08-INTERACTION-DESIGN.md (workflow, decision rules, canonical outputs, exit conditions, handoff)"
+      ]
+    }
+  ]
+}

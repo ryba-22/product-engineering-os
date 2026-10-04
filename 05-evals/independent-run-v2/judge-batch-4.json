@@ -1,0 +1,87 @@
+{
+  "batch": 4,
+  "case_ids": [
+    "ADV-S13",
+    "ADV-S14",
+    "ADV-S15",
+    "ADV-S16"
+  ],
+  "criteria": [
+    {
+      "id": "ADV-S13",
+      "stage_id": 13,
+      "stage_name": "Backend / API",
+      "scenario": "A legacy endpoint GET /group/{id}/Lesson/refresh/{lessonId} mutates the presence list when called with an authenticated cookie. It has no anti-forgery protection because it is GET, and retries can repeat the mutation.",
+      "decision_to_make": "Define a safe command/API contract and migration path.",
+      "must_do": [
+        "reject state mutation through GET semantics",
+        "define authorization/business capability explicitly",
+        "define idempotency/retry and concurrency behavior",
+        "separate durable mutation from external side effects if any",
+        "plan compatibility/migration for existing callers"
+      ],
+      "must_not_do": [
+        "treat authentication cookie as sufficient authorization/CSRF defense",
+        "assume GET retries are harmless",
+        "hide business rules in controller behavior"
+      ]
+    },
+    {
+      "id": "ADV-S14",
+      "stage_id": 14,
+      "stage_name": "Database / persistence",
+      "scenario": "Membership start/end columns are DATE and must become time-aware so same-day attendance before withdrawal remains valid. Production contains historical rows and duplicate re-enrollments, and old application versions may run during rollout.",
+      "decision_to_make": "Design a compatible migration/backfill that preserves invariants and historical meaning.",
+      "must_do": [
+        "define authoritative temporal semantics before backfill",
+        "use an expand/migrate/switch/contract path",
+        "treat ambiguous historical rows explicitly rather than inventing times",
+        "make backfill resumable/observable",
+        "plan mixed-version compatibility and verification"
+      ],
+      "must_not_do": [
+        "assign midnight to all history as if factual",
+        "perform a destructive one-step migration without compatibility analysis",
+        "delete/modify applied migration history"
+      ]
+    },
+    {
+      "id": "ADV-S15",
+      "stage_id": 15,
+      "stage_name": "Testing",
+      "scenario": "Enrollment must be retry-safe and unique under concurrent requests. Current tests mock the repository and verify that the service called insert once, but production duplicates occurred during simultaneous submissions.",
+      "decision_to_make": "Design risk-based verification that can actually prove the concurrency guarantee.",
+      "must_do": [
+        "identify duplicate enrollment as the violated invariant",
+        "test against real database uniqueness/transaction semantics",
+        "include concurrent/retry adversarial cases",
+        "keep cheaper unit tests only for logic they can prove",
+        "tie regression evidence to the exact guarantee"
+      ],
+      "must_not_do": [
+        "accept mocked call-count tests as concurrency proof",
+        "use code coverage as the closure criterion",
+        "rely only on browser tests"
+      ]
+    },
+    {
+      "id": "ADV-S16",
+      "stage_id": 16,
+      "stage_name": "Security",
+      "scenario": "Institution users should not see billing/settlement data, while coordinators and admins can. A new endpoint filters the menu by role but accepts arbitrary finance_account_id in the request body and returns data when the ID exists.",
+      "decision_to_make": "Threat-model the access-control boundary and define controls/verification.",
+      "must_do": [
+        "distinguish authentication from resource-level authorization",
+        "model IDOR/cross-scope abuse case",
+        "enforce capability and resource scope server-side",
+        "add negative authorization tests and audit signals",
+        "treat internal-only exposure as reduced but not eliminated risk"
+      ],
+      "must_not_do": [
+        "treat hidden UI as access control",
+        "authorize solely because the object ID exists",
+        "log sensitive billing payloads"
+      ]
+    }
+  ]
+}

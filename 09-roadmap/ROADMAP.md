@@ -36,7 +36,7 @@ A stage can be called behaviorally very strong only after representative and adv
 ## Wave 9 — COMPLETE: Independent behavioral validation
 Independent executor/judge separation completed on the frozen 25-stage adversarial suite. Gemini 3.1 Pro executed blinded cases; Claude Opus 4.6 independently judged them. Final result: 25/25 pass, zero hard failures, average 9.12/10. Status is scoped to this eval set; judge-identified omissions remain an explicit improvement backlog.
 
-## Wave 10 — COMPLETE structurally in v1.2: close the learning loop
+## Wave 10 — COMPLETE in v1.2: closed learning loop + independent revalidation
 
 Added three first-class cross-lifecycle contracts:
 
@@ -44,4 +44,4 @@ Added three first-class cross-lifecycle contracts:
 - Production Learning Loop: expected vs observed → delta classification → model/test/eval/knowledge propagation → re-verification → Definition of Value.
 - AI Security/Governance: data classification, model/provider policy, agent capability matrix, tool boundary/egress controls and approval-bound consequential actions.
 
-G3/G8/G10/G11 now enforce these requirements, dedicated templates and golden scenarios exist, and runtime/skill routing includes them. This wave is **structurally complete**, not independently behaviorally revalidated. The frozen v1 independent run predates these material runtime changes; a v2 blinded executor/judge run is required before restoring an independent behavioral claim for the extended contract.
+G3/G8/G10/G11 enforce these requirements, dedicated templates and golden scenarios exist, and runtime/skill routing includes them. `INDEP-RUN-2026-10-04-02` then independently revalidated the package on 28 frozen scenarios (25 lifecycle regressions + 3 loop-closure cases): **28/28 PASS, 0 hard failures, average 9.57/10**. Round-1 failures in Stage 04 and Stage 18 were preserved, used to harden the runtime, and rerun without changing the frozen scenarios or judge criteria.

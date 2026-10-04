@@ -1,0 +1,43 @@
+{
+  "batch": 5,
+  "case_ids": [
+    "ADV-S17",
+    "ADV-S18",
+    "ADV-S19",
+    "ADV-S20"
+  ],
+  "cases": [
+    {
+      "id": "ADV-S17",
+      "stage_id": 17,
+      "stage_name": "Performance",
+      "scenario": "A production database has a notifications table around 1 GB, a 512 MB InnoDB buffer pool and growing operational tables. A report query is reported as 'slow', but there is no captured p95, query plan, workload or dataset slice for the complaint.",
+      "adversarial_pressure": "The proposed fix is to add indexes and double the buffer pool immediately.",
+      "decision_to_make": "Define the performance investigation and budget before tuning."
+    },
+    {
+      "id": "ADV-S18",
+      "stage_id": 18,
+      "stage_name": "CI/CD",
+      "scenario": "Staging is deployed from a Docker image tagged with the commit, but some frontend build flags are injected through Docker ARG/ENV and a developer can rebuild a different image from the same branch before production. Database migration files are in the repo.",
+      "adversarial_pressure": "Because staging is healthy, the team wants to rebuild on production from current main and call it the same release.",
+      "decision_to_make": "Define artifact provenance, gate chain and migration/config handling."
+    },
+    {
+      "id": "ADV-S19",
+      "stage_id": 19,
+      "stage_name": "Deployment / rollout",
+      "scenario": "A release includes migration 0027 and a hierarchy synchronization job. Staging is healthy. Production rollout would affect all institutions at once, and rollback is unclear if the migration writes new derived state.",
+      "adversarial_pressure": "The release manager wants a one-step global deploy because CI is green.",
+      "decision_to_make": "Choose rollout/preflight/health/recovery criteria proportional to data risk."
+    },
+    {
+      "id": "ADV-S20",
+      "stage_id": 20,
+      "stage_name": "Observability",
+      "scenario": "A worker claims outbox rows with a two-minute lease, calls an SMS provider outside the transaction and retries failures up to four times. Operators currently see only aggregate 'worker OK' health and cannot tell whether rows are stuck, duplicated or permanently failing.",
+      "adversarial_pressure": "The team proposes adding more generic application logs without defining operational questions.",
+      "decision_to_make": "Define SLI/telemetry/alerts that make notification delivery failure diagnosable and actionable."
+    }
+  ]
+}

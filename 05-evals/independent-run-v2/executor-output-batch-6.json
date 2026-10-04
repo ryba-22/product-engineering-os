@@ -1,0 +1,238 @@
+{
+  "run_id": "INDEP-RUN-2026-10-04-02",
+  "executor": {
+    "provider": "Anthropic",
+    "model": "claude-opus-5-5",
+    "notes": "Blinded independent executor; no judge criteria or prior results supplied."
+  },
+  "cases": [
+    {
+      "id": "ADV-S21",
+      "stage_id": 21,
+      "risk_class": "R3: a wrong recovery claim could mean permanent production data loss and a long outage. The recovery claim needs a stronger evidence threshold and explicit approval.",
+      "current_outcome": "Show that critical production data and capabilities can be recovered within business-justified RPO/RTO targets, measured on the current application/schema version. Until then, the 1h RTO and 15min RPO are unproven assumptions.",
+      "decision": "Do NOT record the RPO/RTO as achieved. A green vendor backup status shows backup jobs are configured and running. It does not show that we can recover. Record recovery readiness as UNVERIFIED and the RPO ≤15min / RTO ≤1h as ASSUMED TARGETS. The smallest sufficient next step is an isolated restore drill on the current app/schema/config version. It must measure how long it takes to restore usable business capability (RTO) and the actual recovered data point compared with the simulated failure time (RPO). Before the drill, check on paper whether backup frequency or point-in-time recovery can even reach a 15-minute RPO. If backups are only periodic snapshots with no log/PITR shipping, the target cannot be met as configured and must go back to the business owner.",
+      "evidence_and_unknowns": [
+        "FACT: Automated database backups exist, and the vendor dashboard shows backup jobs as green.",
+        "FACT: No restore has been performed against the current application/schema version.",
+        "FACT: The business assumes RTO <1h and RPO ≤15min. These are stated assumptions, not measured results.",
+        "ASSUMPTION (to be tested): the backups are complete, uncorrupted, decryptable and compatible with the current schema and migrations.",
+        "OPEN QUESTION: Are 1h/15min approved targets based on business consequence, and who owns them? Are they the same for every critical capability?",
+        "OPEN QUESTION: What are the backup type and frequency (snapshot vs continuous/PITR log shipping), retention, encryption and key custody?",
+        "OPEN QUESTION: Are backups stored in a separate failure domain (account/region/credentials) with deletion/immutability protection?",
+        "OPEN QUESTION: Besides the database, what must be restored together: files/object storage, config, secrets references, infrastructure definitions, schema migration state?",
+        "OPEN QUESTION: Who declares and leads a data-loss incident, and what are the communication channels?",
+        "UNKNOWN: Restore duration, recovered data point and post-restore integrity. None of these can be inferred from backup status."
+      ],
+      "actions": [
+        "Classify recoverable assets: production DB, related file/object storage, config, secrets references, infrastructure-as-code, and the migration version table. Mark each as critical or non-critical.",
+        "Confirm the RPO/RTO with the business owner for each critical capability, based on the cost of loss and downtime. Record them as targets, not as achieved values.",
+        "Map the backup mechanism: frequency/PITR, retention, encryption, key access, failure-domain separation, deletion protection, and who has restore permissions. Flag right away if the configuration cannot reach a 15min RPO.",
+        "Write a restore runbook: prerequisites, app/schema/config version pairing, dependency order, credential/key retrieval that does not depend on the failed environment, and business-level verification checks.",
+        "Run an isolated restore drill (non-production, access-controlled, production-equivalent sizing where possible) from a real production backup. Record the backup timestamp, the simulated failure time, the start and end of each phase, and the time until a usable business capability exists.",
+        "Verify restored data: row counts and checksums on critical tables, referential integrity, the latest recovered transaction compared with the failure point (measured RPO), app startup on the current version, and smoke tests of critical user workflows.",
+        "Plan failure-variant drills in priority order: accidental table/row deletion (PITR), bad migration / corrupted data (roll forward vs restore plus reconciliation), unavailable primary host/region, loss of credentials or encryption keys.",
+        "Draft an incident runbook: severity triggers for data loss/outage, incident commander, escalation, communication, decision log, containment-first steps (stop writes / stop corruption from spreading, preserve evidence).",
+        "Record results in a Restore Drill Record. If the measured RTO/RPO misses the targets, open corrective actions with owner, priority and closure evidence, or have the business explicitly accept the gap.",
+        "Tell leadership plainly: 'Backups configured; recovery UNVERIFIED until drill evidence exists.'"
+      ],
+      "verification": [
+        "PLANNED (not executed): isolated restore drill, with a Restore Drill Record holding backup ID/timestamp, environment, app/schema/config versions, measured RTO (to usable business capability), and measured RPO (recovered point vs failure point).",
+        "PLANNED: integrity checks (checksums/row counts/referential integrity) and smoke tests of critical business workflows on the restored environment.",
+        "PLANNED: confirm the encryption keys and restore credentials are accessible from outside the primary failure domain.",
+        "PLANNED: at least one failure-variant drill (accidental deletion with PITR) to test the 15-minute RPO claim specifically.",
+        "Drill cadence and re-drill triggers (major schema change, provider/topology change) to be defined in the recovery policy.",
+        "Nothing is verified yet. A backup status dashboard is not recovery evidence."
+      ],
+      "handoff": "DB/platform owner (to be named): run the restore drill and produce the Restore Drill Record. Business owner: confirm or revise the RPO/RTO targets and accept any measured gap. Incident lead (to be named): own the incident runbook. Leadership gets an UNVERIFIED readiness status until the drill evidence exists. Drill and incident learning goes to Stage 24, and durable runbook/knowledge updates (including superseding any runbook that assumes untested recovery) go to Stage 25.",
+      "completion_state": "Backups configured (an input only). Recovery readiness UNVERIFIED. RPO/RTO are ASSUMED targets, not achieved. G10 recovery scope NOT satisfied. Restore drill planned, not executed.",
+      "residual_risks": [
+        "Backups may be unrestorable or incompatible with the current schema/migrations. This can only be found out by restoring.",
+        "The backup mechanism may not be able to deliver a 15-minute RPO at all (snapshot cadence).",
+        "Backups or keys may share a failure domain or credentials with production (ransomware, account compromise, region outage).",
+        "Restoring after data corruption or a bad migration may bring back bad state. A reconciliation procedure is needed, not just a restore.",
+        "Non-database state (files, config, secrets) may be missing from the recovery scope.",
+        "Measured RTO in an isolated drill may underestimate real incident time (detection, decision, communication).",
+        "Incident ownership and communication are not yet defined."
+      ],
+      "references": [
+        "BRAIN.md (stop-analysis gate, evidence before claims, lifecycle states, R3 evidence threshold)",
+        "04-gates/quality-gates.json (G10)",
+        "06-modules/security-reliability/STAGE-21-BACKUP-DR-INCIDENTS.md",
+        "07-templates/RESTORE-DRILL.md (named in the playbook; template content not supplied)",
+        "07-templates/INCIDENT-RUNBOOK.md (named in the playbook; template content not supplied)"
+      ]
+    },
+    {
+      "id": "ADV-S22",
+      "stage_id": 22,
+      "risk_class": "R2: product measurement that drives decisions, with likely personal/enrollment data that brings privacy limits. Not directly safety- or irreversibility-critical, but wrong metrics would mislead investment decisions.",
+      "current_outcome": "Be able to measure whether the new enrollment funnel produces successful enrollments with fewer operator corrections and fewer support contacts, using validated data that has explicit metric semantics.",
+      "decision": "Reject 'track every click' and MAU as the decision basis. Build the metric tree from the stated outcome: purpose → successful enrollment with less correction and support effort → funnel behaviors → metrics → a minimal set of behavior-level events, plus server-side operator-correction and support data. MAU is removed from the decision dashboard because enrollment is mostly a one-time task and MAU is not linked to any decision. Targets and baselines are not invented; they stay open until the outcome owner sets them.",
+      "evidence_and_unknowns": [
+        "FACT: The stated business outcome is successful enrollment, with fewer operator corrections and fewer support contacts.",
+        "FACT: The current proposal tracks every button click and reports MAU. Neither is linked to the stated outcome.",
+        "FACT: The analytics vendor makes click tracking easy and the dashboard template contains MAU. That is convenience, not decision relevance.",
+        "OPEN QUESTION: What exactly counts as 'successful enrollment': submitted, accepted/confirmed by the system of record, or accepted with no operator correction within N days? The outcome owner must define it.",
+        "OPEN QUESTION: What are the baselines for enrollment completion, correction rate and support contacts from the old flow, and are they comparable?",
+        "OPEN QUESTION: How are operator corrections recorded today (audit log, back-office tool)? Can they be linked to an enrollment_id and categorized by field/reason?",
+        "OPEN QUESTION: Can support contacts be linked to an enrollment or applicant and tagged with an enrollment-related reason?",
+        "OPEN QUESTION: What privacy/consent rules apply to enrollment data and analytics properties? Which identifiers are allowed?",
+        "OPEN QUESTION: How do identity and session work across anonymous start → authenticated/submitted enrollment, multiple devices and resumed sessions?",
+        "ASSUMPTION: The unit of analysis is the enrollment attempt (enrollment_id), not the user-month."
+      ],
+      "actions": [
+        "Metric tree: Purpose = applicants get enrolled correctly with low operational effort. Outcome = successful enrollment rate. Behaviors = start, complete each step, recover from validation errors, submit. Signals and metrics as below.",
+        "Outcome metric contract: successful enrollment rate = enrollments meeting the agreed success definition / enrollments started, by start-date cohort, with a fixed completion window (window length open), excluding internal/test/bot traffic. Owner to be named.",
+        "Driver metrics: step-to-step conversion and drop-off by step; validation-failure rate by step and error code; median time to complete; resume/return rate for multi-session enrollments.",
+        "Guardrail metrics: operator correction rate = corrected enrollments / submitted enrollments, plus corrections by field category and reason. Enrollment-related support contacts per 100 started enrollments, by reason. Also error/latency on submit, completion rate by device and assistive-technology-relevant segments where privacy allows, and duplicate enrollments.",
+        "Minimum event taxonomy (behavior-level; server-side where the system of record owns the truth): enrollment_started; enrollment_step_completed {step_id}; enrollment_validation_failed {step_id, error_code}; enrollment_submitted; enrollment_accepted / enrollment_rejected {reason_code} (server-side); enrollment_corrected_by_operator {field_category, reason_code} (back-office/audit source); support_contact_created {enrollment_id link, reason_category} (support system). Abandonment is derived from the absence of submission within the window, not tracked as a click event.",
+        "Minimal properties: enrollment_id, step_id, error_code, channel/device class, app version, tracking_plan_version, timestamp. No free-text or PII in analytics events unless the privacy review explicitly permits it.",
+        "Define identity/session rules: enrollment_id as the stable key across anonymous and authenticated transitions; dedupe rules for retries and resubmissions.",
+        "Write the Tracking Plan and metric contracts. Get sign-off from the outcome owner on the success definition and practical thresholds before the dashboard is built.",
+        "Instrument, then validate in staging and early production: each event fires once at the correct semantic moment with the correct properties, and analytics counts reconcile with system-of-record submissions/acceptances.",
+        "Data-quality checks: missingness, duplication, late arrival, internal/test traffic filtering, version drift.",
+        "Decision views: one dashboard answering 'Is enrollment success improving without more corrections or support load?', with denominators and cohorts visible. Pair it with qualitative review of correction reasons and support transcripts to explain the why."
+      ],
+      "verification": [
+        "PLANNED: Tracking Plan review against the metric tree. Every event must map to a metric, and every metric to a decision.",
+        "PLANNED: Instrumentation validation (fire-once, correct moment, correct properties) through scripted test enrollments that cover success, validation failure, abandonment, resume and operator correction.",
+        "PLANNED: Reconcile analytics enrollment_submitted/accepted counts with the system of record for the same period, within an agreed tolerance.",
+        "PLANNED: Confirm operator-correction and support-contact joins to enrollment_id on a sample.",
+        "Not yet executed. The metrics cannot be computed from validated data yet."
+      ],
+      "handoff": "Outcome/product owner: define 'successful enrollment', the window and practical thresholds. Engineering: implement the Tracking Plan events (client and server-side). Operations/back-office owner: expose correction records. Support lead: provide reason tagging and enrollment linkage. Privacy reviewer: approve properties and identifiers. Once metrics are validated, Stage 23 can use them for experiments/pilots, and Stage 24 for the outcome review against the funnel's intended outcome.",
+      "completion_state": "DESIGNED (metric tree, metric contracts and minimum event taxonomy proposed). Not instrumented, not validated. G11 analytics scope NOT satisfied. Outcome UNVERIFIED.",
+      "residual_risks": [
+        "The success definition is not yet agreed. Metrics may be computed against the wrong target or redefined after results come in.",
+        "Operator correction and support data may not be linkable to enrollments, which would weaken the guardrails.",
+        "Double counting from retries, multiple devices or anonymous→authenticated stitching.",
+        "Baseline comparability with the old funnel may be limited, so before/after comparisons are correlational, not causal.",
+        "Privacy limits may restrict segmentation, for example by accessibility or demographic segments.",
+        "Vendor auto-capture may be re-enabled by default, collecting unneeded data."
+      ],
+      "references": [
+        "BRAIN.md (routing, evidence before claims, Definition of Value)",
+        "04-gates/quality-gates.json (G11)",
+        "06-modules/product-intelligence/STAGE-22-PRODUCT-ANALYTICS.md",
+        "07-templates/METRIC-TREE.md (named in the playbook; template content not supplied)",
+        "07-templates/TRACKING-PLAN.md (named in the playbook; template content not supplied)"
+      ]
+    },
+    {
+      "id": "ADV-S23",
+      "stage_id": 23,
+      "risk_class": "R2: a workflow change that affects scheduling decisions at about 40 institutions. A wrong conclusion could spread a worse workflow, but the rollout is reversible and can be limited to pilot institutions.",
+      "current_outcome": "Decide whether to roll out the new conflict-resolution workflow more widely, based on evidence that it resolves scheduling conflicts better (faster or more correctly, with fewer follow-ups) without harming scheduling quality.",
+      "decision": "Do not run a user/operator-level A/B test. Operators within the same institution share schedules and conflicts, so assignment would be contaminated (interference). And with only a few conflicts per week, an institution-level randomized test with about 40 clusters is very likely underpowered within any reasonable time. Recommended method, cheapest valid first: (1) direct usability evaluation of the new workflow on real or recent conflict cases with operators, to find defects that do not need an experiment; then (2) a pre-registered institution-level pilot. Selected pilot institutions get the new workflow; comparator institutions continue as-is; outcomes, guardrails and decision thresholds are defined in advance; exposure is logged at the conflict trigger; qualitative operator debriefs explain the mechanism. Results are reported as quasi-experimental or descriptive, not causal. Switching condition: if the decision really needs causal attribution AND the measured baseline conflict volume supports adequate power, upgrade to a cluster-randomized or stepped-wedge rollout with the institution as the unit.",
+      "evidence_and_unknowns": [
+        "FACT: About 40 institutions use the product.",
+        "FACT: Only a few operators run into the conflict each week (low event volume).",
+        "FACT: Operators within an institution can influence each other, which contaminates individual-level assignment.",
+        "FACT: Stakeholders believe A/B is inherently more scientific. The method has to fit the decision and its assumptions, and here the A/B assumptions (independent units, enough traffic) are violated.",
+        "OPEN QUESTION: Which decision changes based on the result (roll out to all, iterate, stop), who owns it, and what is the minimum practically important improvement?",
+        "OPEN QUESTION: What is the exact weekly conflict count per institution and how much does it vary? This is needed before any power/duration estimate.",
+        "OPEN QUESTION: How many conflict types are there? Does the conflict mix differ across institutions?",
+        "OPEN QUESTION: How is conflict resolution quality measured today (rework, reopened conflicts, double bookings, escalations)? Is it instrumented?",
+        "OPEN QUESTION: Do institution contracts or consent allow a pilot? Which institutions volunteer, and does volunteering cause selection bias?",
+        "OPEN QUESTION: Could the new workflow create harmful scheduling outcomes that need a stop rule?",
+        "ASSUMPTION: Workflow defects can largely be seen directly in usability sessions, which is cheaper than any experiment."
+      ],
+      "actions": [
+        "Write the decision and hypothesis: 'If the new workflow reduces time to correct resolution by ≥ [practical threshold, set by the owner] without increasing rework or scheduling errors, roll it out; otherwise iterate or stop.'",
+        "Pull a baseline: conflict events per institution per week over recent months, current resolution time, reopen/rework rate, escalations/support contacts tied to conflicts.",
+        "Run moderated usability sessions with 5–8 operators from several institutions, using recent real conflict scenarios on a prototype or staging build. Fix observed defects before the pilot.",
+        "Define the population and trigger: eligible institutions (on the current version, consenting, with conflict volume above a floor). Exposure = an operator entering the conflict-resolution flow at a pilot institution, logged at the trigger before the outcome.",
+        "Assignment unit = institution. Pick pilot and comparator institutions by matching on size and conflict volume/type, or randomize at institution level if feasible. Document how they were selected.",
+        "Pre-define the primary outcome (e.g., time from conflict detection to valid resolution) and guardrails: rework/reopened conflicts within N days, double bookings or schedule errors, escalations/support contacts, operator overrides, latency/errors. Also the analysis window and a fixed analysis date (no peeking-driven stopping).",
+        "Estimate duration from the baseline volume. If the needed event count cannot be reached in an acceptable window, state up front that the pilot gives directional evidence plus qualitative mechanism evidence, not causal inference.",
+        "Validate instrumentation before launch: conflict-detected, resolution-started, resolution-completed and conflict-reopened events fire once with institution/version/conflict-type properties.",
+        "During the pilot: weekly operator debriefs and support-theme review. Monitor guardrails, with a stop/rollback rule if scheduling errors rise.",
+        "Trustworthiness checks: exposure completeness, conflict-mix and volume invariants between pilot and comparator, pre-period trends of both groups, event completeness.",
+        "Analyze the pre-specified outcomes first and label everything else exploratory. Record a ship / iterate / stop / gather-more-evidence decision with the remaining uncertainty."
+      ],
+      "verification": [
+        "PLANNED: Experiment/Pilot Plan reviewed and signed by the decision owner before launch, with outcomes, guardrails, thresholds, window and stop rules fixed.",
+        "PLANNED: Pre-launch instrumentation validation using scripted conflict scenarios in staging.",
+        "PLANNED: Exposure/invariant checks (conflict volume and type balance, pre-period comparability) before outcomes are interpreted.",
+        "PLANNED: Usability-session findings logged and resolved before the pilot starts.",
+        "Nothing has been executed. There is no result yet, and the outcome is UNVERIFIED."
+      ],
+      "handoff": "Product owner: state the decision, practical threshold and success definition. Analytics/engineering: baseline query and instrumentation. UX research: usability sessions and pilot debriefs. Customer success: institution recruitment and consent. Results go to Stage 24 to be combined with analytics, support and operational evidence. If the baseline shows enough volume and causal attribution is needed, revisit the method (cluster-randomized or stepped-wedge) within Stage 23.",
+      "completion_state": "Method DECIDED (recommendation pending confirmation by the decision owner). Pilot plan DRAFT. Instrumentation not validated. Pilot not run. G11 experimentation scope NOT satisfied. Outcome UNVERIFIED.",
+      "residual_risks": [
+        "A non-randomized pilot is open to selection bias and confounding (motivated volunteer institutions, seasonal scheduling). Conclusions must be scoped accordingly.",
+        "Low event volume may give only directional evidence even after a long pilot.",
+        "Novelty or learning effects may distort early pilot behavior.",
+        "Conflict-type mix may differ between institutions, limiting how far results generalize.",
+        "Spillover between institutions (shared staff, shared support) may still exist.",
+        "Stakeholders may over-read pilot results as causal, or reject valid pilot evidence because it is not an A/B test."
+      ],
+      "references": [
+        "BRAIN.md (stop-analysis gate, smallest sufficient evidence action)",
+        "04-gates/quality-gates.json (G11)",
+        "06-modules/product-intelligence/STAGE-23-EXPERIMENTATION.md",
+        "07-templates/EXPERIMENT-PLAN.md (named in the playbook; template content not supplied)"
+      ]
+    },
+    {
+      "id": "ADV-S24",
+      "stage_id": 24,
+      "risk_class": "R2: an operator workflow that affects scheduling decisions. The misclassification risk is closing an initiative whose intended value is not shown, while a domain workaround (spreadsheet export) carries on outside the system.",
+      "current_outcome": "Find out whether the redesigned operator worklist delivered its originally intended outcome for operators making scheduling decisions, and choose the next deliberate action, judged against the original success definition rather than a redefined one.",
+      "decision": "Do NOT close the initiative as a product success. The worklist is released, and stable error rates partly support operational health, but deployment and reliability do not establish value. The Definition of Value status is UNVERIFIED. Continued spreadsheet export before scheduling decisions, and the shift in support contacts from 'can't find record' to 'can't compare groups', are material production deltas. They point to unmet comparison needs and a likely domain/workflow gap, not to an implementation defect. Next action: ITERATE via targeted research. Reopen the original PDR/outcome, quantify the deltas against the original targets, and run contextual inquiry into the spreadsheet workaround before building any 'compare groups' feature. Do not automate the spreadsheet workaround until we understand what decision the operators are making with it.",
+      "evidence_and_unknowns": [
+        "FACT: The redesigned worklist shipped and error rates are stable.",
+        "FACT: Operators still export data to spreadsheets before making scheduling decisions.",
+        "FACT: Usage of the new filters is 'moderate', which is a qualitative label with no numbers or denominator yet.",
+        "FACT: Support contacts moved from 'can't find record' to 'can't compare groups'.",
+        "OPEN QUESTION: What was the original outcome and target in the PDR (e.g., less time to scheduling decision, fewer exports, fewer support contacts, fewer errors)? This must be reopened, not redefined.",
+        "OPEN QUESTION: Exposure. Which operators/institutions got the redesign, since when, and is the old flow still available?",
+        "OPEN QUESTION: Export frequency per operator per decision, before and after release. Did it drop at all?",
+        "OPEN QUESTION: Total support contact volume per active operator before and after, not just the category mix.",
+        "OPEN QUESTION: Filter usage by segment (operator role, institution size). Is 'moderate' usage concentrated in particular segments?",
+        "OPEN QUESTION: Are post-deploy smoke results, SLO and latency evidence available? Stable error rates alone are partial G10 evidence.",
+        "HYPOTHESIS (unconfirmed): the redesign improved findability (the 'can't find record' contacts went down) but did not support comparison across groups, which operators need for scheduling decisions.",
+        "HYPOTHESIS (unconfirmed): the spreadsheet holds decision logic or data (cross-group comparison, aggregates, external data, temporal views) that the system does not model. What did the human know or decide that the system did not?",
+        "UNKNOWN: Whether the original outcome hypothesis is weakened or falsified. This depends on the original target and quantified evidence."
+      ],
+      "actions": [
+        "Reopen the original PDR/outcome, assumptions and targets. Freeze them as the comparison baseline and record them in the Outcome Review before looking at more results.",
+        "Confirm exposure: population, rollout date, duration, any remaining legacy path.",
+        "Quantify the drivers against the baseline period: export events per decision/operator, filter usage rate with an explicit denominator (active operators making scheduling decisions), time to decision if available, support contact volume and categories per active operator.",
+        "Review guardrails and operations: errors, latency, accessibility, support burden. Collect any missing G10 evidence (post-deploy smoke, SLO).",
+        "Contextual inquiry / observation with 5–8 operators across segments, watching the export-to-spreadsheet workflow live. Capture which groups they compare, which columns and calculations they use, any external data, and who owns the resulting decision.",
+        "Write a Production Learning Record: Expected (per PDR) vs Observed (exports persist; support theme shifted). Classification: operator/workflow friction + possible domain-model gap / unknown rule. Outcome hypothesis marked 'unresolved' until quantified against the target. Confidence: moderate on the delta, low on the explanation.",
+        "Propagation (provisional). Domain model/rules: UNKNOWN (pending inquiry into group-comparison decision logic). Example Map/acceptance: UPDATE_REQUIRED (add examples for group comparison once rules are known). Decision records (PDR): UPDATE_REQUIRED (status = UNVERIFIED OUTCOME, iterate). Automated tests: NO_CHANGE for current behavior, UNKNOWN for future comparison rules. Golden/adversarial evals: NO_CHANGE unless AI components are involved (none stated). Knowledge records: UPDATE_REQUIRED (findability vs comparison learning). Observability/runbook: UPDATE_REQUIRED (export instrumentation, support reason taxonomy for comparison).",
+        "Update the assumption/opportunity map: keep the evidence that findability improved alongside the new 'compare groups' opportunity, including contradictory signals.",
+        "Decide the next action: iterate. Route the group-comparison question to Stage 02 (discovery) and, if the inquiry shows new decision rules, to domain/requirements for Example Mapping. Keep the initiative open with an explicit outcome-review date.",
+        "Report to stakeholders: 'Released and operationally stable (partial health evidence). Outcome UNVERIFIED. The workaround persists. Iterating.'"
+      ],
+      "verification": [
+        "PLANNED: Outcome Review comparing quantified exports, filter usage and support volume against the original PDR targets for a defined population and period, with data-quality caveats.",
+        "PLANNED: Instrumentation check that export and filter events are captured once per action, with operator/institution/version properties.",
+        "PLANNED: Contextual inquiry synthesis linked to the Production Learning Record.",
+        "PLANNED: Re-verification once the Example Map/tests are updated for any new comparison rules, plus a planned next production observation (did export frequency and comparison-related support contacts drop after the iteration?).",
+        "EXECUTED (as stated in the scenario): stable error rates only. No outcome verification has been executed."
+      ],
+      "handoff": "Product owner: reopen the PDR, own the Outcome Review and the iterate decision. UX research: contextual inquiry into spreadsheet use. Analytics: baseline vs post-release quantification and export instrumentation. Support lead: reason-code taxonomy and volume trend. Discovery questions go to Stage 02, new strategic framing (if the outcome hypothesis proves falsified) to Stage 01, and durable learning and superseded assumptions to Stage 25.",
+      "completion_state": "DEPLOYED. HEALTHY partly evidenced (stable error rates; smoke/SLO evidence not shown). Definition of Value: UNVERIFIED. Production Learning Record opened; propagation provisional (several items UNKNOWN). G11 NOT satisfied. Initiative remains OPEN with next action = iterate via research.",
+      "residual_risks": [
+        "The spreadsheet workaround may hide data-quality or policy decisions outside system control, with no audit trail.",
+        "Closing early would erase the learning and leave a recurring support burden ('can't compare groups').",
+        "'Moderate' filter usage may mask segments where the redesign failed or caused harm.",
+        "The support category shift may come from tagging changes rather than real behavior change (instrumentation risk).",
+        "Building a comparison feature straight away could automate the workaround without understanding the decision logic behind it.",
+        "If the original PDR targets were never written down, the outcome cannot be assessed without risking post-hoc redefinition. That gap must be recorded explicitly."
+      ],
+      "references": [
+        "BRAIN.md (lifecycle states, Definition of Value, route backwards, closure loop)",
+        "04-gates/quality-gates.json (G10, G11)",
+        "06-modules/product-intelligence/STAGE-24-FEEDBACK-NEXT-ITERATION.md",
+        "06-modules/product-intelligence/PRODUCTION-LEARNING-LOOP.md",
+        "07-templates/PRODUCTION-LEARNING-RECORD.md",
+        "07-templates/OUTCOME-REVIEW.md (named in the playbook; template content not supplied)"
+      ]
+    }
+  ]
+}

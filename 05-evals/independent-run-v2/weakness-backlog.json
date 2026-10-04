@@ -1,0 +1,95 @@
+{
+  "run_id": "INDEP-RUN-2026-10-04-02",
+  "items": [
+    {
+      "id": "ADV-S01",
+      "score": 9,
+      "must_do_missing": [],
+      "must_not_do_violations": [],
+      "rationale": "Separates the requested dashboard from the missed-exception problem, defines an observable outcome and candidate success signals without inventing baselines, surfaces constraints and risks, and routes decision-changing questions to Discovery with a stop condition and owner. G0 remains explicitly unpassed; verification is marked planned, not executed. Evidence scope loses a point because child/guardian data and some affected actors are introduced beyond the supplied facts, though largely framed conditionally or as proposed actors."
+    },
+    {
+      "id": "ADV-S04",
+      "score": 9,
+      "must_do_missing": [],
+      "must_not_do_violations": [],
+      "rationale": "Separates legacy contact sourcing from Finance eligibility, specifies per-child/per-period deduplication and zero-amount behavior, and covers approval, duplicate, retry/failure, privacy, security, and data uncertainties. Unknown policies remain open, architecture is not prematurely selected, and acceptance/example traceability and ownership are explicit. The answer clearly limits the baseline and live-sending authorization. Verification is only planned, not executed."
+    },
+    {
+      "id": "ADV-S09",
+      "score": 9,
+      "must_do_missing": [
+        "Manual keyboard verification of the fixed critical flow was planned but not executed.",
+        "Validation/error associations were specified and included in planned tests, but were not tested."
+      ],
+      "must_not_do_violations": [],
+      "rationale": "Correctly rejects axe-only completion, identifies the focus-return and non-semantic control defects, and specifies native or complete ARIA/keyboard behavior, modal focus lifecycle, and linked validation errors. It distinguishes the clean axe result from missing manual evidence and keeps G5 open. Manual keyboard and validation verification remain planned rather than executed, so verification receives no credit."
+    },
+    {
+      "id": "ADV-S10",
+      "score": 9,
+      "must_do_missing": [
+        "Realistic long, empty, and error data review was planned but not executed."
+      ],
+      "must_not_do_violations": [],
+      "rationale": "Rejects decorative card/padding/shadow changes without task evidence; recommends using wide-screen space, compact comparison-oriented density, hierarchy through alignment and type, semantic status cues, and preserving the table. It identifies task mix and viewport distribution as assumptions or unknowns and does not claim measured improvement. Realistic-content and operator comparisons remain planned, so verification receives no credit."
+    },
+    {
+      "id": "ADV-S11",
+      "score": 8,
+      "must_do_missing": [
+        "A concrete migration/deprecation policy is not defined; a migration/versioning note is only listed as a future promotion prerequisite.",
+        "Keyboard/AT and composition verification were planned but not executed."
+      ],
+      "must_not_do_violations": [],
+      "rationale": "Correctly keeps the one-off behavior Local, requires semantic reuse evidence and an accessibility contract, names feature and design-system owners, and treats promotion thresholds as proposed rather than existing policy. However, it does not define the requested migration/deprecation policy, and all verification remains planned. It explicitly states the pattern is not implemented or verified."
+    },
+    {
+      "id": "ADV-S12",
+      "score": 9,
+      "must_do_missing": [
+        "Back/forward and shareable-URL behavior tests were planned but not executed."
+      ],
+      "must_not_do_violations": [],
+      "rationale": "Makes the URL the navigational-state source of truth, derives normalized query state, puts updates in event handlers, and specifies explicit server-cache pending/stale/error behavior. It example-maps back navigation, sharing, request de-duplication, and invalid parameters while marking root cause and history policy as unresolved. Tests are planned only, and the answer explicitly says the defects are not fixed or verified."
+    },
+    {
+      "id": "ADV-S13",
+      "score": 9,
+      "must_do_missing": [],
+      "must_not_do_violations": [],
+      "rationale": "Defines a non-mutating GET boundary and a protected POST command, explicit capability/resource authorization, idempotency and concurrency controls, transaction/outbox handling, and a phased compatibility path. It labels verification as planned and not executed, records residual risk, and provides example IDs and handoffs. Evidence scope loses one point because it states as facts that the UI depends on the endpoint and that the endpoint has existed for years, neither of which is established by the scenario; these do not undermine the core decision."
+    },
+    {
+      "id": "ADV-S18",
+      "score": 9,
+      "must_do_missing": [],
+      "must_not_do_violations": [],
+      "rationale": "Rejects rebuilding and presenting different bytes as the staging-tested release; specifies promotion by immutable digest, provenance, config/secrets handling, migration compatibility and gates, and retained gate outcomes. It distinguishes deployment from health, identifies missing evidence without inventing it, and clearly blocks release pending G9 evidence with owners and next action. Verification checks are planned only, not executed."
+    },
+    {
+      "id": "ADV-S22",
+      "score": 9,
+      "must_do_missing": [],
+      "must_not_do_violations": [],
+      "rationale": "Starts from successful enrollment and correction/support guardrails; defines denominator, cohort and window considerations; proposes semantic events, identity/session rules, privacy limits and data-quality checks; and cautions that before/after movement is correlational. It accurately marks instrumentation and validation as not yet done and gives owners and artifact handoffs. Evidence scope loses one point for presenting an analytics vendor and dashboard template as facts although neither is established in the scenario; this does not change the central decision."
+    },
+    {
+      "id": "ADV-S23",
+      "score": 9,
+      "must_do_missing": [],
+      "must_not_do_violations": [],
+      "rationale": "Rejects operator/session randomization due to institutional interference and recognizes low volume and roughly 40 clusters as a likely power constraint. Recommends usability work followed by a pre-specified institution-level pilot, addresses contamination and guardrails, and limits conclusions to descriptive or quasi-experimental evidence; non-significance is not treated as equivalence. The answer labels the plan and checks as unexecuted. Evidence scope loses one point for asserting an unstated stakeholder belief that A/B testing is inherently more scientific; this is not central to the recommendation."
+    },
+    {
+      "id": "V2-LC-ATDD",
+      "score": 9,
+      "must_do_missing": [
+        "The candidate examples are not yet fully concrete with specific actors, numbers, periods, and triggers; the answer defers producing those details to the planned session.",
+        "It does not explicitly define examples for an empty eligible-recipient set or an operator refusing approval, although it covers ineligible cases and missing approval."
+      ],
+      "must_not_do_violations": [],
+      "rationale": "Correctly rejects implementation readiness and post-hoc tests as a substitute for prior agreement. It distinguishes rules, examples, implementation, and test evidence; keeps policy questions open; proposes executable layers and stable traceability; and avoids assuming transport architecture. The example coverage is strong but leaves some requested concrete boundary cases for a future session, so decision correctness loses one point. It clearly marks the map and tests as planned, not executed."
+    }
+  ]
+}

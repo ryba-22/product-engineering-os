@@ -6,7 +6,7 @@ Product Engineering OS uses three different claims and does not collapse them:
 2. **Deep structural coverage** — every lifecycle stage also has a substantive stage-specific playbook with decision questions, workflow, decision rules, evidence standard, canonical outputs, failure modes, exit conditions and handoff.
 3. **Behavioral effectiveness** — the runtime has been executed against representative/adversarial cases and the results have been independently or repeatably assessed.
 
-As of v1.1, all 25 lifecycle stages are **deep-structural**. The stage playbooks are validated for minimum depth and required operational sections. This is materially stronger than the earlier skeleton-only coverage.
+As of v1.2, all 25 lifecycle stages are **deep-structural**. The stage playbooks are validated for minimum depth and required operational sections. This is materially stronger than the earlier skeleton-only coverage.
 
 This still does **not** prove general behavioral effectiveness. Existing golden evals are specifications unless accompanied by executed results. The worked idempotent-enrollment example is self-assessed, not an independent benchmark.
 
@@ -36,4 +36,20 @@ v1.2 materially changes the runtime contract in three areas: pre-implementation 
 
 Structural evidence now exists through updated G3/G8/G10/G11 gates, focused playbooks, templates, runtime instructions and new golden eval specifications. This is sufficient to call the extension **structurally implemented**.
 
-It is **not** yet sufficient to extend the prior independent behavioral claim. `INDEP-RUN-2026-10-03-01` used the frozen v1 corpus before these rules were added. Therefore v1.2 must not claim that the new loop-closure behaviors are independently validated until a new blinded executor/judge run exercises them, including failure cases where implementation passes tests but production falsifies the model, and where prompt-only AI restrictions conflict with actual capabilities.
+At the point the v1.2 structure was introduced, the prior `INDEP-RUN-2026-10-03-01` was not sufficient to validate the new runtime contract. That evidence boundary was preserved until a fresh blinded run was executed; the result is recorded below rather than back-projecting the v1 score onto v1.2.
+
+## Independent behavioral validation v2 — 2026-10-04
+
+Run `INDEP-RUN-2026-10-04-02` evaluates Product Engineering OS v1.2 on **28 frozen scenarios**: the 25 lifecycle regression cases plus three focused loop-closure cases for ATDD / Example Mapping, AI data/model/tool capability governance and expected-vs-observed Production Learning / Definition of Value.
+
+The blinded executor was **Anthropic Claude Opus 5.5 via Claude Code CLI**. The independent judge was **OpenAI GPT-6 Luna via GitHub Copilot CLI**. The executor did not receive judge criteria or prior results; the judge criteria were introduced only after executor outputs existed.
+
+Round 1 produced **26/28 PASS** and deliberately preserved two hard failures:
+- **ADV-S04** — unresolved normalization/retry semantics were promoted into decision-ready requirements/examples;
+- **ADV-S18** — staging deployment was incorrectly upgraded to staging health without runtime health evidence.
+
+The runtime/playbooks were hardened while the frozen scenarios and judge rubric remained unchanged. Fresh independent sessions reran only those same two failed cases. Both passed at 9/10.
+
+Final result: **28/28 PASS, 0 hard failures, average 9.57/10**. Focused v1.2 cases scored ATDD 9/10, AI governance 10/10 and Production Learning 10/10. The first-round failures, remediation, round-2 outputs, provenance and weakness backlog remain stored under `05-evals/independent-run-v2/`.
+
+This supports the scoped maturity status **`independently-behaviorally-validated-v2`** for the frozen 28-case suite. It does not prove universal product-engineering competence, correctness on unseen distributions, or production correctness of downstream systems. Material future runtime changes reopen the need for revalidation.

@@ -1,0 +1,87 @@
+{
+  "batch": 6,
+  "case_ids": [
+    "ADV-S21",
+    "ADV-S22",
+    "ADV-S23",
+    "ADV-S24"
+  ],
+  "criteria": [
+    {
+      "id": "ADV-S21",
+      "stage_id": 21,
+      "stage_name": "Backup / DR / incidents",
+      "scenario": "Automated database backups exist, but no restore has been performed against the current application/schema version. The business assumes recovery will take under one hour and that no more than 15 minutes of data can be lost.",
+      "decision_to_make": "Determine what evidence is needed to claim recovery readiness and how to test it.",
+      "must_do": [
+        "treat RPO/RTO as unverified until measured",
+        "run an isolated restore drill with a real backup timestamp",
+        "verify application/schema/config compatibility and business capability",
+        "record measured recovery/data point",
+        "define incident ownership and follow-up for gaps"
+      ],
+      "must_not_do": [
+        "treat backup configuration as restore evidence",
+        "claim one-hour RTO from vendor status",
+        "test restore by overwriting production"
+      ]
+    },
+    {
+      "id": "ADV-S22",
+      "stage_id": 22,
+      "stage_name": "Product analytics",
+      "scenario": "A new enrollment funnel is being instrumented. The initial tracking proposal captures every button click and reports monthly active users, but the business outcome is successful enrollment with fewer operator corrections and fewer support contacts.",
+      "decision_to_make": "Define outcome/driver/guardrail metrics and the minimum event taxonomy needed for decisions.",
+      "must_do": [
+        "start from enrollment outcome and correction/support guardrails",
+        "define metric denominator/cohort/window",
+        "instrument semantic events rather than every click",
+        "define identity/session semantics and data-quality checks",
+        "avoid causal claims from observational movement"
+      ],
+      "must_not_do": [
+        "make MAU the primary success metric without rationale",
+        "track everything just because it is easy",
+        "name UI element clicks as stable domain events when semantic behavior exists"
+      ]
+    },
+    {
+      "id": "ADV-S23",
+      "stage_id": 23,
+      "stage_name": "Experimentation",
+      "scenario": "A scheduling product is used by about 40 institutions. The team wants an A/B test of a new conflict-resolution workflow, but only a few operators encounter the conflict each week and cross-operator behavior within an institution can contaminate assignment.",
+      "decision_to_make": "Choose the cheapest valid evidence method and define a trustworthy evaluation.",
+      "must_do": [
+        "question whether A/B has enough eligible traffic and stable assignment",
+        "consider institution-level pilot or task-based usability/operational pilot",
+        "predefine decision, outcome and guardrails",
+        "address contamination/interference",
+        "state what evidence would justify broader rollout"
+      ],
+      "must_not_do": [
+        "force an underpowered A/B test",
+        "randomize sessions when institution-level interference dominates",
+        "interpret non-significance as equivalence"
+      ]
+    },
+    {
+      "id": "ADV-S24",
+      "stage_id": 24,
+      "stage_name": "Feedback → next iteration",
+      "scenario": "A redesigned operator worklist shipped successfully and error rates are stable, but operators still export data to spreadsheets before making scheduling decisions. Usage of the new filters is moderate and support contacts moved from 'can't find record' to 'can't compare groups'.",
+      "decision_to_make": "Run an outcome review and choose the next action without redefining success.",
+      "must_do": [
+        "reopen original outcome and confirm actual exposure",
+        "combine usage/support/workaround evidence",
+        "distinguish reliability success from product outcome",
+        "update the opportunity/assumption model",
+        "choose a next action with evidence and owner"
+      ],
+      "must_not_do": [
+        "equate healthy deployment with product success",
+        "treat spreadsheet use as irrelevant anecdote",
+        "redefine the original success metric after seeing results"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,87 @@
+{
+  "batch": 3,
+  "case_ids": [
+    "ADV-S09",
+    "ADV-S10",
+    "ADV-S11",
+    "ADV-S12"
+  ],
+  "criteria": [
+    {
+      "id": "ADV-S09",
+      "stage_id": 9,
+      "stage_name": "Accessibility",
+      "scenario": "A dense admin worklist uses custom tab-like filters, a modal editor, sortable columns and inline validation. Automated axe checks are clean, but keyboard users can lose focus after closing the modal and custom tabs are plain divs with click handlers.",
+      "decision_to_make": "Determine the accessibility verification and interaction changes required for the critical workflow.",
+      "must_do": [
+        "prefer native semantics or implement complete ARIA/keyboard behavior",
+        "define modal focus entry/return behavior",
+        "verify keyboard operation manually",
+        "test validation/error associations",
+        "treat automation as partial evidence"
+      ],
+      "must_not_do": [
+        "declare accessibility complete from axe alone",
+        "leave click-only div controls",
+        "ignore focus lifecycle"
+      ]
+    },
+    {
+      "id": "ADV-S10",
+      "stage_id": 10,
+      "stage_name": "Visual UI",
+      "scenario": "On a 3200 px monitor the application keeps a narrow 1100 px centered column, forcing frequent horizontal/vertical navigation inside a dense worklist. A redesign proposes more cards, larger padding and stronger shadows to look 'premium'.",
+      "decision_to_make": "Set visual hierarchy, density and wide-screen behavior grounded in the task.",
+      "must_do": [
+        "use wide-screen space where it improves comparison",
+        "set intentional density for frequent operator work",
+        "prioritize hierarchy through spacing/type/alignment before decoration",
+        "preserve accessibility and semantic status cues",
+        "test realistic long/empty/error data"
+      ],
+      "must_not_do": [
+        "equate more whitespace/cards/shadows with quality",
+        "hide relevant columns solely to make screenshots cleaner",
+        "encode status by color alone"
+      ]
+    },
+    {
+      "id": "ADV-S11",
+      "stage_id": 11,
+      "stage_name": "Design System",
+      "scenario": "One feature team needs a table row with a special inline action and asks to add a new Core DataTable variant immediately. No other feature uses the behavior, and the variant would require a new focus/keyboard contract.",
+      "decision_to_make": "Choose Local/Extended/Core scope and the evidence required for promotion.",
+      "must_do": [
+        "evaluate semantic stability and actual reuse",
+        "keep one-off behavior local unless promotion criteria are met",
+        "define accessibility/behavior contract before promotion",
+        "assign ownership and migration/deprecation policy",
+        "use repeated overrides as feedback on abstraction quality"
+      ],
+      "must_not_do": [
+        "promote based only on visual similarity or hypothetical reuse",
+        "put product-specific business rules into a Core primitive",
+        "ignore keyboard/focus guarantees"
+      ]
+    },
+    {
+      "id": "ADV-S12",
+      "stage_id": 12,
+      "stage_name": "Frontend implementation",
+      "scenario": "A worklist has q/school/subject/view/page/limit in the URL, but the implementation also copies them into local React state and synchronizes them through effects. Back navigation sometimes shows stale filters and duplicate fetches occur.",
+      "decision_to_make": "Refactor state ownership and async behavior without creating another source of truth.",
+      "must_do": [
+        "make URL the source of truth for navigational state where appropriate",
+        "derive values instead of duplicating state",
+        "use event-driven updates instead of effect chains",
+        "define loading/stale/error behavior for server state",
+        "test back/forward/shareable URL behavior"
+      ],
+      "must_not_do": [
+        "add another synchronized state copy",
+        "use effects for ordinary derived state",
+        "fix symptoms with arbitrary timing guards"
+      ]
+    }
+  ]
+}

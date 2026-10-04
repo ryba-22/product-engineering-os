@@ -1,0 +1,163 @@
+{
+  "provider": "OpenAI via GitHub Copilot",
+  "model": "gpt-6-luna",
+  "vendor": "openai",
+  "interface": "GitHub Copilot CLI",
+  "rounds": [
+    {
+      "round": 1,
+      "runtime_commit": "3172bc20b77269f8bb429d0240e58b998fcf0bab",
+      "scope": "28 frozen cases / seven isolated batches",
+      "provenance": {
+        "batches": [
+          {
+            "batch": 1,
+            "session_id": "9269452c-82c7-4374-8218-4221f7c17a8d",
+            "status": "SUCCESS",
+            "reported_model": "gpt-6-luna",
+            "interface": "GitHub Copilot CLI",
+            "usage": {
+              "premiumRequests": 1,
+              "totalApiDurationMs": 28095,
+              "sessionDurationMs": 32572,
+              "codeChanges": {
+                "linesAdded": 0,
+                "linesRemoved": 0,
+                "filesModified": []
+              }
+            }
+          },
+          {
+            "batch": 2,
+            "session_id": "384e5a70-2073-40b1-9f21-60e451bf9fac",
+            "status": "SUCCESS",
+            "reported_model": "gpt-6-luna",
+            "interface": "GitHub Copilot CLI",
+            "usage": {
+              "premiumRequests": 1,
+              "totalApiDurationMs": 19947,
+              "sessionDurationMs": 24082,
+              "codeChanges": {
+                "linesAdded": 0,
+                "linesRemoved": 0,
+                "filesModified": []
+              }
+            }
+          },
+          {
+            "batch": 3,
+            "session_id": "150d1c8a-09be-4960-b3e9-8a392a7d33e5",
+            "status": "SUCCESS",
+            "reported_model": "gpt-6-luna",
+            "interface": "GitHub Copilot CLI",
+            "usage": {
+              "premiumRequests": 1,
+              "totalApiDurationMs": 27943,
+              "sessionDurationMs": 30743,
+              "codeChanges": {
+                "linesAdded": 0,
+                "linesRemoved": 0,
+                "filesModified": []
+              }
+            }
+          },
+          {
+            "batch": 4,
+            "session_id": "8daac769-eeac-40e2-83d7-809eed37c09c",
+            "status": "SUCCESS",
+            "reported_model": "gpt-6-luna",
+            "interface": "GitHub Copilot CLI",
+            "usage": {
+              "premiumRequests": 1,
+              "totalApiDurationMs": 21635,
+              "sessionDurationMs": 26295,
+              "codeChanges": {
+                "linesAdded": 0,
+                "linesRemoved": 0,
+                "filesModified": []
+              }
+            }
+          },
+          {
+            "batch": 5,
+            "session_id": "3715b1ae-e2ad-4cf9-93ad-d37f5c98f972",
+            "status": "SUCCESS",
+            "reported_model": "gpt-6-luna",
+            "interface": "GitHub Copilot CLI",
+            "usage": {
+              "premiumRequests": 1,
+              "totalApiDurationMs": 16323,
+              "sessionDurationMs": 20121,
+              "codeChanges": {
+                "linesAdded": 0,
+                "linesRemoved": 0,
+                "filesModified": []
+              }
+            }
+          },
+          {
+            "batch": 6,
+            "session_id": "8cf65144-f39b-4ce4-afc0-3ed3330f430e",
+            "status": "SUCCESS",
+            "reported_model": "gpt-6-luna",
+            "interface": "GitHub Copilot CLI",
+            "usage": {
+              "premiumRequests": 1,
+              "totalApiDurationMs": 20832,
+              "sessionDurationMs": 23187,
+              "codeChanges": {
+                "linesAdded": 0,
+                "linesRemoved": 0,
+                "filesModified": []
+              }
+            }
+          },
+          {
+            "batch": 7,
+            "session_id": "2edeaccc-7f8a-48c2-b3ab-6fba05dc7bb2",
+            "status": "SUCCESS",
+            "reported_model": "gpt-6-luna",
+            "interface": "GitHub Copilot CLI",
+            "usage": {
+              "premiumRequests": 1,
+              "totalApiDurationMs": 31877,
+              "sessionDurationMs": 34424,
+              "codeChanges": {
+                "linesAdded": 0,
+                "linesRemoved": 0,
+                "filesModified": []
+              }
+            }
+          }
+        ],
+        "resolved_models": [
+          "gpt-6-luna"
+        ]
+      }
+    },
+    {
+      "round": 2,
+      "runtime_commit": "bb22c203248040ee0b4c5c799f87846dd8d4762b",
+      "scope": "targeted frozen rerun: ADV-S04, ADV-S18",
+      "provenance": {
+        "round": 2,
+        "session_id": "f0827bf4-b544-47a5-9508-b2b5cdb015b9",
+        "reported_model": "gpt-6-luna",
+        "vendor": "openai",
+        "interface": "GitHub Copilot CLI",
+        "runtime_commit": "bb22c203248040ee0b4c5c799f87846dd8d4762b",
+        "usage": {
+          "premiumRequests": 1,
+          "totalApiDurationMs": 16889,
+          "sessionDurationMs": 20163,
+          "codeChanges": {
+            "linesAdded": 0,
+            "linesRemoved": 0,
+            "filesModified": []
+          }
+        }
+      }
+    }
+  ],
+  "independence_note": "Frozen criteria were supplied only after executor outputs existed; prior v1 judge results and self-assessments were not supplied."
+}
