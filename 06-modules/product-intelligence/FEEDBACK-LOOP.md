@@ -1,6 +1,6 @@
 # Continuous Feedback / Learning Loop
 
-Use with `STAGE-24-FEEDBACK-NEXT-ITERATION.md`. Feedback is the mechanism that prevents the lifecycle from ending at release.
+Use with `STAGE-24-FEEDBACK-NEXT-ITERATION.md`. Feedback is the mechanism that prevents the lifecycle from ending at release. For production mismatches that may falsify an earlier rule/model/assumption, also use `PRODUCTION-LEARNING-LOOP.md` and `07-templates/PRODUCTION-LEARNING-RECORD.md`.
 
 ## Inputs
 
@@ -31,7 +31,7 @@ No single source is the product truth.
 8. **Choose the highest-value uncertainty or friction on the current outcome.**
 9. **Run the cheapest valid discovery/experiment/implementation slice.**
 10. **Measure outcome and guardrails.**
-11. **Record learning and supersede decisions if needed.**
+11. **Record learning and supersede decisions if needed.** For a material expected-vs-observed delta, classify it and propagate impact across domain model/rules, executable examples, tests/evals and durable knowledge.
 12. **Repeat only while the outcome remains worth pursuing.**
 
 ## Signal triage
