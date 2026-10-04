@@ -44,10 +44,12 @@ Product Brief/PDR, discovery evidence, domain scenarios and invariants, known qu
 - A critical rule with no planned verification should not pass G3.
 - A material business rule with no representative pre-implementation example/counterexample should not pass G3 unless equivalent current evidence already exists.
 - Tests written after implementation do not retroactively prove that the expected business behavior was agreed before implementation.
+- Example Mapping does not authorize invention. If an example's expected result depends on an unresolved normalization/equivalence rule, retry policy, eligibility edge case, temporal rule or exception policy, keep that result explicitly open/hypothetical and do not baseline it at G3.
+- Do not turn a plausible technical default (for example retrying transient failures) into a confirmed business requirement without evidence or an explicit external constraint.
 - Contradictory stakeholder requirements require an explicit trade-off decision, not silent wording compromise.
 
 ## Evidence standard
-Each material requirement must link to evidence, a governing rule/constraint or an accepted decision. High-risk requirements need explicit verification and ownership. Unknowns remain visible with a plan to resolve them.
+Each material requirement must link to evidence, a governing rule/constraint or an accepted decision. The evidence must support the semantic detail being baselined: a source that establishes deduplication does not automatically establish normalization equivalence, and a requirement to handle failures does not automatically establish retry classification. High-risk requirements need explicit verification and ownership. Unknowns remain visible with a plan to resolve them.
 
 ## Canonical outputs
 PRD/specification; Example Map with stable rule/example IDs; scenario set; functional requirements; business rules; quality scenarios; acceptance criteria; open-question register; traceability records.
