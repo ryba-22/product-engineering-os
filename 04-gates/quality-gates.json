@@ -40,7 +40,8 @@
       "exit_evidence": [
         "traceable requirements",
         "scenarios/acceptance criteria",
-        "NFR quality scenarios"
+        "NFR quality scenarios",
+        "material business rules mapped to executable examples/counterexamples or equivalent current evidence"
       ]
     },
     {
@@ -90,7 +91,8 @@
       "exit_evidence": [
         "threat/security evidence proportional to risk",
         "performance evidence/budget",
-        "unresolved risks explicitly accepted or blocked"
+        "unresolved risks explicitly accepted or blocked",
+        "AI governance/data-classification/capability evidence when AI tools or agents cross non-public data or consequential tool boundaries"
       ]
     },
     {
@@ -110,7 +112,8 @@
       "exit_evidence": [
         "health/SLO/telemetry evidence",
         "post-deploy smoke",
-        "no unexplained critical alert/backlog"
+        "no unexplained critical alert/backlog",
+        "expected vs observed production evidence for critical behaviors/outcomes where production exposure exists"
       ]
     },
     {
@@ -120,7 +123,9 @@
       "exit_evidence": [
         "product outcome metrics",
         "qualitative feedback",
-        "learning/next decision recorded"
+        "learning/next decision recorded",
+        "learning propagated to affected model/test/eval/knowledge artifacts when assumptions changed",
+        "Definition of Value status supported by outcome evidence or explicitly UNVERIFIED"
       ]
     }
   ]
