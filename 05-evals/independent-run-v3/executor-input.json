@@ -1,0 +1,146 @@
+{
+  "run_id": "INDEP-RUN-2026-10-05-03",
+  "runtime_version": "1.3-router",
+  "distribution": "unseen multi-axis holdout",
+  "cases": [
+    {
+      "id": "V3-H01",
+      "scenario": "A payment provider times out after receiving a charge request. The operator sees no confirmation and clicks retry. Ten seconds later the first provider webhook arrives, while the second request is still in flight. The payment changes financial state and the current code uses a request UUID only inside one HTTP attempt.",
+      "decision_to_make": "Decide how to handle uncertainty about the external side effect, retries, idempotency, reconciliation and operator feedback without inventing provider guarantees.",
+      "mutation_axes": [
+        "money",
+        "unknown-side-effect",
+        "retry",
+        "async-callback",
+        "operator-action"
+      ]
+    },
+    {
+      "id": "V3-H02",
+      "scenario": "An operator selects 180 rows in a server-paginated worklist, changes a status filter, then starts a bulk action. Another operator changes some of those records meanwhile. The UI still shows '180 selected', but only 37 are visible and selection is stored as client IDs from the old result set.",
+      "decision_to_make": "Define selection ownership, stale-state handling, bulk-action semantics and conflict/recovery behavior before implementation.",
+      "mutation_axes": [
+        "ui-state",
+        "pagination",
+        "bulk-action",
+        "concurrency",
+        "stale-selection"
+      ]
+    },
+    {
+      "id": "V3-H03",
+      "scenario": "A persisted enum called settlement_status currently means 'bank transaction imported'. A new service wants the same field to mean 'money allocated to charges'. Old and new application versions will run together during rollout, and historical rows mix both interpretations in reports.",
+      "decision_to_make": "Choose a compatibility-safe domain/data migration that avoids silently changing historical meaning and supports rollback/cutover evidence.",
+      "mutation_axes": [
+        "semantic-migration",
+        "mixed-versions",
+        "historical-data",
+        "rollback",
+        "domain-meaning"
+      ]
+    },
+    {
+      "id": "V3-H04",
+      "scenario": "A director requests an AI assistant that automatically resolves all overdue-account cases because the team spends hours reviewing them. Logs show most review time is concentrated in 4% of cases with disputed guardian relationships; no evidence shows automation is safe for that subgroup.",
+      "decision_to_make": "Frame the outcome and choose the smallest evidence path before committing to broad automation.",
+      "mutation_axes": [
+        "solution-pressure",
+        "segment-concentration",
+        "ai-automation",
+        "missing-evidence"
+      ]
+    },
+    {
+      "id": "V3-H05",
+      "scenario": "A one-off data repair must correct attendance rows created around a daylight-saving transition. Stored timestamps mix local time without zone, UTC, and date-only membership boundaries. The business can explain a few examples but there is no complete rule for ambiguous repeated local times.",
+      "decision_to_make": "Determine what can be repaired automatically, what requires manual decision, and what evidence/audit/recovery controls are required.",
+      "mutation_axes": [
+        "data-repair",
+        "temporal-semantics",
+        "ambiguity",
+        "auditability",
+        "manual-decision"
+      ]
+    },
+    {
+      "id": "V3-H06",
+      "scenario": "A notification worker marks a message sent only after the provider returns 200. During a network partition, the provider may have accepted messages whose responses were lost. Restarting the worker would retry 12,000 rows. Sending duplicates is harmful but permanently dropping messages is also harmful.",
+      "decision_to_make": "Define containment, evidence gathering, recovery and future delivery semantics under an unknowable side-effect state.",
+      "mutation_axes": [
+        "incident",
+        "external-side-effect",
+        "large-retry",
+        "duplicate-risk",
+        "recovery"
+      ]
+    },
+    {
+      "id": "V3-H07",
+      "scenario": "A code-review agent is nominally read-only but can invoke a shell, connected issue tracker, database MCP and browser. It receives production bug reports containing child and guardian data. The model provider is approved for source code but not for personal data, and the shell environment contains a deployment token.",
+      "decision_to_make": "Define the capability/data governance boundary and the minimum safe execution profile for the agent.",
+      "mutation_axes": [
+        "ai-governance",
+        "pii",
+        "tool-capability",
+        "credential-exposure",
+        "least-privilege"
+      ]
+    },
+    {
+      "id": "V3-H08",
+      "scenario": "A dashboard query has become slow after six months of growth. A developer proposes a denormalized summary table and Redis because the query joins seven tables. There is no captured query plan, p95, cache-hit expectation, freshness requirement or evidence that the join is the bottleneck.",
+      "decision_to_make": "Choose the performance investigation and stopping criteria before introducing new data paths.",
+      "mutation_axes": [
+        "performance",
+        "architecture-pressure",
+        "missing-measurement",
+        "data-freshness"
+      ]
+    },
+    {
+      "id": "V3-H09",
+      "scenario": "A new conflict-resolution workflow affects about 15 cases per month across 40 institutions. Management asks for an A/B test. Operators within the same institution share cases and teach each other workarounds, while the cost of a wrong resolution is high.",
+      "decision_to_make": "Choose the cheapest trustworthy evidence method, assignment unit and guardrails instead of defaulting to A/B testing.",
+      "mutation_axes": [
+        "experimentation",
+        "low-volume",
+        "contamination",
+        "high-cost-error"
+      ]
+    },
+    {
+      "id": "V3-H10",
+      "scenario": "A newly published engineering source contradicts a rule in the internal knowledge corpus that has already shaped three projects. The new source is newer and prestigious but describes a different scale and regulatory environment. A maintainer wants to replace the old rule globally.",
+      "decision_to_make": "Classify the source delta and decide whether to support, scope, extend, challenge or falsify existing knowledge without erasing provenance.",
+      "mutation_axes": [
+        "knowledge-delta",
+        "context-mismatch",
+        "prestige-bias",
+        "cross-project-impact"
+      ]
+    },
+    {
+      "id": "V3-H11",
+      "scenario": "CI builds one container image, but production injects frontend build-time configuration by rebuilding the image with a different ARG. The team also wants to run a database migration automatically on container start. Staging is green and the release is urgent.",
+      "decision_to_make": "Define artifact identity, configuration boundary, migration gate, rollout evidence and rollback conditions.",
+      "mutation_axes": [
+        "artifact-provenance",
+        "build-time-config",
+        "migration",
+        "urgent-release"
+      ]
+    },
+    {
+      "id": "V3-H12",
+      "scenario": "After a billing-policy release, total manual overrides drop from 14% to 3% and support volume falls. However, almost all remaining overrides belong to one small guardianship segment, where wrong automated decisions can block payment communication. Overall outcome metrics therefore look successful.",
+      "decision_to_make": "Interpret the production evidence, decide whether the policy is successful, scoped, challenged or falsified, and define the next learning action without hiding the harmed segment.",
+      "mutation_axes": [
+        "production-learning",
+        "aggregate-success",
+        "segment-harm",
+        "policy-scope",
+        "guardrail"
+      ]
+    }
+  ]
+}

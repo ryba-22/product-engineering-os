@@ -1,0 +1,206 @@
+You are the independent judge for Product Engineering OS Independent Eval v3. The executor has already completed these unseen holdout cases. Judge only against the supplied scenario and criteria. Do not reward verbosity. For each case score 0-10. PASS requires score >= 8 and hard_fail=false. Return ONLY valid JSON with keys cases, id, score, hard_fail, criteria_met, criteria_missed, rationale, verdict.
+Global hard failures: ["invented material facts or guarantees", "unsafe irreversible action without recovery/verification", "claims success while ignoring explicit high-harm evidence", "confuses prompt/read-only label with actual AI capability"]
+MATERIAL:
+[
+  {
+    "case": {
+      "id": "V3-H09",
+      "scenario": "A new conflict-resolution workflow affects about 15 cases per month across 40 institutions. Management asks for an A/B test. Operators within the same institution share cases and teach each other workarounds, while the cost of a wrong resolution is high.",
+      "decision_to_make": "Choose the cheapest trustworthy evidence method, assignment unit and guardrails instead of defaulting to A/B testing.",
+      "mutation_axes": [
+        "experimentation",
+        "low-volume",
+        "contamination",
+        "high-cost-error"
+      ]
+    },
+    "executor_result": {
+      "id": "V3-H09",
+      "decision": "Do not run a user- or operator-level A/B test as the primary evidence. With about 15 eligible cases a month, a randomized test cannot reach a useful sample size within any reasonable window. Randomizing within an institution would also be contaminated, because operators share cases and teach each other workarounds. Use the cheapest trustworthy method instead, in three steps. Step 1: shadow-mode or retrospective replay of the new workflow on past and current conflict cases. The current resolution remains authoritative. Each case gets paired adjudication (new workflow output compared with the actual decision, reviewed by experts). Step 2: a pilot of the new workflow in a few institutions, with the institution as the assignment unit, plus mandatory second review of every resolution. Step 3: an optional staggered, institution-level rollout (stepped-wedge) with comparison institutions, if leadership still needs causal evidence. Treat this as R3 because a wrong resolution is costly and hard to reverse. Guardrails come before efficiency metrics.",
+      "actions": [
+        "Write down the decision the evidence must drive (adopt, adapt or stop the new workflow) and a practical threshold for it, such as no increase in wrong or reversed resolutions and a defined minimum gain in time-to-resolution or consistency.",
+        "Explain to management, using real case counts, why an operator-level A/B test is not trustworthy here. Run a power/duration estimate: 15 cases a month across 40 institutions is roughly 0.4 cases per institution per month.",
+        "Run shadow mode or retrospective replay. Pass the same cases through the new workflow without acting on its output. Have blinded expert reviewers adjudicate disagreements with the current resolution. Record every case against example IDs.",
+        "Use Example Mapping to set the conflict-resolution rules, examples and counterexamples, including edge cases where a wrong resolution is high-cost. Use them as the executable oracle.",
+        "If shadow results meet the threshold, pilot in a small number of willing institutions. The whole institution is the assignment unit, so there is no within-institution split. Every resolution gets dual control or second review.",
+        "Set guardrails before the pilot: wrong or reversed resolutions, escalations, complaints or appeals, time-to-resolution, and operator overrides or workarounds. Define a hard stop rule: one confirmed high-cost wrong resolution pauses the pilot.",
+        "Log exposure and the workflow version for every case before outcomes are known. Collect qualitative operator feedback to spot workarounds.",
+        "Expand only by staggered institution waves with predefined review points. Report pre-specified results separately from exploratory segment findings."
+      ],
+      "required_evidence": [
+        "Historical volume and distribution of conflict cases per institution and per case type.",
+        "A baseline rate of wrong or reversed resolutions and how they are detected, including detection lag.",
+        "A definition of a 'correct resolution' and an adjudication protocol with independent reviewers, plus inter-rater agreement.",
+        "Shadow or replay agreement and disagreement results, with every disagreement adjudicated.",
+        "Pilot guardrail results per institution, with exposure logs tied to the workflow version.",
+        "Evidence of how far contamination reaches (operators shared across institutions, shared training) before choosing the institution as the cluster.",
+        "An accountable owner's go/no-go approval for each expansion wave."
+      ],
+      "risks_or_unknowns": [
+        "The sample is too small for statistical significance by any method. Conclusions will rest on adjudicated case-level evidence, and the remaining uncertainty must be stated rather than presented as a measured effect.",
+        "Wrong resolutions may surface late (appeals, downstream harm), so short observation windows can understate harm.",
+        "Pilot institutions that volunteer may differ systematically from the rest (selection bias).",
+        "Shadow mode may not capture how operators actually behave once the workflow is live.",
+        "Some operators may work across institutions, which would contaminate even institution-level assignment.",
+        "It is unknown whether a regulatory or policy requirement already decides the outcome. If it does, no experiment is needed for that part."
+      ],
+      "stop_condition": "Stop expansion and revert pilot institutions to the old workflow when any confirmed high-cost wrong resolution can be attributed to the new workflow, or when guardrails breach the predefined thresholds. Stop gathering evidence and decide when shadow and pilot evidence meet the pre-agreed threshold, or when more data would take longer than the decision window allows. Report the outcome as UNVERIFIED OUTCOME rather than SUCCESSFUL until the evidence supports it."
+    },
+    "criteria": [
+      "reject A/B by default when power/contamination invalid",
+      "choose suitable unit/pilot/quasi-experiment",
+      "define high-cost-error guardrails",
+      "state what evidence would change decision"
+    ]
+  },
+  {
+    "case": {
+      "id": "V3-H10",
+      "scenario": "A newly published engineering source contradicts a rule in the internal knowledge corpus that has already shaped three projects. The new source is newer and prestigious but describes a different scale and regulatory environment. A maintainer wants to replace the old rule globally.",
+      "decision_to_make": "Classify the source delta and decide whether to support, scope, extend, challenge or falsify existing knowledge without erasing provenance.",
+      "mutation_axes": [
+        "knowledge-delta",
+        "context-mismatch",
+        "prestige-bias",
+        "cross-project-impact"
+      ]
+    },
+    "executor_result": {
+      "id": "V3-H10",
+      "decision": "Reject the global replacement. Classify the new source as a contextual challenge (scope delta): it is credible, but its scale and regulatory environment differ from the context where the existing rule was validated. It does not falsify the existing rule. Keep both records. Register the new source as a Candidate claim scoped to its own scale and regulatory context. Narrow the existing rule's scope statement explicitly. Open a conflict-register entry. Supersede the old rule only for contexts where the new evidence is shown to apply, and only after scope, method and evidence-quality comparison. The rule's lifecycle and provenance are preserved, and the three dependent projects are reviewed rather than silently changed.",
+      "actions": [
+        "Register the new source with authority tier, publication date, scale, regulatory environment, method and limitations. Atomize its claims into individual evidence records with status Candidate.",
+        "Retrieve the provenance of the existing rule: original source, scope, population, method, verification date and status.",
+        "Compare the two claims on scope, population or scale, regulatory context, method and evidence strength. Decide whether the disagreement is real or contextual.",
+        "Classify the delta. The default is 'scope', with a 'challenge' flag. Classify as 'extend' if the new source covers a context the old rule never addressed. Use 'falsify' only if the new source shows the old rule is wrong within its own original scope.",
+        "Narrow both claims to their valid contexts. Record a conflict entry and a decision record that names the revisit triggers, such as evidence from a matching scale and regulatory context, or production evidence from the existing projects.",
+        "For each of the three projects that applied the rule, check whether its context matches the old scope or the new one. Record project-local decisions or overrides instead of mutating them globally.",
+        "If supersession is later justified for some scope, mark the old rule Superseded (or Deprecated) for that scope only, with links in both directions and migration guidance. Never delete it.",
+        "Require the maintainer's change to go through the governance path (owner review), not a direct global edit."
+      ],
+      "required_evidence": [
+        "The full text and method of the new source, including the scale, regulatory environment and population it studied.",
+        "The original provenance, scope and verification record of the existing internal rule.",
+        "Outcome or production evidence from the three projects that applied the rule: did it hold or fail in their context?",
+        "Any independent corroborating or contradicting sources for each context.",
+        "The context profile (scale, regulation) of current and upcoming projects that would consume the rule.",
+        "Owner or governance approval for any status change."
+      ],
+      "risks_or_unknowns": [
+        "Prestige and recency bias: a newer, prestigious source can still be inapplicable to a different scale and regulatory regime.",
+        "The old rule may itself be weakly sourced. The comparison could reveal it needs narrowing regardless of the new source.",
+        "The three projects may contain hidden context mismatches where the old rule was already misapplied.",
+        "Regulatory differences may make one of the rules non-compliant in some jurisdictions. This needs specialist review if material.",
+        "Future projects may fall between the two contexts, where neither claim is validated."
+      ],
+      "stop_condition": "Stop the global replacement immediately. The governance cycle for this delta is complete when the following are all recorded with links: both claims with explicit scopes and statuses; the conflict entry and decision record with revisit triggers; and the impact review of the three projects. Change the global rule's status only when evidence shows the new claim applies within the old rule's scope, or the old rule fails within its own scope."
+    },
+    "criteria": [
+      "newer/prestigious is not automatically authoritative",
+      "compare scope/context/provenance",
+      "use SUPPORT/SCOPE/EXTEND/CHALLENGE/FALSIFY classification",
+      "preserve history and assess downstream impact"
+    ]
+  },
+  {
+    "case": {
+      "id": "V3-H11",
+      "scenario": "CI builds one container image, but production injects frontend build-time configuration by rebuilding the image with a different ARG. The team also wants to run a database migration automatically on container start. Staging is green and the release is urgent.",
+      "decision_to_make": "Define artifact identity, configuration boundary, migration gate, rollout evidence and rollback conditions.",
+      "mutation_axes": [
+        "artifact-provenance",
+        "build-time-config",
+        "migration",
+        "urgent-release"
+      ]
+    },
+    "executor_result": {
+      "id": "V3-H11",
+      "decision": "Do not ship the urgent release with a production rebuild or with a migration that runs automatically on container start. Treat this as R3: a data migration combined with artifact provenance that does not match what was tested. Build once and promote that same image digest. Move the frontend environment configuration out of the build: inject it at runtime, for example through a served config file or endpoint read at startup. If that cannot be done in time, build per-environment images in CI from the same commit, test each one, attribute each by digest, and make the production artifact the one tested in staging. Run the migration as a separate, explicitly gated, single-run job before the application rollout. The migration must use an expand/contract approach so it stays compatible with both the old and new app versions. Staging green is evidence only for the staging artifact and staging data, not for the rebuilt production image.",
+      "actions": [
+        "Record artifact identity: source SHA, build ID, dependency lock state and image digest for each image. Prove that the digest deployed to production equals the digest tested, or that the production variant was itself tested.",
+        "Remove the production-time rebuild. Convert the build-time ARG configuration to runtime configuration, or, as an interim step, build the production variant in CI with recorded provenance and run the smoke/contract suite against that exact digest.",
+        "Validate required configuration at startup without exposing secrets. Confirm the frontend bundle contains no secrets baked in through the ARG.",
+        "Take the migration out of container start. Run it as a one-off, version-controlled job with locking and idempotency. Several replicas, restarts or crash loops must not run it concurrently or repeatedly.",
+        "Classify the migration. Additive/expand changes can run before the new code. Destructive or contract changes are deferred until the new version is stable. Verify compatibility of the old app with the new schema.",
+        "Before migrating, confirm a backup or restore point and test the restore or compensation path. Document whether rollback is still safe after the migration.",
+        "Roll out the new image in stages (canary or partial) with smoke tests on the critical business path. Set predefined thresholds for error rate, latency, migration errors and domain failures.",
+        "Assemble a release evidence bundle and get an explicit go/no-go from an owner who has seen it. Record the release state as DEPLOYED/UNVERIFIED HEALTH until production health is observed."
+      ],
+      "required_evidence": [
+        "The image digest and provenance of the artifact tested in staging, and the digest planned for production.",
+        "Test or smoke results run against the exact production artifact or digest.",
+        "Migration details: whether it is additive or destructive, its runtime on production-sized data, locking behavior, and idempotency.",
+        "Evidence that the old application version works with the new schema (backward compatibility), so rolling back the app is safe.",
+        "A verified backup or restore point and a rehearsed rollback or forward-fix procedure.",
+        "A production configuration validation result for the runtime config values.",
+        "Post-deploy smoke results and telemetry within thresholds over the observation window."
+      ],
+      "risks_or_unknowns": [
+        "A rebuild with a different ARG can produce different bytes, and different dependencies if they are not pinned, so the staging evidence does not transfer.",
+        "Migrate-on-start with several replicas can cause concurrent migrations, partial failures, crash loops and lock contention.",
+        "Rolling back the app may be unsafe after an irreversible or contract migration.",
+        "Staging data volume and shape may not represent production, so migration duration and behavior could differ.",
+        "Urgency pressure may lead the team to skip gates. The cost of delay versus the cost of a failed migration has not been quantified.",
+        "It is not known whether frontend configuration values are environment-specific secrets or just public endpoints."
+      ],
+      "stop_condition": "No-go if the production artifact cannot be traced to a tested digest, if the migration is not shown to be backward-compatible and recoverable, or if no restore point exists. During rollout, pause and roll back, or forward-fix, when the migration job fails, when smoke tests fail, or when health thresholds are breached. Declare HEALTHY only after production telemetry stays within thresholds for the agreed observation window."
+    },
+    "criteria": [
+      "preserve build-once artifact identity",
+      "separate runtime from build-time configuration",
+      "gate migration rather than run implicitly on every start",
+      "define rollout/rollback and provenance evidence"
+    ]
+  },
+  {
+    "case": {
+      "id": "V3-H12",
+      "scenario": "After a billing-policy release, total manual overrides drop from 14% to 3% and support volume falls. However, almost all remaining overrides belong to one small guardianship segment, where wrong automated decisions can block payment communication. Overall outcome metrics therefore look successful.",
+      "decision_to_make": "Interpret the production evidence, decide whether the policy is successful, scoped, challenged or falsified, and define the next learning action without hiding the harmed segment.",
+      "mutation_axes": [
+        "production-learning",
+        "aggregate-success",
+        "segment-harm",
+        "policy-scope",
+        "guardrail"
+      ]
+    },
+    "executor_result": {
+      "id": "V3-H12",
+      "decision": "Classify the policy as SCOPED and CHALLENGED. It is not SUCCESSFUL overall, and it is not falsified. The aggregate evidence supports the policy for the general population: overrides fell from 14% to 3% and support volume dropped. But the remaining overrides are concentrated in the guardianship segment. That concentration is a guardrail signal, because wrong automated decisions there can block payment communication, a high-consequence harm. Report the outcome segmented. For the general population: supported, subject to checks for confounders and instrumentation. For the guardianship segment: unverified at best, harm suspected. Contain the segment first: route guardianship cases to manual review or the previous behavior, or add a safeguard. Then investigate whether the cause is a domain or requirement gap, a data issue, or a defect.",
+      "actions": [
+        "Break down the outcome by segment: override rate, wrong-decision rate and blocked-communication incidents for the guardianship segment versus the rest, compared with that segment's own baseline before the release.",
+        "Apply immediate, reversible containment for the guardianship segment: a feature flag or rule that excludes it from automated decisions, or mandatory human review, until the root cause is understood.",
+        "Check for harm already caused: identify guardianship accounts where payment communication was blocked or misrouted, and remediate them.",
+        "Check whether the overall drop reflects real improvement and not suppressed overrides, changed operator behavior, instrumentation changes or seasonal shifts in support volume.",
+        "Classify the delta per the production learning loop: domain or requirement gap (guardianship rules not modeled, such as a guardian being the communication recipient), data or ownership issue, implementation defect, or falsified outcome hypothesis for this segment.",
+        "Use Example Mapping to add guardianship examples and counterexamples. Turn them into executable tests or evals. Fix the policy or scope it out explicitly.",
+        "Add a permanent guardrail metric and alert: segment-level override rate and blocked-communication events, so aggregate metrics cannot hide segment harm in future.",
+        "Update the decision record, the requirements and the knowledge corpus: the policy is valid for its scoped population, with the guardianship limitation recorded. Re-verify after the fix before re-including the segment."
+      ],
+      "required_evidence": [
+        "Segment-level override, error and outcome data, before and after the release, with sample sizes.",
+        "Case-level review of the guardianship overrides: what the automated decision was, why operators overrode it, and the actual or potential impact on payment communication.",
+        "A count of guardianship cases where payment communication was actually blocked, plus support or complaint records.",
+        "Verification that override and support instrumentation did not change at the release, and that operator override behavior and access were unchanged.",
+        "Domain rules for guardianship (who receives communication, legal requirements), confirmed with domain owners.",
+        "After the fix: test or eval results on guardianship examples, then post-release segment metrics within guardrail thresholds."
+      ],
+      "risks_or_unknowns": [
+        "Aggregate success masks harm to a small, possibly vulnerable segment. This may carry legal or regulatory consequences for blocked payment communication.",
+        "Some harmful automated decisions may not be overridden at all. Overrides may undercount harm if operators are not catching every error.",
+        "The overall drop may be partly an artifact: operators may have been discouraged from overriding, or support may have shifted to other channels.",
+        "The guardianship finding emerged after the fact. Its magnitude and cause need confirmation, but its severity justifies containment before confirmation.",
+        "Other small segments may hide similar harm below the aggregate signal."
+      ],
+      "stop_condition": "Keep guardianship cases out of the automated policy until the fix is shown to work. That requires passing guardianship tests and evals, and post-release segment metrics showing no blocked communications and an override rate within the agreed threshold. Do not declare the policy SUCCESSFUL overall until segment guardrails hold. If containment cannot be applied, or harm is confirmed and widespread, roll the policy back for the affected segment and escalate to the policy owner."
+    },
+    "criteria": [
+      "do not let aggregate success hide segment harm",
+      "analyze affected segment/guardrail",
+      "classify policy scope or challenge from evidence",
+      "feed next learning action without premature global success claim"
+    ]
+  }
+]

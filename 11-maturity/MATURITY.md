@@ -53,3 +53,14 @@ The runtime/playbooks were hardened while the frozen scenarios and judge rubric 
 Final result: **28/28 PASS, 0 hard failures, average 9.57/10**. Focused v1.2 cases scored ATDD 9/10, AI governance 10/10 and Production Learning 10/10. The first-round failures, remediation, round-2 outputs, provenance and weakness backlog remain stored under `05-evals/independent-run-v2/`.
 
 This supports the scoped maturity status **`independently-behaviorally-validated-v2`** for the frozen 28-case suite. It does not prove universal product-engineering competence, correctness on unseen distributions, or production correctness of downstream systems. Material future runtime changes reopen the need for revalidation.
+
+
+## Unseen-distribution behavioral validation v3 — 2026-10-05
+
+Run `INDEP-RUN-2026-10-05-03` adds **12 previously unused multi-axis holdout cases**. Unlike v1/v2, the cases combine concerns such as financial side-effect uncertainty + retry + callback, UI bulk selection + pagination + concurrency, semantic migration + mixed versions, ambiguous temporal data repair, AI PII + tool/credential capability, and aggregate success + segment harm.
+
+The blinded executor was **Anthropic Claude Opus 5.5 via Claude Code CLI** in three fresh batches. Its runtime explicitly excluded the judge rubric and results. The independent judge ran afterwards through **GitHub Copilot CLI with `auto` model routing**. The concrete model selected by that routing mode was not surfaced by silent CLI output; the evidence records this limitation instead of claiming an identity.
+
+Result: **12/12 PASS, 0 hard failures, average 9.0/10**. The input, frozen rubric, raw batch outputs, canonical executor/judge results, provenance and SHA-256 manifest live under `05-evals/independent-run-v3/`.
+
+This supports the scoped maturity status **`unseen-distribution-behaviorally-validated-v3` for this 12-case holdout**. It improves generalization evidence beyond the frozen v1/v2 distribution, but does not establish universal competence or production correctness. Material routing/control-loop/governance changes require a fresh holdout rather than replaying v3 as the only proof.

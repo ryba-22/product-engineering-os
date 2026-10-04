@@ -1,0 +1,47 @@
+{
+  "run_id": "INDEP-RUN-2026-10-05-03",
+  "purpose": "unseen-distribution multi-axis holdout evaluation",
+  "runtime_commit": "8bbe99c770751bc6d7805f3c952777c5461881b4",
+  "case_count": 12,
+  "distribution": "12 new multi-axis holdouts not present in v1/v2 frozen suites",
+  "blindness": {
+    "executor_received": "executor-input + PEOS runtime copy",
+    "executor_excluded": [
+      "judge-rubric.json",
+      "judge prompts",
+      "judge results",
+      "prior expected answers"
+    ],
+    "judge_received": "scenario + frozen rubric criteria + completed executor result",
+    "criteria_frozen_before_executor": true
+  },
+  "executor": {
+    "provider": "Anthropic",
+    "model": "claude-opus-5-5",
+    "interface": "Claude Code CLI",
+    "batches": 3
+  },
+  "judge": {
+    "provider": "GitHub Copilot",
+    "requested_model": "auto",
+    "actual_model": "not surfaced by CLI silent mode",
+    "interface": "GitHub Copilot CLI 1.0.91",
+    "batches": 3
+  },
+  "pass_rule": {
+    "min_score": 8,
+    "hard_fail_must_be": false
+  },
+  "result": {
+    "passed": 12,
+    "failed": 0,
+    "hard_failures": 0,
+    "average_score": 9.0
+  },
+  "sha256": {
+    "executor-input.json": "10ae4240563d705eb771a081d47e45437bbf8f86fedaba8228a746514632195d",
+    "judge-rubric.json": "1fd43c453b5301c1508f1955cd4ed0d5ca234187e88546ba635b2a2c3d6a2e1e",
+    "executor-results.json": "b58dc90df64e40fa123ecf8f73d81a23a82044aa692bbdc65e226d48298611c1",
+    "judge-results.json": "f48c6acada70d1d97d087755bd54db2f3f3c2efbc5995044422947af5d9f38f0"
+  }
+}

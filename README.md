@@ -89,6 +89,8 @@ Short-file policy is executable: `scripts/audit_content_depth.py` fails when a s
 
 The current package completed `INDEP-RUN-2026-10-04-02`: **28/28 pass, 0 hard failures, 9.57/10 average** using Anthropic Claude Opus 5.5 as the blinded executor and OpenAI GPT-6 Luna via GitHub Copilot CLI as the independent judge. The suite covers all 25 lifecycle stages plus three v1.2 loop-closure cases (ATDD / Example Mapping, AI capability governance and Production Learning). Round 1 preserved two hard failures (Stage 04 and Stage 18); the runtime was corrected without changing the frozen scenarios/rubric, then only those two cases were rerun in fresh independent sessions and both passed. The claim remains scoped to these frozen 28 scenarios, not universal product-engineering correctness.
 
+A separate unseen-distribution run, `INDEP-RUN-2026-10-05-03`, then tested **12 new multi-axis holdouts** rather than replaying the frozen suite. Result: **12/12 PASS, 0 hard failures, 9.0/10 average**. The executor was Claude Opus 5.5; the independent judge used GitHub Copilot CLI `auto` model routing (the concrete selected model was not surfaced, which is recorded as a provenance limitation). This supports the scoped label `unseen-distribution-behaviorally-validated-v3` for that holdout set.
+
 ## Package layout
 
 | Path | Contents |
