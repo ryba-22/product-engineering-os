@@ -2,6 +2,8 @@
 
 Route work from the current outcome, missing evidence and risk. The OS is not a checklist that loads every Brain for every task. Each module owns a distinct question; route only when that question is decision-relevant.
 
+For a new task, start with [`adaptive-workflow-router.md`](adaptive-workflow-router.md): classify task + risk + concerns, then use this protocol to refine the resulting minimal route.
+
 | Question | Primary module |
 |---|---|
 | Why should this exist / what outcome matters? | product-strategy |

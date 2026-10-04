@@ -1,0 +1,34 @@
+{
+  "version": "1.0",
+  "task_classes": {
+    "BUG": {"stages": [15], "risk_floor": "R0", "stop": "accepted behavior restored and regression evidence exists"},
+    "FEATURE": {"stages": [4, 15], "risk_floor": "R1", "stop": "new behavior is accepted, implemented and verified"},
+    "REFACTOR": {"stages": [15], "risk_floor": "R0", "stop": "behavior is preserved and structural goal is verified"},
+    "DOMAIN_DISCOVERY": {"stages": [3, 4, 5], "risk_floor": "R1", "stop": "meaning, ownership and decision-critical rules are explicit"},
+    "UI_UX": {"stages": [7, 8, 12, 15], "risk_floor": "R0", "stop": "interaction contract is implemented and verified"},
+    "PERFORMANCE": {"stages": [17, 15, 20], "risk_floor": "R1", "stop": "performance target is met with measured evidence"},
+    "MIGRATION": {"stages": [4, 6, 14, 15, 19, 20, 21], "risk_floor": "R2", "stop": "target state is verified and recovery window is resolved"},
+    "RESEARCH": {"stages": [], "risk_floor": "R0", "stop": "decision-critical uncertainty is reduced enough to decide"},
+    "INCIDENT": {"stages": [20, 21, 15, 19], "risk_floor": "R3", "stop": "service is contained or recovered and cause/follow-up is owned"},
+    "DATA_REPAIR": {"stages": [4, 14, 15, 20], "risk_floor": "R2", "stop": "repair is auditable, verified and monitored"},
+    "PRODUCTION_LEARNING": {"stages": [20, 22, 24, 25], "risk_floor": "R1", "stop": "expected-vs-observed result is classified and fed back"}
+  },
+  "concern_overlays": {
+    "money_or_critical_business_rule": {"stages": [3, 4, 15], "risk_floor": "R3"},
+    "identity_or_authorization": {"stages": [4, 16, 15], "risk_floor": "R3"},
+    "production_data_mutation": {"stages": [4, 14, 15, 20, 21], "risk_floor": "R3"},
+    "external_contract_change": {"stages": [4, 15], "risk_floor": "R2"},
+    "concurrency_retry_idempotency": {"stages": [3, 4, 15], "risk_floor": "R2"},
+    "production_degraded": {"stages": [20, 21], "risk_floor": "R3"},
+    "user_visible_interaction": {"stages": [7, 8, 12, 15], "risk_floor": "R0"},
+    "unknown_problem_or_outcome": {"stages": [1, 2], "risk_floor": "R1"}
+  },
+  "ordering": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 16, 17, 15, 18, 19, 20, 21, 22, 23, 24, 25],
+  "reroute_triggers": [
+    "task class changes",
+    "risk changes",
+    "new owner question appears",
+    "required evidence contradicts the current route",
+    "production behavior differs from the accepted contract"
+  ]
+}
