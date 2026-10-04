@@ -36,6 +36,8 @@ The terminal product claim is **Definition of Value**: `HEALTHY ≠ SUCCESSFUL`.
 
 ## Quick start
 
+For an unclassified task, use the [Adaptive Workflow Router](00-core/adaptive-workflow-router.md) first. It chooses the smallest sufficient PEOS route from task class, risk and material concerns.
+
 1. Read [BRAIN.md](BRAIN.md) for the runtime instructions.
 2. State the desired outcome, scope, constraints and acceptance criteria.
 3. Classify risk using [00-core/risk-model.md](00-core/risk-model.md).
