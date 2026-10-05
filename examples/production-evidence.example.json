@@ -1,0 +1,68 @@
+{
+  "id": "PLR-EXAMPLE-001",
+  "owner": "billing-product-owner",
+  "expectation": {
+    "ref": "REQ-BILLING-ELIGIBILITY-01",
+    "kind": "policy",
+    "statement": "Billing eligibility should reduce manual overrides without harming guardianship exception handling.",
+    "population": "all families exposed to billing eligibility automation"
+  },
+  "release": {
+    "ref": "release:2026-10-05.1",
+    "environment": "production",
+    "healthy": true
+  },
+  "observation": {
+    "statement": "Aggregate override rate fell, but remaining overrides are concentrated in a guardianship segment.",
+    "window": {
+      "from": "2026-10-05T00:00:00+02:00",
+      "to": "2026-10-12T00:00:00+02:00"
+    },
+    "population": "families exposed to release:2026-10-05.1",
+    "evidence_refs": [
+      "metric:override-rate",
+      "support:guardianship-cases"
+    ],
+    "instrumentation": {
+      "quality": "known",
+      "limitations": [
+        "small guardianship segment"
+      ]
+    }
+  },
+  "outcome": {
+    "evidence_refs": [
+      "metric:override-rate",
+      "support:guardianship-cases"
+    ],
+    "target_met": true,
+    "guardrails": "FAIL",
+    "segment_harm": true
+  },
+  "delta": {
+    "present": true,
+    "statement": "Aggregate improvement hides concentrated incorrect decisions for a high-risk segment.",
+    "classification": "DOMAIN_GAP",
+    "learning_effect": "SCOPE",
+    "confidence": "high"
+  },
+  "propagation": [
+    {
+      "ref": "domain:billing-eligibility-policy",
+      "status": "UPDATE_REQUIRED",
+      "owner": "domain-owner"
+    },
+    {
+      "ref": "eval:billing-guardianship-segment",
+      "status": "NEW_EVAL",
+      "owner": "quality-owner"
+    },
+    {
+      "ref": "runbook:billing-override-review",
+      "status": "NO_CHANGE",
+      "owner": "operations-owner"
+    }
+  ],
+  "next_observation": "Re-measure the guardianship segment after policy scoping and new eval coverage.",
+  "closure": "READY_FOR_REVERIFY"
+}
