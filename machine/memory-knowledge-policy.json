@@ -1,0 +1,81 @@
+{
+  "version": "1.1.0",
+  "memory_classes": [
+    "CURRENT_INPUT",
+    "SESSION_CONTEXT",
+    "RETRIEVED_MEMORY",
+    "AGENT_SUMMARY"
+  ],
+  "claim_classes": [
+    "USER_INTENT",
+    "PROJECT_FACT",
+    "PROJECT_DECISION",
+    "REUSABLE_GUIDANCE",
+    "HISTORICAL_CONTEXT"
+  ],
+  "canonical_relations": [
+    "NONE",
+    "SUPPORTS",
+    "CONFLICTS",
+    "SUPERSEDES_MEMORY"
+  ],
+  "statuses": [
+    "DECISION_READY",
+    "CONTEXT_ONLY",
+    "VERIFY_REQUIRED",
+    "BLOCKED",
+    "PROMOTION_REQUIRED"
+  ],
+  "promotion_gates": [
+    "NOT_REQUESTED",
+    "BLOCKED",
+    "PENDING_EVIDENCE",
+    "READY_FOR_OWNER_REVIEW"
+  ],
+  "risk_levels": [
+    "R0",
+    "R1",
+    "R2",
+    "R3",
+    "R4"
+  ],
+  "material_risks": [
+    "R3",
+    "R4"
+  ],
+  "promotion_targets": [
+    "PROJECT_REPOSITORY",
+    "KNOWLEDGE_BASE"
+  ],
+  "protected_rules": [
+    "Memory is never canonical evidence by itself.",
+    "Current explicit user input is authoritative for user intent and requested scope, not for objective project or system facts.",
+    "Decision-ready user intent does not authorize a consequential action or bypass capability and approval controls.",
+    "Current project and runtime facts require inspectable canonical evidence when decision-relevant.",
+    "Unsupported remembered facts fail closed for R3/R4 decisions.",
+    "Canonical conflict cannot be resolved by silently preferring memory.",
+    "Blocked claims cannot be promoted until the blocking conflict or missing material evidence is resolved.",
+    "Absence from memory is not evidence of absence.",
+    "Reusable remembered guidance requires provenance, scope and verification before promotion.",
+    "Memory correction does not mutate canonical knowledge automatically.",
+    "Canonical updates do not imply remembered summaries are already refreshed.",
+    "Promotion that changes Active reusable guidance must pass the Source Delta Pipeline.",
+    "Unknown Source Delta applicability blocks Knowledge Base promotion until changes_active_guidance is explicitly assessed.",
+    "Current explicit user intent may be persisted project-locally but cannot directly become global reusable knowledge; Knowledge Base promotion requires a separate corroborated claim.",
+    "No USER_INTENT record may directly promote to KNOWLEDGE_BASE; global reusable guidance requires a separate corroborated claim.",
+    "Duplicate JSON keys are invalid because ambiguous input must not rely on parser last-wins behavior.",
+    "changes_active_guidance applies only to KNOWLEDGE_BASE promotion; project-local promotion cannot claim to change Active global guidance."
+  ],
+  "authority_scopes": [
+    "NONE",
+    "USER_INTENT_ONLY",
+    "CANONICAL_CLAIM"
+  ],
+  "canonical_reference_schemes": [
+    "project",
+    "knowledge",
+    "evidence",
+    "runtime",
+    "source"
+  ]
+}

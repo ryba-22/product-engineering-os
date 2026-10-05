@@ -18,6 +18,8 @@ evidence=load('02-evidence/evidence-ledger.json')
 evals=load('05-evals/golden-evals.json')
 delta_policy=load('machine/source-delta-policy.json')
 delta_schema=load('01-governance/source-delta.schema.json')
+memory_policy=load('machine/memory-knowledge-policy.json')
+memory_schema=load('01-governance/memory-knowledge.schema.json')
 
 if manifest:
     if len(manifest.get('lifecycle_stages',[]))!=25: errors.append('manifest must contain 25 lifecycle stages')
@@ -60,6 +62,37 @@ if delta_schema:
     except Exception as e: errors.append(f'source delta schema invalid: {e}')
 for rel in ['01-governance/source-delta-pipeline.md','01-governance/source-delta.schema.json','01-governance/source-deltas/README.md','machine/source-delta-policy.json','scripts/source_delta.py']:
     if not (ROOT/rel).exists(): errors.append(f'missing source delta contract: {rel}')
+
+if memory_policy:
+    expected_statuses={'DECISION_READY','CONTEXT_ONLY','VERIFY_REQUIRED','BLOCKED','PROMOTION_REQUIRED'}
+    expected_promotion_gates={'NOT_REQUESTED','BLOCKED','PENDING_EVIDENCE','READY_FOR_OWNER_REVIEW'}
+    expected_authority_scopes={'NONE','USER_INTENT_ONLY','CANONICAL_CLAIM'}
+    if memory_policy.get('version')!='1.1.0': errors.append('memory-knowledge policy version mismatch')
+    if set(memory_policy.get('statuses',[]))!=expected_statuses: errors.append('memory-knowledge status contract mismatch')
+    if set(memory_policy.get('promotion_gates',[]))!=expected_promotion_gates: errors.append('memory-knowledge promotion-gate contract mismatch')
+    if set(memory_policy.get('authority_scopes',[]))!=expected_authority_scopes: errors.append('memory-knowledge authority-scope contract mismatch')
+    if set(memory_policy.get('material_risks',[]))!={'R3','R4'}: errors.append('memory-knowledge material-risk contract mismatch')
+    if 'Memory is never canonical evidence by itself.' not in memory_policy.get('protected_rules',[]): errors.append('memory-knowledge canonical-boundary rule missing')
+if memory_schema:
+    if memory_schema.get('$id')!='https://local/product-engineering-os/memory-knowledge.schema.json': errors.append('memory-knowledge schema id mismatch')
+    try: Draft7Validator.check_schema(memory_schema)
+    except Exception as e: errors.append(f'memory-knowledge schema invalid: {e}')
+    if memory_policy:
+        props=memory_schema.get('properties',{})
+        enum_pairs=[
+            ('memory_class','memory_classes'),
+            ('claim_class','claim_classes'),
+            ('risk','risk_levels'),
+            ('canonical_relation','canonical_relations'),
+            ('promotion_target','promotion_targets'),
+        ]
+        for schema_key, policy_key in enum_pairs:
+            schema_values=set(props.get(schema_key,{}).get('enum',[]))
+            policy_values=set(memory_policy.get(policy_key,[]))
+            if schema_values!=policy_values:
+                errors.append(f'memory-knowledge enum drift: schema {schema_key} != policy {policy_key}')
+for rel in ['01-governance/memory-knowledge-contract.md','01-governance/memory-knowledge.schema.json','machine/memory-knowledge-policy.json','scripts/memory_knowledge_guard.py']:
+    if not (ROOT/rel).exists(): errors.append(f'missing memory-knowledge contract: {rel}')
 
 # Wave 2 deep-contract checks
 for rel in ['06-modules/system-architecture/DECISION-PROTOCOL.md','06-modules/system-architecture/FITNESS-FUNCTIONS.md','06-modules/software-engineering/FRONTEND-ARCHITECTURE.md','06-modules/software-engineering/BACKEND-API.md','06-modules/software-engineering/DATA-PERSISTENCE.md']:

@@ -1,0 +1,109 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://local/product-engineering-os/memory-knowledge.schema.json",
+  "type": "object",
+  "required": [
+    "version",
+    "id",
+    "claim",
+    "claim_class",
+    "memory_class",
+    "risk",
+    "decision_use",
+    "current_user_explicit",
+    "canonical_relation",
+    "canonical_refs",
+    "promotion_requested"
+  ],
+  "properties": {
+    "version": {
+      "const": "1.0.0"
+    },
+    "id": {
+      "type": "string",
+      "pattern": "^MKC-[A-Z0-9-]+$"
+    },
+    "claim": {
+      "type": "string",
+      "minLength": 1
+    },
+    "claim_class": {
+      "enum": [
+        "USER_INTENT",
+        "PROJECT_FACT",
+        "PROJECT_DECISION",
+        "REUSABLE_GUIDANCE",
+        "HISTORICAL_CONTEXT"
+      ]
+    },
+    "memory_class": {
+      "enum": [
+        "CURRENT_INPUT",
+        "SESSION_CONTEXT",
+        "RETRIEVED_MEMORY",
+        "AGENT_SUMMARY"
+      ]
+    },
+    "risk": {
+      "enum": [
+        "R0",
+        "R1",
+        "R2",
+        "R3",
+        "R4"
+      ]
+    },
+    "decision_use": {
+      "type": "boolean"
+    },
+    "current_user_explicit": {
+      "type": "boolean"
+    },
+    "canonical_relation": {
+      "enum": [
+        "NONE",
+        "SUPPORTS",
+        "CONFLICTS",
+        "SUPERSEDES_MEMORY"
+      ]
+    },
+    "canonical_refs": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1,
+        "pattern": "^[a-z][a-z0-9+.-]*://\\S+$"
+      },
+      "uniqueItems": true
+    },
+    "promotion_requested": {
+      "type": "boolean"
+    },
+    "promotion_target": {
+      "enum": [
+        "PROJECT_REPOSITORY",
+        "KNOWLEDGE_BASE"
+      ]
+    },
+    "promotion_scope": {
+      "type": "string",
+      "minLength": 3
+    },
+    "promotion_provenance_refs": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1,
+        "pattern": "^[a-z][a-z0-9+.-]*://\\S+$"
+      },
+      "uniqueItems": true
+    },
+    "changes_active_guidance": {
+      "type": "boolean"
+    },
+    "notes": {
+      "type": "string"
+    }
+  },
+  "additionalProperties": false
+}

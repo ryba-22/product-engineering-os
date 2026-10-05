@@ -32,7 +32,7 @@ Bring:
 1. State the outcome, scope, constraints, and acceptance criteria.
 2. Classify risk using `00-core/risk-model.md`.
 3. Route only to the modules required by `00-core/routing.md`.
-4. Gather decision-critical evidence and stop research when it is unlikely to change the decision.
+4. Gather decision-critical evidence and stop research when it is unlikely to change the decision. Apply the **Memory ↔ Knowledge Base Contract** to remembered context: current intent may be direct, but objective project/system facts must be corroborated before material use.
 5. For material business behavior, define examples/counterexamples and an executable oracle before implementation.
 6. Execute the smallest useful change; record decisions and verify the evidence required by the relevant gate.
 7. Separate implementation/test/verification/deployment/health/value claims; do not collapse them.
