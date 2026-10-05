@@ -22,5 +22,6 @@ jobs:
       - run: python scripts/audit_independent_eval.py
       - run: python scripts/audit_independent_eval_v2.py
       - run: python scripts/audit_freshness.py
+      - run: python scripts/production_evidence.py examples/production-evidence.example.json --check
       - run: python -m pytest tests -q
       - run: python examples/idempotent-enrollment/evaluate.py
