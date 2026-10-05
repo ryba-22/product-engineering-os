@@ -3,6 +3,7 @@ from pathlib import Path
 import hashlib
 import json
 import sys
+import subprocess
 
 ROOT = Path(__file__).resolve().parents[1]
 BASE = ROOT / "05-evals" / "independent-run-v2"
@@ -47,18 +48,26 @@ if manifest.get("actual_executor", {}).get("result_sha256") != sha(BASE / "execu
 if manifest.get("actual_judge", {}).get("result_sha256") != sha(BASE / "judge-results.json"):
     errors.append("judge result hash mismatch")
 
-# The final runtime is frozen by content hashes rather than current HEAD, because
-# evidence/metadata commits are allowed after the evaluated runtime commit.
-for item in source_files.get("files", []):
-    path = ROOT / item.get("path", "")
-    if not path.exists():
-        errors.append(f"missing frozen runtime file: {item.get('path')}")
-        continue
-    actual = sha(path)
-    if actual != item.get("sha256"):
-        errors.append(f"frozen runtime hash mismatch: {item.get('path')}")
-if source_files.get("runtime_commit") != manifest.get("runtime_commit_final"):
+# The evaluated runtime is historical evidence. Verify hashes against the
+# recorded runtime commit, not against the current working tree. This lets PEOS
+# evolve without rewriting or invalidating the frozen v2 evidence.
+runtime_commit = source_files.get("runtime_commit")
+if runtime_commit != manifest.get("runtime_commit_final"):
     errors.append("source-files runtime commit differs from final runtime commit")
+for item in source_files.get("files", []):
+    rel = item.get("path", "")
+    try:
+        payload = subprocess.check_output(
+            ["git", "show", f"{runtime_commit}:{rel}"],
+            cwd=ROOT,
+            stderr=subprocess.DEVNULL,
+        )
+    except subprocess.CalledProcessError:
+        errors.append(f"missing frozen runtime file at {runtime_commit}: {rel}")
+        continue
+    actual = hashlib.sha256(payload).hexdigest()
+    if actual != item.get("sha256"):
+        errors.append(f"frozen runtime hash mismatch at {runtime_commit}: {rel}")
 
 # Blinding: executor input must not contain judge-only fields.
 for case in executor_input.get("cases", []):
