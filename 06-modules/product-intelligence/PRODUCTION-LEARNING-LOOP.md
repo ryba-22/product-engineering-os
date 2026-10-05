@@ -92,3 +92,28 @@ Ship-and-forget; dashboard-only observability; treating every mismatch as a code
 ## Closure evidence
 
 The loop is closed for a material delta when expectation and observation are linked, the mismatch is classified with explicit confidence, affected artifacts are reviewed, required model/test/eval/knowledge updates are completed or owned, and re-verification or a planned production observation is recorded.
+
+
+## Executable production-evidence contract
+
+For material production learning, the prose record has a machine-readable companion:
+
+- `machine/production-evidence.schema.json` defines the record shape;
+- `machine/production-evidence-contract.json` freezes the value-state invariants;
+- `scripts/production_evidence.py` validates a record and derives its value status;
+- `examples/production-evidence.example.json` is an executable reference case.
+
+The derived value states are:
+
+- `NOT_HEALTHY` — the release is not operationally healthy;
+- `UNVERIFIED_OUTCOME` — health exists, but outcome evidence or trustworthy instrumentation is insufficient;
+- `OUTCOME_CHALLENGED` — target, guardrail, or segment evidence contradicts a success claim;
+- `SUCCESS_SUPPORTED` — outcome evidence exists, the target is met, guardrails pass, instrumentation is usable, and no known segment harm remains.
+
+The validator intentionally fails closed on the common false-positive path:
+
+`HEALTHY + aggregate improvement ≠ SUCCESS_SUPPORTED`
+
+when outcome evidence is absent, instrumentation is unknown, guardrails fail, or a harmed segment is known.
+
+A material delta also cannot close without propagation review. `CLOSED` is invalid while an affected artifact is still `UPDATE_REQUIRED` or `UNKNOWN`, or while the learning effect remains `UNRESOLVED`.

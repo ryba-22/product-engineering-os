@@ -1,0 +1,14 @@
+{
+  "version": "1.0",
+  "value_states": ["NOT_HEALTHY", "UNVERIFIED_OUTCOME", "OUTCOME_CHALLENGED", "SUCCESS_SUPPORTED"],
+  "learning_effects": ["NO_CHANGE", "SUPPORT", "SCOPE", "EXTEND", "CHALLENGE", "FALSIFY", "UNRESOLVED"],
+  "propagation_states": ["NO_CHANGE", "UPDATE_REQUIRED", "SUPERSEDE", "NEW_EVAL", "UNKNOWN"],
+  "invariants": [
+    "healthy_does_not_imply_successful",
+    "success_requires_outcome_evidence",
+    "success_requires_guardrails_pass",
+    "success_requires_no_known_segment_harm",
+    "material_delta_requires_propagation_review",
+    "unknown_instrumentation_cannot_support_success"
+  ]
+}

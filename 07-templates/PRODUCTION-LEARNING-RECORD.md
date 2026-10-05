@@ -42,3 +42,16 @@ Describe the mismatch without explaining it.
 
 ## Re-verification / next production observation
 ## Definition of Value status: VERIFIED | UNVERIFIED | FALSIFIED | NOT-YET-MEASURABLE
+
+
+## Machine-readable companion
+
+For material production evidence, mirror this record in JSON using:
+
+- contract: `machine/production-evidence-contract.json`
+- schema: `machine/production-evidence.schema.json`
+- validator: `python3 scripts/production_evidence.py <record.json> --check`
+
+The machine record must identify the expectation, release, observation scope/window, evidence references, instrumentation quality, outcome/guardrails/segment harm, delta classification, learning effect, propagation owners and closure state.
+
+Do not manually promote `HEALTHY` to `SUCCESSFUL`. Use the validator-derived value state.
