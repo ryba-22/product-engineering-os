@@ -31,13 +31,14 @@ For material business behavior, Product Engineering OS makes four cross-lifecycl
 - **ATDD / Example Mapping before implementation** — bind business rules to concrete examples/counterexamples and an executable oracle; preserve example IDs into tests/evals and production observations.
 - **Production Learning Loop** — compare expected vs observed behavior, classify material deltas, then propagate supported learning to domain/requirements/decisions/tests/evals/knowledge before closure.
 - **Source Delta Pipeline** — detect changed knowledge inputs, trace impacted claims/consumers, then explicitly classify SUPPORT/SCOPE/EXTEND/CHALLENGE/FALSIFY before promotion or supersession.
+- **Memory ↔ Knowledge Base Boundary** — use conversational/agent memory for continuity and retrieval, but require canonical corroboration before remembered project facts can support consequential decisions.
 - **AI Security/Governance** — classify data/provider boundaries and constrain agent/tool capabilities with least privilege and enforceable approval rather than relying on personas or prompt instructions.
 
 The terminal product claim is **Definition of Value**: `HEALTHY ≠ SUCCESSFUL`. If outcome evidence is absent, use `UNVERIFIED OUTCOME`.
 
 ## Quick start
 
-For an unclassified task, use the [Adaptive Workflow Router](00-core/adaptive-workflow-router.md) first. It chooses the smallest sufficient PEOS route from task class, risk and material concerns. For a new/changed/removed knowledge source, use the [Source Delta Pipeline](01-governance/source-delta-pipeline.md) before changing Active guidance.
+For an unclassified task, use the [Adaptive Workflow Router](00-core/adaptive-workflow-router.md) first. It chooses the smallest sufficient PEOS route from task class, risk and material concerns. For remembered context, apply the [Memory ↔ Knowledge Base Contract](01-governance/memory-knowledge-contract.md) before using project/system facts as decision premises. For a new/changed/removed knowledge source, use the [Source Delta Pipeline](01-governance/source-delta-pipeline.md) before changing Active guidance.
 
 1. Read [BRAIN.md](BRAIN.md) for the runtime instructions.
 2. State the desired outcome, scope, constraints and acceptance criteria.

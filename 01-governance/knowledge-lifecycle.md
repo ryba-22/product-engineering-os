@@ -55,6 +55,12 @@ A new, changed, removed or materially re-verified source must pass the [Source D
 
 Until affected live evidence has been reviewed and the delta record reaches `READY`, promotion or supersession remains blocked. `CHALLENGE` and `FALSIFY` preserve the existing record and require an explicit resolution path rather than mutation-by-overwrite.
 
+## Memory ingress
+
+Conversation memory, agent summaries and remembered project context are not an additional lifecycle state. They enter governance as retrieval hints or Candidate claims until corroborated. Current explicit user intent is authoritative for requested intent/scope, but attached objective project facts still require verification when decision-relevant.
+
+Use the [Memory ↔ Knowledge Base Contract](memory-knowledge-contract.md) to classify remembered claims. R3/R4 decisions fail closed when a remembered project fact lacks canonical evidence. Promotion into durable project or reusable knowledge requires provenance, scope and verification; promotion that changes Active reusable guidance also passes the Source Delta Pipeline.
+
 ## Project overrides
 
 Global guidance and project-local decisions are separate layers. A project may override an Active global rule because of a concrete constraint, but the override must name scope, rationale and revisit trigger. It must not mutate the global rule for every future project.
