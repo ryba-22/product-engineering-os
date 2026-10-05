@@ -51,8 +51,10 @@ Original PDR/outcome, release exposure and date, product metrics, SLO/reliabilit
 ## Evidence standard
 Outcome review states population, period, exposure, metrics, qualitative sources, limitations and comparison to the original target. Conclusions are scoped to evidence rather than universalized.
 
+For material production claims, create a machine-readable Production Evidence Record compatible with `machine/production-evidence.schema.json` and validate it with `python3 scripts/production_evidence.py <record.json> --check`. A `SUCCESS_SUPPORTED` result requires outcome evidence, a met target, passing guardrails, usable instrumentation and no known segment harm.
+
 ## Canonical outputs
-Outcome Review; Production Learning Record for material deltas; updated assumption/opportunity/domain model; propagation status across examples/tests/evals/knowledge; retirement/iteration decision; new evidence records; next-stage routing.
+Outcome Review; Production Learning Record for material deltas; machine-readable Production Evidence Record when the claim is material; derived value status; updated assumption/opportunity/domain model; propagation status across examples/tests/evals/knowledge; retirement/iteration decision; new evidence records; next-stage routing.
 
 ## Failure modes
 Ship-and-forget; redefining success post hoc; analytics-only review; ignoring low-adoption segments; treating support volume as mere noise; never retiring weak features; endless iteration with no explicit outcome.
