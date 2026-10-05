@@ -1,0 +1,274 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "PEOS Production Evidence Record",
+  "type": "object",
+  "required": [
+    "id",
+    "expectation",
+    "observation",
+    "release",
+    "outcome",
+    "delta",
+    "propagation",
+    "owner"
+  ],
+  "properties": {
+    "id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "owner": {
+      "type": "string",
+      "minLength": 1
+    },
+    "expectation": {
+      "type": "object",
+      "required": [
+        "ref",
+        "kind",
+        "statement",
+        "population"
+      ],
+      "properties": {
+        "ref": {
+          "type": "string",
+          "minLength": 1
+        },
+        "kind": {
+          "enum": [
+            "outcome",
+            "invariant",
+            "policy",
+            "acceptance_example",
+            "slo",
+            "assumption"
+          ]
+        },
+        "statement": {
+          "type": "string",
+          "minLength": 1
+        },
+        "population": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "release": {
+      "type": "object",
+      "required": [
+        "ref",
+        "environment",
+        "healthy"
+      ],
+      "properties": {
+        "ref": {
+          "type": "string",
+          "minLength": 1
+        },
+        "environment": {
+          "const": "production"
+        },
+        "healthy": {
+          "type": "boolean"
+        }
+      }
+    },
+    "observation": {
+      "type": "object",
+      "required": [
+        "statement",
+        "window",
+        "population",
+        "evidence_refs",
+        "instrumentation"
+      ],
+      "properties": {
+        "statement": {
+          "type": "string",
+          "minLength": 1
+        },
+        "window": {
+          "type": "object",
+          "required": [
+            "from",
+            "to"
+          ],
+          "properties": {
+            "from": {
+              "type": "string",
+              "minLength": 1
+            },
+            "to": {
+              "type": "string",
+              "minLength": 1
+            }
+          }
+        },
+        "population": {
+          "type": "string",
+          "minLength": 1
+        },
+        "evidence_refs": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "instrumentation": {
+          "type": "object",
+          "required": [
+            "quality",
+            "limitations"
+          ],
+          "properties": {
+            "quality": {
+              "enum": [
+                "known",
+                "limited",
+                "unknown"
+              ]
+            },
+            "limitations": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    },
+    "outcome": {
+      "type": "object",
+      "required": [
+        "evidence_refs",
+        "target_met",
+        "guardrails",
+        "segment_harm"
+      ],
+      "properties": {
+        "evidence_refs": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "target_met": {
+          "type": [
+            "boolean",
+            "null"
+          ]
+        },
+        "guardrails": {
+          "enum": [
+            "PASS",
+            "FAIL",
+            "UNKNOWN"
+          ]
+        },
+        "segment_harm": {
+          "type": [
+            "boolean",
+            "null"
+          ]
+        }
+      }
+    },
+    "delta": {
+      "type": "object",
+      "required": [
+        "present",
+        "statement",
+        "classification",
+        "learning_effect",
+        "confidence"
+      ],
+      "properties": {
+        "present": {
+          "type": "boolean"
+        },
+        "statement": {
+          "type": "string"
+        },
+        "classification": {
+          "enum": [
+            "NONE",
+            "IMPLEMENTATION_DEFECT",
+            "DOMAIN_GAP",
+            "REQUIREMENT_GAP",
+            "DATA_QUALITY",
+            "INSTRUMENTATION_DEFECT",
+            "OPERATOR_WORKFLOW_SIGNAL",
+            "MISSING_EXCEPTION",
+            "NEW_CONTEXT",
+            "SECURITY_RELIABILITY_INCIDENT",
+            "OUTCOME_HYPOTHESIS_FALSIFIED",
+            "UNRESOLVED"
+          ]
+        },
+        "learning_effect": {
+          "enum": [
+            "NO_CHANGE",
+            "SUPPORT",
+            "SCOPE",
+            "EXTEND",
+            "CHALLENGE",
+            "FALSIFY",
+            "UNRESOLVED"
+          ]
+        },
+        "confidence": {
+          "enum": [
+            "low",
+            "medium",
+            "high"
+          ]
+        }
+      }
+    },
+    "propagation": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "ref",
+          "status",
+          "owner"
+        ],
+        "properties": {
+          "ref": {
+            "type": "string",
+            "minLength": 1
+          },
+          "status": {
+            "enum": [
+              "NO_CHANGE",
+              "UPDATE_REQUIRED",
+              "SUPERSEDE",
+              "NEW_EVAL",
+              "UNKNOWN"
+            ]
+          },
+          "owner": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      }
+    },
+    "next_observation": {
+      "type": "string"
+    },
+    "closure": {
+      "enum": [
+        "OPEN",
+        "READY_FOR_REVERIFY",
+        "CLOSED"
+      ]
+    }
+  }
+}
