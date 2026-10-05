@@ -1,0 +1,84 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://local/product-engineering-os/source-delta.schema.json",
+  "type": "object",
+  "required": ["version", "base_ref", "head_ref", "hashes", "head_evidence_ids", "head_evidence_statuses", "deltas"],
+  "properties": {
+    "version": {"const": "1.0.0"},
+    "base_ref": {"type": "string", "pattern": "^[0-9a-f]{40,64}$"},
+    "head_ref": {"type": "string", "pattern": "^[0-9a-f]{40,64}$"},
+    "head_evidence_ids": {
+      "type": "array",
+      "items": {"type": "string", "minLength": 1},
+      "uniqueItems": true
+    },
+    "head_evidence_statuses": {
+      "type": "object",
+      "additionalProperties": {"type": "string"}
+    },
+    "hashes": {
+      "type": "object",
+      "required": ["base_registry_sha256", "head_registry_sha256", "base_evidence_ledger_sha256", "head_evidence_ledger_sha256"],
+      "properties": {
+        "base_registry_sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+        "head_registry_sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+        "base_evidence_ledger_sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+        "head_evidence_ledger_sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"}
+      },
+      "additionalProperties": false
+    },
+    "deltas": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "source_id", "event", "risk", "change_dimensions", "changed_fields", "before", "after", "affected_evidence", "downstream_refs", "classification", "rationale", "reviewed_evidence_ids", "downstream_actions", "resolution", "replacement_evidence_ids", "decision_record", "promotion_gate"],
+        "properties": {
+          "id": {"type": "string", "pattern": "^SDL-[A-Z0-9-]+$"},
+          "source_id": {"type": "string", "pattern": "^[A-Z0-9-]+$"},
+          "event": {"enum": ["ADDED", "REMOVED", "CHANGED"]},
+          "risk": {"enum": ["R1", "R2", "R3"]},
+          "change_dimensions": {"type": "array", "items": {"type": "string", "minLength": 1}, "uniqueItems": true},
+          "changed_fields": {"type": "array", "items": {"type": "string", "minLength": 1}, "uniqueItems": true},
+          "before": {"type": ["object", "null"]},
+          "after": {"type": ["object", "null"]},
+          "affected_evidence": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": ["id", "baseline_status", "head_status", "strength", "scope", "baseline_cites", "head_cites"],
+              "properties": {
+                "id": {"type": "string", "minLength": 1},
+                "baseline_status": {"type": "string"},
+                "head_status": {"type": "string"},
+                "strength": {"type": "string"},
+                "scope": {"type": "string"},
+                "baseline_cites": {"type": "boolean"},
+                "head_cites": {"type": "boolean"}
+              },
+              "additionalProperties": false
+            }
+          },
+          "downstream_refs": {"type": "array", "items": {"type": "string", "minLength": 1}, "uniqueItems": true},
+          "classification": {"enum": ["UNASSESSED", "SUPPORT", "SCOPE", "EXTEND", "CHALLENGE", "FALSIFY", "NO_MATERIAL_CHANGE"]},
+          "rationale": {"type": "string"},
+          "reviewed_evidence_ids": {"type": "array", "items": {"type": "string", "minLength": 1}, "uniqueItems": true},
+          "downstream_actions": {
+            "type": "array",
+            "items": {"type": "string", "minLength": 20, "pattern": "^\\S(?:.*\\S)?$"}
+          },
+          "resolution": {"enum": ["pending", "accepted", "scoped", "superseded", "rejected", "no-action"]},
+          "replacement_evidence_ids": {"type": "array", "items": {"type": "string", "minLength": 1}, "uniqueItems": true},
+          "decision_record": {
+            "oneOf": [
+              {"type": "null"},
+              {"type": "string", "pattern": "^03-decisions/(PDR|ADR|UDR|SDR|DDR|ODR|TDR)-[0-9]{3,}\\.(json|md)$"}
+            ]
+          },
+          "promotion_gate": {"enum": ["BLOCKED", "READY"]}
+        },
+        "additionalProperties": false
+      }
+    }
+  },
+  "additionalProperties": false
+}

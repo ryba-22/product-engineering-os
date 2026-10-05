@@ -1,0 +1,66 @@
+{
+  "version": "1.3.0",
+  "classifications": {
+    "UNASSESSED": {"allowed_resolutions": ["pending"], "requires_downstream_actions": false},
+    "SUPPORT": {"allowed_resolutions": ["accepted", "no-action"], "requires_downstream_actions": false},
+    "SCOPE": {"allowed_resolutions": ["scoped"], "requires_downstream_actions": true},
+    "EXTEND": {"allowed_resolutions": ["accepted"], "requires_downstream_actions": true},
+    "CHALLENGE": {"allowed_resolutions": ["pending", "scoped", "superseded", "rejected"], "requires_downstream_actions": true},
+    "FALSIFY": {"allowed_resolutions": ["pending", "superseded"], "requires_downstream_actions": true},
+    "NO_MATERIAL_CHANGE": {"allowed_resolutions": ["no-action"], "requires_downstream_actions": false}
+  },
+  "live_evidence_statuses": ["verified", "active"],
+  "removed_allowed_classifications": ["SCOPE", "CHALLENGE", "FALSIFY", "NO_MATERIAL_CHANGE"],
+  "removed_live_allowed_classifications": ["SCOPE", "CHALLENGE", "FALSIFY"],
+  "removed_allowed_resolutions": {
+    "SCOPE": ["scoped"],
+    "CHALLENGE": ["scoped", "superseded"],
+    "FALSIFY": ["superseded"],
+    "NO_MATERIAL_CHANGE": ["no-action"]
+  },
+  "min_rationale_chars": 20,
+  "min_downstream_action_chars": 20,
+  "min_downstream_action_words": 4,
+  "authority_rank": {
+    "A": 5,
+    "B": 4,
+    "C": 3,
+    "D": 2,
+    "E": 1
+  },
+  "strength_rank": {
+    "hard-constraint": 5,
+    "strong": 4,
+    "supporting": 3,
+    "contextual": 2,
+    "implementation": 1,
+    "optional-integration": 0
+  },
+  "risk": {
+    "ADDED": "R1",
+    "CHANGED": "R2",
+    "REMOVED": "R3",
+    "authority_downgrade": "R3",
+    "strength_downgrade": "R3",
+    "live_evidence_impacted": "R3"
+  },
+  "risk_requirements": {
+    "R3": {
+      "requires_downstream_actions": true
+    }
+  },
+  "protected_rules": [
+    "Detection never assigns a semantic classification.",
+    "Newer publication or verification date never implies supersession.",
+    "CHALLENGE and FALSIFY never mutate or delete active evidence automatically.",
+    "REMOVED sources cannot be classified as SUPPORT or EXTEND.",
+    "A removed source supporting live evidence may resolve only through SCOPE, CHALLENGE or FALSIFY.",
+    "Removed-source resolutions are constrained by classification and cannot close as a no-op challenge.",
+    "FALSIFY resolved as superseded requires distinct replacement evidence that exists and is live in the candidate ledger.",
+    "FALSIFY supersession must move at least one previously live affected evidence record out of live status.",
+    "READY requires review of every affected live evidence claim.",
+    "R3 requires at least one substantive downstream action.",
+    "Unknown authority or strength transitions fail closed as R3.",
+    "Registry-level metadata changes fail closed through SOURCE-REGISTRY."
+  ]
+}

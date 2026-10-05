@@ -49,6 +49,12 @@ When two credible claims conflict:
 5. create a decision record if the project must choose under unresolved uncertainty;
 6. do not manufacture consensus.
 
+## Source delta gate
+
+A new, changed, removed or materially re-verified source must pass the [Source Delta Pipeline](source-delta-pipeline.md) before it can silently change Active guidance. The detector traces structural change and downstream evidence impact, but semantic classification remains explicit: `SUPPORT`, `SCOPE`, `EXTEND`, `CHALLENGE`, `FALSIFY` or `NO_MATERIAL_CHANGE`.
+
+Until affected live evidence has been reviewed and the delta record reaches `READY`, promotion or supersession remains blocked. `CHALLENGE` and `FALSIFY` preserve the existing record and require an explicit resolution path rather than mutation-by-overwrite.
+
 ## Project overrides
 
 Global guidance and project-local decisions are separate layers. A project may override an Active global rule because of a concrete constraint, but the override must name scope, rationale and revisit trigger. It must not mutate the global rule for every future project.

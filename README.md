@@ -26,17 +26,18 @@ Passing a structural check does not prove production health or product success. 
 
 ## Closed learning-loop contract
 
-For material business behavior, Product Engineering OS makes three cross-lifecycle mechanisms explicit:
+For material business behavior, Product Engineering OS makes four cross-lifecycle mechanisms explicit:
 
 - **ATDD / Example Mapping before implementation** — bind business rules to concrete examples/counterexamples and an executable oracle; preserve example IDs into tests/evals and production observations.
 - **Production Learning Loop** — compare expected vs observed behavior, classify material deltas, then propagate supported learning to domain/requirements/decisions/tests/evals/knowledge before closure.
+- **Source Delta Pipeline** — detect changed knowledge inputs, trace impacted claims/consumers, then explicitly classify SUPPORT/SCOPE/EXTEND/CHALLENGE/FALSIFY before promotion or supersession.
 - **AI Security/Governance** — classify data/provider boundaries and constrain agent/tool capabilities with least privilege and enforceable approval rather than relying on personas or prompt instructions.
 
 The terminal product claim is **Definition of Value**: `HEALTHY ≠ SUCCESSFUL`. If outcome evidence is absent, use `UNVERIFIED OUTCOME`.
 
 ## Quick start
 
-For an unclassified task, use the [Adaptive Workflow Router](00-core/adaptive-workflow-router.md) first. It chooses the smallest sufficient PEOS route from task class, risk and material concerns.
+For an unclassified task, use the [Adaptive Workflow Router](00-core/adaptive-workflow-router.md) first. It chooses the smallest sufficient PEOS route from task class, risk and material concerns. For a new/changed/removed knowledge source, use the [Source Delta Pipeline](01-governance/source-delta-pipeline.md) before changing Active guidance.
 
 1. Read [BRAIN.md](BRAIN.md) for the runtime instructions.
 2. State the desired outcome, scope, constraints and acceptance criteria.
