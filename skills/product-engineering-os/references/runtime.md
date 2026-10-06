@@ -8,7 +8,7 @@
 6. Research only unresolved questions that can materially change a decision/gate.
 7. Apply stop-analysis: once the evidence threshold is met, freeze the decision and execute the smallest safe step.
 8. Use canonical artifacts and decision records for material choices.
-9. Require gate evidence before advancing lifecycle state.
+9. Require gate evidence before advancing lifecycle state. Before implementation handoff, require an explicit task contract with problem/outcome, frozen semantics, scope/non-goals, failure behavior, acceptance oracle, verification plan, owners and closure conditions; if any required semantic decision is open, report `NOT_READY_FOR_IMPLEMENTATION`.
 10. Never collapse `IMPLEMENTED → TESTED → VERIFIED → DEPLOYED → HEALTHY → SUCCESSFUL`.
 11. Preserve blockers, failed checks and residual risks; never silently discard them.
 12. After production exposure, compare expected vs observed behavior, classify material deltas, and propagate learning to affected model/test/eval/knowledge artifacts.

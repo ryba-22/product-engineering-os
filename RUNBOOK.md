@@ -34,10 +34,11 @@ Bring:
 3. Route only to the modules required by `00-core/routing.md`.
 4. Gather decision-critical evidence and stop research when it is unlikely to change the decision. Apply the **Memory ↔ Knowledge Base Contract** to remembered context: current intent may be direct, but objective project/system facts must be corroborated before material use.
 5. For material business behavior, define examples/counterexamples and an executable oracle before implementation.
-6. Execute the smallest useful change; record decisions and verify the evidence required by the relevant gate.
-7. Separate implementation/test/verification/deployment/health/value claims; do not collapse them.
-8. For production work, compare expected and observed behavior and feed supported learning back into requirements, decisions, tests, evals, and reusable knowledge.
-9. Run **Documentation Closure** before `CLOSED`: synchronize the project current-state/progress record, affected decisions/model docs, roadmap/backlog, verification evidence and operational docs. Mark stale documents superseded/historical and record canonical SHA/artifact, unresolved risks and next owner/action. Use `NO_DOC_DELTA: <reason>` only when the completed work truly produced no durable documentation change.
+6. Before handing an implementation task to an executor, apply `00-core/implementation-task-contract.md`; do not use `READY_FOR_IMPLEMENTATION` unless all hard readiness gates pass. Use `07-templates/IMPLEMENTATION-TASK.md` for material R2–R4 work.
+7. Execute the smallest useful change; record decisions and verify the evidence required by the relevant gate.
+8. Separate implementation/test/verification/deployment/health/value claims; do not collapse them.
+9. For production work, compare expected and observed behavior and feed supported learning back into requirements, decisions, tests, evals, and reusable knowledge.
+10. Run **Documentation Closure** before `CLOSED`: synchronize the project current-state/progress record, affected decisions/model docs, roadmap/backlog, verification evidence and operational docs. Mark stale documents superseded/historical and record canonical SHA/artifact, unresolved risks and next owner/action. Use `NO_DOC_DELTA: <reason>` only when the completed work truly produced no durable documentation change.
 
 Runtime detail: `BRAIN.md`. Specialist depth lives in `06-modules/**/STAGE-*.md`.
 
