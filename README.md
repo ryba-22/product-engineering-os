@@ -44,7 +44,7 @@ For an unclassified task, use the [Adaptive Workflow Router](00-core/adaptive-wo
 2. State the desired outcome, scope, constraints and acceptance criteria.
 3. Classify risk using [00-core/risk-model.md](00-core/risk-model.md).
 4. Select only the modules you need using [00-core/routing.md](00-core/routing.md).
-5. Copy the relevant templates into your project and record evidence and decisions.
+5. Copy the relevant templates into your project and record evidence and decisions. For implementation handoff, use the [Implementation Task Contract](00-core/implementation-task-contract.md) and [IMPLEMENTATION-TASK](07-templates/IMPLEMENTATION-TASK.md).
 6. Execute the smallest useful step, verify it and collect the evidence required by the next quality gate.
 7. For production work, review release health and outcome measures before claiming success.
 8. Before marking work `CLOSED`, run the Documentation Closure Gate. For material work use [WORK-CLOSURE.md](07-templates/WORK-CLOSURE.md): update or supersede affected docs, record verification and canonical state, or explicitly record `NO_DOC_DELTA`.
