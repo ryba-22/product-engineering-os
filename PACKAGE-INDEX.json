@@ -203,6 +203,7 @@
     "07-templates/THREAT-MODEL.md",
     "07-templates/TRACEABILITY.json",
     "07-templates/TRACKING-PLAN.md",
+    "08-adapters/ai-sdlc-crosswalk.md",
     "08-adapters/ddd-brain-crosswalk.md",
     "08-adapters/existing-assets.md",
     "08-adapters/ui-brain-crosswalk.md",
