@@ -7,6 +7,8 @@ ROOT=Path(__file__).resolve().parents[1]
 def intentionally_concise(p: Path) -> bool:
     rel=p.relative_to(ROOT).as_posix()
     if rel.startswith('07-templates/'): return True
+    # Work-closure records are intentionally concise evidence/checkpoint artifacts, not knowledge playbooks.
+    if rel.startswith('02-evidence/closures/'): return True
     if rel.endswith('/MODULE.md'): return True
     if rel.startswith('08-adapters/'): return True
     if rel.startswith('skills/product-engineering-os/') and '/references/stages/' not in rel: return True

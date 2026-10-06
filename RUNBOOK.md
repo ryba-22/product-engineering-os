@@ -37,6 +37,7 @@ Bring:
 6. Execute the smallest useful change; record decisions and verify the evidence required by the relevant gate.
 7. Separate implementation/test/verification/deployment/health/value claims; do not collapse them.
 8. For production work, compare expected and observed behavior and feed supported learning back into requirements, decisions, tests, evals, and reusable knowledge.
+9. Run **Documentation Closure** before `CLOSED`: synchronize the project current-state/progress record, affected decisions/model docs, roadmap/backlog, verification evidence and operational docs. Mark stale documents superseded/historical and record canonical SHA/artifact, unresolved risks and next owner/action. Use `NO_DOC_DELTA: <reason>` only when the completed work truly produced no durable documentation change.
 
 Runtime detail: `BRAIN.md`. Specialist depth lives in `06-modules/**/STAGE-*.md`.
 
@@ -52,7 +53,8 @@ A completed PEOS pass should leave:
 - verification evidence;
 - release/health evidence when deployed;
 - outcome status: supported value or `UNVERIFIED OUTCOME`;
-- remaining blockers and next action.
+- remaining blockers and next action;
+- Documentation Closure verdict and the docs updated/superseded, or explicit `NO_DOC_DELTA`.
 
 ## EVIDENCE
 

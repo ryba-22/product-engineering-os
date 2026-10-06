@@ -47,6 +47,7 @@ For an unclassified task, use the [Adaptive Workflow Router](00-core/adaptive-wo
 5. Copy the relevant templates into your project and record evidence and decisions.
 6. Execute the smallest useful step, verify it and collect the evidence required by the next quality gate.
 7. For production work, review release health and outcome measures before claiming success.
+8. Before marking work `CLOSED`, run the Documentation Closure Gate. For material work use [WORK-CLOSURE.md](07-templates/WORK-CLOSURE.md): update or supersede affected docs, record verification and canonical state, or explicitly record `NO_DOC_DELTA`.
 
 Stop researching once additional research is unlikely to change the decision. Use reversible experiments to resolve remaining uncertainty when appropriate.
 

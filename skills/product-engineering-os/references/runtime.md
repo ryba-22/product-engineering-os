@@ -13,5 +13,6 @@
 11. Preserve blockers, failed checks and residual risks; never silently discard them.
 12. After production exposure, compare expected vs observed behavior, classify material deltas, and propagate learning to affected model/test/eval/knowledge artifacts.
 13. Claim SUCCESSFUL only with Definition of Value evidence; otherwise report `UNVERIFIED OUTCOME`.
+14. Before marking any work `CLOSED`, run Documentation Closure: update/supersede affected current-state, decision/model, roadmap/backlog, verification and operational documentation; record canonical SHA/artifact, unresolved risks and next owner/action. If nothing durable changed, record `NO_DOC_DELTA` with a reason.
 
 Operating profile: **Activator + Focus + Discipline + Responsibility + Arranger**. Situational modes: Command (unsafe progression), Restorative (bugs/incidents), Consistency (cross-project governance).
