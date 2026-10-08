@@ -1,0 +1,20 @@
+{
+  "schema_version": "0.1.0",
+  "project": "example-service-NOT-CRD-FINANCE",
+  "required_ci_checks": [
+    "static-checks",
+    "unit",
+    "integration"
+  ],
+  "required_artifacts": [
+    "app",
+    "worker",
+    "migrator"
+  ],
+  "max_age_minutes": {
+    "ci_gate": 1440,
+    "approval": 1440,
+    "runtime_health": 10,
+    "recovery": 43200
+  }
+}

@@ -1,0 +1,92 @@
+{
+  "version": "0.2.0",
+  "mode": "ADVISORY",
+  "gate_links": [
+    "G8",
+    "G9",
+    "G10"
+  ],
+  "rule_owners": {
+    "portable": "product-engineering-os",
+    "runtime": "project-repository"
+  },
+  "rules": [
+    {
+      "id": "DA-GHA-000",
+      "scope": "workflow",
+      "severity": "high",
+      "description": "Workflow syntactically readable and structurally inspectable",
+      "evidence_boundary": "local YAML"
+    },
+    {
+      "id": "DA-GHA-001",
+      "scope": "workflow",
+      "severity": "medium",
+      "description": "External actions/reusable workflows pinned to immutable SHA",
+      "evidence_boundary": "local uses reference only; SHA trust not verified"
+    },
+    {
+      "id": "DA-GHA-002",
+      "scope": "workflow",
+      "severity": "high",
+      "description": "Privileged workflow_run trust boundary reviewed",
+      "evidence_boundary": "cannot prove safe trust boundary from YAML alone"
+    },
+    {
+      "id": "DA-GHA-003",
+      "scope": "workflow",
+      "severity": "high",
+      "description": "Production environment approval enforcement observed",
+      "evidence_boundary": "requires GitHub settings/runtime evidence"
+    },
+    {
+      "id": "DA-REL-000",
+      "scope": "release",
+      "severity": "high",
+      "description": "Evidence conforms to versioned schema",
+      "evidence_boundary": "local JSON"
+    },
+    {
+      "id": "DA-REL-001",
+      "scope": "release",
+      "severity": "high",
+      "description": "Required CI gates have evidence",
+      "evidence_boundary": "CI run results"
+    },
+    {
+      "id": "DA-REL-002",
+      "scope": "release",
+      "severity": "critical",
+      "description": "Exact immutable artifact digests agree across environments",
+      "evidence_boundary": "registry and observed running digest"
+    },
+    {
+      "id": "DA-REL-003",
+      "scope": "release",
+      "severity": "critical",
+      "description": "Production approval observed",
+      "evidence_boundary": "GitHub environment approvals/operator decision"
+    },
+    {
+      "id": "DA-REL-004",
+      "scope": "release",
+      "severity": "critical",
+      "description": "Required recovery proof current and independently verifiable",
+      "evidence_boundary": "restore drill record"
+    },
+    {
+      "id": "DA-REL-005",
+      "scope": "release",
+      "severity": "critical",
+      "description": "Runtime health is evidenced rather than inferred from deploy success",
+      "evidence_boundary": "post-deploy runtime observation"
+    },
+    {
+      "id": "DA-REL-006",
+      "scope": "release",
+      "severity": "critical",
+      "description": "Expected release controls originate from an independently trusted project policy",
+      "evidence_boundary": "project policy integrity and provenance validated outside untrusted release JSON"
+    }
+  ]
+}

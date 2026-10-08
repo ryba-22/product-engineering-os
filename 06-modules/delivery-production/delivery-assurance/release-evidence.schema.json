@@ -1,0 +1,269 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://local/product-engineering-os/delivery-assurance/release-evidence.schema.json",
+  "title": "Release execution evidence (not KnowledgeEvidence)",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "release_id",
+    "source_sha",
+    "target_environment",
+    "checks",
+    "artifacts"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "0.1.0"
+    },
+    "release_id": {
+      "type": "string",
+      "minLength": 3
+    },
+    "source_sha": {
+      "type": "string",
+      "pattern": "^[a-fA-F0-9]{40}$"
+    },
+    "target_environment": {
+      "enum": [
+        "staging",
+        "production"
+      ]
+    },
+    "checks": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/check"
+      },
+      "uniqueItems": true
+    },
+    "artifacts": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/artifact"
+      }
+    },
+    "production_approval": {
+      "$ref": "#/$defs/proof"
+    },
+    "recovery": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/proof"
+        },
+        {
+          "type": "object",
+          "required": [
+            "required",
+            "expires_at"
+          ],
+          "properties": {
+            "required": {
+              "type": "boolean"
+            },
+            "expires_at": {
+              "type": "string",
+              "format": "date-time"
+            }
+          }
+        }
+      ]
+    },
+    "runtime_health": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/proof"
+        },
+        {
+          "type": "object",
+          "required": [
+            "source"
+          ],
+          "properties": {
+            "source": {
+              "enum": [
+                "runtime",
+                "pipeline",
+                "declaration"
+              ]
+            }
+          }
+        }
+      ]
+    }
+  },
+  "$defs": {
+    "status": {
+      "enum": [
+        "PASS",
+        "FAIL",
+        "UNKNOWN",
+        "NOT_APPLICABLE",
+        "WAIVED"
+      ]
+    },
+    "proof": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "status"
+      ],
+      "properties": {
+        "status": {
+          "$ref": "#/$defs/status"
+        },
+        "evidence_ref": {
+          "type": "string",
+          "minLength": 5
+        },
+        "observed_at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "required": {
+          "type": "boolean"
+        },
+        "expires_at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "source": {
+          "enum": [
+            "runtime",
+            "pipeline",
+            "declaration"
+          ]
+        },
+        "risk_acceptance": {
+          "$ref": "#/$defs/risk_acceptance"
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "status": {
+                "const": "WAIVED"
+              }
+            },
+            "required": [
+              "status"
+            ]
+          },
+          "then": {
+            "required": [
+              "risk_acceptance",
+              "evidence_ref"
+            ]
+          }
+        }
+      ]
+    },
+    "risk_acceptance": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "owner",
+        "scope",
+        "reason",
+        "expires_at"
+      ],
+      "properties": {
+        "owner": {
+          "type": "string",
+          "minLength": 2
+        },
+        "scope": {
+          "type": "string",
+          "minLength": 3
+        },
+        "reason": {
+          "type": "string",
+          "minLength": 5
+        },
+        "expires_at": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "check": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "required",
+        "status"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "required": {
+          "type": "boolean"
+        },
+        "status": {
+          "$ref": "#/$defs/status"
+        },
+        "evidence_ref": {
+          "type": "string",
+          "minLength": 5
+        },
+        "observed_at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "risk_acceptance": {
+          "$ref": "#/$defs/risk_acceptance"
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "status": {
+                "const": "WAIVED"
+              }
+            },
+            "required": [
+              "status"
+            ]
+          },
+          "then": {
+            "required": [
+              "risk_acceptance",
+              "evidence_ref"
+            ]
+          }
+        }
+      ]
+    },
+    "artifact": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "name"
+      ],
+      "properties": {
+        "name": {
+          "type": "string",
+          "minLength": 1
+        },
+        "ci_digest": {
+          "$ref": "#/$defs/digest"
+        },
+        "staging_digest": {
+          "$ref": "#/$defs/digest"
+        },
+        "production_digest": {
+          "$ref": "#/$defs/digest"
+        }
+      }
+    },
+    "digest": {
+      "type": "string",
+      "pattern": "^sha256:[a-fA-F0-9]{64}$"
+    }
+  }
+}
