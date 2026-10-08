@@ -1,5 +1,5 @@
 {
-  "version": "0.1.0",
+  "version": "0.2.0",
   "mode": "ADVISORY",
   "gate_links": [
     "G8",
@@ -80,6 +80,13 @@
       "severity": "critical",
       "description": "Runtime health is evidenced rather than inferred from deploy success",
       "evidence_boundary": "post-deploy runtime observation"
+    },
+    {
+      "id": "DA-REL-006",
+      "scope": "release",
+      "severity": "critical",
+      "description": "Expected release controls originate from an independently trusted project policy",
+      "evidence_boundary": "project policy integrity and provenance validated outside untrusted release JSON"
     }
   ]
 }

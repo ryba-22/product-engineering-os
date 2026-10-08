@@ -133,6 +133,8 @@
     "06-modules/delivery-production/STAGE-19-DEPLOYMENT-ROLLOUT.md",
     "06-modules/delivery-production/delivery-assurance/IMPLEMENTATION-EVIDENCE.md",
     "06-modules/delivery-production/delivery-assurance/README.md",
+    "06-modules/delivery-production/delivery-assurance/project-policy.example.json",
+    "06-modules/delivery-production/delivery-assurance/project-policy.schema.json",
     "06-modules/delivery-production/delivery-assurance/release-evidence.schema.json",
     "06-modules/delivery-production/delivery-assurance/rules.json",
     "06-modules/domain/MODULE.md",
