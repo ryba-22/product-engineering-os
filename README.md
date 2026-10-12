@@ -55,6 +55,12 @@ Stop researching once additional research is unlikely to change the decision. Us
 
 > Use Product Engineering OS to improve the account settings workflow. First inspect the existing implementation and decisions. Define the outcome and risk, select the minimum required modules, implement a small change, and verify the acceptance criteria. Report evidence, remaining blockers and the next action.
 
+## Optional regression and agent working agreement
+
+For reproducible defects, legacy-host parity, or high-impact releases, use the [Forensic change loop](08-adapters/forensic-change-loop.md) with its [evidence record](07-templates/DEFECT-REGRESSION-EVIDENCE.md). The adapter requires an observed pre-fix failure where feasible, a named behavioral oracle, executed regressions and actual build-input/provenance evidence before stronger completion claims. Low-risk work keeps its existing lightweight route.
+
+Agents modifying this repository follow [AGENTS.md](AGENTS.md), which points to the existing PEOS source of truth rather than reproducing a separate operating model. This is an operational adaptation informed by October 2026 public-repository observations, not an amendment to the frozen September research corpus.
+
 ## Modules
 
 | Module | Main concern |
