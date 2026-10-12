@@ -42,6 +42,10 @@ Bring:
 
 Runtime detail: `BRAIN.md`. Specialist depth lives in `06-modules/**/STAGE-*.md`.
 
+## Optional defect-to-regression track
+
+For a material reproducible defect or a change whose behavior depends on a legacy/real host, use [Forensic change loop](08-adapters/forensic-change-loop.md) and [Defect-to-regression evidence](07-templates/DEFECT-REGRESSION-EVIDENCE.md). Capture the baseline failure (RED), the authoritative oracle, the fix (GREEN), host-boundary proof where needed and actual release inputs. The template does not constitute proof until the claimed checks have run. Do not route trivial changes through this track.
+
 ## OUTPUT
 
 A completed PEOS pass should leave:
