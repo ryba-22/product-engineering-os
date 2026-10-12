@@ -11,7 +11,7 @@
 Use `EVD-*` IDs and project evidence references.
 ## Constraints
 ## Options
-For each: pros, cons, and explicit switching conditions.
+For each: pros, cons and explicit switching conditions. Consider the credible zero option (keep current/do nothing) or explain why a hard constraint rules it out. Do not invent alternatives for quota. For material decisions use [Research-first solution selection](../00-core/research-first-decisions.md) within this existing decision record.
 ## Decision
 ## Accepted trade-offs
 ## Validation

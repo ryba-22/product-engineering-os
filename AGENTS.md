@@ -4,6 +4,8 @@ Read [BRAIN.md](BRAIN.md), [RUNBOOK.md](RUNBOOK.md) and the *relevant* stage pla
 
 ## Before acting
 
+For nontrivial product, UX, domain, architecture, technology or engineering-process recommendations, apply [Research-first solution selection](00-core/research-first-decisions.md) within the existing PEOS route: clarify the problem, evidence/drivers, credible alternatives (including no change), trade-offs, critical perspectives and verdict. Keep low-risk choices lightweight. An AI perspective is not a real person's approval.
+
 1. Preserve the user's original outcome, scope, constraints and STOP. Inspect the current repository evidence and overlapping PRs first; do not create a second framework for a capability already present.
 2. Distinguish FACT / HYPOTHESIS / ASSUMPTION / DECISION / OPEN QUESTION. Record decision-changing uncertainty rather than fabricating evidence or expanding research indefinitely.
 3. Route proportionally to risk. Use the smallest relevant template and executable check. Do not impose release gates, independent reviewers, new layers or extensive documents on unrelated work.

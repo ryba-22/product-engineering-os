@@ -6,6 +6,8 @@ Use with `STAGE-06-SYSTEM-ARCHITECTURE.md`. Architecture decisions are justified
 
 What system structure satisfies the known outcomes and quality attributes with the least irreversible complexity?
 
+For cross-domain solution-selection bias, apply [Research-first solution selection](../../00-core/research-first-decisions.md): challenge familiar defaults, explicitly evaluate the zero option, assess product/domain and UX consequences, and reach an evidence-based verdict before recommendation. This supplements rather than replaces the existing architecture protocol, project authorities and stop-analysis gate.
+
 ## Decision preparation
 
 Before comparing architectures, write:
