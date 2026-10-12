@@ -45,3 +45,9 @@ Added three first-class cross-lifecycle contracts:
 - AI Security/Governance: data classification, model/provider policy, agent capability matrix, tool boundary/egress controls and approval-bound consequential actions.
 
 G3/G8/G10/G11 enforce these requirements, dedicated templates and golden scenarios exist, and runtime/skill routing includes them. `INDEP-RUN-2026-10-04-02` then independently revalidated the package on 28 frozen scenarios (25 lifecycle regressions + 3 loop-closure cases): **28/28 PASS, 0 hard failures, average 9.57/10**. Round-1 failures in Stage 04 and Stage 18 were preserved, used to harden the runtime, and rerun without changing the frozen scenarios or judge criteria.
+
+
+## Wave 11 — PROPOSED: Risk & Decision Intelligence (research and conditional pilot)
+
+Dated execution plan: [Risk & Decision Intelligence — research-backed implementation plan](risk-decision-intelligence-2026-10-12.md).
+The ten cognitive/process/engineering risks must be treated as falsifiable advisory signals, not diagnoses or automatically enforced gates. Reuse existing research-first, risk routing, ADR/evidence, delivery assurance, knowledge governance and behavioral evaluation. Run an evidence-based manual pilot before any code; subsequent catalog/CLI/GitHub/Pages stages are conditional. No claimed implementation, test pass or demonstrated product outcome as of 2026-10-12.
