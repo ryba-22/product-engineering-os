@@ -231,6 +231,7 @@
     "PACKAGE-INDEX.json",
     "README.md",
     "RUNBOOK.md",
+    "docs/research/methodology-remediation-2026-10-14.md",
     "docs/research/solution-bias-audit-2026-10-12.md",
     "examples/idempotent-enrollment/EVALUATION.md",
     "examples/idempotent-enrollment/README.md",
