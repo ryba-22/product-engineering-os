@@ -42,6 +42,10 @@ Bring:
 
 Runtime detail: `BRAIN.md`. Specialist depth lives in `06-modules/**/STAGE-*.md`.
 
+## Optional multi-checkpoint continuation in ChatGPT
+
+For long interactive sessions, use [ChatGPT UI checkpoint execution and recovery](08-adapters/chatgpt-ui-checkpoint-loop.md) and the [checkpoint template](07-templates/CHATGPT-CHECKPOINT.md) only when the project lacks an equivalent per-work-item durable record. Each checkpoint must be reviewed against evidence and the *entire objective* evaluated against its Definition of Done. Session limits lead to a persisted PAUSED state, never a false DONE. This is a conversational execution contract, not a scheduler.
+
 ## Optional defect-to-regression track
 
 For a material reproducible defect or a change whose behavior depends on a legacy/real host, use [Forensic change loop](08-adapters/forensic-change-loop.md) and [Defect-to-regression evidence](07-templates/DEFECT-REGRESSION-EVIDENCE.md). Capture the baseline failure (RED), the authoritative oracle, the fix (GREEN), host-boundary proof where needed and actual release inputs. The template does not constitute proof until the claimed checks have run. Do not route trivial changes through this track.

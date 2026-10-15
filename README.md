@@ -55,6 +55,10 @@ Stop researching once additional research is unlikely to change the decision. Us
 
 > Use Product Engineering OS to improve the account settings workflow. First inspect the existing implementation and decisions. Define the outcome and risk, select the minimum required modules, implement a small change, and verify the acceptance criteria. Report evidence, remaining blockers and the next action.
 
+## Interactive ChatGPT checkpoint loop
+
+For a multi-checkpoint task in ChatGPT or ChatGPT Work, use the optional [ChatGPT UI checkpoint execution and recovery adapter](08-adapters/chatgpt-ui-checkpoint-loop.md) and [per-work-item checkpoint template](07-templates/CHATGPT-CHECKPOINT.md). The adapter provides CONTINUE → REVIEW → EVALUATE → NEXT/DONE/PAUSED/BLOCKED against the whole objective's acceptance criteria. It does not install background execution or replace the adopting project's source of truth.
+
 ## Optional regression and agent working agreement
 
 For reproducible defects, legacy-host parity, or high-impact releases, use the [Forensic change loop](08-adapters/forensic-change-loop.md) with its [evidence record](07-templates/DEFECT-REGRESSION-EVIDENCE.md). The adapter requires an observed pre-fix failure where feasible, a named behavioral oracle, executed regressions and actual build-input/provenance evidence before stronger completion claims. Low-risk work keeps its existing lightweight route.
